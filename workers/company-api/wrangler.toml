@@ -1,0 +1,6 @@
+name = "company-canvas-api"
+main = "src/index.ts"
+compatibility_date = "2025-03-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://gabriel-rodrigues.com,http://localhost:4321"

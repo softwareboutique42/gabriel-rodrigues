@@ -24,12 +24,14 @@
     "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.8",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@playwright/test": "^1.58.2",
+    "@types/three": "^0.183.1",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "commitizen": "^4.3.1",

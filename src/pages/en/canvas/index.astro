@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout
+  title="Company Canvas - Gabriel Rodrigues"
+  description="AI-powered brand identity generator with live Three.js canvas animations. Type a company name and watch it come to life."
+>
+  <section class="max-w-5xl mx-auto px-6 pt-20 pb-8">
+    <h1
+      class="text-4xl font-bold text-text-primary tracking-tight mb-2"
+      style="letter-spacing: -0.03em;"
+    >
+      {t('canvas.title')}
+    </h1>
+    <p class="text-text-muted font-mono text-sm mb-12">{t('canvas.subtitle')}</p>
+
+    <!-- Input Panel -->
+    <div class="glow-panel p-6 mb-8">
+      <form id="canvas-form" class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <label
+            for="canvas-input"
+            class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
+          >
+            {t('canvas.input.label')}
+          </label>
+          <input
+            type="text"
+            id="canvas-input"
+            maxlength="100"
+            placeholder={t('canvas.input.placeholder')}
+            class="w-full bg-transparent text-text-primary font-mono text-sm py-2 neon-underline"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="clip-corners hover-glitch px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider self-end"
+        >
+          {t('canvas.generate')}
+        </button>
+      </form>
+    </div>
+
+    <!-- Canvas Viewport -->
+    <div class="glow-panel relative mb-8" style="aspect-ratio: 16/9; min-height: 300px;">
+      <!-- Idle state -->
+      <div id="canvas-idle" class="absolute inset-0 flex items-center justify-center">
+        <p class="font-mono text-sm text-text-muted uppercase tracking-widest">
+          <span class="text-neon">&gt;</span> awaiting input_
+        </p>
+      </div>
+
+      <!-- Loading state -->
+      <div id="canvas-loading" class="absolute inset-0 flex items-center justify-center hidden">
+        <div class="text-center">
+          <p class="font-mono text-sm text-neon uppercase tracking-widest animate-pulse">
+            {t('canvas.loading')}
+          </p>
+          <div class="mt-4 h-0.5 w-48 mx-auto bg-surface-container-high overflow-hidden">
+            <div
+              class="h-full bg-neon animate-[loading_2s_ease-in-out_infinite]"
+              style="width: 30%;"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error state -->
+      <div id="canvas-error" class="absolute inset-0 flex items-center justify-center hidden">
+        <div class="text-center">
+          <p class="font-mono text-sm text-gold uppercase tracking-widest mb-4">
+            {t('canvas.error')}
+          </p>
+          <button
+            id="error-retry"
+            class="font-mono text-xs text-neon uppercase tracking-widest hover:text-gold transition-colors"
+          >
+            {t('canvas.retry')}
+          </button>
+        </div>
+      </div>
+
+      <!-- Result: Canvas + Overlay -->
+      <div id="canvas-result" class="absolute inset-0 hidden">
+        <canvas id="canvas-el" class="w-full h-full" aria-label="Company brand animation"></canvas>
+        <div class="absolute bottom-6 left-6 z-10 pointer-events-none">
+          <p
+            id="overlay-name"
+            class="text-3xl sm:text-4xl font-bold tracking-tight"
+            style="letter-spacing: -0.03em; text-shadow: 0 2px 20px rgba(0,0,0,0.8);"
+          >
+          </p>
+          <p
+            id="overlay-tagline"
+            class="font-mono text-sm mt-1"
+            style="text-shadow: 0 1px 10px rgba(0,0,0,0.8);"
+          >
+          </p>
+        </div>
+        <button
+          id="canvas-retry"
+          class="absolute top-4 right-4 z-10 font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest"
+          style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15); padding: 0.25rem 0.75rem;"
+        >
+          {t('canvas.retry')}
+        </button>
+      </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="canvas-info" class="glow-panel p-6 hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+            {t('canvas.info.industry')}
+          </p>
+          <p id="info-industry" class="text-text-primary text-sm font-mono"></p>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+            {t('canvas.info.description')}
+          </p>
+          <p id="info-description" class="text-text-secondary text-sm"></p>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+            {t('canvas.info.style')}
+          </p>
+          <p id="info-style" class="text-neon text-sm font-mono uppercase"></p>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+            {t('canvas.info.colors')}
+          </p>
+          <div id="info-palette" class="space-y-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { initCanvas } from '../../../scripts/canvas/main';
+    initCanvas();
+  </script>
+
+  <style>
+    @keyframes loading {
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(200%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+</BaseLayout>

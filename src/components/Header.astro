@@ -49,6 +49,17 @@ const currentPath = Astro.url.pathname;
       >
         {t('nav.blog')}
       </a>
+      <a
+        href={`/${lang}/canvas/`}
+        class:list={[
+          'text-xs font-mono uppercase tracking-wider transition-colors',
+          currentPath.includes('/canvas')
+            ? 'nav-active text-neon'
+            : 'text-text-secondary hover:text-neon',
+        ]}
+      >
+        {t('nav.canvas')}
+      </a>
       <LanguageSwitcher />
     </div>
   </nav>
