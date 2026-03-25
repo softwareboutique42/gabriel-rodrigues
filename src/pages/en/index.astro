@@ -10,7 +10,7 @@ const t = useTranslations('en');
   <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
       <div>
-        <p class="font-mono text-xs text-cyan tracking-widest uppercase mb-4">
+        <p class="font-mono text-xs text-text-primary tracking-widest uppercase mb-4">
           {t('hero.greeting')}
         </p>
         <h1
@@ -43,8 +43,8 @@ const t = useTranslations('en');
       </div>
       <!-- Right-aligned terminal data -->
       <div class="hidden lg:block font-mono text-xs text-text-muted text-right space-y-1 pb-2">
-        <p><span class="text-cyan">STATUS</span> ONLINE</p>
-        <p><span class="text-cyan">LOCATION</span> MALTA</p>
+        <p><span class="text-cyan">STATUS</span> <span class="text-neon">ONLINE</span></p>
+        <p><span class="text-cyan">LOCATION</span> REMOTE</p>
         <p><span class="text-cyan">STACK</span> VUE / ANGULAR / TS</p>
         <p><span class="text-cyan">EXP</span> <span class="text-gold">10+ YRS</span></p>
       </div>
@@ -70,15 +70,15 @@ const t = useTranslations('en');
         </p>
       </div>
       <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.bugs')}</p>
+        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.users')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
-          {t('home.highlights.bugs.label')}
+          {t('home.highlights.users.label')}
         </p>
       </div>
       <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.efficiency')}</p>
+        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.companies')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
-          {t('home.highlights.efficiency.label')}
+          {t('home.highlights.companies.label')}
         </p>
       </div>
     </div>
