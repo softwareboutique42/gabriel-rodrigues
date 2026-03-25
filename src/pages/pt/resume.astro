@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExperienceCard from '../../components/ExperienceCard.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('pt');
+---
+
+<BaseLayout title="Curriculo - Gabriel Rodrigues">
+  <section class="max-w-4xl mx-auto px-6 pt-16 pb-8">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold text-text-primary">{t('resume.title')}</h1>
+      <a
+        href="/resume.pdf"
+        target="_blank"
+        class="px-4 py-2 text-sm bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors flex items-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          ></path></svg
+        >
+        {t('resume.download')}
+      </a>
+    </div>
+
+    <!-- Summary -->
+    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
+      <p class="text-text-secondary leading-relaxed">
+        Engenheiro de Software Frontend com mais de 10 anos de experiencia projetando, construindo e
+        otimizando aplicacoes web para plataformas digitais de alta escala na Europa e America
+        Latina. Especializado em Angular, Vue e TypeScript, com forte foco em performance, seguranca
+        e experiencia do desenvolvedor.
+      </p>
+    </div>
+
+    <!-- Experience -->
+    <h2 class="text-2xl font-bold text-text-primary mb-8">{t('resume.experience')}</h2>
+    <div class="mb-12">
+      <ExperienceCard
+        company="The Mill Adventure"
+        role="Engenheiro Frontend Senior"
+        period="Jul 2024 - Presente"
+        location="Malta"
+        achievements={[
+          'Aumentou a eficiencia operacional com reducao de 20% no tempo de Suporte ao Cliente atraves da implementacao de KYC automatizado (BankID/Smart ID).',
+          'Reduziu bugs pos-lancamento em 60% ao introduzir Playwright para testes E2E de caminhos criticos.',
+          'Eliminou vulnerabilidades XSS potenciais implementando Content Security Policy (CSP) rigorosa.',
+          'Liderou o redesign completo do backoffice usando Angular e Angular Material.',
+        ]}
+      />
+      <ExperienceCard
+        company="Deskhero"
+        role="Engenheiro Frontend Senior"
+        period="Ago 2023 - Mai 2024"
+        location="Torrevieja, Espanha"
+        achievements={[
+          'Construiu uma Biblioteca de Componentes proprietaria usando Storybook e Chromatic, padronizando a UI e acelerando o desenvolvimento.',
+          'Implementou processo de release com semantic release e commitizen.',
+          'Mentorou membros da equipe em workflows modernos de frontend.',
+        ]}
+      />
+      <ExperienceCard
+        company="Betsson Group"
+        role="Engenheiro Frontend Senior"
+        period="Mar 2021 - Ago 2023"
+        location="Malta"
+        achievements={[
+          'Entregou features core em Angular e Stencil.js para KYC, Onboarding e Compliance utilizadas por 28+ marcas internacionais de iGaming.',
+          'Gerenciou plantoes durante eventos criticos de alto trafego (ex: Final da Copa do Mundo).',
+          'Atuou como Team Captain (equivalente a Scrum Master) por um ano.',
+        ]}
+      />
+      <ExperienceCard
+        company="Ancient Gaming"
+        role="Engenheiro Frontend Senior"
+        period="Jul 2020 - Jan 2021"
+        location="Malta"
+        achievements={[
+          'Liderou a reformulacao dos fluxos de registro/login em Angular, alcancando 22% de aumento em registros (testado com A/B).',
+          'Redesenhou lobby e sistemas de filtragem resultando em 14% de aumento em mobile unboxing.',
+          'Integrou ferramentas de suporte Zendesk melhorando a eficiencia do atendimento.',
+        ]}
+      />
+      <ExperienceCard
+        company="XCaliber"
+        role="Engenheiro Frontend Senior"
+        period="Set 2018 - Jul 2020"
+        location="St Julians, Malta"
+        achievements={[
+          'Desenvolveu aplicacoes web escalaveis usando Angular para marcas como sunmaker.com, cherrycasino.com, manekichi.com e norgesspill.com.',
+          'Projetou arquiteturas frontend flexiveis e reutilizaveis integradas com APIs RESTful e microsservicos.',
+        ]}
+      />
+      <ExperienceCard
+        company="Virtua Software"
+        role="Engenheiro Full Stack"
+        period="Fev 2014 - Jun 2018"
+        location="Goiania, Brasil"
+        achievements={[
+          'Construiu e gerenciou sistemas usando JavaScript, jQuery, Bootstrap e PHP.',
+          'Criou o Virtua Web - plataforma de negociacao de dividas tao bem-sucedida que foi adotada pelo Banco do Brasil e Caixa Economica Federal.',
+          'Treinou estagiarios e liderou a equipe de desenvolvimento web.',
+        ]}
+      />
+    </div>
+
+    <!-- Skills -->
+    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.skills')}</h2>
+    <div class="mb-12 flex flex-wrap gap-2">
+      {
+        [
+          'Angular',
+          'Vue',
+          'TypeScript',
+          'JavaScript',
+          'GraphQL',
+          'REST APIs',
+          'Playwright',
+          'Storybook',
+          'Stencil.js',
+          'Vite',
+          'Pinia',
+          'Angular Material',
+          'Tailwind CSS',
+          'SCSS',
+          'HTML5',
+          'CSS3',
+          'Git',
+          'CI/CD',
+          'Agile/Scrum',
+        ].map((skill) => (
+          <span class="px-3 py-1.5 text-sm rounded-lg border border-border text-text-secondary bg-bg-card hover:border-accent hover:text-accent transition-colors">
+            {skill}
+          </span>
+        ))
+      }
+    </div>
+
+    <!-- Education -->
+    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.education')}</h2>
+    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
+      <h3 class="font-semibold text-text-primary">Pontificia Universidade Catolica de Goias</h3>
+      <p class="text-accent">Analise e Desenvolvimento de Sistemas, Engenharia de Software</p>
+      <p class="text-sm text-text-muted">2014 - 2018</p>
+    </div>
+
+    <!-- Certifications -->
+    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.certifications')}</h2>
+    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
+      <p class="text-text-secondary">Fundamentos de Scrum, Agile e Entrega de Projetos</p>
+    </div>
+
+    <!-- Publications -->
+    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.publications')}</h2>
+    <div class="p-6 rounded-lg border border-border bg-bg-card space-y-2">
+      <p class="text-text-secondary">
+        jQuery Plugin For HTML5 Desktop Push Notifications - easyNotify.js
+      </p>
+      <p class="text-text-secondary">3 jQuery/JavaScript Plugins for Push Notifications</p>
+    </div>
+  </section>
+</BaseLayout>

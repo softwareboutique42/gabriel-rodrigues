@@ -1,0 +1,33 @@
+---
+interface Props {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  achievements: string[];
+}
+
+const { company, role, period, location, achievements } = Astro.props;
+---
+
+<div class="relative pl-8 pb-10 border-l border-border last:pb-0 group">
+  <div
+    class="absolute left-0 top-1 w-3 h-3 -translate-x-1.5 rounded-full bg-accent group-hover:ring-4 group-hover:ring-accent-dim transition-all"
+  >
+  </div>
+  <div class="mb-2">
+    <h3 class="text-lg font-semibold text-text-primary">{company}</h3>
+    <p class="text-accent font-medium">{role}</p>
+    <p class="text-sm text-text-muted">{period} &middot; {location}</p>
+  </div>
+  <ul class="space-y-1.5">
+    {
+      achievements.map((item) => (
+        <li class="text-sm text-text-secondary flex gap-2">
+          <span class="text-accent mt-1 shrink-0">&#9656;</span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

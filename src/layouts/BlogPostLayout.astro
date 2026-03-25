@@ -1,0 +1,49 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+}
+
+const { title, description, date, tags } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={`${title} - Gabriel Rodrigues`} description={description}>
+  <article class="max-w-3xl mx-auto px-6 pt-16 pb-8">
+    <a
+      href={`/${lang}/blog/`}
+      class="inline-flex items-center gap-1 text-sm text-text-muted hover:text-accent transition-colors mb-8"
+    >
+      &larr; {t('blog.back')}
+    </a>
+    <header class="mb-10">
+      <time class="text-sm text-text-muted">{formattedDate}</time>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mt-2 mb-4">{title}</h1>
+      <p class="text-lg text-text-secondary">{description}</p>
+      {
+        tags.length > 0 && (
+          <div class="flex gap-2 mt-4 flex-wrap">
+            {tags.map((tag) => (
+              <span class="text-xs px-2 py-0.5 rounded bg-accent-dim text-accent">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

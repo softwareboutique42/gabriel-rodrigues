@@ -1,0 +1,15 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const targetLang = lang === 'en' ? 'pt' : 'en';
+const targetPath = getLocalizedPath(Astro.url.pathname, targetLang);
+---
+
+<a
+  href={targetPath}
+  class="text-xs font-medium px-2.5 py-1 rounded border border-border text-text-secondary hover:text-accent hover:border-accent transition-colors"
+>
+  {t('lang.switch')}
+</a>
