@@ -58,7 +58,7 @@ body {
   line-height: 1.5;
 }
 
-/* === SCANLINE OVERLAY === */
+/* === SCANLINE OVERLAY — committed === */
 body::after {
   content: '';
   position: fixed;
@@ -69,9 +69,10 @@ body::after {
     0deg,
     transparent,
     transparent 2px,
-    rgba(14, 14, 14, 0.03) 2px,
-    rgba(14, 14, 14, 0.03) 4px
+    rgba(142, 255, 113, 0.015) 2px,
+    rgba(142, 255, 113, 0.015) 4px
   );
+  mix-blend-mode: screen;
 }
 
 ::selection {
@@ -83,53 +84,72 @@ body::after {
 .clip-corners {
   clip-path: polygon(
     0 0,
-    calc(100% - 10px) 0,
-    100% 10px,
+    calc(100% - 12px) 0,
+    100% 12px,
     100% 100%,
-    10px 100%,
-    0 calc(100% - 10px)
+    12px 100%,
+    0 calc(100% - 12px)
   );
 }
 
-/* === GLITCH HOVER === */
+/* === GLITCH HOVER — more aggressive === */
 @keyframes glitch-flicker {
   0% {
     opacity: 1;
+    transform: translateX(0);
   }
-  25% {
+  20% {
     opacity: 0.7;
+    transform: translateX(2px);
   }
-  50% {
+  40% {
     opacity: 1;
+    transform: translateX(-1px);
   }
-  75% {
-    opacity: 0.85;
+  60% {
+    opacity: 0.8;
+    transform: translateX(1px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(0);
   }
   100% {
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
 .hover-glitch:active {
-  animation: glitch-flicker 0.15s steps(4) 1;
+  animation: glitch-flicker 0.2s steps(5) 1;
 }
 
 /* === HUD BRACKET NAV INDICATOR === */
 .nav-active::before {
   content: '[';
   color: var(--color-neon);
-  margin-right: 2px;
+  margin-right: 3px;
 }
 .nav-active::after {
   content: ']';
   color: var(--color-neon);
-  margin-left: 2px;
+  margin-left: 3px;
 }
 
 /* === TONAL GLOW PANEL === */
 .glow-panel {
   background-color: var(--color-surface-container-low);
   box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);
+  transition:
+    box-shadow 0.3s ease-out,
+    background-color 0.3s ease-out;
+}
+
+.glow-panel:hover {
+  box-shadow:
+    inset 0 0 0 0.5px rgba(142, 255, 113, 0.35),
+    0 0 30px rgba(142, 255, 113, 0.04);
+  background-color: var(--color-surface-container);
 }
 
 /* === NEON BOTTOM BORDER (for inputs) === */
@@ -141,6 +161,123 @@ body::after {
   border-bottom-color: var(--color-neon);
   box-shadow: 0 4px 12px rgba(142, 255, 113, 0.2);
   outline: none;
+}
+
+/* === AMBIENT RADIANCE — neon glow behind hero === */
+.hero-radiance {
+  position: relative;
+}
+.hero-radiance::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -10%;
+  width: 60%;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    rgba(142, 255, 113, 0.06) 0%,
+    rgba(142, 255, 113, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === STAGGERED BOOT SEQUENCE === */
+@keyframes hud-boot {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hud-boot-text {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes terminal-type {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);
+  }
+  50% {
+    box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.3);
+  }
+}
+
+.anim-boot-1 {
+  animation: hud-boot-text 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.anim-boot-2 {
+  animation: hud-boot 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.anim-boot-3 {
+  animation: hud-boot-text 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+.anim-boot-4 {
+  animation: hud-boot-text 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+.anim-boot-5 {
+  animation: hud-boot-text 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+.anim-terminal {
+  animation: terminal-type 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+/* Staggered tiles */
+.anim-tile-1 {
+  animation: hud-boot 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+.anim-tile-2 {
+  animation: hud-boot 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+.anim-tile-3 {
+  animation: hud-boot 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+}
+.anim-tile-4 {
+  animation: hud-boot 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+}
+
+/* === STAT NUMBER — dramatic scale === */
+.stat-number {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* === HOVER LIFT — subtle 3D response === */
+.hover-lift {
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease-out;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
 
 /* === PROSE: TERMINAL READOUT === */
@@ -181,6 +318,7 @@ body::after {
   color: var(--color-neon);
   text-decoration: none;
   box-shadow: inset 0 -1px 0 var(--color-neon);
+  transition: all 0.2s ease-out;
 }
 
 .prose a:hover {
@@ -235,18 +373,13 @@ body::after {
   margin: 1.5em 0;
 }
 
-/* === PAGE ENTRANCE === */
-@keyframes hud-boot {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
+/* === REDUCED MOTION — respect user preference === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-main {
-  animation: hud-boot 0.4s ease-out;
 }

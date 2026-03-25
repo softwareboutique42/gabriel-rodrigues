@@ -7,25 +7,28 @@ const t = useTranslations('pt');
 
 <BaseLayout title="Gabriel Rodrigues - Engenheiro Frontend Senior">
   <!-- Hero: Asymmetric Brutalist -->
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 hero-radiance">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
       <div>
-        <p class="font-mono text-xs text-text-primary tracking-widest uppercase mb-4">
+        <p class="font-mono text-xs text-text-primary tracking-widest uppercase mb-4 anim-boot-1">
           {t('hero.greeting')}
         </p>
         <h1
-          class="text-5xl sm:text-6xl lg:text-7xl font-bold text-neon tracking-tight leading-none mb-6"
+          class="text-5xl sm:text-6xl lg:text-7xl font-bold text-neon tracking-tight leading-none mb-6 anim-boot-2"
           style="letter-spacing: -0.03em;"
         >
           {t('hero.name')}
         </h1>
-        <p class="text-xl text-text-primary font-medium mb-2" style="letter-spacing: -0.01em;">
+        <p
+          class="text-xl text-text-primary font-medium mb-2 anim-boot-3"
+          style="letter-spacing: -0.01em;"
+        >
           {t('hero.title')}
         </p>
-        <p class="text-text-muted max-w-lg mb-10 font-mono text-sm leading-relaxed">
+        <p class="text-text-muted max-w-lg mb-10 font-mono text-sm leading-relaxed anim-boot-4">
           {t('hero.subtitle')}
         </p>
-        <div class="flex gap-4 flex-wrap">
+        <div class="flex gap-4 flex-wrap anim-boot-5">
           <a
             href="/pt/resume/"
             class="clip-corners hover-glitch px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
@@ -42,7 +45,9 @@ const t = useTranslations('pt');
         </div>
       </div>
       <!-- Right-aligned terminal data -->
-      <div class="hidden lg:block font-mono text-xs text-text-muted text-right space-y-1 pb-2">
+      <div
+        class="hidden lg:block font-mono text-xs text-text-muted text-right space-y-1 pb-2 anim-terminal"
+      >
         <p><span class="text-cyan">STATUS</span> <span class="text-neon">ONLINE</span></p>
         <p><span class="text-cyan">LOCAL</span> REMOTO</p>
         <p><span class="text-cyan">STACK</span> VUE / ANGULAR / TS</p>
@@ -57,26 +62,26 @@ const t = useTranslations('pt');
       {t('home.highlights.title')}
     </h2>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-gold font-mono">{t('home.highlights.years')}</p>
+      <div class="glow-panel hover-lift p-6 anim-tile-1">
+        <p class="stat-number text-gold font-mono">{t('home.highlights.years')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
           {t('home.highlights.years.label')}
         </p>
       </div>
-      <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-gold font-mono">{t('home.highlights.brands')}</p>
+      <div class="glow-panel hover-lift p-6 anim-tile-2">
+        <p class="stat-number text-gold font-mono">{t('home.highlights.brands')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
           {t('home.highlights.brands.label')}
         </p>
       </div>
-      <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.users')}</p>
+      <div class="glow-panel hover-lift p-6 anim-tile-3">
+        <p class="stat-number text-neon font-mono">{t('home.highlights.users')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
           {t('home.highlights.users.label')}
         </p>
       </div>
-      <div class="glow-panel p-6">
-        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.companies')}</p>
+      <div class="glow-panel hover-lift p-6 anim-tile-4">
+        <p class="stat-number text-neon font-mono">{t('home.highlights.companies')}</p>
         <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
           {t('home.highlights.companies.label')}
         </p>
