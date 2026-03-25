@@ -20,13 +20,11 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US',
 });
 ---
 
-<article
-  class="group border border-border rounded-lg p-6 hover:border-accent/50 transition-colors bg-bg-card"
->
+<article class="group glow-panel p-6 hover:bg-surface-container transition-colors">
   <a href={`/${lang}/blog/${slug}/`} class="block">
-    <time class="text-xs text-text-muted">{formattedDate}</time>
+    <time class="font-mono text-xs text-text-muted tracking-wider uppercase">{formattedDate}</time>
     <h2
-      class="text-xl font-semibold text-text-primary mt-2 group-hover:text-accent transition-colors"
+      class="text-xl font-bold text-text-primary mt-3 group-hover:text-neon transition-colors tracking-tight"
     >
       {title}
     </h2>
@@ -35,13 +33,15 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US',
       tags.length > 0 && (
         <div class="flex gap-2 mt-4 flex-wrap">
           {tags.map((tag) => (
-            <span class="text-xs px-2 py-0.5 rounded bg-accent-dim text-accent">{tag}</span>
+            <span class="font-mono text-xs px-2 py-0.5 text-cyan bg-cyan-dim uppercase tracking-wider">
+              {tag}
+            </span>
           ))}
         </div>
       )
     }
     <span
-      class="inline-block mt-4 text-sm text-accent group-hover:translate-x-1 transition-transform"
+      class="inline-block mt-4 font-mono text-xs text-neon uppercase tracking-wider group-hover:translate-x-1 transition-transform"
     >
       {t('blog.readMore')} &rarr;
     </span>

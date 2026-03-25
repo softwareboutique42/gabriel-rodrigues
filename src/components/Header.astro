@@ -1,32 +1,51 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
 ---
 
-<header class="border-b border-border sticky top-0 z-50 bg-bg-primary/80 backdrop-blur-md">
-  <nav class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a
-      href={`/${lang}/`}
-      class="text-lg font-bold text-text-primary hover:text-accent transition-colors"
-    >
-      GR
+<header
+  class="sticky top-0 z-50 bg-surface-dim/80 backdrop-blur-md"
+  style="box-shadow: inset 0 -0.5px 0 rgba(142, 255, 113, 0.15);"
+>
+  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href={`/${lang}/`} class="font-mono text-neon text-sm tracking-widest hover-glitch">
+      &gt; GR_
     </a>
     <div class="flex items-center gap-6">
-      <a href={`/${lang}/`} class="text-sm text-text-secondary hover:text-accent transition-colors">
+      <a
+        href={`/${lang}/`}
+        class:list={[
+          'text-xs font-mono uppercase tracking-wider transition-colors',
+          currentPath === `/${lang}/`
+            ? 'nav-active text-neon'
+            : 'text-text-secondary hover:text-neon',
+        ]}
+      >
         {t('nav.home')}
       </a>
       <a
         href={`/${lang}/resume/`}
-        class="text-sm text-text-secondary hover:text-accent transition-colors"
+        class:list={[
+          'text-xs font-mono uppercase tracking-wider transition-colors',
+          currentPath.includes('/resume')
+            ? 'nav-active text-neon'
+            : 'text-text-secondary hover:text-neon',
+        ]}
       >
         {t('nav.resume')}
       </a>
       <a
         href={`/${lang}/blog/`}
-        class="text-sm text-text-secondary hover:text-accent transition-colors"
+        class:list={[
+          'text-xs font-mono uppercase tracking-wider transition-colors',
+          currentPath.includes('/blog')
+            ? 'nav-active text-neon'
+            : 'text-text-secondary hover:text-neon',
+        ]}
       >
         {t('nav.blog')}
       </a>

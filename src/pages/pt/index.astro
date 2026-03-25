@@ -6,56 +6,91 @@ const t = useTranslations('pt');
 ---
 
 <BaseLayout title="Gabriel Rodrigues - Engenheiro Frontend Senior">
-  <!-- Hero -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-16">
-    <p class="text-accent font-medium mb-2">{t('hero.greeting')}</p>
-    <h1 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-      {t('hero.name')}
-    </h1>
-    <p class="text-xl text-text-secondary mb-2">{t('hero.title')}</p>
-    <p class="text-text-muted max-w-xl mb-8">{t('hero.subtitle')}</p>
-    <div class="flex gap-4 flex-wrap">
-      <a
-        href="/pt/resume/"
-        class="px-6 py-2.5 bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors"
-      >
-        {t('hero.cta.resume')}
-      </a>
-      <a
-        href="/pt/blog/"
-        class="px-6 py-2.5 border border-border text-text-secondary rounded-lg font-medium hover:border-accent hover:text-accent transition-colors"
-      >
-        {t('hero.cta.blog')}
-      </a>
+  <!-- Hero: Asymmetric Brutalist -->
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
+      <div>
+        <p class="font-mono text-xs text-cyan tracking-widest uppercase mb-4">
+          {t('hero.greeting')}
+        </p>
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-bold text-neon tracking-tight leading-none mb-6"
+          style="letter-spacing: -0.03em;"
+        >
+          {t('hero.name')}
+        </h1>
+        <p class="text-xl text-text-primary font-medium mb-2" style="letter-spacing: -0.01em;">
+          {t('hero.title')}
+        </p>
+        <p class="text-text-muted max-w-lg mb-10 font-mono text-sm leading-relaxed">
+          {t('hero.subtitle')}
+        </p>
+        <div class="flex gap-4 flex-wrap">
+          <a
+            href="/pt/resume/"
+            class="clip-corners hover-glitch px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
+          >
+            {t('hero.cta.resume')}
+          </a>
+          <a
+            href="/pt/blog/"
+            class="hover-glitch px-8 py-3 text-text-secondary text-sm uppercase tracking-wider font-mono hover:text-neon transition-colors"
+            style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);"
+          >
+            {t('hero.cta.blog')}
+          </a>
+        </div>
+      </div>
+      <!-- Right-aligned terminal data -->
+      <div class="hidden lg:block font-mono text-xs text-text-muted text-right space-y-1 pb-2">
+        <p><span class="text-cyan">STATUS</span> ONLINE</p>
+        <p><span class="text-cyan">LOCAL</span> MALTA</p>
+        <p><span class="text-cyan">STACK</span> VUE / ANGULAR / TS</p>
+        <p><span class="text-cyan">EXP</span> <span class="text-gold">10+ ANOS</span></p>
+      </div>
     </div>
   </section>
 
-  <!-- Highlights -->
-  <section class="max-w-4xl mx-auto px-6 py-16">
-    <h2 class="text-2xl font-bold text-text-primary mb-8">{t('home.highlights.title')}</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-      <div class="text-center p-6 rounded-lg border border-border bg-bg-card">
-        <p class="text-3xl font-bold text-accent">{t('home.highlights.years')}</p>
-        <p class="text-sm text-text-muted mt-1">{t('home.highlights.years.label')}</p>
+  <!-- Highlights: HUD Data Tiles -->
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-8">
+      {t('home.highlights.title')}
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="glow-panel p-6">
+        <p class="text-3xl font-bold text-gold font-mono">{t('home.highlights.years')}</p>
+        <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
+          {t('home.highlights.years.label')}
+        </p>
       </div>
-      <div class="text-center p-6 rounded-lg border border-border bg-bg-card">
-        <p class="text-3xl font-bold text-accent">{t('home.highlights.brands')}</p>
-        <p class="text-sm text-text-muted mt-1">{t('home.highlights.brands.label')}</p>
+      <div class="glow-panel p-6">
+        <p class="text-3xl font-bold text-gold font-mono">{t('home.highlights.brands')}</p>
+        <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
+          {t('home.highlights.brands.label')}
+        </p>
       </div>
-      <div class="text-center p-6 rounded-lg border border-border bg-bg-card">
-        <p class="text-3xl font-bold text-accent">{t('home.highlights.bugs')}</p>
-        <p class="text-sm text-text-muted mt-1">{t('home.highlights.bugs.label')}</p>
+      <div class="glow-panel p-6">
+        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.bugs')}</p>
+        <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
+          {t('home.highlights.bugs.label')}
+        </p>
       </div>
-      <div class="text-center p-6 rounded-lg border border-border bg-bg-card">
-        <p class="text-3xl font-bold text-accent">{t('home.highlights.efficiency')}</p>
-        <p class="text-sm text-text-muted mt-1">{t('home.highlights.efficiency.label')}</p>
+      <div class="glow-panel p-6">
+        <p class="text-3xl font-bold text-neon font-mono">{t('home.highlights.efficiency')}</p>
+        <p class="text-xs text-text-muted mt-2 font-mono uppercase tracking-wider">
+          {t('home.highlights.efficiency.label')}
+        </p>
       </div>
     </div>
   </section>
 
   <!-- About -->
-  <section class="max-w-4xl mx-auto px-6 py-16">
-    <h2 class="text-2xl font-bold text-text-primary mb-4">{t('home.about.title')}</h2>
-    <p class="text-text-secondary leading-relaxed max-w-2xl">{t('home.about.text')}</p>
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-6">
+      {t('home.about.title')}
+    </h2>
+    <p class="text-text-secondary leading-relaxed max-w-2xl text-lg">
+      {t('home.about.text')}
+    </p>
   </section>
 </BaseLayout>

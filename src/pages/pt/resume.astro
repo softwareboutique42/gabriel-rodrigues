@@ -7,13 +7,18 @@ const t = useTranslations('pt');
 ---
 
 <BaseLayout title="Curriculo - Gabriel Rodrigues">
-  <section class="max-w-4xl mx-auto px-6 pt-16 pb-8">
-    <div class="flex items-center justify-between mb-8">
-      <h1 class="text-3xl font-bold text-text-primary">{t('resume.title')}</h1>
+  <section class="max-w-5xl mx-auto px-6 pt-20 pb-8">
+    <div class="flex items-center justify-between mb-10">
+      <h1
+        class="text-4xl font-bold text-text-primary tracking-tight"
+        style="letter-spacing: -0.03em;"
+      >
+        {t('resume.title')}
+      </h1>
       <a
         href="/resume.pdf"
         target="_blank"
-        class="px-4 py-2 text-sm bg-accent text-white rounded-lg font-medium hover:bg-accent-hover transition-colors flex items-center gap-2"
+        class="clip-corners hover-glitch px-5 py-2.5 bg-neon text-neon-on text-xs font-bold uppercase tracking-wider flex items-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
           ><path
@@ -27,7 +32,7 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Summary -->
-    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
+    <div class="mb-16 glow-panel p-6">
       <p class="text-text-secondary leading-relaxed">
         Engenheiro de Software Frontend com mais de 10 anos de experiencia projetando, construindo e
         otimizando aplicacoes web para plataformas digitais de alta escala na Europa e America
@@ -37,8 +42,10 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Experience -->
-    <h2 class="text-2xl font-bold text-text-primary mb-8">{t('resume.experience')}</h2>
-    <div class="mb-12">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-8">
+      {t('resume.experience')}
+    </h2>
+    <div class="mb-16">
       <ExperienceCard
         company="The Mill Adventure"
         role="Engenheiro Frontend Senior"
@@ -108,8 +115,10 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Skills -->
-    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.skills')}</h2>
-    <div class="mb-12 flex flex-wrap gap-2">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-6">
+      {t('resume.skills')}
+    </h2>
+    <div class="mb-16 flex flex-wrap gap-2">
       {
         [
           'Angular',
@@ -132,7 +141,10 @@ const t = useTranslations('pt');
           'CI/CD',
           'Agile/Scrum',
         ].map((skill) => (
-          <span class="px-3 py-1.5 text-sm rounded-lg border border-border text-text-secondary bg-bg-card hover:border-accent hover:text-accent transition-colors">
+          <span
+            class="font-mono text-xs px-3 py-1.5 text-text-secondary bg-surface-container-low hover:text-neon hover:bg-neon-dim transition-colors uppercase tracking-wider"
+            style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.1);"
+          >
             {skill}
           </span>
         ))
@@ -140,22 +152,30 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Education -->
-    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.education')}</h2>
-    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
-      <h3 class="font-semibold text-text-primary">Pontificia Universidade Catolica de Goias</h3>
-      <p class="text-accent">Analise e Desenvolvimento de Sistemas, Engenharia de Software</p>
-      <p class="text-sm text-text-muted">2014 - 2018</p>
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-6">
+      {t('resume.education')}
+    </h2>
+    <div class="mb-16 glow-panel p-6">
+      <h3 class="font-bold text-text-primary">Pontificia Universidade Catolica de Goias</h3>
+      <p class="text-neon font-mono text-sm mt-1">
+        Analise e Desenvolvimento de Sistemas, Engenharia de Software
+      </p>
+      <p class="text-xs text-text-muted font-mono mt-1 tracking-wider">2014 - 2018</p>
     </div>
 
     <!-- Certifications -->
-    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.certifications')}</h2>
-    <div class="mb-12 p-6 rounded-lg border border-border bg-bg-card">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-6">
+      {t('resume.certifications')}
+    </h2>
+    <div class="mb-16 glow-panel p-6">
       <p class="text-text-secondary">Fundamentos de Scrum, Agile e Entrega de Projetos</p>
     </div>
 
     <!-- Publications -->
-    <h2 class="text-2xl font-bold text-text-primary mb-6">{t('resume.publications')}</h2>
-    <div class="p-6 rounded-lg border border-border bg-bg-card space-y-2">
+    <h2 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-6">
+      {t('resume.publications')}
+    </h2>
+    <div class="glow-panel p-6 space-y-3">
       <p class="text-text-secondary">
         jQuery Plugin For HTML5 Desktop Push Notifications - easyNotify.js
       </p>

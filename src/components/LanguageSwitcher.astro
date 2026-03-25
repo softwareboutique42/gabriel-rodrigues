@@ -9,7 +9,8 @@ const targetPath = getLocalizedPath(Astro.url.pathname, targetLang);
 
 <a
   href={targetPath}
-  class="text-xs font-medium px-2.5 py-1 rounded border border-border text-text-secondary hover:text-accent hover:border-accent transition-colors"
+  class="font-mono text-xs tracking-widest px-2.5 py-1 text-cyan hover:text-gold transition-colors hover-glitch"
+  style="box-shadow: inset 0 0 0 0.5px rgba(143, 245, 255, 0.2);"
 >
   {t('lang.switch')}
 </a>

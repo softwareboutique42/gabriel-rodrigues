@@ -1,18 +1,49 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-bg-primary: #0f172a;
-  --color-bg-secondary: #1e293b;
-  --color-bg-card: #1e293b;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
-  --color-accent-dim: #1e3a5f;
-  --color-border: #334155;
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqUtEw.woff2')
+    format('woff2');
+}
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+@theme {
+  /* === SURFACE ARCHITECTURE === */
+  --color-surface-dim: #0e0e0e;
+  --color-surface: #0e0e0e;
+  --color-surface-container-low: #131313;
+  --color-surface-container: #1a1919;
+  --color-surface-container-high: #222222;
+  --color-surface-container-highest: #262626;
+  --color-surface-bright: #2c2c2c;
+
+  /* === THE PALETTE === */
+  --color-neon: #8eff71;
+  --color-neon-dim: #8eff7126;
+  --color-neon-on: #0d6100;
+  --color-gold: #ffd709;
+  --color-gold-dim: #ffd70926;
+  --color-cyan: #8ff5ff;
+  --color-cyan-dim: #8ff5ff1a;
+
+  /* === TEXT HIERARCHY === */
+  --color-text-primary: #e8e6e3;
+  --color-text-secondary: #9a9894;
+  --color-text-muted: #5e5c58;
+
+  /* === SEMANTIC ALIASES === */
+  --color-bg-primary: #0e0e0e;
+  --color-bg-secondary: #131313;
+  --color-bg-card: #131313;
+  --color-accent: #8eff71;
+  --color-accent-hover: #a6ff91;
+  --color-accent-dim: #8eff7115;
+  --color-border: #494847;
+
+  /* === TYPOGRAPHY === */
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
@@ -21,20 +52,102 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-surface-dim);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* === SCANLINE OVERLAY === */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(14, 14, 14, 0.03) 2px,
+    rgba(14, 14, 14, 0.03) 4px
+  );
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-neon);
+  color: var(--color-neon-on);
 }
 
-/* Prose styles for blog markdown */
+/* === CLIPPED CORNERS (military-tech buttons) === */
+.clip-corners {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+}
+
+/* === GLITCH HOVER === */
+@keyframes glitch-flicker {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hover-glitch:active {
+  animation: glitch-flicker 0.15s steps(4) 1;
+}
+
+/* === HUD BRACKET NAV INDICATOR === */
+.nav-active::before {
+  content: '[';
+  color: var(--color-neon);
+  margin-right: 2px;
+}
+.nav-active::after {
+  content: ']';
+  color: var(--color-neon);
+  margin-left: 2px;
+}
+
+/* === TONAL GLOW PANEL === */
+.glow-panel {
+  background-color: var(--color-surface-container-low);
+  box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);
+}
+
+/* === NEON BOTTOM BORDER (for inputs) === */
+.neon-underline {
+  border-bottom: 1px solid rgba(73, 72, 71, 0.15);
+  transition: all 0.2s steps(3);
+}
+.neon-underline:focus {
+  border-bottom-color: var(--color-neon);
+  box-shadow: 0 4px 12px rgba(142, 255, 113, 0.2);
+  outline: none;
+}
+
+/* === PROSE: TERMINAL READOUT === */
 .prose {
   color: var(--color-text-secondary);
   line-height: 1.8;
+  font-family: var(--font-sans);
 }
 
 .prose h1,
@@ -43,8 +156,11 @@ body {
 .prose h4 {
   color: var(--color-text-primary);
   font-weight: 700;
+  letter-spacing: -0.02em;
   margin-top: 2em;
   margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
 }
 
 .prose h1 {
@@ -62,28 +178,30 @@ body {
 }
 
 .prose a {
-  color: var(--color-accent);
-  text-decoration: underline;
+  color: var(--color-neon);
+  text-decoration: none;
+  box-shadow: inset 0 -1px 0 var(--color-neon);
 }
 
 .prose a:hover {
-  color: var(--color-accent-hover);
+  color: var(--color-gold);
+  box-shadow: inset 0 -1px 0 var(--color-gold);
 }
 
 .prose code {
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-surface-container);
   padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: var(--font-mono);
+  color: var(--color-cyan);
 }
 
 .prose pre {
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-surface-container);
   padding: 1rem;
-  border-radius: 0.5rem;
   overflow-x: auto;
   margin-bottom: 1.5em;
+  box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.1);
 }
 
 .prose pre code {
@@ -101,8 +219,12 @@ body {
   margin-bottom: 0.5em;
 }
 
+.prose li::marker {
+  color: var(--color-neon);
+}
+
 .prose blockquote {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid var(--color-neon);
   padding-left: 1em;
   color: var(--color-text-muted);
   font-style: italic;
@@ -110,6 +232,21 @@ body {
 }
 
 .prose img {
-  border-radius: 0.5rem;
   margin: 1.5em 0;
+}
+
+/* === PAGE ENTRANCE === */
+@keyframes hud-boot {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: hud-boot 0.4s ease-out;
 }

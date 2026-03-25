@@ -6,17 +6,26 @@ const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border py-8 mt-16">
-  <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="text-sm text-text-muted">
-      &copy; {year} Gabriel Rodrigues. {t('footer.rights')}
-    </p>
-    <div class="flex items-center gap-4">
+<footer class="mt-24" style="box-shadow: inset 0 0.5px 0 rgba(142, 255, 113, 0.1);">
+  <div
+    class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+  >
+    <div>
+      <p class="font-mono text-xs text-text-muted tracking-wider">
+        &copy; {year}
+        <span class="text-text-secondary">GABRIEL RODRIGUES</span>
+      </p>
+      <p class="font-mono text-xs text-text-muted mt-1">
+        {t('footer.built')}
+        <span class="text-neon">&lt;/&gt;</span>
+      </p>
+    </div>
+    <div class="flex items-center gap-5">
       <a
         href="https://www.linkedin.com/in/gabrielrodrigues-dev"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-text-muted hover:text-accent transition-colors"
+        class="text-text-muted hover:text-cyan transition-colors hover-glitch"
         aria-label="LinkedIn"
       >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
@@ -29,7 +38,7 @@ const year = new Date().getFullYear();
         href="https://github.com/gabrielr47"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-text-muted hover:text-accent transition-colors"
+        class="text-text-muted hover:text-cyan transition-colors hover-glitch"
         aria-label="GitHub"
       >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
@@ -40,10 +49,15 @@ const year = new Date().getFullYear();
       </a>
       <a
         href="mailto:gabrielr47@gmail.com"
-        class="text-text-muted hover:text-accent transition-colors"
+        class="text-text-muted hover:text-cyan transition-colors hover-glitch"
         aria-label="Email"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
           ><path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -52,8 +66,5 @@ const year = new Date().getFullYear();
         >
       </a>
     </div>
-    <p class="text-xs text-text-muted">
-      {t('footer.built')} &hearts;
-    </p>
   </div>
 </footer>
