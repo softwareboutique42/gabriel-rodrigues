@@ -2,5 +2,10 @@ name = "company-canvas-api"
 main = "src/index.ts"
 compatibility_date = "2025-03-01"
 
+# Secrets (set via `wrangler secret put`):
+# - ANTHROPIC_API_KEY
+# - STRIPE_SECRET_KEY
+
 [vars]
 ALLOWED_ORIGINS = "https://gabriel-rodrigues.com,http://localhost:4321"
+STRIPE_PUBLISHABLE_KEY = "pk_test_51TF0bVRuJ6eXBEXHrbJfpLSwqf54NOOY4LnN4bvaZy25SDAnkkCZbbcOdgFYStGcCxM0Tt0PaAwjAdDjOBJ3TZee00WG4uLB2h"

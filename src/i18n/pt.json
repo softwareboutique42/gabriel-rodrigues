@@ -47,6 +47,12 @@
   "canvas.info.style": "Estilo de Animacao",
   "canvas.info.colors": "Paleta de Cores",
   "canvas.retry": "Tentar Outro",
+  "canvas.version.label": "Versao",
+  "canvas.download": "Baixar $1",
+  "canvas.download.processing": "Processando pagamento...",
+  "canvas.download.success": "Download iniciando!",
+  "canvas.download.error": "Falha no download. Tente novamente.",
+  "canvas.disclaimer": "As animacoes geradas sao criadas por IA e fornecidas no estado em que se encontram. Gabriel Rodrigues nao assume responsabilidade pelo conteudo, precisao ou uso das animacoes de marca geradas. O conteudo gerado nao implica endosso ou afiliacao com as empresas mencionadas. Ao baixar, voce concorda com estes termos.",
   "footer.rights": "Todos os direitos reservados.",
   "footer.built": "Feito com Astro"
 }

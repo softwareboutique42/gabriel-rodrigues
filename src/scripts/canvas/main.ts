@@ -1,9 +1,30 @@
 import type { CompanyConfig } from './types';
 import { CanvasRenderer } from './renderer';
+import { VERSIONS, getDefaultVersion } from './versions';
+import { generateExportHTML, downloadHTML } from './export';
 
 const WORKER_URL = 'https://company-canvas-api.gabriel-rodrigues-dev.workers.dev';
 
+const DEMO_CONFIG: CompanyConfig = {
+  companyName: 'Company Canvas',
+  colors: {
+    primary: '#8eff71',
+    secondary: '#8ff5ff',
+    accent: '#ffd709',
+    background: '#0e0e0e',
+  },
+  tagline: 'AI-powered brand animations in seconds',
+  industry: 'Creative Technology',
+  description:
+    'Company Canvas transforms any brand name into a living, breathing canvas animation using AI-generated brand identity and Three.js rendering.',
+  animationStyle: 'particles',
+  animationParams: { speed: 1.0, density: 0.7, complexity: 0.8 },
+  visualElements: ['particles', 'neon', 'motion', 'generative', 'brand'],
+  version: 'v1',
+};
+
 let renderer: CanvasRenderer | null = null;
+let currentConfig: CompanyConfig | null = null;
 
 function getEl<T extends HTMLElement>(id: string): T {
   return document.getElementById(id) as T;
@@ -39,6 +60,11 @@ function renderInfo(config: CompanyConfig): void {
   getEl('overlay-tagline').style.color = config.colors.secondary;
 }
 
+function getSelectedVersion(): string {
+  const select = document.getElementById('version-select') as HTMLSelectElement | null;
+  return select?.value ?? getDefaultVersion().id;
+}
+
 async function generate(companyName: string): Promise<void> {
   showState('loading');
 
@@ -47,11 +73,13 @@ async function generate(companyName: string): Promise<void> {
     renderer = null;
   }
 
+  const version = getSelectedVersion();
+
   try {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ companyName }),
+      body: JSON.stringify({ companyName, version }),
     });
 
     if (!res.ok) {
@@ -60,6 +88,8 @@ async function generate(companyName: string): Promise<void> {
     }
 
     const config: CompanyConfig = await res.json();
+    config.version = version;
+    currentConfig = config;
 
     showState('result');
     renderInfo(config);
@@ -86,9 +116,45 @@ async function generate(companyName: string): Promise<void> {
   }
 }
 
+function renderDemo(): void {
+  const config = DEMO_CONFIG;
+  currentConfig = config;
+
+  showState('result');
+  renderInfo(config);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  renderer = new CanvasRenderer();
+  renderer.init(getEl<HTMLCanvasElement>('canvas-el'), config);
+  renderer.start();
+}
+
+function populateVersions(): void {
+  const select = document.getElementById('version-select') as HTMLSelectElement | null;
+  if (!select) return;
+  select.innerHTML = '';
+  VERSIONS.forEach((v) => {
+    const opt = document.createElement('option');
+    opt.value = v.id;
+    opt.textContent = v.label;
+    opt.title = v.description;
+    select.appendChild(opt);
+  });
+}
+
 export function initCanvas(): void {
   const form = getEl<HTMLFormElement>('canvas-form');
   const input = getEl<HTMLInputElement>('canvas-input');
+
+  populateVersions();
+
+  // Show demo on first load (unless returning from payment)
+  const params = new URLSearchParams(window.location.search);
+  if (!params.has('session_id')) {
+    renderDemo();
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -110,4 +176,75 @@ export function initCanvas(): void {
     const name = input.value.trim();
     if (name) generate(name);
   });
+
+  getEl('canvas-download')?.addEventListener('click', () => {
+    if (!currentConfig) return;
+    handleDownload(currentConfig);
+  });
+
+  handlePaymentReturn();
+}
+
+async function handleDownload(config: CompanyConfig): Promise<void> {
+  const processingEl = document.getElementById('canvas-download-processing');
+  const statusEl = document.getElementById('download-status');
+
+  try {
+    processingEl?.classList.remove('hidden');
+    if (statusEl) statusEl.textContent = 'Creating checkout session...';
+
+    const res = await fetch(`${WORKER_URL}/checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        config,
+        version: config.version ?? getDefaultVersion().id,
+        returnUrl: window.location.href.split('?')[0],
+      }),
+    });
+
+    if (!res.ok) throw new Error('Checkout failed');
+
+    const { url } = (await res.json()) as { url: string };
+    window.location.href = url;
+  } catch {
+    processingEl?.classList.add('hidden');
+    alert('Payment failed. Please try again.');
+  }
+}
+
+async function handlePaymentReturn(): Promise<void> {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (!sessionId) return;
+
+  const processingEl = document.getElementById('canvas-download-processing');
+  const statusEl = document.getElementById('download-status');
+  processingEl?.classList.remove('hidden');
+
+  try {
+    const res = await fetch(`${WORKER_URL}/download?session_id=${encodeURIComponent(sessionId)}`);
+
+    if (!res.ok) throw new Error('Download failed');
+
+    const data = (await res.json()) as { config: CompanyConfig; version: string };
+    const html = generateExportHTML(data.config, data.version);
+    const filename = `${data.config.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
+    downloadHTML(html, filename);
+
+    if (statusEl) {
+      statusEl.textContent = 'Download started!';
+      statusEl.classList.remove('animate-pulse');
+    }
+  } catch {
+    if (statusEl) {
+      statusEl.textContent = 'Download failed. Please contact support.';
+      statusEl.classList.remove('animate-pulse');
+      statusEl.classList.add('text-gold');
+    }
+  }
+
+  // Clean URL
+  const cleanUrl = window.location.href.split('?')[0];
+  window.history.replaceState({}, '', cleanUrl);
 }

@@ -16,6 +16,7 @@ export interface CompanyConfig {
     complexity: number;
   };
   visualElements: string[];
+  version?: string;
 }
 
 export interface AnimationController {

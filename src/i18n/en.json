@@ -47,6 +47,12 @@
   "canvas.info.style": "Animation Style",
   "canvas.info.colors": "Brand Palette",
   "canvas.retry": "Try Another",
+  "canvas.version.label": "Version",
+  "canvas.download": "Download $1",
+  "canvas.download.processing": "Processing payment...",
+  "canvas.download.success": "Download starting!",
+  "canvas.download.error": "Download failed. Please try again.",
+  "canvas.disclaimer": "Generated animations are AI-created and provided as-is. Gabriel Rodrigues assumes no responsibility or liability for the content, accuracy, or use of generated brand animations. Generated content does not imply any endorsement by or affiliation with the named companies. By downloading, you agree to these terms.",
   "footer.rights": "All rights reserved.",
   "footer.built": "Built with Astro"
 }

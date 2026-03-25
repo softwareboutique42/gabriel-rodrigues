@@ -12,7 +12,11 @@ const registry: Record<CompanyConfig['animationStyle'], new () => BaseAnimation>
   typographic: TypographicAnimation,
 };
 
-export function createAnimation(style: CompanyConfig['animationStyle']): BaseAnimation {
+export function createAnimation(
+  style: CompanyConfig['animationStyle'],
+  _version = 'v1',
+): BaseAnimation {
+  // Future versions can dispatch to different animation classes here
   const AnimClass = registry[style] ?? ParticlesAnimation;
   return new AnimClass();
 }
