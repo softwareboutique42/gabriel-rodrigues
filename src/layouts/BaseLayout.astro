@@ -7,11 +7,31 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = 'Gabriel Rodrigues - Senior Frontend Engineer' } = Astro.props;
+const {
+  title,
+  description = 'Senior Frontend Engineer with 10+ years building scalable web apps in Vue, Angular & TypeScript across Europe and Latin America.',
+  ogImage,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const altLang = lang === 'en' ? 'pt' : 'en';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const altURL = new URL(Astro.url.pathname.replace(`/${lang}/`, `/${altLang}/`), Astro.site);
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Gabriel Rodrigues',
+  url: 'https://gabriel-rodrigues.com',
+  jobTitle: 'Senior Frontend Engineer',
+  knowsAbout: ['Vue.js', 'Angular', 'TypeScript', 'Frontend Architecture', 'E2E Testing'],
+  sameAs: [
+    'https://www.linkedin.com/in/gabrielrodrigues-dev',
+    'https://github.com/softwareboutique42/gabriel-rodrigues',
+  ],
+});
 ---
 
 <!doctype html>
@@ -20,12 +40,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content="Gabriel Rodrigues" />
+    <meta name="theme-color" content="#0e0e0e" />
     <link rel="canonical" href={canonicalURL.href} />
+    <link rel="alternate" hreflang={lang} href={canonicalURL.href} />
+    <link rel="alternate" hreflang={altLang} href={altURL.href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/en/', Astro.site).href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <meta property="og:title" content={title} />
@@ -33,9 +60,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:locale" content={lang === 'pt' ? 'pt_BR' : 'en_US'} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:locale:alternate" content={lang === 'pt' ? 'en_US' : 'pt_BR'} />
+    <meta property="og:site_name" content="Gabriel Rodrigues" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <script type="application/ld+json" set:html={jsonLd} />
     <title>{title}</title>
   </head>
   <body class="min-h-screen flex flex-col">
