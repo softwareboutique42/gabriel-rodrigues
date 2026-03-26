@@ -198,7 +198,11 @@ const t = useTranslations('en');
 
   <script>
     import { initCanvas } from '../../../scripts/canvas/main';
-    initCanvas();
+    document.addEventListener('astro:page-load', () => {
+      if (document.getElementById('canvas-form')) {
+        initCanvas();
+      }
+    });
   </script>
 
   <style>

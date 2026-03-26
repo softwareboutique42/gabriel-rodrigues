@@ -25,6 +25,7 @@ const DEMO_CONFIG: CompanyConfig = {
 
 let renderer: CanvasRenderer | null = null;
 let currentConfig: CompanyConfig | null = null;
+let controller: AbortController | null = null;
 
 function getEl<T extends HTMLElement>(id: string): T {
   return document.getElementById(id) as T;
@@ -217,6 +218,11 @@ function populateVersions(): void {
 }
 
 export function initCanvas(): void {
+  // Abort previous listeners to prevent duplicates on SPA re-navigation
+  if (controller) controller.abort();
+  controller = new AbortController();
+  const { signal } = controller;
+
   const form = getEl<HTMLFormElement>('canvas-form');
   const input = getEl<HTMLInputElement>('canvas-input');
 
@@ -232,46 +238,66 @@ export function initCanvas(): void {
     renderDemo();
   }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = input.value.trim();
-    if (name) generate(name);
-  });
+  form.addEventListener(
+    'submit',
+    (e) => {
+      e.preventDefault();
+      const name = input.value.trim();
+      if (name) generate(name);
+    },
+    { signal },
+  );
 
-  getEl('canvas-retry')?.addEventListener('click', () => {
-    if (renderer) {
-      renderer.dispose();
-      renderer = null;
-    }
-    input.value = '';
-    resetBrandTheme();
-    const cleanUrl = window.location.pathname;
-    window.history.replaceState({}, '', cleanUrl);
-    showState('idle');
-    input.focus();
-  });
+  getEl('canvas-retry')?.addEventListener(
+    'click',
+    () => {
+      if (renderer) {
+        renderer.dispose();
+        renderer = null;
+      }
+      input.value = '';
+      resetBrandTheme();
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, '', cleanUrl);
+      showState('idle');
+      input.focus();
+    },
+    { signal },
+  );
 
-  getEl('error-retry')?.addEventListener('click', () => {
-    const name = input.value.trim();
-    if (name) generate(name);
-  });
+  getEl('error-retry')?.addEventListener(
+    'click',
+    () => {
+      const name = input.value.trim();
+      if (name) generate(name);
+    },
+    { signal },
+  );
 
-  getEl('canvas-download')?.addEventListener('click', () => {
-    if (!currentConfig) return;
-    handleDownload(currentConfig);
-  });
+  getEl('canvas-download')?.addEventListener(
+    'click',
+    () => {
+      if (!currentConfig) return;
+      handleDownload(currentConfig);
+    },
+    { signal },
+  );
 
-  getEl('canvas-share')?.addEventListener('click', () => {
-    if (!currentConfig) return;
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      const btn = getEl('canvas-share');
-      const orig = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => {
-        btn.textContent = orig;
-      }, 2000);
-    });
-  });
+  getEl('canvas-share')?.addEventListener(
+    'click',
+    () => {
+      if (!currentConfig) return;
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = getEl('canvas-share');
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = orig;
+        }, 2000);
+      });
+    },
+    { signal },
+  );
 
   handlePaymentReturn();
 
@@ -285,7 +311,7 @@ export function initCanvas(): void {
       }
       resetBrandTheme();
     },
-    { once: true },
+    { once: true, signal },
   );
 }
 
