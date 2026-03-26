@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import AdUnit from '../components/AdUnit.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -75,5 +76,6 @@ const blogJsonLd = JSON.stringify({
     <div class="prose">
       <slot />
     </div>
+    <AdUnit format="auto" />
   </article>
 </BaseLayout>

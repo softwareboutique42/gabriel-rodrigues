@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../components/BlogCard.astro';
+import AdUnit from '../../../components/AdUnit.astro';
 import { getCollection } from 'astro:content';
 import { useTranslations } from '../../../i18n/utils';
 
@@ -38,5 +39,6 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
         </div>
       )
     }
+    <AdUnit format="horizontal" />
   </section>
 </BaseLayout>
