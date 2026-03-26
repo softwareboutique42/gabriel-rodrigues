@@ -18,9 +18,29 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US',
   month: 'long',
   day: 'numeric',
 });
+
+const blogJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Gabriel Rodrigues',
+    url: 'https://gabriel-rodrigues.com',
+  },
+  keywords: tags.join(', '),
+  inLanguage: lang === 'pt' ? 'pt-BR' : 'en',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(Astro.url.pathname, Astro.site).href,
+  },
+});
 ---
 
 <BaseLayout title={`${title} - Gabriel Rodrigues`} description={description}>
+  <script type="application/ld+json" set:html={blogJsonLd} />
   <article class="max-w-3xl mx-auto px-6 pt-20 pb-8">
     <a
       href={`/${lang}/blog/`}
