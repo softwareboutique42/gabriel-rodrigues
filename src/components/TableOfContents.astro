@@ -1,0 +1,46 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{
+  filtered.length > 2 && (
+    <nav
+      class="toc mb-10 p-4"
+      style="border: 0.5px solid rgba(142, 255, 113, 0.12); background: rgba(14, 14, 14, 0.6);"
+    >
+      <details open>
+        <summary class="font-mono text-xs text-text-muted tracking-widest uppercase cursor-pointer select-none mb-3">
+          {t('blog.toc')}
+        </summary>
+        <ul class="space-y-1.5">
+          {filtered.map((h) => (
+            <li style={h.depth === 3 ? 'padding-left: 1rem;' : ''}>
+              <a
+                href={`#${h.slug}`}
+                class="font-mono text-xs text-text-secondary hover:text-neon transition-colors leading-relaxed"
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </nav>
+  )
+}

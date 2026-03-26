@@ -8,6 +8,11 @@ import { useTranslations } from '../../../i18n/utils';
 const t = useTranslations('en');
 const allPosts = await getCollection('blog', ({ data }) => data.lang === 'en');
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function getReadingTime(body: string | undefined): number {
+  const words = (body ?? '').split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
 ---
 
 <BaseLayout
@@ -34,6 +39,7 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
               date={post.data.date}
               slug={post.id.replace('en/', '')}
               tags={post.data.tags}
+              readingTime={getReadingTime(post.body)}
             />
           ))}
         </div>

@@ -7,9 +7,10 @@ interface Props {
   date: Date;
   slug: string;
   tags?: string[];
+  readingTime?: number;
 }
 
-const { title, description, date, slug, tags = [] } = Astro.props;
+const { title, description, date, slug, tags = [], readingTime } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -22,7 +23,20 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US',
 
 <article class="group glow-panel p-6 hover:bg-surface-container transition-colors">
   <a href={`/${lang}/blog/${slug}/`} class="block">
-    <time class="font-mono text-xs text-text-muted tracking-wider uppercase">{formattedDate}</time>
+    <div class="flex items-center gap-3">
+      <time class="font-mono text-xs text-text-muted tracking-wider uppercase">{formattedDate}</time
+      >
+      {
+        readingTime && (
+          <>
+            <span class="font-mono text-xs text-text-muted">·</span>
+            <span class="font-mono text-xs text-text-muted tracking-wider">
+              {readingTime} {t('blog.readTime')}
+            </span>
+          </>
+        )
+      }
+    </div>
     <h2
       class="text-xl font-bold text-text-primary mt-3 group-hover:text-neon transition-colors tracking-tight"
       transition:name={`post-title-${slug}`}

@@ -2,16 +2,27 @@
 import BaseLayout from './BaseLayout.astro';
 import AdUnit from '../components/AdUnit.astro';
 import ShareBar from '../components/ShareBar.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
   description: string;
   date: Date;
   tags: string[];
+  headings?: Heading[];
+  body?: string;
 }
 
-const { title, description, date, tags } = Astro.props;
+const { title, description, date, tags, headings = [], body = '' } = Astro.props;
+const wordCount = body.split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 const lang = getLangFromUrl(Astro.url);
 const slug = Astro.url.pathname.replace(`/${lang}/blog/`, '').replace(/\/$/, '');
 const t = useTranslations(lang);
@@ -61,8 +72,15 @@ const blogJsonLd = JSON.stringify({
       &larr; {t('blog.back')}
     </a>
     <header class="mb-12">
-      <time class="font-mono text-xs text-text-muted tracking-wider uppercase">{formattedDate}</time
-      >
+      <div class="flex items-center gap-3">
+        <time class="font-mono text-xs text-text-muted tracking-wider uppercase"
+          >{formattedDate}</time
+        >
+        <span class="font-mono text-xs text-text-muted">·</span>
+        <span class="font-mono text-xs text-text-muted tracking-wider"
+          >{readingTime} {t('blog.readTime')}</span
+        >
+      </div>
       <h1
         class="text-3xl sm:text-4xl font-bold text-text-primary mt-3 mb-4 tracking-tight"
         style="letter-spacing: -0.02em;"
@@ -83,6 +101,7 @@ const blogJsonLd = JSON.stringify({
         )
       }
     </header>
+    <TableOfContents headings={headings} />
     <div class="prose">
       <slot />
     </div>
