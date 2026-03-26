@@ -48,20 +48,31 @@ Return ONLY valid JSON with this exact schema — no markdown, no explanation:
   "tagline": "<string, max 60 chars>",
   "industry": "<string>",
   "description": "<string, 1-2 sentences about what the company does>",
-  "animationStyle": "<one of: particles | flowing | geometric | typographic>",
+  "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight>",
   "animationParams": {
     "speed": <number 0.5-2.0>,
     "density": <number 0.3-1.0>,
     "complexity": <number 0.3-1.0>
   },
-  "visualElements": ["<3-5 keywords for visual motifs>"]
+  "visualElements": ["<3-5 keywords describing what the company does — used as visible text in story animations>"]
 }
 
 Animation style selection guide:
+
+v1 — Classic (abstract patterns):
 - "particles": tech, SaaS, AI, startups — dynamic particle systems
 - "flowing": logistics, health, nature, food — organic flowing shapes
 - "geometric": finance, enterprise, consulting — structured geometric patterns
 - "typographic": media, creative agencies, entertainment — bold type animations
+
+v2 — Story (text-driven, tells what the company does):
+- "narrative": brands with a strong mission or story — words appear one by one as cinematic captions
+- "timeline": companies with milestones or multi-step processes — horizontal timeline with labeled nodes
+- "constellation": companies with interconnected services or ecosystems — star-map with labeled nodes
+- "spotlight": bold brands or product launches — large centered text cycling with cinematic zoom
+
+Prefer v2 styles when the company has a clear story to tell. Use v1 for abstract branding.
+The "visualElements" array is critical for v2 styles — each keyword becomes visible text in the animation.
 
 Use real brand colors if the company is well-known. For unknown companies, infer appropriate colors from the name and likely industry.`;
 

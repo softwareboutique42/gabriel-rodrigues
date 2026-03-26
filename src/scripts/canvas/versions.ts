@@ -14,6 +14,12 @@ export const VERSIONS: AnimationVersion[] = [
     description: 'Four signature styles: particles, flowing, geometric, typographic',
     styles: ['particles', 'flowing', 'geometric', 'typographic'],
   },
+  {
+    id: 'v2',
+    label: 'v2 — Story',
+    description: 'Story-driven animations that tell what the company does',
+    styles: ['narrative', 'timeline', 'constellation', 'spotlight'],
+  },
 ];
 
 export function getVersion(id: string): AnimationVersion | undefined {

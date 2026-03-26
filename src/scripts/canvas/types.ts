@@ -9,7 +9,15 @@ export interface CompanyConfig {
   tagline: string;
   industry: string;
   description: string;
-  animationStyle: 'particles' | 'flowing' | 'geometric' | 'typographic';
+  animationStyle:
+    | 'particles'
+    | 'flowing'
+    | 'geometric'
+    | 'typographic'
+    | 'narrative'
+    | 'timeline'
+    | 'constellation'
+    | 'spotlight';
   animationParams: {
     speed: number;
     density: number;
