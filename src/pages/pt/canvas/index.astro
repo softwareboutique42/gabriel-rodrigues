@@ -60,7 +60,7 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Canvas Viewport -->
-    <div class="glow-panel relative mb-8" style="aspect-ratio: 16/9; min-height: 300px;">
+    <div class="glow-panel relative mb-8 canvas-viewport">
       <!-- Idle state -->
       <div id="canvas-idle" class="absolute inset-0 flex items-center justify-center">
         <p class="font-mono text-sm text-text-muted uppercase tracking-widest">
@@ -103,7 +103,7 @@ const t = useTranslations('pt');
       <div id="canvas-result" class="absolute inset-0 hidden">
         <canvas id="canvas-el" class="w-full h-full" aria-label="Animacao de marca da empresa"
         ></canvas>
-        <div class="absolute bottom-6 left-6 z-10 pointer-events-none">
+        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 pointer-events-none">
           <p
             id="overlay-name"
             class="text-3xl sm:text-4xl font-bold tracking-tight"
@@ -117,7 +117,7 @@ const t = useTranslations('pt');
           >
           </p>
         </div>
-        <div class="absolute top-4 right-4 z-10 flex gap-3">
+        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex gap-2 sm:gap-3">
           <button
             id="canvas-download"
             class="font-mono text-xs text-neon hover:text-gold transition-colors uppercase tracking-widest"

@@ -124,16 +124,39 @@ body::after {
   animation: glitch-flicker 0.2s steps(5) 1;
 }
 
-/* === HUD BRACKET NAV INDICATOR === */
+/* === HUD NAV INDICATOR === */
 .nav-active::before {
-  content: '[';
+  content: '>';
   color: var(--color-neon);
   margin-right: 3px;
 }
 .nav-active::after {
-  content: ']';
-  color: var(--color-neon);
-  margin-left: 3px;
+  content: '';
+}
+@media (min-width: 768px) {
+  .nav-active::before {
+    content: '[';
+    margin-right: 3px;
+  }
+  .nav-active::after {
+    content: ']';
+    color: var(--color-neon);
+    margin-left: 3px;
+  }
+}
+
+/* === CANVAS VIEWPORT — portrait on mobile, landscape on desktop === */
+.canvas-viewport {
+  aspect-ratio: 9 / 16;
+  min-height: 400px;
+  max-height: 80vh;
+}
+@media (min-width: 768px) {
+  .canvas-viewport {
+    aspect-ratio: 16 / 9;
+    min-height: 300px;
+    max-height: none;
+  }
 }
 
 /* === TONAL GLOW PANEL === */
