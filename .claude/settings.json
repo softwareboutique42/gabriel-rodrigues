@@ -1,5 +1,55 @@
 {
   "enabledPlugins": {
     "everything-claude-code@everything-claude-code": true
+  },
+  "skills": {
+    "canvas-v2": {
+      "description": "Design and implement v2 animation styles",
+      "path": ".claude/skills/canvas-v2.md"
+    },
+    "canvas-harden": {
+      "description": "Security and reliability audit",
+      "path": ".claude/skills/canvas-harden.md"
+    },
+    "canvas-test": {
+      "description": "Add test suite for canvas features",
+      "path": ".claude/skills/canvas-test.md"
+    },
+    "canvas-cache": {
+      "description": "Intelligent caching with KV",
+      "path": ".claude/skills/canvas-cache.md"
+    },
+    "canvas-translate": {
+      "description": "Portuguese translations audit",
+      "path": ".claude/skills/canvas-translate.md"
+    },
+    "canvas-pricing": {
+      "description": "Advanced Stripe monetization",
+      "path": ".claude/skills/canvas-pricing.md"
+    },
+    "canvas-seo": {
+      "description": "Search optimization audit",
+      "path": ".claude/skills/canvas-seo.md"
+    },
+    "canvas-video-export": {
+      "description": "MP4/WebM video export",
+      "path": ".claude/skills/canvas-video-export.md"
+    },
+    "canvas-embed": {
+      "description": "Embeddable widget for third-party sites",
+      "path": ".claude/skills/canvas-embed.md"
+    },
+    "canvas-analytics": {
+      "description": "Usage tracking and analytics",
+      "path": ".claude/skills/canvas-analytics.md"
+    },
+    "resume-review": {
+      "description": "Resume page review and improvements",
+      "path": ".claude/skills/resume-review.md"
+    },
+    "create-new-post-based-on-last-commit": {
+      "description": "Write a blog post (EN + PT-BR) based on recent commits",
+      "path": ".claude/skills/create-new-post-based-on-last-commit.md"
+    }
   }
 }
