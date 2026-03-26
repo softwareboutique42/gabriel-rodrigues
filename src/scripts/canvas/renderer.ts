@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import type { CompanyConfig } from './types';
 import type { BaseAnimation } from './animations/base';
 import { createAnimation } from './animations/index';
+import { createIndustryIcon } from './icons/index';
 
 export class CanvasRenderer {
   private renderer!: THREE.WebGLRenderer;
@@ -9,6 +10,7 @@ export class CanvasRenderer {
   private camera!: THREE.OrthographicCamera;
   private clock = new THREE.Clock();
   private animation!: BaseAnimation;
+  private iconUpdate: ((elapsed: number) => void) | null = null;
   private animationId = 0;
   private canvas!: HTMLCanvasElement;
 
@@ -45,6 +47,11 @@ export class CanvasRenderer {
     this.animation = createAnimation(config.animationStyle);
     this.animation.setup(this.scene, config);
 
+    // Industry icon overlay
+    if (config.industry) {
+      this.iconUpdate = createIndustryIcon(this.scene, config);
+    }
+
     window.addEventListener('resize', this.onResize);
   }
 
@@ -71,6 +78,7 @@ export class CanvasRenderer {
       const elapsed = this.clock.getElapsedTime();
       const delta = this.clock.getDelta();
       this.animation.update(elapsed, delta);
+      this.iconUpdate?.(elapsed);
       this.renderer.render(this.scene, this.camera);
     };
     loop();
