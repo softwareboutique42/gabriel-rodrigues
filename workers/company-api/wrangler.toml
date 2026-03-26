@@ -9,3 +9,7 @@ compatibility_date = "2025-03-01"
 [vars]
 ALLOWED_ORIGINS = "https://gabriel-rodrigues.com,http://localhost:4321"
 STRIPE_PUBLISHABLE_KEY = "pk_test_51TF0bVRuJ6eXBEXHrbJfpLSwqf54NOOY4LnN4bvaZy25SDAnkkCZbbcOdgFYStGcCxM0Tt0PaAwjAdDjOBJ3TZee00WG4uLB2h"
+
+[[kv_namespaces]]
+binding = "CONFIG_CACHE"
+id = "4ad154bfd20a4e7bbbfdee395f886a29"

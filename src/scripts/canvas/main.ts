@@ -49,20 +49,82 @@ function renderInfo(config: CompanyConfig): void {
   colorEntries.forEach(([name, hex]) => {
     const swatch = document.createElement('div');
     swatch.className = 'flex items-center gap-2';
-    swatch.innerHTML = `<span class="w-4 h-4 inline-block" style="background:${hex}"></span>
-      <span class="font-mono text-xs text-text-muted">${name}: ${hex}</span>`;
+
+    const colorBox = document.createElement('span');
+    colorBox.className = 'w-4 h-4 inline-block';
+    if (isValidHex(hex)) colorBox.style.background = hex;
+
+    const label = document.createElement('span');
+    label.className = 'font-mono text-xs text-text-muted';
+    label.textContent = `${name}: ${hex}`;
+
+    swatch.appendChild(colorBox);
+    swatch.appendChild(label);
     paletteEl.appendChild(swatch);
   });
 
   getEl('overlay-name').textContent = config.companyName;
-  getEl('overlay-name').style.color = config.colors.primary;
+  if (isValidHex(config.colors.primary)) {
+    getEl('overlay-name').style.color = config.colors.primary;
+  }
   getEl('overlay-tagline').textContent = config.tagline;
-  getEl('overlay-tagline').style.color = config.colors.secondary;
+  if (isValidHex(config.colors.secondary)) {
+    getEl('overlay-tagline').style.color = config.colors.secondary;
+  }
 }
 
 function getSelectedVersion(): string {
   const select = document.getElementById('version-select') as HTMLSelectElement | null;
   return select?.value ?? getDefaultVersion().id;
+}
+
+function isValidHex(color: string): boolean {
+  return /^#[0-9a-fA-F]{3,8}$/.test(color);
+}
+
+function applyBrandTheme(config: CompanyConfig): void {
+  const { primary, secondary, accent } = config.colors;
+  if (!isValidHex(primary) || !isValidHex(secondary) || !isValidHex(accent)) return;
+
+  const root = document.documentElement;
+  root.style.setProperty('--color-neon', primary);
+  root.style.setProperty('--color-cyan', secondary);
+  root.style.setProperty('--color-gold', accent);
+  root.style.setProperty('--color-neon-dim', primary + '26');
+  root.style.setProperty('--color-cyan-dim', secondary + '1a');
+}
+
+function resetBrandTheme(): void {
+  ['--color-neon', '--color-cyan', '--color-gold', '--color-neon-dim', '--color-cyan-dim'].forEach(
+    (p) => document.documentElement.style.removeProperty(p),
+  );
+}
+
+function updateUrlWithCompany(config: CompanyConfig): void {
+  const slug = config.companyName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  const newUrl = `${window.location.pathname}?company=${encodeURIComponent(slug)}`;
+  window.history.replaceState({}, '', newUrl);
+}
+
+function startRenderer(config: CompanyConfig): void {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    const canvas = getEl<HTMLCanvasElement>('canvas-el');
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      canvas.width = canvas.clientWidth * 2;
+      canvas.height = canvas.clientHeight * 2;
+      ctx.fillStyle = config.colors.background;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    return;
+  }
+  renderer = new CanvasRenderer();
+  renderer.init(getEl<HTMLCanvasElement>('canvas-el'), config);
+  renderer.start();
 }
 
 async function generate(companyName: string): Promise<void> {
@@ -93,24 +155,40 @@ async function generate(companyName: string): Promise<void> {
 
     showState('result');
     renderInfo(config);
+    applyBrandTheme(config);
+    updateUrlWithCompany(config);
+    startRenderer(config);
+  } catch {
+    showState('error');
+  }
+}
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+async function fetchBrandedConfig(companySlug: string): Promise<void> {
+  showState('loading');
 
-    if (prefersReducedMotion) {
-      const canvas = getEl<HTMLCanvasElement>('canvas-el');
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        canvas.width = canvas.clientWidth * 2;
-        canvas.height = canvas.clientHeight * 2;
-        ctx.fillStyle = config.colors.background;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
-      return;
+  if (renderer) {
+    renderer.dispose();
+    renderer = null;
+  }
+
+  try {
+    const version = getSelectedVersion();
+    const res = await fetch(
+      `${WORKER_URL}/config/${encodeURIComponent(companySlug)}?version=${encodeURIComponent(version)}`,
+    );
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch config');
     }
 
-    renderer = new CanvasRenderer();
-    renderer.init(getEl<HTMLCanvasElement>('canvas-el'), config);
-    renderer.start();
+    const config: CompanyConfig = await res.json();
+    config.version = version;
+    currentConfig = config;
+
+    showState('result');
+    renderInfo(config);
+    applyBrandTheme(config);
+    startRenderer(config);
   } catch {
     showState('error');
   }
@@ -122,13 +200,7 @@ function renderDemo(): void {
 
   showState('result');
   renderInfo(config);
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) return;
-
-  renderer = new CanvasRenderer();
-  renderer.init(getEl<HTMLCanvasElement>('canvas-el'), config);
-  renderer.start();
+  startRenderer(config);
 }
 
 function populateVersions(): void {
@@ -150,9 +222,13 @@ export function initCanvas(): void {
 
   populateVersions();
 
-  // Show demo on first load (unless returning from payment)
+  // Auto-load from URL params or show demo
   const params = new URLSearchParams(window.location.search);
-  if (!params.has('session_id')) {
+  const companyParam = params.get('company');
+  if (companyParam) {
+    input.value = decodeURIComponent(companyParam).replace(/-/g, ' ');
+    fetchBrandedConfig(companyParam);
+  } else if (!params.has('session_id')) {
     renderDemo();
   }
 
@@ -168,6 +244,9 @@ export function initCanvas(): void {
       renderer = null;
     }
     input.value = '';
+    resetBrandTheme();
+    const cleanUrl = window.location.pathname;
+    window.history.replaceState({}, '', cleanUrl);
     showState('idle');
     input.focus();
   });
@@ -180,6 +259,18 @@ export function initCanvas(): void {
   getEl('canvas-download')?.addEventListener('click', () => {
     if (!currentConfig) return;
     handleDownload(currentConfig);
+  });
+
+  getEl('canvas-share')?.addEventListener('click', () => {
+    if (!currentConfig) return;
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = getEl('canvas-share');
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.textContent = orig;
+      }, 2000);
+    });
   });
 
   handlePaymentReturn();

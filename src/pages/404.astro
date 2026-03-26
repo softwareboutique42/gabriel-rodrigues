@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script is:inline>
+      (function () {
+        var path = window.location.pathname;
+        var match = path.match(/^\/(en|pt)\/canvas\/([^/]+)\/?$/);
+        if (match) {
+          var lang = match[1];
+          var company = match[2];
+          window.location.replace('/' + lang + '/canvas/?company=' + encodeURIComponent(company));
+          return;
+        }
+        window.location.replace('/');
+      })();
+    </script>
+  </head>
+  <body style="background:#0e0e0e;"></body>
+</html>

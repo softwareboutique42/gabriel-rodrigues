@@ -1,9 +1,11 @@
 import { createCheckoutSession, verifyAndGetConfig } from './stripe';
+import { cacheKey } from './normalize';
 
 interface Env {
   ANTHROPIC_API_KEY: string;
   STRIPE_SECRET_KEY: string;
   ALLOWED_ORIGINS: string;
+  CONFIG_CACHE: KVNamespace;
 }
 
 const RATE_LIMIT_MAP = new Map<string, number[]>();
@@ -70,6 +72,48 @@ function jsonResponse(data: unknown, status: number, headers: HeadersInit): Resp
   });
 }
 
+async function callClaudeForConfig(companyName: string, env: Env): Promise<object> {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1024,
+      system: SYSTEM_PROMPT,
+      messages: [
+        {
+          role: 'user',
+          content: `Generate brand identity and animation config for: ${companyName}`,
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Claude API error:', response.status, errorText);
+    throw new Error(`AI generation failed: ${response.status}`);
+  }
+
+  const data = (await response.json()) as {
+    content: Array<{ type: string; text?: string }>;
+  };
+  const textBlock = data.content.find((b) => b.type === 'text');
+  if (!textBlock?.text) {
+    throw new Error('Empty AI response');
+  }
+
+  let cleaned = textBlock.text.trim();
+  if (cleaned.startsWith('```')) {
+    cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+  }
+  return JSON.parse(cleaned) as object;
+}
+
 async function handleGenerate(request: Request, env: Env, headers: HeadersInit): Promise<Response> {
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
   if (!checkRateLimit(ip)) {
@@ -89,49 +133,65 @@ async function handleGenerate(request: Request, env: Env, headers: HeadersInit):
   }
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
-        messages: [
-          {
-            role: 'user',
-            content: `Generate brand identity and animation config for: ${companyName}`,
-          },
-        ],
-      }),
-    });
+    const config = await callClaudeForConfig(companyName, env);
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Claude API error:', response.status, errorText);
-      return jsonResponse({ error: 'AI generation failed' }, 502, headers);
-    }
+    // Cache the result for future GET /config/ requests
+    const key = cacheKey(companyName);
+    await env.CONFIG_CACHE.put(key, JSON.stringify(config), { expirationTtl: 604800 });
 
-    const data = (await response.json()) as {
-      content: Array<{ type: string; text?: string }>;
-    };
-    const textBlock = data.content.find((b) => b.type === 'text');
-    if (!textBlock?.text) {
-      return jsonResponse({ error: 'Empty AI response' }, 502, headers);
-    }
-
-    let cleaned = textBlock.text.trim();
-    if (cleaned.startsWith('```')) {
-      cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
-    }
-    const config = JSON.parse(cleaned);
     return jsonResponse(config, 200, headers);
   } catch (err) {
     console.error('Worker error:', err instanceof Error ? err.message : err);
+    if (err instanceof Error && err.message.startsWith('AI generation failed')) {
+      return jsonResponse({ error: 'AI generation failed' }, 502, headers);
+    }
     return jsonResponse({ error: 'Internal server error' }, 500, headers);
+  }
+}
+
+async function handleGetConfig(
+  companySlug: string,
+  request: Request,
+  env: Env,
+  headers: HeadersInit,
+): Promise<Response> {
+  const url = new URL(request.url);
+  const version = url.searchParams.get('version') ?? 'v1';
+  const key = cacheKey(companySlug, version);
+
+  // Check cache first
+  const cached = await env.CONFIG_CACHE.get(key);
+  if (cached) {
+    return new Response(cached, {
+      status: 200,
+      headers: { ...headers, 'Content-Type': 'application/json', 'X-Cache': 'HIT' },
+    });
+  }
+
+  // Cache miss — rate limit and generate
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+  if (!checkRateLimit(ip)) {
+    return jsonResponse({ error: 'Rate limit exceeded. Try again in a minute.' }, 429, headers);
+  }
+
+  const companyName = decodeURIComponent(companySlug).replace(/-/g, ' ');
+  if (!companyName || companyName.length > 100) {
+    return jsonResponse({ error: 'Invalid company name' }, 400, headers);
+  }
+
+  try {
+    const config = await callClaudeForConfig(companyName, env);
+    const configJson = JSON.stringify(config);
+
+    await env.CONFIG_CACHE.put(key, configJson, { expirationTtl: 604800 });
+
+    return new Response(configJson, {
+      status: 200,
+      headers: { ...headers, 'Content-Type': 'application/json', 'X-Cache': 'MISS' },
+    });
+  } catch (err) {
+    console.error('Config error:', err instanceof Error ? err.message : err);
+    return jsonResponse({ error: 'Failed to generate config' }, 502, headers);
   }
 }
 
@@ -204,6 +264,13 @@ export default {
     // Route: GET /download
     if (path === '/download' && request.method === 'GET') {
       return handleDownload(request, env, headers);
+    }
+
+    // Route: GET /config/:company
+    if (path.startsWith('/config/') && request.method === 'GET') {
+      const companySlug = path.slice('/config/'.length);
+      if (!companySlug) return jsonResponse({ error: 'Missing company name' }, 400, headers);
+      return handleGetConfig(companySlug, request, env, headers);
     }
 
     // Route: POST / (generate — original endpoint)
