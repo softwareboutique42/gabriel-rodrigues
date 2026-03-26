@@ -22,6 +22,7 @@
     "fetch:stackoverflow": "node scripts/fetch-stackoverflow.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.8",

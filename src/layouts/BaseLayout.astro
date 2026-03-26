@@ -56,6 +56,12 @@ const jsonLd = JSON.stringify({
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={lang === 'pt' ? 'Gabriel Rodrigues — Blog (PT)' : 'Gabriel Rodrigues — Blog'}
+      href={lang === 'pt' ? '/pt/rss.xml' : '/rss.xml'}
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
