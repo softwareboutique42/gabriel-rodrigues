@@ -274,6 +274,19 @@ export function initCanvas(): void {
   });
 
   handlePaymentReturn();
+
+  // Clean up renderer when navigating away (View Transitions SPA mode)
+  document.addEventListener(
+    'astro:before-swap',
+    () => {
+      if (renderer) {
+        renderer.dispose();
+        renderer = null;
+      }
+      resetBrandTheme();
+    },
+    { once: true },
+  );
 }
 
 async function handleDownload(config: CompanyConfig): Promise<void> {

@@ -11,6 +11,7 @@ interface Props {
 
 const { title, description, date, tags } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const slug = Astro.url.pathname.replace(`/${lang}/blog/`, '').replace(/\/$/, '');
 const t = useTranslations(lang);
 
 const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US', {
@@ -54,6 +55,7 @@ const blogJsonLd = JSON.stringify({
       <h1
         class="text-3xl sm:text-4xl font-bold text-text-primary mt-3 mb-4 tracking-tight"
         style="letter-spacing: -0.02em;"
+        transition:name={`post-title-${slug}`}
       >
         {title}
       </h1>

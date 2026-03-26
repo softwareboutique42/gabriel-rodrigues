@@ -396,6 +396,78 @@ body::after {
   margin: 1.5em 0;
 }
 
+/* === VIEW TRANSITIONS — cinematic page navigation === */
+@keyframes glitch-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateX(2px);
+    filter: blur(0);
+  }
+  60% {
+    opacity: 0.4;
+    transform: translateX(-1px) translateY(-4px);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+    filter: blur(3px);
+  }
+}
+
+@keyframes glitch-in {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateY(4px) translateX(-1px);
+    filter: blur(1px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(1px) translateX(1px);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: glitch-out 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+::view-transition-new(root) {
+  animation: glitch-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+/* Shared elements morph smoothly instead of glitching */
+::view-transition-old(logo),
+::view-transition-new(logo) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Blog title morph: crossfade with slight scale */
+[class*='view-transition-old'][style*='post-title-'] {
+  animation-duration: 0.2s;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* === REDUCED MOTION — respect user preference === */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -404,5 +476,10 @@ body::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

@@ -25,6 +25,7 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US',
     <time class="font-mono text-xs text-text-muted tracking-wider uppercase">{formattedDate}</time>
     <h2
       class="text-xl font-bold text-text-primary mt-3 group-hover:text-neon transition-colors tracking-tight"
+      transition:name={`post-title-${slug}`}
     >
       {title}
     </h2>
