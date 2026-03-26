@@ -3,7 +3,7 @@ import { CanvasRenderer } from './renderer';
 import { VERSIONS, getDefaultVersion } from './versions';
 import { generateExportHTML, downloadHTML } from './export';
 
-const WORKER_URL = 'https://company-canvas-api.gabriel-rodrigues-dev.workers.dev';
+const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
 
 const DEMO_CONFIG: CompanyConfig = {
   companyName: 'Company Canvas',

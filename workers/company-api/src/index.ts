@@ -123,10 +123,14 @@ async function handleGenerate(request: Request, env: Env, headers: HeadersInit):
       return jsonResponse({ error: 'Empty AI response' }, 502, headers);
     }
 
-    const config = JSON.parse(textBlock.text);
+    let cleaned = textBlock.text.trim();
+    if (cleaned.startsWith('```')) {
+      cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    }
+    const config = JSON.parse(cleaned);
     return jsonResponse(config, 200, headers);
   } catch (err) {
-    console.error('Worker error:', err);
+    console.error('Worker error:', err instanceof Error ? err.message : err);
     return jsonResponse({ error: 'Internal server error' }, 500, headers);
   }
 }
