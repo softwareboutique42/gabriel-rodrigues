@@ -1,0 +1,31 @@
+{
+  "name": "GR_ — Gabriel Rodrigues",
+  "short_name": "GR_",
+  "description": "Senior Frontend Engineer — portfolio, blog, and Company Canvas.",
+  "start_url": "/en/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e0e0e",
+  "theme_color": "#0e0e0e",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer-tools"],
+  "lang": "en",
+  "dir": "ltr"
+}
