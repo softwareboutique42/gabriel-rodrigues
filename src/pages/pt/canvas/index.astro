@@ -9,19 +9,21 @@ const t = useTranslations('pt');
   title="Company Canvas - Gabriel Rodrigues"
   description="Gerador de identidade visual com IA e animacoes Three.js ao vivo. Digite o nome de uma empresa e veja ganhar vida."
 >
-  <section class="max-w-5xl mx-auto px-6 pt-20 pb-8">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8">
     <h1
-      class="text-4xl font-bold text-text-primary tracking-tight mb-2"
+      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2"
       style="letter-spacing: -0.03em;"
     >
       {t('canvas.title')}
     </h1>
-    <p class="text-text-muted font-mono text-sm mb-12">{t('canvas.subtitle')}</p>
+    <p class="text-text-muted font-mono text-xs sm:text-sm mb-6 sm:mb-12">
+      {t('canvas.subtitle')}
+    </p>
 
     <!-- Input Panel -->
-    <div class="glow-panel p-6 mb-8">
-      <form id="canvas-form" class="flex flex-col sm:flex-row gap-4 items-end">
-        <div class="flex-1">
+    <div class="glow-panel p-4 sm:p-6 mb-6 sm:mb-8">
+      <form id="canvas-form" class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-end">
+        <div class="flex-1 w-full">
           <label
             for="canvas-input"
             class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
@@ -37,25 +39,27 @@ const t = useTranslations('pt');
             required
           />
         </div>
-        <div class="shrink-0">
-          <label
-            for="version-select"
-            class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
+        <div class="flex w-full sm:w-auto gap-3 items-end">
+          <div class="shrink-0">
+            <label
+              for="version-select"
+              class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
+            >
+              {t('canvas.version.label')}
+            </label>
+            <select
+              id="version-select"
+              class="bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
+            >
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="clip-corners hover-glitch flex-1 sm:flex-none px-6 sm:px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
           >
-            {t('canvas.version.label')}
-          </label>
-          <select
-            id="version-select"
-            class="bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
-          >
-          </select>
+            {t('canvas.generate')}
+          </button>
         </div>
-        <button
-          type="submit"
-          class="clip-corners hover-glitch px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
-        >
-          {t('canvas.generate')}
-        </button>
       </form>
     </div>
 
@@ -144,8 +148,8 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Info Panel -->
-    <div id="canvas-info" class="glow-panel p-6 hidden">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div id="canvas-info" class="glow-panel p-4 sm:p-6 hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <div>
           <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
             {t('canvas.info.industry')}

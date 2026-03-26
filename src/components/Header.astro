@@ -11,15 +11,18 @@ const currentPath = Astro.url.pathname;
   class="sticky top-0 z-50 bg-surface-dim/80 backdrop-blur-md"
   style="box-shadow: inset 0 -0.5px 0 rgba(142, 255, 113, 0.15);"
 >
-  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href={`/${lang}/`} class="font-mono text-neon text-sm tracking-widest hover-glitch">
+  <nav class="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+    <a
+      href={`/${lang}/`}
+      class="font-mono text-neon text-xs sm:text-sm tracking-wide sm:tracking-widest hover-glitch"
+    >
       &gt; GR_
     </a>
-    <div class="flex items-center gap-3 sm:gap-6">
+    <div class="flex items-center gap-2 sm:gap-6">
       <a
         href={`/${lang}/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-wider transition-colors',
+          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath === `/${lang}/`
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -30,7 +33,7 @@ const currentPath = Astro.url.pathname;
       <a
         href={`/${lang}/resume/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-wider transition-colors',
+          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath.includes('/resume')
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -41,7 +44,7 @@ const currentPath = Astro.url.pathname;
       <a
         href={`/${lang}/blog/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-wider transition-colors',
+          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath.includes('/blog')
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -52,7 +55,7 @@ const currentPath = Astro.url.pathname;
       <a
         href={`/${lang}/canvas/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-wider transition-colors',
+          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath.includes('/canvas')
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
