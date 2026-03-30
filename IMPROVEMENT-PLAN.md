@@ -13,6 +13,32 @@ Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas gene
 - **Each week** rotates focus: Week A = Blog, Week B = Canvas, Week C = SEO/Infrastructure
 - Tasks are ordered by impact and build on each other incrementally
 
+---
+
+## Week 1 — Blog Foundation (Content + Discoverability)
+
+### W1.1 — RSS Feed `~30 min`
+
+**Goal:** Let readers subscribe and improve SEO crawlability
+
+- Install `@astrojs/rss`
+- Create `src/pages/rss.xml.ts` — generates feed from all EN blog posts
+- Create `src/pages/pt/rss.xml.ts` — PT feed
+- Add `<link rel="alternate" type="application/rss+xml">` to BaseLayout
+- Add RSS icon to Footer
+- **Skill:** `.claude/skills/create-new-post-based-on-last-commit.md` (for blog patterns)
+
+### W1.2 — Reading Time + Table of Contents `~1 hour`
+
+**Goal:** Better reading UX on blog posts
+
+- Calculate reading time from word count (~200 wpm), display in BlogCard and BlogPostLayout header
+- Auto-generate TOC from H2/H3 headings in blog posts, render as sticky sidebar on desktop / collapsible on mobile
+- Add i18n keys: `blog.readingTime`, `blog.toc`
+- **Files:** `BlogPostLayout.astro`, `BlogCard.astro`, `en.json`, `pt.json`
+
+---
+
 ## Week 2 — Canvas: Industry Icons `~weekend sprint`
 
 ### W2.1 — Design Icon System `~1 hour`
@@ -44,6 +70,14 @@ Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas gene
 - Fallback: if industry doesn't match any icon, use a generic abstract shape
 - **Files:** `main.ts`, `animations/base.ts`, `types.ts`
 
+### W2.4 — Write Blog Post About Canvas Icons `~1 hour`
+
+**Goal:** Content marketing for the new feature
+
+- Article: "Drawing Industry Icons with Three.js" — technical deep-dive
+- EN + PT versions
+- Show before/after of canvas generations
+
 ---
 
 ## Week 3 — SEO & Infrastructure
@@ -57,6 +91,32 @@ Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas gene
 - Make tags clickable in BlogCard and BlogPostLayout
 - Add i18n: `blog.taggedWith`
 - **Files:** New tag page, `BlogCard.astro`, `BlogPostLayout.astro`
+
+### W3.2 — Related Posts `~45 min`
+
+**Goal:** Keep readers on the site longer
+
+- At bottom of each blog post, show 2-3 related posts based on shared tags
+- Create `RelatedPosts.astro` component
+- Add to `BlogPostLayout.astro` between ShareBar and AdUnit
+- **Files:** New component, `BlogPostLayout.astro`
+
+### W3.3 — Blog Search (client-side) `~1 hour`
+
+**Goal:** Let visitors find content quickly
+
+- Build a simple client-side search using a JSON index generated at build time
+- Create `src/pages/blog-index.json.ts` — Astro endpoint that exports all post titles, descriptions, tags
+- Search input at top of blog listing page, filters posts as user types
+- Uses `astro:page-load` for View Transitions compatibility
+- **Files:** New JSON endpoint, `src/pages/en/blog/index.astro`, `pt/` equivalent
+
+### W3.4 — Second SO Article `~1.5 hours`
+
+**Goal:** Keep publishing cadence
+
+- Theme: "CSS Tricks I Explained on Stack Overflow" (CSS has 100 answer score)
+- Or: "Understanding the DOM: Lessons from Answering 334 Questions"
 
 ---
 

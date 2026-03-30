@@ -11,26 +11,26 @@
   --color-surface-bright: #2c2c2c;
 
   /* === THE PALETTE === */
-  --color-neon: #ff7c2b;
-  --color-neon-dim: #ff7c2b26;
-  --color-neon-on: #1a0800;
+  --color-neon: #8eff71;
+  --color-neon-dim: #8eff7126;
+  --color-neon-on: #0d6100;
   --color-gold: #ffd709;
   --color-gold-dim: #ffd70926;
-  --color-cyan: #60a5fa;
-  --color-cyan-dim: #60a5fa1a;
+  --color-cyan: #8ff5ff;
+  --color-cyan-dim: #8ff5ff1a;
 
   /* === TEXT HIERARCHY === */
   --color-text-primary: #e8e6e3;
   --color-text-secondary: #9a9894;
-  --color-text-muted: #787674;
+  --color-text-muted: #5e5c58;
 
   /* === SEMANTIC ALIASES === */
   --color-bg-primary: #0e0e0e;
   --color-bg-secondary: #131313;
   --color-bg-card: #131313;
-  --color-accent: #ff7c2b;
-  --color-accent-hover: #ff9652;
-  --color-accent-dim: #ff7c2b15;
+  --color-accent: #8eff71;
+  --color-accent-hover: #a6ff91;
+  --color-accent-dim: #8eff7115;
   --color-border: #494847;
 
   /* === TYPOGRAPHY === */
@@ -60,8 +60,8 @@ body::after {
     0deg,
     transparent,
     transparent 2px,
-    rgba(255, 124, 43, 0.015) 2px,
-    rgba(255, 124, 43, 0.015) 4px
+    rgba(142, 255, 113, 0.015) 2px,
+    rgba(142, 255, 113, 0.015) 4px
   );
   mix-blend-mode: screen;
 }
@@ -153,7 +153,7 @@ body::after {
 /* === TONAL GLOW PANEL === */
 .glow-panel {
   background-color: var(--color-surface-container-low);
-  box-shadow: inset 0 0 0 0.5px rgba(255, 124, 43, 0.15);
+  box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);
   transition:
     box-shadow 0.3s ease-out,
     background-color 0.3s ease-out;
@@ -161,21 +161,19 @@ body::after {
 
 .glow-panel:hover {
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 124, 43, 0.35),
-    0 0 30px rgba(255, 124, 43, 0.04);
+    inset 0 0 0 0.5px rgba(142, 255, 113, 0.35),
+    0 0 30px rgba(142, 255, 113, 0.04);
   background-color: var(--color-surface-container);
 }
 
 /* === NEON BOTTOM BORDER (for inputs) === */
 .neon-underline {
   border-bottom: 1px solid rgba(73, 72, 71, 0.15);
-  transition:
-    border-color 0.2s steps(3),
-    box-shadow 0.2s steps(3);
+  transition: all 0.2s steps(3);
 }
 .neon-underline:focus {
   border-bottom-color: var(--color-neon);
-  box-shadow: 0 4px 12px rgba(255, 124, 43, 0.2);
+  box-shadow: 0 4px 12px rgba(142, 255, 113, 0.2);
   outline: none;
 }
 
@@ -192,8 +190,8 @@ body::after {
   height: 400px;
   background: radial-gradient(
     ellipse at 30% 50%,
-    rgba(255, 124, 43, 0.06) 0%,
-    rgba(255, 124, 43, 0.02) 40%,
+    rgba(142, 255, 113, 0.06) 0%,
+    rgba(142, 255, 113, 0.02) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -239,10 +237,10 @@ body::after {
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: inset 0 0 0 0.5px rgba(255, 124, 43, 0.15);
+    box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15);
   }
   50% {
-    box-shadow: inset 0 0 0 0.5px rgba(255, 124, 43, 0.3);
+    box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.3);
   }
 }
 
@@ -312,6 +310,7 @@ body::after {
   letter-spacing: -0.02em;
   margin-top: 2em;
   margin-bottom: 0.5em;
+  text-transform: uppercase;
   font-family: var(--font-sans);
 }
 
@@ -354,7 +353,7 @@ body::after {
   padding: 1rem;
   overflow-x: auto;
   margin-bottom: 1.5em;
-  box-shadow: inset 0 0 0 0.5px rgba(255, 124, 43, 0.1);
+  box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.1);
 }
 
 .prose pre code {

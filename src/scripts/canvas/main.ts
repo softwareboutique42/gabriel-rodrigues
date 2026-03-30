@@ -8,8 +8,8 @@ const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
 const DEMO_CONFIG: CompanyConfig = {
   companyName: 'Company Canvas',
   colors: {
-    primary: '#ff7c2b',
-    secondary: '#60a5fa',
+    primary: '#8eff71',
+    secondary: '#8ff5ff',
     accent: '#ffd709',
     background: '#0e0e0e',
   },

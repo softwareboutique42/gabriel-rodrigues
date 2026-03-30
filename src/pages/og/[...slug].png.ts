@@ -74,7 +74,7 @@ export const GET: APIRoute = async ({ props }) => {
                   props: {
                     style: {
                       fontSize: '24px',
-                      color: '#ff7c2b',
+                      color: '#8eff71',
                       letterSpacing: '2px',
                     },
                     children: 'GR_',
@@ -131,8 +131,8 @@ export const GET: APIRoute = async ({ props }) => {
                       props: {
                         style: {
                           fontSize: '14px',
-                          color: '#60a5fa',
-                          backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                          color: '#00e5ff',
+                          backgroundColor: 'rgba(0, 229, 255, 0.1)',
                           padding: '4px 12px',
                           textTransform: 'uppercase',
                           letterSpacing: '1px',
@@ -153,7 +153,7 @@ export const GET: APIRoute = async ({ props }) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                borderTop: '1px solid rgba(255, 124, 43, 0.15)',
+                borderTop: '1px solid rgba(142, 255, 113, 0.15)',
                 paddingTop: '20px',
               },
               children: [
