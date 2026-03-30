@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Campos BLOB em Bancos de Dados: Quando Armazenar Dados Binários e Quando Não
 
-Em 2015, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/100802) sobre campos BLOB no MySQL e Firebird. A pessoa queria entender o que eram BLOBs, quais tipos existiam e quando usar cada um. Escrevi uma resposta detalhada cobrindo as variantes de BLOB, limites de tamanho, o conceito de segment size no Firebird e as limitações de colunas binárias. A resposta recebeu 14 upvotes — uma boa resposta de referência.
+Em 2015, eu respondi uma pergunta no Stack Overflow em Português sobre campos BLOB no MySQL e Firebird. A pessoa queria entender o que eram BLOBs, quais tipos existiam e quando usar cada um. Escrevi uma resposta detalhada cobrindo as variantes de BLOB, limites de tamanho, o conceito de segment size no Firebird e as limitações de colunas binárias. A resposta recebeu 14 upvotes — uma boa resposta de referência.
 
 Naquela época, guardar arquivos diretamente no banco de dados era prática comum. Onze anos depois, quase nunca é. Aqui está o que mudou, e o que essa diferença nos ensina sobre decisões de arquitetura.
 

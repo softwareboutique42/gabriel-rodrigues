@@ -8,7 +8,7 @@ lang: 'en'
 
 # What's Allowed Inside an Anchor Tag in HTML5
 
-In 2016, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/107718) that came up all the time: can you put a `<div>` inside an `<a>` tag? The answer was more nuanced than people expected.
+In 2016, I answered a question on Stack Overflow in Portuguese that came up all the time: can you put a `<div>` inside an `<a>` tag? The answer was more nuanced than people expected.
 
 ## The 2016 Answer: It Depends on the HTML Version
 

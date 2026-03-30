@@ -8,7 +8,7 @@ lang: 'en'
 
 # AngularJS Form Validation Lessons: From $dirty/$valid to Modern Schema Validation
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/72430) about AngularJS form validation — specifically how to use the built-in validation states to show error messages at the right time. It scored 5 upvotes, and it reflected a real struggle developers had with AngularJS's form system.
+I answered a question on Stack Overflow in Portuguese about AngularJS form validation — specifically how to use the built-in validation states to show error messages at the right time. It scored 5 upvotes, and it reflected a real struggle developers had with AngularJS's form system.
 
 Looking back, what strikes me isn't that the solution was wrong. It's that AngularJS was genuinely ahead of its time in thinking about form state. The concepts it introduced are everywhere now, just with better APIs.
 

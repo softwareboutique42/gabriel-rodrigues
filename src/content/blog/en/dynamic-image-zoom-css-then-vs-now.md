@@ -8,7 +8,7 @@ lang: 'en'
 
 # Dynamic Image Zoom with CSS: Hover Effects That Scale
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/97618) about zooming an image on hover. It scored 5 upvotes. The technique was pure CSS and worked everywhere.
+In 2015, I answered a question on Stack Overflow in Portuguese about zooming an image on hover. It scored 5 upvotes. The technique was pure CSS and worked everywhere.
 
 ## The 2015 Approach
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # Geolocation: How to Identify a User's City in the Browser
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/63498) about identifying a user's city through the browser. It scored 15 upvotes. The question felt simple enough — browsers have a Geolocation API, so getting the user's location should be straightforward, right?
+In 2015, I asked a question on Stack Overflow in Portuguese about identifying a user's city through the browser. It scored 15 upvotes. The question felt simple enough — browsers have a Geolocation API, so getting the user's location should be straightforward, right?
 
 It was. In 2015.
 

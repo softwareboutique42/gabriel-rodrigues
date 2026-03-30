@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Testar no Xcode Sem Licença Paga
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/80792) sobre testar apps iOS em dispositivo real sem a assinatura paga do Apple Developer Program. Recebeu 4 votos, e a frustração na pergunta era palpável.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre testar apps iOS em dispositivo real sem a assinatura paga do Apple Developer Program. Recebeu 4 votos, e a frustração na pergunta era palpável.
 
 ## A Realidade de 2015: Pague para Testar
 

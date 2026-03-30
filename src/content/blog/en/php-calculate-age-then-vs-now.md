@@ -8,7 +8,7 @@ lang: 'en'
 
 # Calculating Age in PHP: DateTime::diff Then and Now
 
-In 2015, I answered a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/79498) about calculating a person's age in PHP. Classic question — someone had a birth date and wanted to get the number of years. I showed them `DateTime::diff()` and the `y` property on the resulting `DateInterval`. The answer scored 4 upvotes. Simple, correct, useful.
+In 2015, I answered a question on Stack Overflow in Portuguese about calculating a person's age in PHP. Classic question — someone had a birth date and wanted to get the number of years. I showed them `DateTime::diff()` and the `y` property on the resulting `DateInterval`. The answer scored 4 upvotes. Simple, correct, useful.
 
 Here's the thing: unlike most of my "then vs now" posts, this one is less about the old answer being wrong and more about the subtleties that most developers still get wrong even when using the right API.
 

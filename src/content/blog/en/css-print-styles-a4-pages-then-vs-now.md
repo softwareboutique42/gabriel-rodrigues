@@ -8,7 +8,7 @@ lang: 'en'
 
 # CSS Print Styles for A4 Pages: From @media print to Paged.js
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/161282) about styling a page for A4 print output with CSS. It scored 9 upvotes.
+In 2015, I asked a question on Stack Overflow in Portuguese about styling a page for A4 print output with CSS. It scored 9 upvotes.
 
 ## The 2015 Approach: @media print
 

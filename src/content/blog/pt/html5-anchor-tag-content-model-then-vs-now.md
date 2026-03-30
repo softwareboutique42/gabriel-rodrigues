@@ -8,7 +8,7 @@ lang: 'pt'
 
 # O Que Pode Ir Dentro de uma Tag Anchor no HTML5
 
-Em 2016, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/107718) que aparecia o tempo todo: pode colocar um `<div>` dentro de uma tag `<a>`? A resposta era mais nuançada do que as pessoas esperavam.
+Em 2016, respondi uma pergunta no Stack Overflow em Português que aparecia o tempo todo: pode colocar um `<div>` dentro de uma tag `<a>`? A resposta era mais nuançada do que as pessoas esperavam.
 
 ## A Resposta de 2016: Depende da Versão do HTML
 

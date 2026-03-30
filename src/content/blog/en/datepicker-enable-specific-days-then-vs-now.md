@@ -8,7 +8,7 @@ lang: 'en'
 
 # Datepicker Enable Specific Days: From beforeShowDay to Modern Date Controls
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/108453) about enabling only specific days in a Bootstrap datepicker. It scored 5 upvotes — a common scenario in booking systems, appointment schedulers, and anywhere business rules dictated which dates users could pick.
+I answered a question on Stack Overflow in Portuguese about enabling only specific days in a Bootstrap datepicker. It scored 5 upvotes — a common scenario in booking systems, appointment schedulers, and anywhere business rules dictated which dates users could pick.
 
 The `beforeShowDay` callback got the job done. But comparing it to what we have now shows how much friction we used to accept as normal.
 

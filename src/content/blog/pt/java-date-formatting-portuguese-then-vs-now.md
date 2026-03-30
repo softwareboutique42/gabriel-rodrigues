@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Formatação de Datas em Java para Português: De SimpleDateFormat a java.time
 
-Fiz uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/113668) sobre formatar datas em português brasileiro usando Java. A pergunta recebeu 13 votos — localização era (e ainda é) um tropeço real para desenvolvedores que precisam que seus apps exibam "segunda-feira, 15 de março de 2026" em vez de "Monday, March 15, 2026."
+Fiz uma pergunta no Stack Overflow em Português sobre formatar datas em português brasileiro usando Java. A pergunta recebeu 13 votos — localização era (e ainda é) um tropeço real para desenvolvedores que precisam que seus apps exibam "segunda-feira, 15 de março de 2026" em vez de "Monday, March 15, 2026."
 
 O problema central não mudou: você precisa de formatação de data com suporte a locale. Mas as ferramentas que usamos para isso são fundamentalmente diferentes agora.
 

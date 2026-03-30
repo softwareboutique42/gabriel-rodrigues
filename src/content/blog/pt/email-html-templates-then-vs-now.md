@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Templates HTML para Email: De Layouts com Tabelas a Ferramentas Modernas
 
-Em 2016, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/96498) sobre como fazer HTML de emails funcionar em diferentes clientes de email. A pessoa estava com layouts quebrando no Outlook, o Gmail removendo estilos, e o caos geral da renderização de emails. Expliquei as regras do HTML para email — tabelas para layout, estilos inline em tudo, esqueça `<div>` e `float`, e teste em todo cliente que puder. A resposta recebeu 7 upvotes.
+Em 2016, eu respondi uma pergunta no Stack Overflow em Português sobre como fazer HTML de emails funcionar em diferentes clientes de email. A pessoa estava com layouts quebrando no Outlook, o Gmail removendo estilos, e o caos geral da renderização de emails. Expliquei as regras do HTML para email — tabelas para layout, estilos inline em tudo, esqueça `<div>` e `float`, e teste em todo cliente que puder. A resposta recebeu 7 upvotes.
 
 Dez anos depois, ainda fico um pouco ansioso quando alguém fala "você pode fazer um template de email?" Mas as ferramentas mudaram completamente a forma como escrevemos esses templates, mesmo que as limitações por baixo não tenham desaparecido totalmente.
 

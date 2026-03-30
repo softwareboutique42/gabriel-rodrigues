@@ -8,7 +8,7 @@ lang: 'pt'
 
 # mPDF para Geração Moderna de PDF: Os Engines de Browser Venceram
 
-Respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/167610) sobre problemas de layout e estilização no mPDF. Recebeu 6 votos. A pergunta era sobre fazer CSS funcionar direito no mPDF — tabelas desalinhando, margens não se comportando, fontes não renderizando. Experiência clássica com mPDF.
+Respondi uma pergunta no Stack Overflow em Português sobre problemas de layout e estilização no mPDF. Recebeu 6 votos. A pergunta era sobre fazer CSS funcionar direito no mPDF — tabelas desalinhando, margens não se comportando, fontes não renderizando. Experiência clássica com mPDF.
 
 ## O Antes: CSS, Mas Não de Verdade
 

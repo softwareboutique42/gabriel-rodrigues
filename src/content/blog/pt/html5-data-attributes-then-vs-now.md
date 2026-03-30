@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Atributos data-\* HTML5: De Conveniência jQuery a Arquitetura de Framework
 
-Em 2016, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/125073) sobre atributos `data-*` do HTML5. Recebeu 6 votos. Na época, a maioria dos desenvolvedores ou não sabia sobre eles, ou dependia do `.data()` do jQuery sem pensar em como funcionavam.
+Em 2016, respondi uma pergunta no Stack Overflow em Português sobre atributos `data-*` do HTML5. Recebeu 6 votos. Na época, a maioria dos desenvolvedores ou não sabia sobre eles, ou dependia do `.data()` do jQuery sem pensar em como funcionavam.
 
 ## A Resposta de 2016: Armazenando Dados no Markup
 

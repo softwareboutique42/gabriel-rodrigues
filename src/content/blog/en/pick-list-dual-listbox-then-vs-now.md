@@ -8,7 +8,7 @@ lang: 'en'
 
 # Pick List / Dual Listbox: From jQuery Sortable to Headless Drag-and-Drop
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/118459) about building a pick list — that dual listbox pattern where users move items between two columns. It scored 5 upvotes, because this UI component showed up in every enterprise app and nobody could find a clean way to build it.
+I answered a question on Stack Overflow in Portuguese about building a pick list — that dual listbox pattern where users move items between two columns. It scored 5 upvotes, because this UI component showed up in every enterprise app and nobody could find a clean way to build it.
 
 The solution worked with what we had at the time. But the tooling has changed so much that the same pattern is now almost trivial to implement correctly.
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # contenteditable Bugs: How Browser Pain Created Modern Editors
 
-Around 2016, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/138651) about using `contenteditable` as a textarea alternative and dealing with a Firefox-specific padding bug. The answer scored 9 upvotes. The question was simple enough: how do you make a div editable and style it like a textarea? The reality was anything but simple.
+Around 2016, I answered a question on Stack Overflow in Portuguese about using `contenteditable` as a textarea alternative and dealing with a Firefox-specific padding bug. The answer scored 9 upvotes. The question was simple enough: how do you make a div editable and style it like a textarea? The reality was anything but simple.
 
 ## The Then: Fighting Each Browser Individually
 

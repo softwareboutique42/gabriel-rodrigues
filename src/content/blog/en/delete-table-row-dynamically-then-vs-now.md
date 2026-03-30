@@ -8,7 +8,7 @@ lang: 'en'
 
 # Delete Table Rows Dynamically with JavaScript
 
-In 2016, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/133920) about deleting rows from an HTML table dynamically. It scored 6 upvotes. The pattern was everywhere — editable tables where users could add and remove rows.
+In 2016, I answered a question on Stack Overflow in Portuguese about deleting rows from an HTML table dynamically. It scored 6 upvotes. The pattern was everywhere — editable tables where users could add and remove rows.
 
 ## The 2016 Approach
 

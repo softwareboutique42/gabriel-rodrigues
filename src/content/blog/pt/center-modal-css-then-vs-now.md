@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Centralizar um Modal com CSS: De Hacks com Transform ao Dialog Nativo
 
-Em 2016, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/111662) sobre centralizar um modal na tela. A pessoa estava brigando com o posicionamento do modal do Bootstrap e não conseguia centralizar verticalmente. Mostrei a técnica do `transform: translate(-50%, -50%)` combinada com `position: fixed`. A resposta recebeu 4 upvotes — uma solução padrão para um problema que todo dev frontend enfrentava pelo menos uma vez por semana.
+Em 2016, eu respondi uma pergunta no Stack Overflow em Português sobre centralizar um modal na tela. A pessoa estava brigando com o posicionamento do modal do Bootstrap e não conseguia centralizar verticalmente. Mostrei a técnica do `transform: translate(-50%, -50%)` combinada com `position: fixed`. A resposta recebeu 4 upvotes — uma solução padrão para um problema que todo dev frontend enfrentava pelo menos uma vez por semana.
 
 Centralizar coisas em CSS costumava ser genuinamente difícil. Agora é trivial. E modais? Eles têm um elemento HTML nativo que se centraliza sozinho.
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # Xcode Testing Without a Paid Developer License
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/80792) about testing iOS apps on a real device without a paid Apple Developer Program membership. It scored 4 upvotes, and the frustration in the question was palpable.
+In 2015, I answered a question on Stack Overflow in Portuguese about testing iOS apps on a real device without a paid Apple Developer Program membership. It scored 4 upvotes, and the frustration in the question was palpable.
 
 ## The 2015 Reality: Pay to Test
 

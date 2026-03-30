@@ -8,7 +8,7 @@ lang: 'en'
 
 # The Year 2038 Bug: What I Explained in 2015 and What Actually Happened
 
-In 2015, someone asked on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/100231) what the "Year 2038 bug" was all about. I wrote an answer explaining the problem — 32-bit signed integer overflow in `time_t`, the Unix timestamp format that powers most of the computing world. That answer got 16 upvotes, which for a Portuguese-language explanation of a systems-level bug felt like a lot.
+In 2015, someone asked on Stack Overflow in Portuguese what the "Year 2038 bug" was all about. I wrote an answer explaining the problem — 32-bit signed integer overflow in `time_t`, the Unix timestamp format that powers most of the computing world. That answer got 16 upvotes, which for a Portuguese-language explanation of a systems-level bug felt like a lot.
 
 We are now 12 years away from January 19, 2038 at 03:14:07 UTC — the exact moment a 32-bit signed integer overflows. Let's revisit what I said then, what actually happened since, and what's still at risk.
 

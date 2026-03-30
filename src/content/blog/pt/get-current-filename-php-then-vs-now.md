@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Pegar o Nome do Arquivo Atual em PHP: Do $\_SERVER ao Roteamento Moderno
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/53464) sobre como pegar o nome do arquivo PHP que estava sendo executado. Recebeu 14 votos, o que pra uma pergunta tão básica me diz que muita gente precisava pesquisar isso. As respostas cobriam `$_SERVER['PHP_SELF']`, `__FILE__`, `basename()` e companhia. Era uma pergunta perfeitamente razoável na época porque aplicações PHP eram frequentemente estruturadas como coleções de arquivos individuais que mapeavam diretamente para URLs.
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre como pegar o nome do arquivo PHP que estava sendo executado. Recebeu 14 votos, o que pra uma pergunta tão básica me diz que muita gente precisava pesquisar isso. As respostas cobriam `$_SERVER['PHP_SELF']`, `__FILE__`, `basename()` e companhia. Era uma pergunta perfeitamente razoável na época porque aplicações PHP eram frequentemente estruturadas como coleções de arquivos individuais que mapeavam diretamente para URLs.
 
 ## Como Funcionava Antes
 

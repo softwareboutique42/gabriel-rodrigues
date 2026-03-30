@@ -8,7 +8,7 @@ lang: 'pt'
 
 # CSS word-wrap e Overflow de Texto: De Hack a Padrão
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/95429) sobre texto longo escapando do container. O cenário clássico: um usuário cola uma URL como `https://example.com/this-is-an-incredibly-long-path-that-never-ends` num div de largura fixa, e o texto extravasa pelo layout inteiro.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre texto longo escapando do container. O cenário clássico: um usuário cola uma URL como `https://example.com/this-is-an-incredibly-long-path-that-never-ends` num div de largura fixa, e o texto extravasa pelo layout inteiro.
 
 A correção era uma linha de CSS. Mas a história de como essa linha evoluiu diz muito sobre onde o CSS chegou.
 

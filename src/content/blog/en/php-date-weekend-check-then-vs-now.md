@@ -8,7 +8,7 @@ lang: 'en'
 
 # PHP Date and Weekend Check: From date("w") to DateTimeImmutable
 
-Back in 2015, someone on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/86757) asked how to check whether a given date falls on a weekend in PHP. I posted an answer that scored 6 upvotes — a clean, straightforward solution using `date('w')` and `strtotime()`. It worked. It was simple. And if you squint hard enough, you can still find that exact pattern running in production codebases today.
+Back in 2015, someone on Stack Overflow in Portuguese asked how to check whether a given date falls on a weekend in PHP. I posted an answer that scored 6 upvotes — a clean, straightforward solution using `date('w')` and `strtotime()`. It worked. It was simple. And if you squint hard enough, you can still find that exact pattern running in production codebases today.
 
 But PHP's date handling has grown up a lot since then. Here's what the answer looked like, why it was fine for the time, and what I'd write instead in 2026.
 

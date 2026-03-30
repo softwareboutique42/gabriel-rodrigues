@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Calcular Idade em PHP: DateTime::diff Antes e Agora
 
-Em 2015, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/79498) sobre como calcular a idade de uma pessoa em PHP. Pergunta clássica — alguém tinha uma data de nascimento e queria saber o número de anos. Mostrei o `DateTime::diff()` e a propriedade `y` no `DateInterval` resultante. A resposta recebeu 4 upvotes. Simples, correto, útil.
+Em 2015, eu respondi uma pergunta no Stack Overflow em Português sobre como calcular a idade de uma pessoa em PHP. Pergunta clássica — alguém tinha uma data de nascimento e queria saber o número de anos. Mostrei o `DateTime::diff()` e a propriedade `y` no `DateInterval` resultante. A resposta recebeu 4 upvotes. Simples, correto, útil.
 
 O interessante é: diferente da maioria dos meus posts "antes vs agora", esse é menos sobre a resposta antiga estar errada e mais sobre as sutilezas que a maioria dos devs ainda erra, mesmo usando a API certa.
 

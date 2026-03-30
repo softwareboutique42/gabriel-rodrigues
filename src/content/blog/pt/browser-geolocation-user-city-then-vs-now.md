@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Geolocalização: Como Identificar a Cidade do Usuário no Navegador
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/63498) sobre identificar a cidade do usuário pelo navegador. Recebeu 15 votos. Parecia simples — navegadores têm API de Geolocalização, então obter a localização deveria ser direto, certo?
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre identificar a cidade do usuário pelo navegador. Recebeu 15 votos. Parecia simples — navegadores têm API de Geolocalização, então obter a localização deveria ser direto, certo?
 
 Era. Em 2015.
 

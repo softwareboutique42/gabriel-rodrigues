@@ -8,7 +8,7 @@ lang: 'en'
 
 # PHP Threading: From pthreads to Fibers, ReactPHP, and Beyond
 
-I asked a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/105015) about threading in PHP — specifically about the pthreads extension. It scored 12, and looking back, the question captured a moment when PHP developers were genuinely confused about concurrency. PHP was a request-response language. You processed one request, sent the response, and the process died. Why would you need threads?
+I asked a question on Stack Overflow in Portuguese about threading in PHP — specifically about the pthreads extension. It scored 12, and looking back, the question captured a moment when PHP developers were genuinely confused about concurrency. PHP was a request-response language. You processed one request, sent the response, and the process died. Why would you need threads?
 
 Turns out, people wanted to do things like send emails in the background, process images without blocking, or handle WebSocket connections. The answer in 2015 was complicated. The answer in 2026 is a completely different landscape.
 

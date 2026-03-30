@@ -8,7 +8,7 @@ lang: 'en'
 
 # Filter File Input by Type: From accept Attributes to File System Access API
 
-In 2015, I posted a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/96769) asking how to filter which file types a user could select through an `<input type="file">`. The question got 7 upvotes, which tells me other people were wondering the same thing. The answer back then was straightforward — use the `accept` attribute. But a decade later, the landscape for handling file uploads in the browser has changed dramatically.
+In 2015, I posted a question on Stack Overflow in Portuguese asking how to filter which file types a user could select through an `<input type="file">`. The question got 7 upvotes, which tells me other people were wondering the same thing. The answer back then was straightforward — use the `accept` attribute. But a decade later, the landscape for handling file uploads in the browser has changed dramatically.
 
 ## The Way It Worked Then
 

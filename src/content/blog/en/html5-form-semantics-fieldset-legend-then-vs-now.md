@@ -8,7 +8,7 @@ lang: 'en'
 
 # HTML5 Form Semantics: fieldset, legend, label, and optgroup
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/100373) explaining four HTML form elements that most developers ignored: `<fieldset>`, `<legend>`, `<label>`, and `<optgroup>`. These tags had been in HTML for years, but the majority of forms I saw in the wild used `<div>` for everything.
+In 2015, I answered a question on Stack Overflow in Portuguese explaining four HTML form elements that most developers ignored: `<fieldset>`, `<legend>`, `<label>`, and `<optgroup>`. These tags had been in HTML for years, but the majority of forms I saw in the wild used `<div>` for everything.
 
 ## The 2015 Answer: What These Tags Actually Do
 

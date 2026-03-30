@@ -8,7 +8,7 @@ lang: 'en'
 
 # HTTPS for Web Applications: From Optional to Mandatory
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/56539) about implementing HTTPS for web applications. It scored 9 upvotes. The question reflected a genuine dilemma at the time: HTTPS meant paying for certificates, configuring servers, and dealing with mixed content warnings. Was it really necessary for every site?
+In 2015, I asked a question on Stack Overflow in Portuguese about implementing HTTPS for web applications. It scored 9 upvotes. The question reflected a genuine dilemma at the time: HTTPS meant paying for certificates, configuring servers, and dealing with mixed content warnings. Was it really necessary for every site?
 
 ## The 2015 Landscape: HTTPS Was Optional
 

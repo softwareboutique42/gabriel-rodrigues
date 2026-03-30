@@ -8,7 +8,7 @@ lang: 'en'
 
 # Add to Favorites: From Browser APIs to PWA Install
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/80261) about adding a site to browser favorites with JavaScript. It scored 4 upvotes.
+In 2015, I answered a question on Stack Overflow in Portuguese about adding a site to browser favorites with JavaScript. It scored 4 upvotes.
 
 ## The 2015 Answer: Browser-Specific Hacks
 

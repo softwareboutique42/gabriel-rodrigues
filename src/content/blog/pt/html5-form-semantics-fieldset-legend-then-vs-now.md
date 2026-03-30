@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Semântica de Formulários HTML5: fieldset, legend, label e optgroup
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/100373) explicando quatro elementos de formulário HTML que a maioria dos desenvolvedores ignorava: `<fieldset>`, `<legend>`, `<label>` e `<optgroup>`. Essas tags existiam no HTML há anos, mas a maioria dos formulários que eu via usava `<div>` para tudo.
+Em 2015, respondi uma pergunta no Stack Overflow em Português explicando quatro elementos de formulário HTML que a maioria dos desenvolvedores ignorava: `<fieldset>`, `<legend>`, `<label>` e `<optgroup>`. Essas tags existiam no HTML há anos, mas a maioria dos formulários que eu via usava `<div>` para tudo.
 
 ## A Resposta de 2015: O Que Essas Tags Realmente Fazem
 

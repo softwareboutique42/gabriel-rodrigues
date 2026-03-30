@@ -8,7 +8,7 @@ lang: 'en'
 
 # Java Date Formatting in Portuguese: From SimpleDateFormat to java.time
 
-I asked a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/113668) about formatting dates in Brazilian Portuguese using Java. The question scored 13 — localization was (and still is) a real stumbling block for developers who need their apps to display "segunda-feira, 15 de março de 2026" instead of "Monday, March 15, 2026."
+I asked a question on Stack Overflow in Portuguese about formatting dates in Brazilian Portuguese using Java. The question scored 13 — localization was (and still is) a real stumbling block for developers who need their apps to display "segunda-feira, 15 de março de 2026" instead of "Monday, March 15, 2026."
 
 The core problem hasn't changed: you need locale-aware date formatting. But the tools we use for it are fundamentally different now.
 

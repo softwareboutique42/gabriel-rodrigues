@@ -8,7 +8,7 @@ lang: 'pt'
 
 # CSS de Impressão para Páginas A4: De @media print a Paged.js
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/161282) sobre estilizar uma página para saída de impressão A4 com CSS. Recebeu 9 votos.
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre estilizar uma página para saída de impressão A4 com CSS. Recebeu 9 votos.
 
 ## A Abordagem de 2015: @media print
 

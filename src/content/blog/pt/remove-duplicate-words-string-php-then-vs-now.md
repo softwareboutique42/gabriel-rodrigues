@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Removendo Palavras Duplicadas de uma String em PHP: Antes e Agora
 
-Respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/118746) sobre remover palavras duplicadas de uma string em PHP. Recebeu 7 votos. A abordagem clássica era um pipeline de três funções que todo dev PHP já escreveu pelo menos uma vez.
+Respondi uma pergunta no Stack Overflow em Português sobre remover palavras duplicadas de uma string em PHP. Recebeu 7 votos. A abordagem clássica era um pipeline de três funções que todo dev PHP já escreveu pelo menos uma vez.
 
 ## O Antes: O Pipeline explode-unique-implode
 

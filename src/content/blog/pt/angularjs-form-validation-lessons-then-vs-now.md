@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Licoes de Validacao de Formularios AngularJS: De $dirty/$valid a Validacao por Schema
 
-Respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/72430) sobre validacao de formularios no AngularJS — especificamente como usar os estados de validacao embutidos para mostrar mensagens de erro no momento certo. Recebeu 5 votos, e refletia uma dificuldade real que desenvolvedores tinham com o sistema de formularios do AngularJS.
+Respondi uma pergunta no Stack Overflow em Portugues sobre validacao de formularios no AngularJS — especificamente como usar os estados de validacao embutidos para mostrar mensagens de erro no momento certo. Recebeu 5 votos, e refletia uma dificuldade real que desenvolvedores tinham com o sistema de formularios do AngularJS.
 
 Olhando para tras, o que me chama atencao nao e que a solucao estava errada. E que o AngularJS estava genuinamente a frente do seu tempo em pensar sobre estado de formularios. Os conceitos que ele introduziu estao em todo lugar agora, so que com APIs melhores.
 

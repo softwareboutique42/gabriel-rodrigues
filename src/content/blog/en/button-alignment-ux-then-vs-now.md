@@ -8,7 +8,7 @@ lang: 'en'
 
 # Button Alignment UX: From Platform Wars to Design System Consensus
 
-In 2015, someone asked on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/64937) about the correct alignment for buttons in forms and dialogs — should the primary action be on the left or the right? I wrote an [answer](https://pt.stackoverflow.com/questions/64937) that got 7 upvotes, and the core of it was: "it depends on the platform." Windows put OK/Cancel on the right. Mac put Cancel on the right and the default action on the far left. Linux desktops did whatever GNOME or KDE felt like that year. It was a genuine mess.
+In 2015, someone asked on Stack Overflow in Portuguese about the correct alignment for buttons in forms and dialogs — should the primary action be on the left or the right? I wrote an answer that got 7 upvotes, and the core of it was: "it depends on the platform." Windows put OK/Cancel on the right. Mac put Cancel on the right and the default action on the far left. Linux desktops did whatever GNOME or KDE felt like that year. It was a genuine mess.
 
 ## The Platform Convention Era
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # Block Special Characters in Input: From Regex to Native Validation
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/91477) about how to restrict input fields to only accept certain characters. It scored 14 upvotes — a common problem with a deceptively tricky solution.
+In 2015, I answered a question on Stack Overflow in Portuguese about how to restrict input fields to only accept certain characters. It scored 14 upvotes — a common problem with a deceptively tricky solution.
 
 The original approach worked. But it had a blind spot that took years for the community to fully appreciate.
 

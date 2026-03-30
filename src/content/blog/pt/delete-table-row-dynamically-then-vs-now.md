@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Deletar Linhas de Tabela Dinamicamente com JavaScript
 
-Em 2016, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/133920) sobre deletar linhas de uma tabela HTML dinamicamente. Recebeu 6 votos. O padrão estava em todo lugar — tabelas editáveis onde usuários podiam adicionar e remover linhas.
+Em 2016, respondi uma pergunta no Stack Overflow em Português sobre deletar linhas de uma tabela HTML dinamicamente. Recebeu 6 votos. O padrão estava em todo lugar — tabelas editáveis onde usuários podiam adicionar e remover linhas.
 
 ## A Abordagem de 2016
 

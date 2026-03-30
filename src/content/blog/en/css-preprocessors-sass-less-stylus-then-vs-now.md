@@ -8,7 +8,7 @@ lang: 'en'
 
 # CSS Preprocessors in 2026: Sass vs Less vs Stylus — Do You Still Need Them?
 
-In 2015, I came across a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/101208) asking about the differences between Sass, Less, and Stylus — syntax, advantages, disadvantages. It had a score of 25 and generated solid discussion. Back then, writing raw CSS felt like writing assembly. No variables, no nesting, no way to reuse a block of styles without copy-pasting. Preprocessors were not a luxury — they were survival tools.
+In 2015, I came across a question on Stack Overflow in Portuguese asking about the differences between Sass, Less, and Stylus — syntax, advantages, disadvantages. It had a score of 25 and generated solid discussion. Back then, writing raw CSS felt like writing assembly. No variables, no nesting, no way to reuse a block of styles without copy-pasting. Preprocessors were not a luxury — they were survival tools.
 
 Eleven years later, I look at that question and think: most of those problems have been solved by CSS itself.
 

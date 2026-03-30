@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Zoom em Imagem com CSS: Efeitos Hover que Escalam
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/97618) sobre dar zoom em imagem ao passar o mouse. Recebeu 5 votos. A técnica era CSS puro e funcionava em todo lugar.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre dar zoom em imagem ao passar o mouse. Recebeu 5 votos. A técnica era CSS puro e funcionava em todo lugar.
 
 ## A Abordagem de 2015
 

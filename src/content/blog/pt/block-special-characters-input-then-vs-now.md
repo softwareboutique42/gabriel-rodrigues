@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Bloquear Caracteres Especiais no Input: De Regex a Validação Nativa
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/91477) sobre como restringir campos de input para aceitar apenas certos caracteres. Recebeu 14 votos — um problema comum com uma solução enganosamente complicada.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre como restringir campos de input para aceitar apenas certos caracteres. Recebeu 14 votos — um problema comum com uma solução enganosamente complicada.
 
 A abordagem original funcionava. Mas tinha um ponto cego que levou anos para a comunidade perceber completamente.
 

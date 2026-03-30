@@ -8,7 +8,7 @@ lang: 'en'
 
 # Drag-and-Drop Programming: From Dreamweaver to AI-Generated UIs
 
-In 2014, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/31818) about the pros and cons of visual, drag-and-drop programming. It scored 5 upvotes — a discussion that every developer had an opinion on, usually a strong one.
+In 2014, I answered a question on Stack Overflow in Portuguese about the pros and cons of visual, drag-and-drop programming. It scored 5 upvotes — a discussion that every developer had an opinion on, usually a strong one.
 
 My answer acknowledged the tradeoffs. But I'll admit the tone carried an assumption that most of us shared back then: visual builders were for beginners, and "real" developers wrote code.
 

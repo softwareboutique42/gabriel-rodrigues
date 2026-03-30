@@ -8,7 +8,7 @@ lang: 'pt'
 
 # disabled vs readonly: O Atributo HTML Que Ninguém Acerta
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/6770) sobre a diferença entre `disabled` e `readonly`. O que surpreendeu a maioria não foi a diferença entre os dois — foi descobrir que `disabled="false"` ainda desabilita o input.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre a diferença entre `disabled` e `readonly`. O que surpreendeu a maioria não foi a diferença entre os dois — foi descobrir que `disabled="false"` ainda desabilita o input.
 
 ## A Resposta de 2015: Atributos Booleanos São Estranhos
 

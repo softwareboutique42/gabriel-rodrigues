@@ -8,7 +8,7 @@ lang: 'en'
 
 # Fallback Image: Handling Broken Images Gracefully
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/131006) about showing a fallback image when the original fails to load. It scored 8 upvotes — a universal problem for any site with user-uploaded content or external image URLs.
+In 2015, I asked a question on Stack Overflow in Portuguese about showing a fallback image when the original fails to load. It scored 8 upvotes — a universal problem for any site with user-uploaded content or external image URLs.
 
 ## The 2015 Approach: onerror
 

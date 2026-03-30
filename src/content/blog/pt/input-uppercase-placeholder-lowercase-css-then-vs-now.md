@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Input Maiúsculo + Placeholder Minúsculo: Uma Dor de Cabeça CSS, Resolvida
 
-Fiz uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/150291) sobre uma peculiaridade do CSS que deixava desenvolvedores de formulários loucos: você colocava `text-transform: uppercase` num campo input para o texto digitado aparecer em maiúsculas, mas o texto do placeholder também ficava em caixa alta. A pergunta recebeu 13 votos porque era uma irritação real do dia a dia.
+Fiz uma pergunta no Stack Overflow em Português sobre uma peculiaridade do CSS que deixava desenvolvedores de formulários loucos: você colocava `text-transform: uppercase` num campo input para o texto digitado aparecer em maiúsculas, mas o texto do placeholder também ficava em caixa alta. A pergunta recebeu 13 votos porque era uma irritação real do dia a dia.
 
 Você queria o texto digitado em maiúsculas para coisas como placas de carro, CEPs ou números de documento. Mas o placeholder — "Digite seu código" — ficava estranho gritando em caixa alta. Era uma dica, não um dado.
 

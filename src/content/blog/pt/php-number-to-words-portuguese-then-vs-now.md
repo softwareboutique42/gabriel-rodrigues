@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Números por Extenso em PHP: De Funções Manuais ao Intl
 
-Lá por 2016, alguém no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/127546) perguntou como converter números para a forma escrita por extenso em português. Tipo transformar `1542` em "mil quinhentos e quarenta e dois." Minha resposta (9 votos) era uma função recursiva em PHP com arrays de palavras em português hardcoded. Funcionava, mas olhando agora... era muito código pra algo que deveria ser uma chamada de biblioteca.
+Lá por 2016, alguém no Stack Overflow em Português perguntou como converter números para a forma escrita por extenso em português. Tipo transformar `1542` em "mil quinhentos e quarenta e dois." Minha resposta (9 votos) era uma função recursiva em PHP com arrays de palavras em português hardcoded. Funcionava, mas olhando agora... era muito código pra algo que deveria ser uma chamada de biblioteca.
 
 ## O Antes: Escrevendo Números na Mão
 

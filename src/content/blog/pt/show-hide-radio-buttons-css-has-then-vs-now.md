@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Mostrar/Esconder Divs com Radio Buttons: CSS :has() Substitui JS
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/80540) sobre mostrar ou esconder seções de conteúdo com base no radio button selecionado. Recebeu 4 votos.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre mostrar ou esconder seções de conteúdo com base no radio button selecionado. Recebeu 4 votos.
 
 ## A Abordagem de 2015: Evento change do jQuery
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # Get Current Filename in PHP: From $\_SERVER to Modern Routing
 
-In 2015, I posted a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/53464) asking how to get the name of the currently executing PHP file. It got 14 upvotes, which for such a basic question tells me it was something a lot of people needed to look up. The answers covered `$_SERVER['PHP_SELF']`, `__FILE__`, `basename()`, and friends. It was a perfectly reasonable question at the time because PHP applications were often structured as collections of individual files that mapped directly to URLs.
+In 2015, I posted a question on Stack Overflow in Portuguese asking how to get the name of the currently executing PHP file. It got 14 upvotes, which for such a basic question tells me it was something a lot of people needed to look up. The answers covered `$_SERVER['PHP_SELF']`, `__FILE__`, `basename()`, and friends. It was a perfectly reasonable question at the time because PHP applications were often structured as collections of individual files that mapped directly to URLs.
 
 ## The Way It Worked Then
 

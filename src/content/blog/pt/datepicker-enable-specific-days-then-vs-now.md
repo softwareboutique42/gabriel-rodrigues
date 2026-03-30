@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Datepicker com Dias Especificos: De beforeShowDay a Controles Modernos de Data
 
-Respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/108453) sobre habilitar apenas dias especificos em um datepicker do Bootstrap. Recebeu 5 votos — um cenario comum em sistemas de reservas, agendamento de consultas e qualquer lugar onde regras de negocio ditavam quais datas o usuario podia selecionar.
+Respondi uma pergunta no Stack Overflow em Portugues sobre habilitar apenas dias especificos em um datepicker do Bootstrap. Recebeu 5 votos — um cenario comum em sistemas de reservas, agendamento de consultas e qualquer lugar onde regras de negocio ditavam quais datas o usuario podia selecionar.
 
 O callback `beforeShowDay` dava conta do recado. Mas comparar com o que temos agora mostra quanta friccao a gente aceitava como normal.
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Verificar Email via AJAX Antes do Submit: De jQuery Blur a Fetch e Tradeoffs de Segurança
 
-Em 2016, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/128068) sobre verificar se um endereço de email já estava cadastrado antes do usuário enviar o formulário. A abordagem: disparar uma requisição AJAX no evento `blur` do input, bater num endpoint do servidor que consulta o banco, e mostrar uma mensagem de erro se o email existisse. Escrevi com `$.ajax()` do jQuery. A resposta recebeu 4 upvotes.
+Em 2016, eu respondi uma pergunta no Stack Overflow em Português sobre verificar se um endereço de email já estava cadastrado antes do usuário enviar o formulário. A abordagem: disparar uma requisição AJAX no evento `blur` do input, bater num endpoint do servidor que consulta o banco, e mostrar uma mensagem de erro se o email existisse. Escrevi com `$.ajax()` do jQuery. A resposta recebeu 4 upvotes.
 
 A técnica era prática padrão. Todo formulário de cadastro fazia isso. Mas olhando em 2026, tem muito mais a considerar do que apenas "como fazer a chamada AJAX."
 

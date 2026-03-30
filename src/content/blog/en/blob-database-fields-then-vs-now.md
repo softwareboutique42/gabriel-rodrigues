@@ -8,7 +8,7 @@ lang: 'en'
 
 # BLOB Fields in Databases: When to Store Binary Data and When Not To
 
-In 2015, I answered a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/100802) about BLOB fields in MySQL and Firebird. The person wanted to understand what BLOBs were, which types existed, and when to use them. I wrote a detailed answer covering BLOB variants, size limits, Firebird's segment size concept, and the limitations of binary columns. It scored 14 upvotes — a solid reference answer.
+In 2015, I answered a question on Stack Overflow in Portuguese about BLOB fields in MySQL and Firebird. The person wanted to understand what BLOBs were, which types existed, and when to use them. I wrote a detailed answer covering BLOB variants, size limits, Firebird's segment size concept, and the limitations of binary columns. It scored 14 upvotes — a solid reference answer.
 
 Back then, storing files directly in the database was common practice. Eleven years later, it almost never is. Here's what changed, and what the gap teaches us about architecture decisions.
 

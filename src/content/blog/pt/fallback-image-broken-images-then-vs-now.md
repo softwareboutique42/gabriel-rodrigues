@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Imagem de Fallback: Lidando com Imagens Quebradas Graciosamente
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/131006) sobre mostrar uma imagem de fallback quando a original falha ao carregar. Recebeu 8 votos — um problema universal para qualquer site com conteúdo enviado por usuários ou URLs de imagens externas.
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre mostrar uma imagem de fallback quando a original falha ao carregar. Recebeu 8 votos — um problema universal para qualquer site com conteúdo enviado por usuários ou URLs de imagens externas.
 
 ## A Abordagem de 2015: onerror
 

@@ -8,7 +8,7 @@ lang: 'en'
 
 # Rewrite vs Incremental Improvement: The Question Every Team Faces
 
-In 2015, I worked at a billing software company that was rewriting a system originally built in 2004. Someone on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/50590) asked about convincing clients and teams to adopt a rewrite, and I shared my experience in an answer that scored 4 upvotes. Not a viral hit, but enough to tell me other developers were wrestling with the same question.
+In 2015, I worked at a billing software company that was rewriting a system originally built in 2004. Someone on Stack Overflow in Portuguese asked about convincing clients and teams to adopt a rewrite, and I shared my experience in an answer that scored 4 upvotes. Not a viral hit, but enough to tell me other developers were wrestling with the same question.
 
 Eleven years later, I've seen rewrites succeed and fail. The question hasn't changed — but the tooling, the patterns, and the way I think about the answer have changed completely.
 

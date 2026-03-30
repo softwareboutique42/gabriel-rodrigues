@@ -8,7 +8,7 @@ lang: 'en'
 
 # Progress Bar with AJAX and PHP: From Polling to Streams
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/68587) about how to show a real-time progress bar during a long-running PHP process. The question scored 16 upvotes — a sign that "how do I show the user what's happening on the server?" was a universal challenge.
+In 2015, I asked a question on Stack Overflow in Portuguese about how to show a real-time progress bar during a long-running PHP process. The question scored 16 upvotes — a sign that "how do I show the user what's happening on the server?" was a universal challenge.
 
 ## The 2015 Approach: AJAX Polling
 

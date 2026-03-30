@@ -8,7 +8,7 @@ lang: 'en'
 
 # Centering a Modal with CSS: From Transform Hacks to Native Dialog
 
-In 2016, I answered a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/111662) about centering a modal on screen. The person was fighting with Bootstrap's modal positioning and couldn't get it perfectly centered vertically. I showed them the `transform: translate(-50%, -50%)` technique combined with `position: fixed`. The answer scored 4 upvotes — a standard solution for a problem every frontend developer hit at least once a week.
+In 2016, I answered a question on Stack Overflow in Portuguese about centering a modal on screen. The person was fighting with Bootstrap's modal positioning and couldn't get it perfectly centered vertically. I showed them the `transform: translate(-50%, -50%)` technique combined with `position: fixed`. The answer scored 4 upvotes — a standard solution for a problem every frontend developer hit at least once a week.
 
 Centering things in CSS used to be genuinely hard. Now it's trivial. And modals? They have a native HTML element that centers itself.
 

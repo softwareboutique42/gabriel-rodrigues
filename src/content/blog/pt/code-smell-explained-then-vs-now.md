@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Code Smell Explicado: De Buzzword a Guia Prático de Refatoração
 
-Em 2015, enquanto aprendia Swift e tentava escrever "código limpo," fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/100016) sobre Code Smell. Eu tinha visto o termo em todo lugar — blog posts, palestras, site do Martin Fowler — mas não conseguia definir o que significava na prática. Era a mesma coisa que violar o DRY? Era só outro nome pra "código ruim"?
+Em 2015, enquanto aprendia Swift e tentava escrever "código limpo," fiz uma pergunta no Stack Overflow em Português sobre Code Smell. Eu tinha visto o termo em todo lugar — blog posts, palestras, site do Martin Fowler — mas não conseguia definir o que significava na prática. Era a mesma coisa que violar o DRY? Era só outro nome pra "código ruim"?
 
 A pergunta recebeu 26 upvotes, o que me diz que eu não era o único confuso. Onze anos depois, tenho uma visão bem mais clara — e ferramentas melhores pra lidar com isso.
 

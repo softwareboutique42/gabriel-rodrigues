@@ -8,7 +8,7 @@ lang: 'en'
 
 # mPDF to Modern PDF Generation: Browser Engines Won
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/167610) about mPDF layout and styling issues. It scored 6 upvotes. The question was about getting CSS to work properly in mPDF — tables not aligning, margins not behaving, fonts not rendering. Classic mPDF experience.
+I answered a question on Stack Overflow in Portuguese about mPDF layout and styling issues. It scored 6 upvotes. The question was about getting CSS to work properly in mPDF — tables not aligning, margins not behaving, fonts not rendering. Classic mPDF experience.
 
 ## The Then: CSS, But Not Really
 

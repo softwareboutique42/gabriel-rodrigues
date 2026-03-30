@@ -8,7 +8,7 @@ lang: 'pt'
 
 # O Bug do Ano 2038: O Que Eu Expliquei em 2015 e o Que Realmente Aconteceu
 
-Em 2015, alguém perguntou no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/100231) o que era o "bug do ano 2038". Escrevi uma resposta explicando o problema — overflow de inteiro com sinal de 32 bits no `time_t`, o formato de timestamp Unix que roda por baixo de quase toda a computação. A resposta recebeu 16 votos, o que pra uma explicação em português de um bug de sistemas pareceu bastante.
+Em 2015, alguém perguntou no Stack Overflow em Português o que era o "bug do ano 2038". Escrevi uma resposta explicando o problema — overflow de inteiro com sinal de 32 bits no `time_t`, o formato de timestamp Unix que roda por baixo de quase toda a computação. A resposta recebeu 16 votos, o que pra uma explicação em português de um bug de sistemas pareceu bastante.
 
 Estamos agora a 12 anos de 19 de janeiro de 2038 às 03:14:07 UTC — o momento exato em que um inteiro com sinal de 32 bits estoura. Vamos revisitar o que eu disse naquela época, o que realmente aconteceu desde então, e o que ainda está em risco.
 

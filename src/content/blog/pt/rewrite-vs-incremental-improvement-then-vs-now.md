@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Reescrever vs Melhorar Incrementalmente: A Pergunta Que Todo Time Enfrenta
 
-Em 2015, eu trabalhava numa empresa de software de faturamento que estava reescrevendo um sistema originalmente construído em 2004. Alguém no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/50590) perguntou sobre como convencer clientes e equipes a adotar uma reescrita, e eu compartilhei minha experiência numa resposta que recebeu 4 votos positivos. Não viralizou, mas o suficiente pra mostrar que outros desenvolvedores estavam enfrentando a mesma questão.
+Em 2015, eu trabalhava numa empresa de software de faturamento que estava reescrevendo um sistema originalmente construído em 2004. Alguém no Stack Overflow em Português perguntou sobre como convencer clientes e equipes a adotar uma reescrita, e eu compartilhei minha experiência numa resposta que recebeu 4 votos positivos. Não viralizou, mas o suficiente pra mostrar que outros desenvolvedores estavam enfrentando a mesma questão.
 
 Onze anos depois, já vi reescritas darem certo e darem errado. A pergunta não mudou — mas as ferramentas, os padrões e a forma como eu penso na resposta mudaram completamente.
 

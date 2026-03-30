@@ -8,7 +8,7 @@ lang: 'en'
 
 # Custom Scrollbar Styling: From WebKit Hacks to W3C Standards
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/87413) about styling scrollbars with CSS. It scored 4 upvotes — one of those problems where the answer worked perfectly in Chrome and didn't work at all anywhere else.
+In 2015, I answered a question on Stack Overflow in Portuguese about styling scrollbars with CSS. It scored 4 upvotes — one of those problems where the answer worked perfectly in Chrome and didn't work at all anywhere else.
 
 That was the fundamental issue with scrollbar styling for nearly a decade. It was a WebKit-only world, and everyone else was locked out.
 

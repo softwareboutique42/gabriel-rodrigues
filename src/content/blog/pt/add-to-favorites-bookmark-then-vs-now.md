@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Adicionar aos Favoritos: De APIs do Navegador a PWA Install
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/80261) sobre adicionar um site aos favoritos do navegador com JavaScript. Recebeu 4 votos.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre adicionar um site aos favoritos do navegador com JavaScript. Recebeu 4 votos.
 
 ## A Resposta de 2015: Hacks por Navegador
 

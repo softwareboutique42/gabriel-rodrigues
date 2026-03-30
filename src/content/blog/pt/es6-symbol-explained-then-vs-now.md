@@ -8,7 +8,7 @@ lang: 'pt'
 
 # ES6 Symbol Explicado: O Primitivo Mais Incompreendido do JavaScript
 
-Em 2015, eu perguntei sobre Symbol no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/101612). O ES6 tinha acabado de sair e esse novo tipo primitivo parecia uma curiosidade sem uso prático. Um sétimo primitivo ao lado de `string`, `number`, `boolean`, `null`, `undefined` e `object`? Tá, mas _pra quê_?
+Em 2015, eu perguntei sobre Symbol no Stack Overflow em Português. O ES6 tinha acabado de sair e esse novo tipo primitivo parecia uma curiosidade sem uso prático. Um sétimo primitivo ao lado de `string`, `number`, `boolean`, `null`, `undefined` e `object`? Tá, mas _pra quê_?
 
 Onze anos depois, eu posso responder: Symbol é a razão pela qual metade do JavaScript moderno funciona do jeito que funciona.
 
@@ -181,4 +181,4 @@ Symbols são o primitivo de metaprogramação do JavaScript. Você não usa no d
 
 Em 2015, eu olhei pra `Symbol()` e vi um jeito estranho de criar chaves únicas. Em 2026, eu vejo a fiação escondida que mantém o JavaScript moderno de pé.
 
-Se ficou curioso sobre a discussão original, a [pergunta no SO](https://pt.stackoverflow.com/questions/101612) ainda está lá. As respostas continuam corretas — só não sabiam ainda o quanto esse primitivo se tornaria importante.
+Se ficou curioso sobre a discussão original, a pergunta no SO ainda está lá. As respostas continuam corretas — só não sabiam ainda o quanto esse primitivo se tornaria importante.

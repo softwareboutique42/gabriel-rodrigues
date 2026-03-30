@@ -8,7 +8,7 @@ lang: 'en'
 
 # Removing CSS with jQuery to Modern Dynamic Styles
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/56990) about removing CSS styles with jQuery. It scored 7 upvotes. The question was typical of the era: someone had set inline styles with jQuery and needed to undo them. Sounds trivial, but the solutions revealed how we thought about dynamic styling back then.
+I answered a question on Stack Overflow in Portuguese about removing CSS styles with jQuery. It scored 7 upvotes. The question was typical of the era: someone had set inline styles with jQuery and needed to undo them. Sounds trivial, but the solutions revealed how we thought about dynamic styling back then.
 
 ## The Then: jQuery as Style Manager
 

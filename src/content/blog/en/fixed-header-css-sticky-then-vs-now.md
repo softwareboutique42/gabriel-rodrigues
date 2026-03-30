@@ -8,7 +8,7 @@ lang: 'en'
 
 # Fixed Header: From position:fixed to position:sticky
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/78651) about making a header stay at the top of the page while scrolling — without JavaScript. It scored 5 upvotes.
+In 2015, I answered a question on Stack Overflow in Portuguese about making a header stay at the top of the page while scrolling — without JavaScript. It scored 5 upvotes.
 
 ## The 2015 Approach: position:fixed
 

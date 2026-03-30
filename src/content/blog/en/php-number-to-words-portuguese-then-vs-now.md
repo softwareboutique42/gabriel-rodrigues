@@ -8,7 +8,7 @@ lang: 'en'
 
 # PHP Number to Words in Portuguese: From Custom Functions to Intl
 
-Back around 2016, someone on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/127546) asked how to convert numbers to their written form in Portuguese. You know, turning `1542` into "mil quinhentos e quarenta e dois." My answer (scored 9 upvotes) was a recursive PHP function with hardcoded arrays of Portuguese words. It worked, but looking at it now... it was a lot of code for something that should be a library call.
+Back around 2016, someone on Stack Overflow in Portuguese asked how to convert numbers to their written form in Portuguese. You know, turning `1542` into "mil quinhentos e quarenta e dois." My answer (scored 9 upvotes) was a recursive PHP function with hardcoded arrays of Portuguese words. It worked, but looking at it now... it was a lot of code for something that should be a library call.
 
 ## The Then: Hand-Rolling Number Spelling
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # SVG Explicado: De Curiosidade XML a Cidadão de Primeira Classe da Web
 
-Em 2015, escrevi uma resposta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/91058) explicando o que é SVG. A pergunta era simples — alguém queria entender esse formato que vivia ouvindo falar. Naquela época, a maioria dos desenvolvedores ainda usava sprites PNG ou fontes de ícones quando precisava de ícones numa página. SVG parecia uma curiosidade: um formato de imagem baseado em XML que vivia no seu markup. Minha resposta recebeu 17 votos, sinal de que as pessoas realmente precisavam dessa explicação.
+Em 2015, escrevi uma resposta no Stack Overflow em Português explicando o que é SVG. A pergunta era simples — alguém queria entender esse formato que vivia ouvindo falar. Naquela época, a maioria dos desenvolvedores ainda usava sprites PNG ou fontes de ícones quando precisava de ícones numa página. SVG parecia uma curiosidade: um formato de imagem baseado em XML que vivia no seu markup. Minha resposta recebeu 17 votos, sinal de que as pessoas realmente precisavam dessa explicação.
 
 Onze anos depois, SVG não é apenas entendido — é o padrão. Aqui está o que expliquei na época, o que mudou desde então, e por que entender as raízes XML do SVG ainda importa em 2026.
 

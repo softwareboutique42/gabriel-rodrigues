@@ -8,7 +8,7 @@ lang: 'pt'
 
 # CSS @import vs link: O Debate Que CSS Layers Ressuscitou
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/100133) sobre a diferença entre `@import` e `<link>` para incluir arquivos CSS. Recebeu 12 votos. A resposta era unânime: não use `@import`.
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre a diferença entre `@import` e `<link>` para incluir arquivos CSS. Recebeu 12 votos. A resposta era unânime: não use `@import`.
 
 ## A Resposta de 2015: @import É Lento
 

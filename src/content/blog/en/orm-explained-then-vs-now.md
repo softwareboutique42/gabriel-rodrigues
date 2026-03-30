@@ -8,7 +8,7 @@ lang: 'en'
 
 # ORM Explained: What It Is, Why It Matters, and How It Evolved
 
-In 2016, someone on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/138938) asked a straightforward question: "What is ORM?" I wrote an answer explaining the concept, listing pros and cons, and showing pseudo-code comparing raw SQL to ORM-style queries. That answer scored 19 upvotes — not bad for a concept explanation.
+In 2016, someone on Stack Overflow in Portuguese asked a straightforward question: "What is ORM?" I wrote an answer explaining the concept, listing pros and cons, and showing pseudo-code comparing raw SQL to ORM-style queries. That answer scored 19 upvotes — not bad for a concept explanation.
 
 Ten years later, ORMs are everywhere. But the way we use them — and the way we think about them — has changed dramatically. Here's what I wrote then, what I'd write now, and what the gap teaches us.
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # PHP Date e Verificação de Fim de Semana: De date("w") a DateTimeImmutable
 
-Em 2015, alguém no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/86757) perguntou como verificar se uma data cai num fim de semana em PHP. Postei uma resposta que recebeu 6 votos — uma solução limpa e direta usando `date('w')` e `strtotime()`. Funcionava. Era simples. E se você procurar bem, vai encontrar esse exato padrão rodando em produção até hoje.
+Em 2015, alguém no Stack Overflow em Português perguntou como verificar se uma data cai num fim de semana em PHP. Postei uma resposta que recebeu 6 votos — uma solução limpa e direta usando `date('w')` e `strtotime()`. Funcionava. Era simples. E se você procurar bem, vai encontrar esse exato padrão rodando em produção até hoje.
 
 Mas o tratamento de datas do PHP cresceu muito desde então. Aqui está como era a resposta, por que era suficiente na época, e o que eu escreveria no lugar em 2026.
 

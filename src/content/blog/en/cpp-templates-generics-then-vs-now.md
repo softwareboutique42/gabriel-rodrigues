@@ -8,7 +8,7 @@ lang: 'en'
 
 # C++ Templates: From Generic Programming Basics to C++20 Concepts
 
-In 2015, I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/63573) about C++ templates — one of the most powerful yet most intimidating features of the language. The question scored 11 upvotes, which tells me the confusion was widely shared.
+In 2015, I asked a question on Stack Overflow in Portuguese about C++ templates — one of the most powerful yet most intimidating features of the language. The question scored 11 upvotes, which tells me the confusion was widely shared.
 
 ## The 2015 Understanding: Generic Functions and Classes
 

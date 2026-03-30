@@ -8,7 +8,7 @@ lang: 'pt'
 
 # MIME Types Explicados: O Que os Navegadores Realmente Fazem com Content-Type
 
-Em 2015, me deparei com uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/98031) que chamou minha atenção: o que exatamente são MIME types, por que importam para a renderização, e são obrigatórios? A pergunta recebeu 17 votos — sinal de que muitos desenvolvedores tinham a mesma dúvida.
+Em 2015, me deparei com uma pergunta no Stack Overflow em Português que chamou minha atenção: o que exatamente são MIME types, por que importam para a renderização, e são obrigatórios? A pergunta recebeu 17 votos — sinal de que muitos desenvolvedores tinham a mesma dúvida.
 
 A pergunta me fez pensar. Eu vinha escrevendo `<script type="text/javascript">` por anos sem questionar. Por que `<script>` sem nenhum atributo `type` funcionava igualmente? E se o navegador conseguia descobrir sozinho, por que MIME types existiam?
 

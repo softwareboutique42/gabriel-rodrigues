@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Bugs do contenteditable: Como a Dor dos Browsers Criou Editores Modernos
 
-Por volta de 2016, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/138651) sobre usar `contenteditable` como alternativa a textarea e lidar com um bug de padding específico do Firefox. A resposta recebeu 9 votos. A pergunta era simples: como tornar uma div editável e estilizar como textarea? A realidade era tudo menos simples.
+Por volta de 2016, respondi uma pergunta no Stack Overflow em Português sobre usar `contenteditable` como alternativa a textarea e lidar com um bug de padding específico do Firefox. A resposta recebeu 9 votos. A pergunta era simples: como tornar uma div editável e estilizar como textarea? A realidade era tudo menos simples.
 
 ## O Antes: Lutando Contra Cada Browser
 

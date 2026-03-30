@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Bootstrap Modal + Tooltip: Da Guerra de Plugins jQuery ao HTML Nativo
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/101261) sobre usar um modal e um tooltip do Bootstrap no mesmo elemento. Recebeu 8 votos — um problema que deixava desenvolvedores loucos porque dois plugins jQuery disputavam o controle do mesmo nodo DOM.
+Em 2015, respondi uma pergunta no Stack Overflow em Portugues sobre usar um modal e um tooltip do Bootstrap no mesmo elemento. Recebeu 8 votos — um problema que deixava desenvolvedores loucos porque dois plugins jQuery disputavam o controle do mesmo nodo DOM.
 
 A solucao funcionava. Mas a historia real e que toda a camada de framework onde esses plugins viviam se tornou opcional.
 

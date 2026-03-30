@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Programacao Drag-and-Drop: Do Dreamweaver a UIs Geradas por IA
 
-Em 2014, respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/31818) sobre os pros e contras de programacao visual, estilo arrastar e soltar. Recebeu 5 votos — uma discussao sobre a qual todo desenvolvedor tinha opiniao, geralmente forte.
+Em 2014, respondi uma pergunta no Stack Overflow em Portugues sobre os pros e contras de programacao visual, estilo arrastar e soltar. Recebeu 5 votos — uma discussao sobre a qual todo desenvolvedor tinha opiniao, geralmente forte.
 
 Minha resposta reconhecia os tradeoffs. Mas admito que o tom carregava uma suposicao que a maioria de nos compartilhava na epoca: construtores visuais eram para iniciantes, e desenvolvedores "de verdade" escreviam codigo.
 

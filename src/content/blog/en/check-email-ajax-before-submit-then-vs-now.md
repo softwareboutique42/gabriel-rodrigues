@@ -8,7 +8,7 @@ lang: 'en'
 
 # Check Email via AJAX Before Submit: From jQuery Blur to Fetch and Security Tradeoffs
 
-In 2016, I answered a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/128068) about checking if an email address was already registered before the user submitted a form. The approach: fire an AJAX request on the input's `blur` event, hit a server endpoint that checks the database, and show an error message if the email exists. I wrote it with jQuery's `$.ajax()`. The answer scored 4 upvotes.
+In 2016, I answered a question on Stack Overflow in Portuguese about checking if an email address was already registered before the user submitted a form. The approach: fire an AJAX request on the input's `blur` event, hit a server endpoint that checks the database, and show an error message if the email exists. I wrote it with jQuery's `$.ajax()`. The answer scored 4 upvotes.
 
 The technique was standard practice. Every registration form did it. But looking at it in 2026, there's a lot more to consider than just "how to make the AJAX call."
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Múltiplos Modais Bootstrap: Da Guerra de z-index aos Diálogos Nativos
 
-Lá em 2015, fiz uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/69773) sobre empilhar múltiplos modais do Bootstrap. O problema era dolorosamente comum: você abre um modal, depois precisa abrir outro por cima — talvez uma confirmação ou uma visualização de detalhe. O Bootstrap não foi feito para isso. A pergunta recebeu 13 votos porque todo desenvolvedor Bootstrap esbarrava nesse muro em algum momento.
+Lá em 2015, fiz uma pergunta no Stack Overflow em Português sobre empilhar múltiplos modais do Bootstrap. O problema era dolorosamente comum: você abre um modal, depois precisa abrir outro por cima — talvez uma confirmação ou uma visualização de detalhe. O Bootstrap não foi feito para isso. A pergunta recebeu 13 votos porque todo desenvolvedor Bootstrap esbarrava nesse muro em algum momento.
 
 Os workarounds eram feios, e o fato de precisarmos deles diz muito sobre o quanto a plataforma evoluiu.
 

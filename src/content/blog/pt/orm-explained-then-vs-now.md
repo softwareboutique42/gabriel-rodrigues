@@ -8,7 +8,7 @@ lang: 'pt'
 
 # ORM Explicado: O Que É, Por Que Importa e Como Evoluiu
 
-Em 2016, alguém no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/138938) fez uma pergunta direta: "O que é ORM?" Escrevi uma resposta explicando o conceito, listando prós e contras, e mostrando pseudo-código comparando SQL puro com queries no estilo ORM. A resposta recebeu 19 upvotes — nada mal para uma explicação conceitual.
+Em 2016, alguém no Stack Overflow em Português fez uma pergunta direta: "O que é ORM?" Escrevi uma resposta explicando o conceito, listando prós e contras, e mostrando pseudo-código comparando SQL puro com queries no estilo ORM. A resposta recebeu 19 upvotes — nada mal para uma explicação conceitual.
 
 Dez anos depois, ORMs estão em todo lugar. Mas a forma como usamos — e como pensamos sobre eles — mudou drasticamente. Aqui está o que escrevi na época, o que escreveria agora, e o que a diferença entre os dois nos ensina.
 

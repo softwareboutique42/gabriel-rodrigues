@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Formatação Decimal em C/C++: De printf a std::format
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/52810) sobre limitar casas decimais em C e C++. Recebeu 5 votos.
+Em 2015, respondi uma pergunta no Stack Overflow em Português sobre limitar casas decimais em C e C++. Recebeu 5 votos.
 
 ## A Resposta de 2015: Duas Abordagens
 

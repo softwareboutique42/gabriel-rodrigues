@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Classes Responsivas do Bootstrap: De visible-xs a Container Queries
 
-La em 2016, respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/110547) sobre as classes de visibilidade responsiva do Bootstrap 3 — `visible-xs`, `hidden-md` e companhia. Recebeu 5 votos, o que fazia sentido porque todo projeto Bootstrap esbarrava nisso em algum momento: voce precisava que um elemento aparecesse no celular mas sumisse no tablet, ou vice-versa, e os nomes das classes eram confusos.
+La em 2016, respondi uma pergunta no Stack Overflow em Portugues sobre as classes de visibilidade responsiva do Bootstrap 3 — `visible-xs`, `hidden-md` e companhia. Recebeu 5 votos, o que fazia sentido porque todo projeto Bootstrap esbarrava nisso em algum momento: voce precisava que um elemento aparecesse no celular mas sumisse no tablet, ou vice-versa, e os nomes das classes eram confusos.
 
 A resposta ajudou as pessoas. Mas o modelo inteiro no qual ela foi construida — utilitarios de mostrar/esconder baseados em viewport — foi substituido por algo fundamentalmente melhor.
 

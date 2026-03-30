@@ -8,7 +8,7 @@ lang: 'en'
 
 # Multiple Bootstrap Modals: From z-index Wars to Native Dialogs
 
-Back in 2015, I asked a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/69773) about stacking multiple Bootstrap modals. The problem was painfully common: you open a modal, then need to open another modal on top of it — maybe a confirmation dialog or a detail view. Bootstrap wasn't designed for that. The question got 13 upvotes because every Bootstrap developer ran into this wall eventually.
+Back in 2015, I asked a question on Stack Overflow in Portuguese about stacking multiple Bootstrap modals. The problem was painfully common: you open a modal, then need to open another modal on top of it — maybe a confirmation dialog or a detail view. Bootstrap wasn't designed for that. The question got 13 upvotes because every Bootstrap developer ran into this wall eventually.
 
 The workarounds were ugly, and the fact that we needed them at all says a lot about how far the platform has come.
 

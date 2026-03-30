@@ -8,7 +8,7 @@ lang: 'pt'
 
 # PHPMailer para Serviços de Email Transacional: Como Paramos de Brigar com SMTP
 
-Em 2016, eu respondi uma pergunta no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/107816) sobre envio de emails com PHPMailer. A pessoa estava tendo problemas com configuração SMTP — portas erradas, falhas de autenticação, confusão entre TLS e SSL. Eu expliquei a configuração passo a passo: host, porta, credenciais, método de criptografia. Debugging clássico de PHPMailer. A resposta recebeu 4 upvotes e provavelmente salvou alguém de algumas horas encarando códigos de erro SMTP indecifráveis.
+Em 2016, eu respondi uma pergunta no Stack Overflow em Português sobre envio de emails com PHPMailer. A pessoa estava tendo problemas com configuração SMTP — portas erradas, falhas de autenticação, confusão entre TLS e SSL. Eu expliquei a configuração passo a passo: host, porta, credenciais, método de criptografia. Debugging clássico de PHPMailer. A resposta recebeu 4 upvotes e provavelmente salvou alguém de algumas horas encarando códigos de erro SMTP indecifráveis.
 
 Naquela época, PHPMailer era a biblioteca padrão para enviar email a partir de aplicações PHP. Dez anos depois, eu quase nunca usaria. Aqui está o que mudou.
 

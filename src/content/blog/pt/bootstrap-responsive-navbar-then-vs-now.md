@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Navbar Responsiva com Bootstrap: Do jQuery Collapse à Navegação Só com CSS
 
-Em 2017, escrevi uma [resposta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/179273) sobre como fazer uma navbar responsiva com Bootstrap 3. A resposta recebeu 4 votos e cobria a abordagem padrão — `navbar-collapse`, `data-toggle` e o plugin jQuery que animava o menu hamburger. Era o feijão com arroz do desenvolvimento front-end na época. Praticamente todo site que construí entre 2014 e 2018 tinha exatamente esse mesmo padrão de navbar.
+Em 2017, escrevi uma resposta no Stack Overflow em Português sobre como fazer uma navbar responsiva com Bootstrap 3. A resposta recebeu 4 votos e cobria a abordagem padrão — `navbar-collapse`, `data-toggle` e o plugin jQuery que animava o menu hamburger. Era o feijão com arroz do desenvolvimento front-end na época. Praticamente todo site que construí entre 2014 e 2018 tinha exatamente esse mesmo padrão de navbar.
 
 ## O Collapse Movido a jQuery
 

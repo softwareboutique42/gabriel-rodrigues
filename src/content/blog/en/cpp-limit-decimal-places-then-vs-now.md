@@ -8,7 +8,7 @@ lang: 'en'
 
 # C/C++ Decimal Formatting: From printf to std::format
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/52810) about limiting decimal places in C and C++. It scored 5 upvotes.
+In 2015, I answered a question on Stack Overflow in Portuguese about limiting decimal places in C and C++. It scored 5 upvotes.
 
 ## The 2015 Answer: Two Approaches
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Alinhamento de Botões em UX: Da Guerra de Plataformas ao Consenso dos Design Systems
 
-Em 2015, alguém perguntou no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/64937) sobre o alinhamento correto para botões em formulários e diálogos — a ação principal deveria ficar à esquerda ou à direita? Escrevi uma [resposta](https://pt.stackoverflow.com/questions/64937) que recebeu 7 votos, e o cerne era: "depende da plataforma." O Windows colocava OK/Cancelar à direita. O Mac colocava Cancelar à direita e a ação padrão na extrema esquerda. Desktops Linux faziam o que o GNOME ou KDE decidissem naquele ano. Era uma bagunça genuína.
+Em 2015, alguém perguntou no Stack Overflow em Português sobre o alinhamento correto para botões em formulários e diálogos — a ação principal deveria ficar à esquerda ou à direita? Escrevi uma resposta que recebeu 7 votos, e o cerne era: "depende da plataforma." O Windows colocava OK/Cancelar à direita. O Mac colocava Cancelar à direita e a ação padrão na extrema esquerda. Desktops Linux faziam o que o GNOME ou KDE decidissem naquele ano. Era uma bagunça genuína.
 
 ## A Era das Convenções de Plataforma
 

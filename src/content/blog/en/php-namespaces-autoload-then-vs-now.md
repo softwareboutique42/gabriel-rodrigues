@@ -10,7 +10,7 @@ lang: 'en'
 
 In 2015, I was confused about PHP namespaces. Coming from a JavaScript world where everything was global, the `namespace App\Http\Controllers` syntax felt alien. What does the backslash mean? Why doesn't my class load? What's the difference between a namespace and autoloading?
 
-Someone on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/104420) asked exactly that — how namespaces work in PHP, how they relate to autoload, and how Laravel uses them. That question scored 26 upvotes, which tells me a lot of developers shared the same confusion. I wrote an answer breaking it down piece by piece.
+Someone on Stack Overflow in Portuguese asked exactly that — how namespaces work in PHP, how they relate to autoload, and how Laravel uses them. That question scored 26 upvotes, which tells me a lot of developers shared the same confusion. I wrote an answer breaking it down piece by piece.
 
 Eleven years later, PHP namespaces are second nature. But the ecosystem around them — autoloading, Composer, the language itself — has evolved dramatically.
 

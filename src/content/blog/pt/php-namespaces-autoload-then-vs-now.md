@@ -10,7 +10,7 @@ lang: 'pt'
 
 Em 2015, eu estava confuso com namespaces no PHP. Vindo de um mundo JavaScript onde tudo era global, a sintaxe `namespace App\Http\Controllers` parecia coisa de outro planeta. O que a barra invertida significa? Por que minha classe não carrega? Qual a diferença entre namespace e autoloading?
 
-Alguém no [Stack Overflow em Português](https://pt.stackoverflow.com/questions/104420) perguntou exatamente isso — como namespaces funcionam no PHP, como se relacionam com autoload e como o Laravel usa tudo isso. A pergunta teve 26 votos positivos, o que me diz que muitos desenvolvedores tinham a mesma dúvida. Eu escrevi uma resposta quebrando o conceito pedaço por pedaço.
+Alguém no Stack Overflow em Português perguntou exatamente isso — como namespaces funcionam no PHP, como se relacionam com autoload e como o Laravel usa tudo isso. A pergunta teve 26 votos positivos, o que me diz que muitos desenvolvedores tinham a mesma dúvida. Eu escrevi uma resposta quebrando o conceito pedaço por pedaço.
 
 Onze anos depois, namespaces são segunda natureza. Mas o ecossistema ao redor — autoloading, Composer, a linguagem em si — evoluiu drasticamente.
 

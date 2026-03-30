@@ -8,7 +8,7 @@ lang: 'en'
 
 # Input Uppercase + Placeholder Lowercase: A CSS Inheritance Headache, Solved
 
-I asked a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/150291) about a CSS quirk that drove form developers crazy: you set `text-transform: uppercase` on an input field so user-typed text appears in caps, but the placeholder text also got uppercased. The question scored 13 because this was a real, everyday annoyance.
+I asked a question on Stack Overflow in Portuguese about a CSS quirk that drove form developers crazy: you set `text-transform: uppercase` on an input field so user-typed text appears in caps, but the placeholder text also got uppercased. The question scored 13 because this was a real, everyday annoyance.
 
 You wanted the typed text in uppercase for things like license plates, postal codes, or ID numbers. But the placeholder — "Enter your code" — looked wrong screaming in all caps. It was a hint, not data.
 

@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Templates C++: De Programação Genérica Básica a Concepts do C++20
 
-Em 2015, fiz uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/63573) sobre templates C++ — um dos recursos mais poderosos e intimidantes da linguagem. Recebeu 11 votos, o que me diz que a confusão era compartilhada por muitos.
+Em 2015, fiz uma pergunta no Stack Overflow em Português sobre templates C++ — um dos recursos mais poderosos e intimidantes da linguagem. Recebeu 11 votos, o que me diz que a confusão era compartilhada por muitos.
 
 ## O Entendimento de 2015: Funções e Classes Genéricas
 

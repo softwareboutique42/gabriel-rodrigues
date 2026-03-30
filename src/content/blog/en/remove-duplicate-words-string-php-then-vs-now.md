@@ -8,7 +8,7 @@ lang: 'en'
 
 # Removing Duplicate Words from a String in PHP: Then vs Now
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/118746) about removing duplicate words from a string in PHP. It scored 7 upvotes. The classic approach was a three-function pipeline that every PHP developer has written at least once.
+I answered a question on Stack Overflow in Portuguese about removing duplicate words from a string in PHP. It scored 7 upvotes. The classic approach was a three-function pipeline that every PHP developer has written at least once.
 
 ## The Then: The explode-unique-implode Pipeline
 

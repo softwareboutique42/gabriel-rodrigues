@@ -8,7 +8,7 @@ lang: 'en'
 
 # Code Smell Explained: From Buzzword to Practical Refactoring Guide
 
-In 2015, while learning Swift and trying to write "clean code," I asked a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/100016) about Code Smell. I'd seen the term everywhere — blog posts, conference talks, Martin Fowler's website — but I couldn't pin down what it actually meant in practice. Was it the same as violating DRY? Was it just another name for "bad code"?
+In 2015, while learning Swift and trying to write "clean code," I asked a question on Stack Overflow in Portuguese about Code Smell. I'd seen the term everywhere — blog posts, conference talks, Martin Fowler's website — but I couldn't pin down what it actually meant in practice. Was it the same as violating DRY? Was it just another name for "bad code"?
 
 That question got 26 upvotes, which tells me I wasn't the only one confused. Eleven years later, I have a much clearer picture — and better tools to deal with it.
 

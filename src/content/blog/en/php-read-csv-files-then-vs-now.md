@@ -8,7 +8,7 @@ lang: 'en'
 
 # PHP Read CSV Files: From fgetcsv() Headaches to Modern Libraries
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/89516) about reading CSV files in PHP. It scored 9 upvotes — a bread-and-butter task that every PHP developer hits at some point.
+In 2015, I answered a question on Stack Overflow in Portuguese about reading CSV files in PHP. It scored 9 upvotes — a bread-and-butter task that every PHP developer hits at some point.
 
 The answer showed `fgetcsv()`, and it worked. But "worked" and "worked well in production with real-world CSV files" are very different things.
 

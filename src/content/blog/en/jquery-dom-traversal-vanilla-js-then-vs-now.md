@@ -8,7 +8,7 @@ lang: 'en'
 
 # jQuery DOM Traversal to Vanilla JS: siblings(), next(), and Beyond
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/104113) about jQuery's `siblings()` and `next()` methods — how they work, when to use each. It scored 7 upvotes. At the time, jQuery wasn't just popular; it was the default way to interact with the DOM. Nobody questioned whether you needed it.
+I answered a question on Stack Overflow in Portuguese about jQuery's `siblings()` and `next()` methods — how they work, when to use each. It scored 7 upvotes. At the time, jQuery wasn't just popular; it was the default way to interact with the DOM. Nobody questioned whether you needed it.
 
 ## The Then: jQuery as the DOM API
 

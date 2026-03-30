@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Estilizar Scrollbar: De Hacks WebKit a Padroes W3C
 
-Em 2015, respondi uma [pergunta no Stack Overflow em Portugues](https://pt.stackoverflow.com/questions/87413) sobre estilizar scrollbars com CSS. Recebeu 4 votos — um daqueles problemas onde a resposta funcionava perfeitamente no Chrome e nao funcionava em mais nenhum lugar.
+Em 2015, respondi uma pergunta no Stack Overflow em Portugues sobre estilizar scrollbars com CSS. Recebeu 4 votos — um daqueles problemas onde a resposta funcionava perfeitamente no Chrome e nao funcionava em mais nenhum lugar.
 
 Esse era o problema fundamental com estilizacao de scrollbar por quase uma decada. Era um mundo exclusivo do WebKit, e todos os outros estavam de fora.
 

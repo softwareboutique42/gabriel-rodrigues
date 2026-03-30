@@ -8,7 +8,7 @@ lang: 'en'
 
 # Show/Hide Divs with Radio Buttons: CSS :has() Replaces JS
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/80540) about showing or hiding different content sections based on which radio button was selected. It scored 4 upvotes.
+In 2015, I answered a question on Stack Overflow in Portuguese about showing or hiding different content sections based on which radio button was selected. It scored 4 upvotes.
 
 ## The 2015 Approach: jQuery change Event
 

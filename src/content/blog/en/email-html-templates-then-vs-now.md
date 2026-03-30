@@ -8,7 +8,7 @@ lang: 'en'
 
 # Email HTML Templates: From Table Layouts to Modern Authoring Tools
 
-In 2016, I answered a question on [Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/96498) about making HTML emails work across different email clients. The person was struggling with layouts breaking in Outlook, Gmail stripping their styles, and the general chaos of email rendering. I explained the rules of email HTML — tables for layout, inline styles for everything, forget about `<div>` and `float`, and test in every client you can. The answer scored 7 upvotes.
+In 2016, I answered a question on Stack Overflow in Portuguese about making HTML emails work across different email clients. The person was struggling with layouts breaking in Outlook, Gmail stripping their styles, and the general chaos of email rendering. I explained the rules of email HTML — tables for layout, inline styles for everything, forget about `<div>` and `float`, and test in every client you can. The answer scored 7 upvotes.
 
 Ten years later, I still get a little anxious when someone says "can you build an email template?" But the tooling has changed everything about how we write them, even if the underlying constraints haven't fully gone away.
 

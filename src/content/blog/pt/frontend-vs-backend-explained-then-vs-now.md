@@ -8,7 +8,7 @@ lang: 'pt'
 
 # Front-end vs Back-end: Uma Definição Que Continua Mudando
 
-Em 2014, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/30929) perguntando o que front-end e back-end realmente significam. Recebeu 4 votos. A resposta parecia óbvia: front-end é o que o usuário vê, back-end é o que roda no servidor. Fácil.
+Em 2014, respondi uma pergunta no Stack Overflow em Português perguntando o que front-end e back-end realmente significam. Recebeu 4 votos. A resposta parecia óbvia: front-end é o que o usuário vê, back-end é o que roda no servidor. Fácil.
 
 Onze anos depois, a fronteira se moveu tanto que a pergunta merece uma resposta nova.
 

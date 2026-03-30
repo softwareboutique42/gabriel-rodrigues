@@ -8,7 +8,7 @@ lang: 'en'
 
 # CSS word-wrap and Text Overflow: From Hack to Standard
 
-In 2015, I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/95429) about long text breaking out of its container. The classic scenario: a user pastes a URL like `https://example.com/this-is-an-incredibly-long-path-that-never-ends` into a fixed-width div, and the text overflows right through the layout.
+In 2015, I answered a question on Stack Overflow in Portuguese about long text breaking out of its container. The classic scenario: a user pastes a URL like `https://example.com/this-is-an-incredibly-long-path-that-never-ends` into a fixed-width div, and the text overflows right through the layout.
 
 The fix was one line of CSS. But the story of how that one line evolved says a lot about where CSS has gone.
 

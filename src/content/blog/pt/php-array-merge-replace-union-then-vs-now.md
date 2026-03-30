@@ -8,7 +8,7 @@ lang: 'pt'
 
 # PHP array_merge vs array_replace vs + Union: O Guia Definitivo
 
-Em 2016, respondi uma [pergunta no Stack Overflow em Português](https://pt.stackoverflow.com/questions/131621) sobre a diferença entre `array_merge`, `array_replace` e o operador `+` (union) em PHP. Recebeu 10 votos, e a confusão era real — PHP tem três formas de combinar arrays, e cada uma lida com chaves duplicadas e índices numéricos de maneira diferente.
+Em 2016, respondi uma pergunta no Stack Overflow em Português sobre a diferença entre `array_merge`, `array_replace` e o operador `+` (union) em PHP. Recebeu 10 votos, e a confusão era real — PHP tem três formas de combinar arrays, e cada uma lida com chaves duplicadas e índices numéricos de maneira diferente.
 
 ## A Resposta de 2016: Três Funções, Três Comportamentos
 

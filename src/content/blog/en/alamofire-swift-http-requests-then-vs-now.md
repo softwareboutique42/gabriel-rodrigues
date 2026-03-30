@@ -8,7 +8,7 @@ lang: 'en'
 
 # Alamofire Swift HTTP: From Essential Library to Optional Convenience
 
-I answered a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/105006) about making HTTP requests with Alamofire in Swift. It scored 5 upvotes — a fundamental task that every iOS developer needed but that the platform made surprisingly difficult at the time.
+I answered a question on Stack Overflow in Portuguese about making HTTP requests with Alamofire in Swift. It scored 5 upvotes — a fundamental task that every iOS developer needed but that the platform made surprisingly difficult at the time.
 
 Alamofire was the answer because the native networking APIs were painful. But Swift and URLSession have evolved so much that the calculus has completely changed.
 

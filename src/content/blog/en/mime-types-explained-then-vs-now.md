@@ -8,7 +8,7 @@ lang: 'en'
 
 # MIME Types Explained: What Browsers Actually Do with Content-Type
 
-In 2015, I came across a [question on Stack Overflow in Portuguese](https://pt.stackoverflow.com/questions/98031) that caught my attention: what exactly are MIME types, why do they matter for rendering, and are they even mandatory? It scored 17 upvotes — a sign that plenty of developers were wondering the same thing.
+In 2015, I came across a question on Stack Overflow in Portuguese that caught my attention: what exactly are MIME types, why do they matter for rendering, and are they even mandatory? It scored 17 upvotes — a sign that plenty of developers were wondering the same thing.
 
 The question made me think. I had been writing `<script type="text/javascript">` for years without ever questioning it. Why did `<script>` without any `type` attribute work just as well? And if the browser could figure it out on its own, why did MIME types exist in the first place?
 
