@@ -15,7 +15,6 @@ npm run format:check # Prettier check formatting
 npm run test         # Run Playwright E2E tests
 npm run test:ui      # Playwright tests with UI
 npm run test:headed  # Playwright tests in headed browser
-npm run fetch:stackoverflow  # Fetch SO Portuguese profile data → data/stackoverflow.md
 ```
 
 ## Architecture

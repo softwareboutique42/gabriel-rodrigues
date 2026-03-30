@@ -2,7 +2,7 @@
 
 ## Context
 
-Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas generator (8 animation styles, Stripe monetization), and a resume. He works on improvements **flexibly, mostly on weekends**, balancing three goals equally: **SEO/traffic**, **monetization**, and **content/authority**. The SO data (334 answers, 103 questions) is already fetched to `data/stackoverflow.md` and ready for article generation.
+Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas generator (8 animation styles, Stripe monetization), and a resume. He works on improvements **flexibly, mostly on weekends**, balancing three goals equally: **SEO/traffic**, **monetization**, and **content/authority**.
 
 **Canvas direction:** The canvas currently generates abstract animations. Gabriel wants it to **draw industry-relevant animated icons** based on the company's industry (e.g., a rocket for aerospace, a shopping cart for e-commerce) — making generations more meaningful and shareable.
 
@@ -36,15 +36,6 @@ Gabriel's site (gabriel-rodrigues.com) has a blog (7 posts EN+PT), a Canvas gene
 - Auto-generate TOC from H2/H3 headings in blog posts, render as sticky sidebar on desktop / collapsible on mobile
 - Add i18n keys: `blog.readingTime`, `blog.toc`
 - **Files:** `BlogPostLayout.astro`, `BlogCard.astro`, `en.json`, `pt.json`
-
-### W1.3 — First SO Article (EN+PT) `~1.5 hours`
-
-**Goal:** Start turning SO data into content
-
-- Theme: "10 JavaScript Patterns from 300+ Stack Overflow Answers" (JS is top tag with 364 answer score)
-- Source: `data/stackoverflow.md` — pick top-voted JS answers, group by pattern
-- Write EN + PT versions following existing skill guidelines
-- **Files:** `src/content/blog/en/javascript-patterns-stackoverflow.md`, `pt/` equivalent
 
 ---
 
