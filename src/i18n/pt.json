@@ -39,6 +39,8 @@
   "blog.copied": "Copiado!",
   "blog.toc": "Sumário",
   "blog.relatedPosts": "Posts Relacionados",
+  "blog.searchPlaceholder": "Buscar posts...",
+  "blog.noResults": "Nenhum post encontrado.",
   "nav.canvas": "Canvas",
   "canvas.title": "Company Canvas",
   "canvas.subtitle": "Digite o nome de uma empresa. IA gera identidade visual. Three.js renderiza ao vivo.",

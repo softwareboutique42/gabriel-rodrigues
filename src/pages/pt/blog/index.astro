@@ -26,25 +26,42 @@ function getReadingTime(body: string | undefined): number {
     >
       {t('blog.title')}
     </h1>
-    <p class="text-text-muted font-mono text-sm mb-12">{t('blog.subtitle')}</p>
+    <p class="text-text-muted font-mono text-sm mb-8">{t('blog.subtitle')}</p>
+    <div class="mb-8">
+      <input
+        id="blog-search"
+        type="search"
+        placeholder={t('blog.searchPlaceholder')}
+        autocomplete="off"
+        class="w-full bg-surface-container border border-border px-4 py-2 font-mono text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-neon transition-colors"
+      />
+    </div>
     {
       posts.length === 0 ? (
         <p class="text-text-muted font-mono text-sm">{t('blog.noPosts')}</p>
       ) : (
         <div class="grid gap-4">
           {posts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              date={post.data.date}
-              slug={post.id.replace('pt/', '')}
-              tags={post.data.tags}
-              readingTime={getReadingTime(post.body)}
-            />
+            <div data-post data-slug={post.id.replace('pt/', '').replace('.md', '')}>
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date}
+                slug={post.id.replace('pt/', '')}
+                tags={post.data.tags}
+                readingTime={getReadingTime(post.body)}
+              />
+            </div>
           ))}
         </div>
       )
     }
+    <p id="search-empty" class="hidden font-mono text-sm text-text-muted">{t('blog.noResults')}</p>
     <AdUnit format="horizontal" />
   </section>
 </BaseLayout>
+
+<script>
+  import { setupBlogSearch } from '../../../scripts/blog-search';
+  document.addEventListener('astro:page-load', () => setupBlogSearch('/pt/blog-index.json'));
+</script>

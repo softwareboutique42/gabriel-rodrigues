@@ -39,6 +39,8 @@
   "blog.copied": "Copied!",
   "blog.toc": "Contents",
   "blog.relatedPosts": "Related Posts",
+  "blog.searchPlaceholder": "Search posts...",
+  "blog.noResults": "No posts match your search.",
   "nav.canvas": "Canvas",
   "canvas.title": "Company Canvas",
   "canvas.subtitle": "Type a company name. AI generates brand identity. Three.js renders it live.",
