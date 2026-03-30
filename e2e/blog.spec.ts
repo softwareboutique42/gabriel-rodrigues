@@ -9,8 +9,8 @@ test.describe('Blog (EN)', () => {
 
   test('blog card shows metadata', async ({ page }) => {
     await page.goto('/en/blog/');
-    await expect(page.locator('span', { hasText: 'intro' })).toBeVisible();
-    await expect(page.locator('span', { hasText: 'web development' })).toBeVisible();
+    await expect(page.locator('span', { hasText: 'intro' }).first()).toBeVisible();
+    await expect(page.locator('span', { hasText: 'web development' }).first()).toBeVisible();
   });
 
   test('clicking blog card navigates to post', async ({ page }) => {

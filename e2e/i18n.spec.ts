@@ -42,7 +42,7 @@ test.describe('Language Switching', () => {
 
   test('language switch works on blog page', async ({ page }) => {
     await page.goto('/en/blog/');
-    await page.getByRole('link', { name: 'PT' }).click();
+    await page.locator('header').getByRole('link', { name: 'PT' }).click();
     await expect(page).toHaveURL(/\/pt\/blog/);
     await expect(page.getByText('Ola Mundo')).toBeVisible();
   });

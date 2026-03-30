@@ -33,7 +33,7 @@ test.describe('Resume Page (EN)', () => {
   test('displays skills section with tags', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Skills' })).toBeVisible();
     await expect(page.getByText('Angular', { exact: true })).toBeVisible();
-    await expect(page.getByText('Vue', { exact: true })).toBeVisible();
+    await expect(page.getByText('Vue 3', { exact: true })).toBeVisible();
     await expect(page.getByText('TypeScript', { exact: true })).toBeVisible();
   });
 

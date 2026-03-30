@@ -21,7 +21,7 @@ test.describe('Site Navigation', () => {
 
   test('GR logo links to home', async ({ page }) => {
     await page.goto('/en/blog/');
-    await page.getByRole('link', { name: 'GR' }).click();
+    await page.locator('header').getByRole('link', { name: /GR/ }).click();
     await expect(page).toHaveURL(/\/en\/$/);
   });
 

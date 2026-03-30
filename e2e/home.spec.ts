@@ -15,10 +15,11 @@ test.describe('Home Page (EN)', () => {
   });
 
   test('displays highlight stats', async ({ page }) => {
-    await expect(page.getByText('10+')).toBeVisible();
-    await expect(page.getByText('25+')).toBeVisible();
-    await expect(page.getByText('60%')).toBeVisible();
-    await expect(page.getByText('20%')).toBeVisible();
+    const highlights = page.locator('section').filter({ hasText: 'Years of Experience' });
+    await expect(highlights.getByText('10+')).toBeVisible();
+    await expect(highlights.getByText('28+')).toBeVisible();
+    await expect(highlights.getByText('M+')).toBeVisible();
+    await expect(highlights.getByText('6')).toBeVisible();
   });
 
   test('has CTA buttons linking to resume and blog', async ({ page }) => {
