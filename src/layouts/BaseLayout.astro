@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+import '@fontsource/space-grotesk/latin-300.css';
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
@@ -61,12 +67,6 @@ const jsonLd = JSON.stringify({
       type="application/rss+xml"
       title={lang === 'pt' ? 'Gabriel Rodrigues — Blog (PT)' : 'Gabriel Rodrigues — Blog'}
       href={lang === 'pt' ? '/pt/rss.xml' : '/rss.xml'}
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
     />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

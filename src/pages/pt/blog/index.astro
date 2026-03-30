@@ -28,6 +28,7 @@ function getReadingTime(body: string | undefined): number {
     </h1>
     <p class="text-text-muted font-mono text-sm mb-8">{t('blog.subtitle')}</p>
     <div class="mb-8">
+      <label for="blog-search" class="sr-only">{t('blog.searchPlaceholder')}</label>
       <input
         id="blog-search"
         type="search"

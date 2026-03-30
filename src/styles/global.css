@@ -1,14 +1,5 @@
 @import 'tailwindcss';
 
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 300 700;
-  src: url('https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqUtEw.woff2')
-    format('woff2');
-}
-
 @theme {
   /* === SURFACE ARCHITECTURE === */
   --color-surface-dim: #0e0e0e;

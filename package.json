@@ -23,6 +23,8 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.1",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.8",
     "satori": "^0.26.0",
