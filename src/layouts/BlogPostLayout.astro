@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import AdUnit from '../components/AdUnit.astro';
 import ShareBar from '../components/ShareBar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Heading {
@@ -105,6 +106,7 @@ const blogJsonLd = JSON.stringify({
     <div class="prose">
       <slot />
     </div>
+    <RelatedPosts currentSlug={slug} tags={tags} lang={lang} />
     <ShareBar url={canonicalUrl} title={title} />
     <AdUnit format="auto" />
   </article>
