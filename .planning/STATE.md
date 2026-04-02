@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Slots Gameplay Foundation
 status: in-progress
-stopped_at: Phase 17 context captured — ready to plan
-last_updated: '2026-04-02T23:59:59.000Z'
+stopped_at: Phase 17 planned — ready to execute 17-01
+last_updated: '2026-04-03T00:10:00.000Z'
 last_activity: 2026-04-02
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 4
+  total_plans: 5
   completed_plans: 4
   percent: 80
 ---
@@ -24,10 +24,10 @@ progress:
 
 ## Current Position
 
-**Phase:** 17 — Slots Runtime Coverage Hardening (context ready)
-**Plan:** —
-**Status:** Ready for planning
-**Last Activity:** 2026-04-02 — Phase 17 discuss complete; proceed to planning
+**Phase:** 17 — Slots Runtime Coverage Hardening (planned)
+**Plan:** 17-01 — Runtime coverage hardening execution plan (ready)
+**Status:** Ready for execution
+**Last Activity:** 2026-04-03 — Phase 17 plan created; execute 17-01 next
 
 ## Progress
 
@@ -70,7 +70,7 @@ Phases: 4/5 complete
 
 ## Pending Todos
 
-- Run /gsd:plan-phase 17 to generate executable hardening plan(s).
+- Run /gsd:execute-phase 17 to implement runtime hardening and validation.
 
 ## Blockers / Concerns
 
@@ -79,5 +79,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-02
-Stopped at: Phase 17 context ready; next step is planning.
+Stopped at: Phase 17 planned; next step is execution.
 Resume file: (none)

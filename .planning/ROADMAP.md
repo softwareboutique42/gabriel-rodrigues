@@ -119,7 +119,9 @@ Phase 17: Slots Runtime Coverage Hardening
 
 **Gap Closure:** Closes non-blocking audit tech debt from the v1.3 milestone review.
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+- [ ] 17-01-PLAN.md — Harden PT runtime journey, insufficient-credit browser path, and EN/PT runtime localization assertions
 
 **Depends on:** Phase 16
 
@@ -158,4 +160,4 @@ Phase 13 -> Phase 14 -> Phase 15 -> Phase 16 -> Phase 17
 ---
 
 _Created: 2026-04-02 after v1.3 kickoff_
-_Ready to plan: Phase 17_
+_Ready to execute: Phase 17_
