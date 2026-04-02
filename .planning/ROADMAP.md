@@ -43,7 +43,11 @@ Plans:
 
 **Requirements:** CONV-01, CONV-02, CONV-03
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+Plans:
+
+- [ ] 07-01-PLAN.md — Conversion-focused value framing, CTA simplification, and post-payment confirmation flow
 
 **Depends on:** Phase 6
 
