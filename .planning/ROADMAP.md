@@ -43,7 +43,7 @@ Phase 12: Compatibility and QA Hardening
 
 **Plans:** 1 plan
 
-- [ ] 10-01-PLAN.md — EN/PT projects hub pages, canonical CTA routes, and language-switch parity checks
+- [x] 10-01-PLAN.md — EN/PT projects hub pages, canonical CTA routes, and language-switch parity checks
 
 **Depends on:** Phase 9
 

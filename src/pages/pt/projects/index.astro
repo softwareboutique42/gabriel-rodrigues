@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+const t = useTranslations('pt');
+---
+
+<BaseLayout
+  title="Projetos - Gabriel Rodrigues"
+  description="Descubra projetos ativos: Company Canvas e a fundacao de Slots."
+>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16">
+    <h1
+      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2"
+      style="letter-spacing: -0.03em;"
+    >
+      {t('projects.title')}
+    </h1>
+    <p class="text-text-muted font-mono text-xs sm:text-sm mb-8 sm:mb-10">
+      {t('projects.subtitle')}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <article class="glow-panel p-5 sm:p-6 flex flex-col">
+        <p class="font-mono text-xs text-neon uppercase tracking-widest mb-3">
+          {t('projects.status.live')}
+        </p>
+        <h2 class="text-2xl font-bold text-text-primary tracking-tight mb-2">
+          {t('canvas.title')}
+        </h2>
+        <p class="text-sm text-text-secondary mb-6">{t('projects.card.canvas.description')}</p>
+        <a
+          href="/pt/canvas/"
+          class="mt-auto clip-corners hover-glitch inline-block text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+        >
+          {t('projects.card.canvas.cta')}
+        </a>
+      </article>
+
+      <article class="glow-panel p-5 sm:p-6 flex flex-col">
+        <p class="font-mono text-xs text-gold uppercase tracking-widest mb-3">
+          {t('projects.status.foundation')}
+        </p>
+        <h2 class="text-2xl font-bold text-text-primary tracking-tight mb-2">{t('slots.title')}</h2>
+        <p class="text-sm text-text-secondary mb-6">{t('projects.card.slots.description')}</p>
+        <a
+          href="/pt/slots/"
+          class="mt-auto clip-corners hover-glitch inline-block text-center px-5 py-2 bg-cyan text-bg-base font-bold text-xs uppercase tracking-wider"
+        >
+          {t('projects.card.slots.cta')}
+        </a>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
