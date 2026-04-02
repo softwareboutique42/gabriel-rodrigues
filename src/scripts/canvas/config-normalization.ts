@@ -1,4 +1,6 @@
 import type { CompanyConfig, CompanyMood, IndustryCategory } from './types';
+import { selectAnimationStyle } from './style-selector';
+import { getVersion } from './versions';
 
 export const FALLBACK_MOOD: CompanyMood = 'dynamic';
 export const FALLBACK_INDUSTRY_CATEGORY: IndustryCategory = 'other';
@@ -53,11 +55,21 @@ export function normalizeCompanyConfig(raw: CompanyConfig | unknown): CompanyCon
 
   const config = raw as CompanyConfig;
 
+  const normalizedMood = sanitizeMood(config.mood);
+  const normalizedIndustryCategory = sanitizeIndustryCategory(config.industryCategory);
+  const normalizedVersion = getVersion(config.version ?? 'v1')?.id ?? 'v1';
+
   return {
     ...config,
-    mood: sanitizeMood(config.mood),
-    industryCategory: sanitizeIndustryCategory(config.industryCategory),
+    version: normalizedVersion,
+    mood: normalizedMood,
+    industryCategory: normalizedIndustryCategory,
     energyLevel: clamp01(config.energyLevel),
+    animationStyle: selectAnimationStyle({
+      version: normalizedVersion,
+      industryCategory: normalizedIndustryCategory,
+      mood: normalizedMood,
+    }),
     visualElements: normalizeVisualElements(config.visualElements),
   };
 }

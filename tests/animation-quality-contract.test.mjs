@@ -57,11 +57,11 @@ test('main flow normalizes payloads at the boundary', () => {
   assert.match(mainSource, /normalizeCompanyConfig\(/);
 });
 
-test('deterministic selector exists and main flow overwrites animationStyle', () => {
+test('deterministic selector exists and normalization overwrites animationStyle', () => {
   assert.match(selectorSource, /export function selectAnimationStyle\(/);
   assert.match(selectorSource, /const V1_STYLE_MATRIX/);
   assert.match(selectorSource, /const V2_STYLE_MATRIX/);
 
-  assert.match(mainSource, /selectAnimationStyle\(/);
-  assert.match(mainSource, /animationStyle:\s*selectAnimationStyle\(/);
+  assert.match(configNormalizationSource, /selectAnimationStyle\(/);
+  assert.match(configNormalizationSource, /animationStyle:\s*selectAnimationStyle\(/);
 });

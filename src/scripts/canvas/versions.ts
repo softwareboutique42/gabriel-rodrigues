@@ -1,7 +1,9 @@
 import type { CompanyConfig } from './types';
 
+export type AnimationVersionId = 'v1' | 'v2';
+
 export interface AnimationVersion {
-  id: string;
+  id: AnimationVersionId;
   label: string;
   description: string;
   styles: CompanyConfig['animationStyle'][];
