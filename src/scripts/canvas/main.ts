@@ -2,6 +2,7 @@ import type { CompanyConfig } from './types';
 import { CanvasRenderer } from './renderer';
 import { VERSIONS, getDefaultVersion } from './versions';
 import { generateExportHTML, downloadHTML } from './export';
+import { normalizeCompanyConfig } from './config-normalization';
 
 const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
 
@@ -17,6 +18,9 @@ const DEMO_CONFIG: CompanyConfig = {
   industry: 'Creative Technology',
   description:
     'Company Canvas transforms any brand name into a living, breathing canvas animation using AI-generated brand identity and Three.js rendering.',
+  mood: 'dynamic',
+  industryCategory: 'creative',
+  energyLevel: 0.7,
   animationStyle: 'particles',
   animationParams: { speed: 1.0, density: 0.7, complexity: 0.8 },
   visualElements: ['particles', 'neon', 'motion', 'generative', 'brand'],
@@ -150,8 +154,8 @@ async function generate(companyName: string): Promise<void> {
       throw new Error((err as { error: string }).error);
     }
 
-    const config: CompanyConfig = await res.json();
-    config.version = version;
+    const payload: CompanyConfig = await res.json();
+    const config = normalizeCompanyConfig({ ...payload, version });
     currentConfig = config;
 
     showState('result');
@@ -182,8 +186,8 @@ async function fetchBrandedConfig(companySlug: string): Promise<void> {
       throw new Error('Failed to fetch config');
     }
 
-    const config: CompanyConfig = await res.json();
-    config.version = version;
+    const payload: CompanyConfig = await res.json();
+    const config = normalizeCompanyConfig({ ...payload, version });
     currentConfig = config;
 
     showState('result');
@@ -196,7 +200,7 @@ async function fetchBrandedConfig(companySlug: string): Promise<void> {
 }
 
 function renderDemo(): void {
-  const config = DEMO_CONFIG;
+  const config = normalizeCompanyConfig(DEMO_CONFIG);
   currentConfig = config;
 
   showState('result');
@@ -318,6 +322,7 @@ export function initCanvas(): void {
 async function handleDownload(config: CompanyConfig): Promise<void> {
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
+  const normalizedConfig = normalizeCompanyConfig(config);
 
   try {
     processingEl?.classList.remove('hidden');
@@ -327,8 +332,8 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        config,
-        version: config.version ?? getDefaultVersion().id,
+        config: normalizedConfig,
+        version: normalizedConfig.version ?? getDefaultVersion().id,
         returnUrl: window.location.href.split('?')[0],
       }),
     });
@@ -358,8 +363,9 @@ async function handlePaymentReturn(): Promise<void> {
     if (!res.ok) throw new Error('Download failed');
 
     const data = (await res.json()) as { config: CompanyConfig; version: string };
-    const html = generateExportHTML(data.config, data.version);
-    const filename = `${data.config.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
+    const normalizedConfig = normalizeCompanyConfig({ ...data.config, version: data.version });
+    const html = generateExportHTML(normalizedConfig, normalizedConfig.version ?? data.version);
+    const filename = `${normalizedConfig.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
     downloadHTML(html, filename);
 
     if (statusEl) {

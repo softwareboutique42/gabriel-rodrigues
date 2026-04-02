@@ -8,6 +8,41 @@ interface Env {
   CONFIG_CACHE: KVNamespace;
 }
 
+type CompanyMood = 'bold' | 'elegant' | 'playful' | 'minimal' | 'dynamic';
+type IndustryCategory = 'tech' | 'finance' | 'health' | 'retail' | 'creative' | 'food' | 'other';
+
+type GeneratedConfig = {
+  companyName: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    accent: string;
+    background: string;
+  };
+  tagline: string;
+  industry: string;
+  description: string;
+  mood: CompanyMood;
+  industryCategory: IndustryCategory;
+  energyLevel: number;
+  animationStyle:
+    | 'particles'
+    | 'flowing'
+    | 'geometric'
+    | 'typographic'
+    | 'narrative'
+    | 'timeline'
+    | 'constellation'
+    | 'spotlight';
+  animationParams: {
+    speed: number;
+    density: number;
+    complexity: number;
+  };
+  visualElements: string[];
+  version?: string;
+};
+
 const RATE_LIMIT_MAP = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW = 60_000;
 const RATE_LIMIT_MAX = 10;
@@ -33,7 +68,7 @@ function corsHeaders(origin: string, allowedOrigins: string): HeadersInit {
   };
 }
 
-const SYSTEM_PROMPT = `You are a brand identity and motion graphics expert. Given a company name, infer their brand identity and recommend a canvas animation style.
+const SYSTEM_PROMPT = `You are a brand identity and motion graphics expert. Given a company name and requested version family, infer brand semantics and return a structured animation config.
 
 Return ONLY valid JSON with this exact schema — no markdown, no explanation:
 
@@ -48,32 +83,19 @@ Return ONLY valid JSON with this exact schema — no markdown, no explanation:
   "tagline": "<string, max 60 chars>",
   "industry": "<string>",
   "description": "<string, 1-2 sentences about what the company does>",
+  "mood": "<one of: bold | elegant | playful | minimal | dynamic>",
+  "industryCategory": "<one of: tech | finance | health | retail | creative | food | other>",
+  "energyLevel": <number 0.0-1.0>,
   "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight>",
   "animationParams": {
     "speed": <number 0.5-2.0>,
     "density": <number 0.3-1.0>,
     "complexity": <number 0.3-1.0>
   },
-  "visualElements": ["<3-5 keywords describing what the company does — used as visible text in story animations>"]
+  "visualElements": ["<3-5 keywords max 12 chars each describing what the company does>"]
 }
 
-Animation style selection guide:
-
-v1 — Classic (abstract patterns):
-- "particles": tech, SaaS, AI, startups — dynamic particle systems
-- "flowing": logistics, health, nature, food — organic flowing shapes
-- "geometric": finance, enterprise, consulting — structured geometric patterns
-- "typographic": media, creative agencies, entertainment — bold type animations
-
-v2 — Story (text-driven, tells what the company does):
-- "narrative": brands with a strong mission or story — words appear one by one as cinematic captions
-- "timeline": companies with milestones or multi-step processes — horizontal timeline with labeled nodes
-- "constellation": companies with interconnected services or ecosystems — star-map with labeled nodes
-- "spotlight": bold brands or product launches — large centered text cycling with cinematic zoom
-
-Prefer v2 styles when the company has a clear story to tell. Use v1 for abstract branding.
-The "visualElements" array is critical for v2 styles — each keyword becomes visible text in the animation.
-
+Use mood and industryCategory as semantic axes. Keep animationStyle as a best-effort suggestion only; client routing may overwrite it deterministically.
 Use real brand colors if the company is well-known. For unknown companies, infer appropriate colors from the name and likely industry.`;
 
 function jsonResponse(data: unknown, status: number, headers: HeadersInit): Response {
@@ -83,7 +105,93 @@ function jsonResponse(data: unknown, status: number, headers: HeadersInit): Resp
   });
 }
 
-async function callClaudeForConfig(companyName: string, env: Env): Promise<object> {
+const VALID_MOODS: CompanyMood[] = ['bold', 'elegant', 'playful', 'minimal', 'dynamic'];
+const VALID_INDUSTRY_CATEGORIES: IndustryCategory[] = [
+  'tech',
+  'finance',
+  'health',
+  'retail',
+  'creative',
+  'food',
+  'other',
+];
+const VALID_ANIMATION_STYLES: GeneratedConfig['animationStyle'][] = [
+  'particles',
+  'flowing',
+  'geometric',
+  'typographic',
+  'narrative',
+  'timeline',
+  'constellation',
+  'spotlight',
+];
+
+function sanitizeMood(value: unknown): CompanyMood {
+  return VALID_MOODS.includes(value as CompanyMood) ? (value as CompanyMood) : 'dynamic';
+}
+
+function sanitizeIndustryCategory(value: unknown): IndustryCategory {
+  return VALID_INDUSTRY_CATEGORIES.includes(value as IndustryCategory)
+    ? (value as IndustryCategory)
+    : 'other';
+}
+
+function clampEnergyLevel(value: unknown): number {
+  const numeric = typeof value === 'number' ? value : Number(value);
+  if (!Number.isFinite(numeric)) return 0.6;
+  if (numeric < 0) return 0;
+  if (numeric > 1) return 1;
+  return numeric;
+}
+
+function sanitizeAnimationStyle(value: unknown): GeneratedConfig['animationStyle'] {
+  return VALID_ANIMATION_STYLES.includes(value as GeneratedConfig['animationStyle'])
+    ? (value as GeneratedConfig['animationStyle'])
+    : 'particles';
+}
+
+function sanitizeVisualElements(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .filter((item): item is string => typeof item === 'string')
+    .map((item) => item.trim().slice(0, 12))
+    .filter((item) => item.length > 0);
+}
+
+function sanitizeGeneratedConfig(raw: unknown, version: string): GeneratedConfig {
+  const candidate = (raw ?? {}) as Partial<GeneratedConfig>;
+
+  return {
+    companyName: typeof candidate.companyName === 'string' ? candidate.companyName : '',
+    colors: {
+      primary: candidate.colors?.primary ?? '#8eff71',
+      secondary: candidate.colors?.secondary ?? '#8ff5ff',
+      accent: candidate.colors?.accent ?? '#ffd709',
+      background: candidate.colors?.background ?? '#0e0e0e',
+    },
+    tagline: typeof candidate.tagline === 'string' ? candidate.tagline : '',
+    industry: typeof candidate.industry === 'string' ? candidate.industry : 'Unknown',
+    description: typeof candidate.description === 'string' ? candidate.description : '',
+    mood: sanitizeMood(candidate.mood),
+    industryCategory: sanitizeIndustryCategory(candidate.industryCategory),
+    energyLevel: clampEnergyLevel(candidate.energyLevel),
+    animationStyle: sanitizeAnimationStyle(candidate.animationStyle),
+    animationParams: {
+      speed: Number(candidate.animationParams?.speed ?? 1),
+      density: Number(candidate.animationParams?.density ?? 0.7),
+      complexity: Number(candidate.animationParams?.complexity ?? 0.8),
+    },
+    visualElements: sanitizeVisualElements(candidate.visualElements),
+    version,
+  };
+}
+
+async function callClaudeForConfig(
+  companyName: string,
+  version: string,
+  env: Env,
+): Promise<object> {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -98,7 +206,7 @@ async function callClaudeForConfig(companyName: string, env: Env): Promise<objec
       messages: [
         {
           role: 'user',
-          content: `Generate brand identity and animation config for: ${companyName}`,
+          content: `Generate brand identity and animation config for: ${companyName}. Requested style family version: ${version}.`,
         },
       ],
     }),
@@ -132,9 +240,11 @@ async function handleGenerate(request: Request, env: Env, headers: HeadersInit):
   }
 
   let companyName: string;
+  let version = 'v1';
   try {
-    const body = (await request.json()) as { companyName?: string };
+    const body = (await request.json()) as { companyName?: string; version?: string };
     companyName = (body.companyName ?? '').trim();
+    version = (body.version ?? 'v1').trim() || 'v1';
   } catch {
     return jsonResponse({ error: 'Invalid JSON body' }, 400, headers);
   }
@@ -144,10 +254,11 @@ async function handleGenerate(request: Request, env: Env, headers: HeadersInit):
   }
 
   try {
-    const config = await callClaudeForConfig(companyName, env);
+    const rawConfig = await callClaudeForConfig(companyName, version, env);
+    const config = sanitizeGeneratedConfig(rawConfig, version);
 
     // Cache the result for future GET /config/ requests
-    const key = cacheKey(companyName);
+    const key = cacheKey(companyName, version);
     await env.CONFIG_CACHE.put(key, JSON.stringify(config), { expirationTtl: 604800 });
 
     return jsonResponse(config, 200, headers);
@@ -173,7 +284,8 @@ async function handleGetConfig(
   // Check cache first
   const cached = await env.CONFIG_CACHE.get(key);
   if (cached) {
-    return new Response(cached, {
+    const cachedConfig = sanitizeGeneratedConfig(JSON.parse(cached) as unknown, version);
+    return new Response(JSON.stringify(cachedConfig), {
       status: 200,
       headers: { ...headers, 'Content-Type': 'application/json', 'X-Cache': 'HIT' },
     });
@@ -191,7 +303,8 @@ async function handleGetConfig(
   }
 
   try {
-    const config = await callClaudeForConfig(companyName, env);
+    const rawConfig = await callClaudeForConfig(companyName, version, env);
+    const config = sanitizeGeneratedConfig(rawConfig, version);
     const configJson = JSON.stringify(config);
 
     await env.CONFIG_CACHE.put(key, configJson, { expirationTtl: 604800 });

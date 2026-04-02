@@ -1,3 +1,24 @@
+export type AnimationStyle =
+  | 'particles'
+  | 'flowing'
+  | 'geometric'
+  | 'typographic'
+  | 'narrative'
+  | 'timeline'
+  | 'constellation'
+  | 'spotlight';
+
+export type CompanyMood = 'bold' | 'elegant' | 'playful' | 'minimal' | 'dynamic';
+
+export type IndustryCategory =
+  | 'tech'
+  | 'finance'
+  | 'health'
+  | 'retail'
+  | 'creative'
+  | 'food'
+  | 'other';
+
 export interface CompanyConfig {
   companyName: string;
   colors: {
@@ -9,15 +30,10 @@ export interface CompanyConfig {
   tagline: string;
   industry: string;
   description: string;
-  animationStyle:
-    | 'particles'
-    | 'flowing'
-    | 'geometric'
-    | 'typographic'
-    | 'narrative'
-    | 'timeline'
-    | 'constellation'
-    | 'spotlight';
+  mood: CompanyMood;
+  industryCategory: IndustryCategory;
+  energyLevel: number;
+  animationStyle: AnimationStyle;
   animationParams: {
     speed: number;
     density: number;
