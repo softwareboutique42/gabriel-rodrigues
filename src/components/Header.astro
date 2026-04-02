@@ -5,6 +5,10 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
+const isProjectsSurface =
+  currentPath.includes('/projects') ||
+  currentPath.includes('/canvas') ||
+  currentPath.includes('/slots');
 ---
 
 <header
@@ -54,15 +58,13 @@ const currentPath = Astro.url.pathname;
         {t('nav.blog')}
       </a>
       <a
-        href={`/${lang}/canvas/`}
+        href={`/${lang}/projects/`}
         class:list={[
           'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
-          currentPath.includes('/canvas')
-            ? 'nav-active text-neon'
-            : 'text-text-secondary hover:text-neon',
+          isProjectsSurface ? 'nav-active text-neon' : 'text-text-secondary hover:text-neon',
         ]}
       >
-        {t('nav.canvas')}
+        {t('nav.projects')}
       </a>
       <LanguageSwitcher />
     </div>

@@ -21,7 +21,7 @@ Phase 12: Compatibility and QA Hardening
 
 **Plans:** 1 plan
 
-- [ ] 09-01-PLAN.md — Header Projects nav swap, active-state primitives, and EN/PT i18n parity guards
+- [x] 09-01-PLAN.md — Header Projects nav swap, active-state primitives, and EN/PT i18n parity guards
 
 **Success criteria:**
 
