@@ -7,7 +7,7 @@ interface Props {
 const { format = 'auto', layout } = Astro.props;
 ---
 
-<div class="ad-container my-8" style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.08);">
+<div class="ad-container my-8 hud-outline-subtle">
   <p class="font-mono text-[10px] text-text-muted tracking-widest uppercase mb-2 opacity-50">
     Sponsored
   </p>
@@ -23,16 +23,41 @@ const { format = 'auto', layout } = Astro.props;
 <script>
   document.addEventListener('astro:page-load', () => {
     if (typeof window === 'undefined') return;
-    const ads = document.querySelectorAll('.adsbygoogle');
-    ads.forEach((ad) => {
-      if (!ad.getAttribute('data-adsbygoogle-status')) {
-        try {
-          const win = window as Window & { adsbygoogle?: Record<string, unknown>[] };
-          (win.adsbygoogle = win.adsbygoogle || []).push({});
-        } catch {
-          // AdSense not loaded or blocked
+
+    const initializeAds = () => {
+      const ads = document.querySelectorAll('.adsbygoogle');
+      ads.forEach((ad) => {
+        if (!ad.getAttribute('data-adsbygoogle-status')) {
+          try {
+            const win = window as Window & { adsbygoogle?: Record<string, unknown>[] };
+            (win.adsbygoogle = win.adsbygoogle || []).push({});
+          } catch {
+            // AdSense not loaded or blocked
+          }
         }
+      });
+    };
+
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      'script[data-adsense-loader="true"]',
+    );
+
+    if (existingScript) {
+      if ((window as Window & { adsbygoogle?: Record<string, unknown>[] }).adsbygoogle) {
+        initializeAds();
+      } else {
+        existingScript.addEventListener('load', initializeAds, { once: true });
       }
-    });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.dataset.adsenseLoader = 'true';
+    script.src =
+      'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9809167954901529';
+    script.addEventListener('load', initializeAds, { once: true });
+    document.head.appendChild(script);
   });
 </script>

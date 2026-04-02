@@ -1,10 +1,8 @@
 import type { CompanyConfig } from './types';
 import { CanvasRenderer } from './renderer';
 import { VERSIONS, getDefaultVersion, getVersion } from './versions';
-import { generateExportHTML, downloadHTML } from './export';
 import { normalizeCompanyConfig } from './config-normalization';
 import {
-  DEFAULT_EXPORT_SETTINGS,
   detectExportCapabilities,
   selectExportPathForFormat,
   type ExportAspectRatio,
@@ -12,10 +10,17 @@ import {
   type ExportQuality,
   type ExportSettings,
 } from './export-support';
-import { downloadVideoBlob, startVideoExport } from './export-controller';
 
 const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
 const EXPORT_SETTINGS_STORAGE_KEY = 'canvas-export-settings';
+const DEFAULT_EXPORT_SETTINGS: ExportSettings = {
+  format: 'webm',
+  aspectRatio: '16:9',
+  quality: '1080p',
+};
+
+let exportControllerModulePromise: Promise<typeof import('./export-controller')> | null = null;
+let exportHtmlModulePromise: Promise<typeof import('./export')> | null = null;
 
 const DEMO_CONFIG: CompanyConfig = {
   companyName: 'Company Canvas',
@@ -41,6 +46,17 @@ const DEMO_CONFIG: CompanyConfig = {
 let renderer: CanvasRenderer | null = null;
 let currentConfig: CompanyConfig | null = null;
 let controller: AbortController | null = null;
+let lastModalTrigger: HTMLElement | null = null;
+
+function loadExportControllerModule(): Promise<typeof import('./export-controller')> {
+  exportControllerModulePromise ??= import('./export-controller');
+  return exportControllerModulePromise;
+}
+
+function loadExportHtmlModule(): Promise<typeof import('./export')> {
+  exportHtmlModulePromise ??= import('./export');
+  return exportHtmlModulePromise;
+}
 
 function isExportFormat(value: string): value is ExportFormat {
   return value === 'webm' || value === 'mp4';
@@ -55,15 +71,18 @@ function isExportQuality(value: string): value is ExportQuality {
 }
 
 function resolveExportSettings(settings: Partial<ExportSettings> = {}): ExportSettings {
-  const format = isExportFormat(settings.format ?? '')
-    ? settings.format
-    : DEFAULT_EXPORT_SETTINGS.format;
-  const aspectRatio = isAspectRatio(settings.aspectRatio ?? '')
-    ? settings.aspectRatio
-    : DEFAULT_EXPORT_SETTINGS.aspectRatio;
-  const quality = isExportQuality(settings.quality ?? '')
-    ? settings.quality
-    : DEFAULT_EXPORT_SETTINGS.quality;
+  const format: ExportFormat =
+    settings.format && isExportFormat(settings.format)
+      ? settings.format
+      : DEFAULT_EXPORT_SETTINGS.format;
+  const aspectRatio: ExportAspectRatio =
+    settings.aspectRatio && isAspectRatio(settings.aspectRatio)
+      ? settings.aspectRatio
+      : DEFAULT_EXPORT_SETTINGS.aspectRatio;
+  const quality: ExportQuality =
+    settings.quality && isExportQuality(settings.quality)
+      ? settings.quality
+      : DEFAULT_EXPORT_SETTINGS.quality;
 
   return { format, aspectRatio, quality };
 }
@@ -163,9 +182,13 @@ function syncExportFormatAvailability(): void {
 function openExportModal(): void {
   const { modal } = getExportModalElements();
   if (!modal) return;
+  lastModalTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   syncExportFormatAvailability();
   modal.classList.remove('hidden');
   modal.setAttribute('aria-hidden', 'false');
+
+  const [firstFocusable] = getFocusableElements(modal);
+  firstFocusable?.focus();
 }
 
 function closeExportModal(): void {
@@ -173,6 +196,41 @@ function closeExportModal(): void {
   if (!modal) return;
   modal.classList.add('hidden');
   modal.setAttribute('aria-hidden', 'true');
+  lastModalTrigger?.focus();
+}
+
+function getFocusableElements(container: HTMLElement): HTMLElement[] {
+  const selector =
+    'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  return Array.from(container.querySelectorAll<HTMLElement>(selector)).filter(
+    (el) => !el.hasAttribute('hidden') && el.getAttribute('aria-hidden') !== 'true',
+  );
+}
+
+function trapModalFocus(event: KeyboardEvent): void {
+  if (event.key !== 'Tab') return;
+
+  const { modal } = getExportModalElements();
+  if (!modal || modal.classList.contains('hidden')) return;
+
+  const focusable = getFocusableElements(modal);
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const active = document.activeElement;
+
+  if (event.shiftKey && active === first) {
+    event.preventDefault();
+    last.focus();
+    return;
+  }
+
+  if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 function setDownloadStatus(
@@ -552,6 +610,7 @@ export function initCanvas(): void {
   document.addEventListener(
     'keydown',
     (event) => {
+      trapModalFocus(event);
       if (event.key === 'Escape') {
         closeExportModal();
       }
@@ -623,9 +682,12 @@ async function handleDownload(config: CompanyConfig, settings: ExportSettings): 
     const { url } = (await res.json()) as { url: string };
     window.location.href = url;
   } catch {
-    processingEl?.classList.add('hidden');
+    processingEl?.classList.remove('hidden');
+    setDownloadStatus(statusEl, 'error', 'Payment failed. Please try again.', false, true);
+    warningEl?.classList.add('hidden');
+    if (progressBarEl) progressBarEl.style.width = '0%';
+    if (progressLabelEl) progressLabelEl.textContent = '';
     clearPendingExportSettings();
-    alert('Payment failed. Please try again.');
   }
 }
 
@@ -672,6 +734,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
       setDownloadStatus(statusEl, 'preparing', 'Preparing video export...', true, false);
       warningEl?.classList.remove('hidden');
 
+      const { startVideoExport, downloadVideoBlob } = await loadExportControllerModule();
       const result = await startVideoExport(normalizedConfig, {
         signal,
         preferredPath: bestPath,
@@ -714,6 +777,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
         false,
         false,
       );
+      const { generateExportHTML, downloadHTML } = await loadExportHtmlModule();
       const html = generateExportHTML(normalizedConfig, normalizedConfig.version ?? data.version);
       const filename = `${normalizedConfig.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
       downloadHTML(html, filename);

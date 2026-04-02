@@ -11,8 +11,7 @@ const t = useTranslations('pt');
 >
   <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8">
     <h1
-      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2"
-      style="letter-spacing: -0.03em;"
+      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2 ls-tight-3"
     >
       {t('canvas.title')}
     </h1>
@@ -96,10 +95,7 @@ const t = useTranslations('pt');
             {t('canvas.loading')}
           </p>
           <div class="mt-4 h-0.5 w-48 mx-auto bg-surface-container-high overflow-hidden">
-            <div
-              class="h-full bg-neon animate-[loading_2s_ease-in-out_infinite]"
-              style="width: 30%;"
-            >
+            <div class="h-full bg-neon animate-[loading_2s_ease-in-out_infinite] hud-progress-30">
             </div>
           </div>
         </div>
@@ -127,36 +123,27 @@ const t = useTranslations('pt');
         <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 pointer-events-none">
           <p
             id="overlay-name"
-            class="text-3xl sm:text-4xl font-bold tracking-tight"
-            style="letter-spacing: -0.03em; text-shadow: 0 2px 20px rgba(0,0,0,0.8);"
+            class="text-3xl sm:text-4xl font-bold tracking-tight ls-tight-3 hud-overlay-title"
           >
           </p>
-          <p
-            id="overlay-tagline"
-            class="font-mono text-sm mt-1"
-            style="text-shadow: 0 1px 10px rgba(0,0,0,0.8);"
-          >
-          </p>
+          <p id="overlay-tagline" class="font-mono text-sm mt-1 hud-overlay-subtitle"></p>
         </div>
         <div class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex gap-2 sm:gap-3">
           <button
             id="canvas-download"
-            class="font-mono text-xs text-neon hover:text-gold transition-colors uppercase tracking-widest"
-            style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15); padding: 0.25rem 0.75rem;"
+            class="font-mono text-xs text-neon hover:text-gold transition-colors uppercase tracking-widest hud-chip"
           >
             {t('canvas.download')}
           </button>
           <button
             id="canvas-share"
-            class="font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest"
-            style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15); padding: 0.25rem 0.75rem;"
+            class="font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest hud-chip"
           >
             {t('canvas.share')}
           </button>
           <button
             id="canvas-retry"
-            class="font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest"
-            style="box-shadow: inset 0 0 0 0.5px rgba(142, 255, 113, 0.15); padding: 0.25rem 0.75rem;"
+            class="font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest hud-chip"
           >
             {t('canvas.retry')}
           </button>
@@ -227,7 +214,7 @@ const t = useTranslations('pt');
         </p>
         <div class="mt-4 max-w-md mx-auto">
           <div class="h-1 w-full bg-surface-container-high overflow-hidden">
-            <div id="download-progress-bar" class="h-full bg-neon" style="width: 0%;"></div>
+            <div id="download-progress-bar" class="h-full bg-neon hud-progress-0"></div>
           </div>
           <p id="download-progress-label" class="font-mono text-xs text-text-muted mt-2"></p>
         </div>
@@ -237,12 +224,19 @@ const t = useTranslations('pt');
     <!-- Export Options Modal -->
     <div
       id="canvas-export-modal"
-      class="fixed inset-0 z-40 hidden bg-bg-base/80 backdrop-blur-[1px] px-4"
+      class="fixed inset-0 z-40 hidden bg-surface-dim/80 backdrop-blur-[1px] px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="export-modal-title"
+      aria-describedby="export-format-hint"
       aria-hidden="true"
     >
       <div class="min-h-full flex items-center justify-center">
         <div class="glow-panel w-full max-w-xl p-5 sm:p-6">
-          <h2 class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+          <h2
+            id="export-modal-title"
+            class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight"
+          >
             {t('canvas.exportModal.title')}
           </h2>
           <p class="font-mono text-xs text-text-muted uppercase tracking-wide mt-1 mb-5">

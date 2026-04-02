@@ -20,17 +20,14 @@ const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 
 {
   filtered.length > 2 && (
-    <nav
-      class="toc mb-10 p-4"
-      style="border: 0.5px solid rgba(142, 255, 113, 0.12); background: rgba(14, 14, 14, 0.6);"
-    >
+    <nav class="toc mb-10 p-4 toc-shell">
       <details open>
         <summary class="font-mono text-xs text-text-muted tracking-widest uppercase cursor-pointer select-none mb-3">
           {t('blog.toc')}
         </summary>
         <ul class="space-y-1.5">
           {filtered.map((h) => (
-            <li style={h.depth === 3 ? 'padding-left: 1rem;' : ''}>
+            <li class:list={{ 'toc-depth-3': h.depth === 3 }}>
               <a
                 href={`#${h.slug}`}
                 class="font-mono text-xs text-text-secondary hover:text-neon transition-colors leading-relaxed"
