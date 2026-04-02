@@ -3,10 +3,19 @@ import { CanvasRenderer } from './renderer';
 import { VERSIONS, getDefaultVersion } from './versions';
 import { generateExportHTML, downloadHTML } from './export';
 import { normalizeCompanyConfig } from './config-normalization';
-import { detectExportCapabilities, selectBestExportPath } from './export-support';
+import {
+  DEFAULT_EXPORT_SETTINGS,
+  detectExportCapabilities,
+  selectExportPathForFormat,
+  type ExportAspectRatio,
+  type ExportFormat,
+  type ExportQuality,
+  type ExportSettings,
+} from './export-support';
 import { downloadVideoBlob, startVideoExport } from './export-controller';
 
 const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
+const EXPORT_SETTINGS_STORAGE_KEY = 'canvas-export-settings';
 
 const DEMO_CONFIG: CompanyConfig = {
   companyName: 'Company Canvas',
@@ -32,6 +41,139 @@ const DEMO_CONFIG: CompanyConfig = {
 let renderer: CanvasRenderer | null = null;
 let currentConfig: CompanyConfig | null = null;
 let controller: AbortController | null = null;
+
+function isExportFormat(value: string): value is ExportFormat {
+  return value === 'webm' || value === 'mp4';
+}
+
+function isAspectRatio(value: string): value is ExportAspectRatio {
+  return value === '16:9' || value === '1:1' || value === '9:16';
+}
+
+function isExportQuality(value: string): value is ExportQuality {
+  return value === '1080p' || value === '720p';
+}
+
+function resolveExportSettings(settings: Partial<ExportSettings> = {}): ExportSettings {
+  const format = isExportFormat(settings.format ?? '')
+    ? settings.format
+    : DEFAULT_EXPORT_SETTINGS.format;
+  const aspectRatio = isAspectRatio(settings.aspectRatio ?? '')
+    ? settings.aspectRatio
+    : DEFAULT_EXPORT_SETTINGS.aspectRatio;
+  const quality = isExportQuality(settings.quality ?? '')
+    ? settings.quality
+    : DEFAULT_EXPORT_SETTINGS.quality;
+
+  return { format, aspectRatio, quality };
+}
+
+function getExportModalElements(): {
+  modal: HTMLElement | null;
+  formatSelect: HTMLSelectElement | null;
+  ratioSelect: HTMLSelectElement | null;
+  qualitySelect: HTMLSelectElement | null;
+  formatHint: HTMLElement | null;
+} {
+  return {
+    modal: document.getElementById('canvas-export-modal'),
+    formatSelect: document.getElementById('export-format') as HTMLSelectElement | null,
+    ratioSelect: document.getElementById('export-aspect-ratio') as HTMLSelectElement | null,
+    qualitySelect: document.getElementById('export-quality') as HTMLSelectElement | null,
+    formatHint: document.getElementById('export-format-hint'),
+  };
+}
+
+function readExportSettingsFromModal(): ExportSettings {
+  const { formatSelect, ratioSelect, qualitySelect } = getExportModalElements();
+  return resolveExportSettings({
+    format: formatSelect?.value as ExportFormat | undefined,
+    aspectRatio: ratioSelect?.value as ExportAspectRatio | undefined,
+    quality: qualitySelect?.value as ExportQuality | undefined,
+  });
+}
+
+function setExportSettingsInModal(settings: ExportSettings): void {
+  const { formatSelect, ratioSelect, qualitySelect } = getExportModalElements();
+  if (formatSelect) formatSelect.value = settings.format;
+  if (ratioSelect) ratioSelect.value = settings.aspectRatio;
+  if (qualitySelect) qualitySelect.value = settings.quality;
+}
+
+function savePendingExportSettings(settings: ExportSettings): void {
+  try {
+    localStorage.setItem(EXPORT_SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+  } catch {
+    // Ignore storage failures and fallback to defaults on return
+  }
+}
+
+function loadPendingExportSettings(): ExportSettings {
+  try {
+    const raw = localStorage.getItem(EXPORT_SETTINGS_STORAGE_KEY);
+    if (!raw) return DEFAULT_EXPORT_SETTINGS;
+    return resolveExportSettings(JSON.parse(raw) as Partial<ExportSettings>);
+  } catch {
+    return DEFAULT_EXPORT_SETTINGS;
+  }
+}
+
+function clearPendingExportSettings(): void {
+  try {
+    localStorage.removeItem(EXPORT_SETTINGS_STORAGE_KEY);
+  } catch {
+    // Ignore storage cleanup failures
+  }
+}
+
+function syncExportFormatAvailability(): void {
+  const capabilities = detectExportCapabilities();
+  const { formatSelect, formatHint } = getExportModalElements();
+  if (!formatSelect) return;
+
+  const mp4Option = formatSelect.querySelector('option[value="mp4"]') as HTMLOptionElement | null;
+  if (mp4Option) {
+    mp4Option.disabled = !capabilities.canEncodeMp4;
+  }
+
+  if (formatHint) {
+    if (capabilities.canEncodeMp4) {
+      formatHint.textContent = getExportStatusText(
+        'modalFormatHintMp4',
+        'MP4 available in this browser.',
+      );
+    } else if (capabilities.canEncodeWebM) {
+      formatHint.textContent = getExportStatusText(
+        'modalFormatHintWebmOnly',
+        'MP4 is unavailable here. WebM will be used.',
+      );
+    } else {
+      formatHint.textContent = getExportStatusText(
+        'modalFormatHintUnsupported',
+        'Video export unsupported in this browser. HTML fallback may be used after payment.',
+      );
+    }
+  }
+
+  if (!capabilities.canEncodeMp4 && formatSelect.value === 'mp4') {
+    formatSelect.value = 'webm';
+  }
+}
+
+function openExportModal(): void {
+  const { modal } = getExportModalElements();
+  if (!modal) return;
+  syncExportFormatAvailability();
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeExportModal(): void {
+  const { modal } = getExportModalElements();
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+}
 
 function getExportStatusText(kind: string, fallback: string): string {
   const processingEl = document.getElementById('canvas-download-processing') as HTMLElement | null;
@@ -239,8 +381,13 @@ export function initCanvas(): void {
 
   const form = getEl<HTMLFormElement>('canvas-form');
   const input = getEl<HTMLInputElement>('canvas-input');
+  const modalConfirm = document.getElementById('export-modal-confirm');
+  const modalCancel = document.getElementById('export-modal-cancel');
+  const modalBackdrop = document.getElementById('canvas-export-modal');
 
   populateVersions();
+  setExportSettingsInModal(loadPendingExportSettings());
+  syncExportFormatAvailability();
 
   // Auto-load from URL params or show demo
   const params = new URLSearchParams(window.location.search);
@@ -292,7 +439,46 @@ export function initCanvas(): void {
     'click',
     () => {
       if (!currentConfig) return;
-      handleDownload(currentConfig);
+      openExportModal();
+    },
+    { signal },
+  );
+
+  modalCancel?.addEventListener(
+    'click',
+    () => {
+      closeExportModal();
+    },
+    { signal },
+  );
+
+  modalConfirm?.addEventListener(
+    'click',
+    () => {
+      if (!currentConfig) return;
+      const settings = readExportSettingsFromModal();
+      closeExportModal();
+      handleDownload(currentConfig, settings);
+    },
+    { signal },
+  );
+
+  modalBackdrop?.addEventListener(
+    'click',
+    (event) => {
+      if (event.target === modalBackdrop) {
+        closeExportModal();
+      }
+    },
+    { signal },
+  );
+
+  document.addEventListener(
+    'keydown',
+    (event) => {
+      if (event.key === 'Escape') {
+        closeExportModal();
+      }
     },
     { signal },
   );
@@ -329,7 +515,7 @@ export function initCanvas(): void {
   );
 }
 
-async function handleDownload(config: CompanyConfig): Promise<void> {
+async function handleDownload(config: CompanyConfig, settings: ExportSettings): Promise<void> {
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
   const warningEl = document.getElementById('download-warning');
@@ -338,6 +524,7 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
   const normalizedConfig = normalizeCompanyConfig(config);
 
   try {
+    savePendingExportSettings(settings);
     processingEl?.classList.remove('hidden');
     if (statusEl) {
       statusEl.textContent = getExportStatusText('processing', 'Processing payment...');
@@ -364,6 +551,7 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
     window.location.href = url;
   } catch {
     processingEl?.classList.add('hidden');
+    clearPendingExportSettings();
     alert('Payment failed. Please try again.');
   }
 }
@@ -396,8 +584,9 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
     const normalizedConfig = normalizeCompanyConfig({ ...data.config, version: data.version });
 
     const exportIntent = data.exportType ?? 'html';
+    const selectedSettings = loadPendingExportSettings();
     const capabilities = detectExportCapabilities();
-    const bestPath = selectBestExportPath(capabilities);
+    const bestPath = selectExportPathForFormat(capabilities, selectedSettings.format);
 
     if (exportIntent === 'video' && bestPath !== 'html-fallback') {
       if (statusEl) {
@@ -408,6 +597,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
       const result = await startVideoExport(normalizedConfig, {
         signal,
         preferredPath: bestPath,
+        settings: selectedSettings,
         onProgress: ({ frame, totalFrames, percent }) => {
           if (!statusEl) return;
           const prefix = getExportStatusText('exporting', 'Exporting video');
@@ -434,6 +624,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
       }
       if (progressBarEl) progressBarEl.style.width = '100%';
       warningEl?.classList.add('hidden');
+      clearPendingExportSettings();
     } else {
       if (statusEl) {
         statusEl.textContent = getExportStatusText(
@@ -453,6 +644,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
         statusEl.classList.remove('animate-pulse');
       }
       warningEl?.classList.add('hidden');
+      clearPendingExportSettings();
     }
   } catch {
     if (statusEl) {
@@ -464,6 +656,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
       statusEl.classList.add('text-gold');
     }
     warningEl?.classList.add('hidden');
+    clearPendingExportSettings();
   }
 
   // Clean URL

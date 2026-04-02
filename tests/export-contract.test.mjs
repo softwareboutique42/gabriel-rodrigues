@@ -120,9 +120,17 @@ test('FR-3.8 progress callback is emitted during deterministic frame capture', (
 
 test('main payment return path invokes video export when capabilities allow', () => {
   assert.match(mainSource, /detectExportCapabilities\(/);
-  assert.match(mainSource, /selectBestExportPath\(/);
+  assert.match(mainSource, /selectExportPathForFormat\(/);
   assert.match(mainSource, /startVideoExport\(/);
   assert.match(mainSource, /exportType: 'video'/);
+});
+
+test('FR-4.1 modal selections persist across checkout redirect and feed export settings', () => {
+  assert.match(mainSource, /EXPORT_SETTINGS_STORAGE_KEY/);
+  assert.match(mainSource, /savePendingExportSettings\(/);
+  assert.match(mainSource, /loadPendingExportSettings\(/);
+  assert.match(mainSource, /settings: selectedSettings/);
+  assert.match(mainSource, /getElementById\('canvas-export-modal'\)/);
 });
 
 test('FR-3.10 MP4 path is capability-gated and uses mp4-muxer encoder', () => {

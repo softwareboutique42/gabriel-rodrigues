@@ -190,6 +190,9 @@ const t = useTranslations('pt');
       data-error-text={t('canvas.download.error')}
       data-keep-active-text={t('canvas.download.keepActive')}
       data-progress-template-text={t('canvas.download.progressTemplate')}
+      data-modal-format-hint-mp4-text={t('canvas.exportModal.hint.mp4')}
+      data-modal-format-hint-webm-only-text={t('canvas.exportModal.hint.webmOnly')}
+      data-modal-format-hint-unsupported-text={t('canvas.exportModal.hint.unsupported')}
     >
       <div class="text-center">
         <p
@@ -209,6 +212,87 @@ const t = useTranslations('pt');
             <div id="download-progress-bar" class="h-full bg-neon" style="width: 0%;"></div>
           </div>
           <p id="download-progress-label" class="font-mono text-xs text-text-muted mt-2"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Options Modal -->
+    <div
+      id="canvas-export-modal"
+      class="fixed inset-0 z-40 hidden bg-bg-base/80 backdrop-blur-[1px] px-4"
+      aria-hidden="true"
+    >
+      <div class="min-h-full flex items-center justify-center">
+        <div class="glow-panel w-full max-w-xl p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+            {t('canvas.exportModal.title')}
+          </h2>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-wide mt-1 mb-5">
+            {t('canvas.exportModal.subtitle')}
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <label class="block">
+              <span class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+                {t('canvas.exportModal.format.label')}
+              </span>
+              <select
+                id="export-format"
+                class="w-full bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high"
+              >
+                <option value="webm">{t('canvas.exportModal.format.webm')}</option>
+                <option value="mp4">{t('canvas.exportModal.format.mp4')}</option>
+              </select>
+            </label>
+
+            <label class="block">
+              <span class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+                {t('canvas.exportModal.aspectRatio.label')}
+              </span>
+              <select
+                id="export-aspect-ratio"
+                class="w-full bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high"
+              >
+                <option value="16:9">{t('canvas.exportModal.aspectRatio.wide')}</option>
+                <option value="1:1">{t('canvas.exportModal.aspectRatio.square')}</option>
+                <option value="9:16">{t('canvas.exportModal.aspectRatio.vertical')}</option>
+              </select>
+            </label>
+
+            <label class="block">
+              <span class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2">
+                {t('canvas.exportModal.quality.label')}
+              </span>
+              <select
+                id="export-quality"
+                class="w-full bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high"
+              >
+                <option value="1080p">{t('canvas.exportModal.quality.fullHd')}</option>
+                <option value="720p">{t('canvas.exportModal.quality.hd')}</option>
+              </select>
+            </label>
+          </div>
+
+          <p id="export-format-hint" class="font-mono text-xs text-text-muted mt-4">
+            {t('canvas.exportModal.hint.mp4')}
+          </p>
+
+          <div class="flex items-center justify-end gap-3 mt-6">
+            <button
+              id="export-modal-cancel"
+              type="button"
+              class="font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-widest"
+            >
+              {t('canvas.exportModal.cancel')}
+            </button>
+            <button
+              id="export-modal-confirm"
+              type="button"
+              class="clip-corners hover-glitch px-4 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+            >
+              {t('canvas.exportModal.continue')}
+            </button>
+          </div>
         </div>
       </div>
     </div>
