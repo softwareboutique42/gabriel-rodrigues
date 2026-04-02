@@ -69,7 +69,9 @@ Plans:
 
 **Requirements:** QVER-01, QVER-02, QVER-03
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+- [ ] 08-01-PLAN.md — Validation template standardization, soft audit gate, and debt surfacing in /gsd:next
 
 **Depends on:** Phases 6-7
 
