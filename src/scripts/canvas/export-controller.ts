@@ -2,11 +2,13 @@ import type { CompanyConfig } from './types';
 import { CanvasRenderer } from './renderer';
 import { createExportEncoder } from './export-encoders';
 import {
-  DEFAULT_EXPORT_PROFILE,
+  DEFAULT_EXPORT_SETTINGS,
   EXPORT_WARMUP_MS,
   detectExportCapabilities,
-  selectBestExportPath,
+  resolveExportProfile,
+  selectExportPathForFormat,
   type ExportPath,
+  type ExportSettings,
 } from './export-support';
 
 export type ExportProgress = {
@@ -19,6 +21,7 @@ export type VideoExportOptions = {
   signal?: AbortSignal;
   onProgress?: (progress: ExportProgress) => void;
   preferredPath?: ExportPath;
+  settings?: Partial<ExportSettings>;
 };
 
 function wait(ms: number): Promise<void> {
@@ -31,21 +34,27 @@ export async function startVideoExport(
   config: CompanyConfig,
   options: VideoExportOptions = {},
 ): Promise<{ blob: Blob; filename: string; mimeType: string }> {
-  const selectedPath = options.preferredPath ?? selectBestExportPath(detectExportCapabilities());
+  const settings: ExportSettings = {
+    ...DEFAULT_EXPORT_SETTINGS,
+    ...options.settings,
+  };
+  const profile = resolveExportProfile(settings);
+  const selectedPath =
+    options.preferredPath ?? selectExportPathForFormat(detectExportCapabilities(), settings.format);
   if (selectedPath === 'html-fallback') {
     throw new Error('Video export unsupported');
   }
 
   const canvas = document.createElement('canvas');
-  canvas.width = DEFAULT_EXPORT_PROFILE.width;
-  canvas.height = DEFAULT_EXPORT_PROFILE.height;
+  canvas.width = profile.width;
+  canvas.height = profile.height;
 
   const wrapper = document.createElement('div');
   wrapper.style.position = 'fixed';
   wrapper.style.left = '-99999px';
   wrapper.style.top = '-99999px';
-  wrapper.style.width = `${DEFAULT_EXPORT_PROFILE.width}px`;
-  wrapper.style.height = `${DEFAULT_EXPORT_PROFILE.height}px`;
+  wrapper.style.width = `${profile.width}px`;
+  wrapper.style.height = `${profile.height}px`;
   wrapper.style.pointerEvents = 'none';
   wrapper.style.opacity = '0';
   wrapper.appendChild(canvas);
@@ -53,7 +62,7 @@ export async function startVideoExport(
 
   const renderer = new CanvasRenderer();
   const encoder = createExportEncoder(selectedPath);
-  const frameDelta = 1 / DEFAULT_EXPORT_PROFILE.fps;
+  const frameDelta = 1 / profile.fps;
 
   try {
     renderer.init(canvas, config, {
@@ -69,11 +78,11 @@ export async function startVideoExport(
 
     await encoder.start({
       canvas,
-      profile: DEFAULT_EXPORT_PROFILE,
+      profile,
       mimeType: selectedPath === 'mp4-webcodecs' ? 'video/mp4' : 'video/webm;codecs=vp9',
     });
 
-    for (let frame = 0; frame < DEFAULT_EXPORT_PROFILE.totalFrames; frame++) {
+    for (let frame = 0; frame < profile.totalFrames; frame++) {
       if (options.signal?.aborted) {
         throw new Error('Export cancelled');
       }
@@ -83,10 +92,10 @@ export async function startVideoExport(
       renderer.renderFrame(elapsed, frameDelta);
       await encoder.appendFrame(frame, elapsed);
 
-      const percent = Math.round(((frame + 1) / DEFAULT_EXPORT_PROFILE.totalFrames) * 100);
+      const percent = Math.round(((frame + 1) / profile.totalFrames) * 100);
       options.onProgress?.({
         frame: frame + 1,
-        totalFrames: DEFAULT_EXPORT_PROFILE.totalFrames,
+        totalFrames: profile.totalFrames,
         percent,
       });
     }

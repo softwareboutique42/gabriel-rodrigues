@@ -37,6 +37,26 @@ test('NFR benchmark profile constants remain locked for timing and size gates', 
   assert.match(exportSupportSource, /durationSeconds:\s*12/);
 });
 
+test('FR-4.1 export settings defaults are declared for format aspect ratio and quality', () => {
+  assert.match(exportSupportSource, /type ExportFormat = 'webm' \| 'mp4'/);
+  assert.match(exportSupportSource, /type ExportAspectRatio = '16:9' \| '1:1' \| '9:16'/);
+  assert.match(exportSupportSource, /type ExportQuality = '1080p' \| '720p'/);
+  assert.match(exportSupportSource, /DEFAULT_EXPORT_SETTINGS/);
+  assert.match(exportSupportSource, /format:\s*'webm'/);
+  assert.match(exportSupportSource, /aspectRatio:\s*'16:9'/);
+  assert.match(exportSupportSource, /quality:\s*'1080p'/);
+});
+
+test('FR-4.4 export profile resolver maps aspect ratios and quality to concrete dimensions', () => {
+  assert.match(exportSupportSource, /resolveExportProfile\(settings: ExportSettings\)/);
+  assert.match(exportSupportSource, /'16:9': \{ width: 1920, height: 1080 \}/);
+  assert.match(exportSupportSource, /'1:1': \{ width: 1080, height: 1080 \}/);
+  assert.match(exportSupportSource, /'9:16': \{ width: 1080, height: 1920 \}/);
+  assert.match(exportSupportSource, /'16:9': \{ width: 1280, height: 720 \}/);
+  assert.match(exportSupportSource, /'1:1': \{ width: 720, height: 720 \}/);
+  assert.match(exportSupportSource, /'9:16': \{ width: 720, height: 1280 \}/);
+});
+
 test('FR-3.9 capability detection handles missing MediaRecorder or captureStream support', () => {
   assert.match(exportSupportSource, /typeof MediaRecorder === 'undefined'/);
   assert.match(exportSupportSource, /HTMLCanvasElement\.prototype\.captureStream/);
@@ -85,6 +105,9 @@ test('FR-3.5 export controller uses dedicated offscreen canvas and renderer', ()
   assert.match(exportControllerSource, /const canvas = document\.createElement\('canvas'\)/);
   assert.match(exportControllerSource, /const wrapper = document\.createElement\('div'\)/);
   assert.match(exportControllerSource, /const renderer = new CanvasRenderer\(\)/);
+  assert.match(exportControllerSource, /const profile = resolveExportProfile\(settings\)/);
+  assert.match(exportControllerSource, /canvas\.width = profile\.width/);
+  assert.match(exportControllerSource, /canvas\.height = profile\.height/);
   assert.match(exportControllerSource, /exportMode: true/);
   assert.match(exportControllerSource, /preserveDrawingBuffer: true/);
 });
@@ -92,7 +115,7 @@ test('FR-3.5 export controller uses dedicated offscreen canvas and renderer', ()
 test('FR-3.8 progress callback is emitted during deterministic frame capture', () => {
   assert.match(exportControllerSource, /onProgress\?: \(progress: ExportProgress\) => void/);
   assert.match(exportControllerSource, /options\.onProgress\?\.\(/);
-  assert.match(exportControllerSource, /totalFrames: DEFAULT_EXPORT_PROFILE\.totalFrames/);
+  assert.match(exportControllerSource, /totalFrames: profile\.totalFrames/);
 });
 
 test('main payment return path invokes video export when capabilities allow', () => {

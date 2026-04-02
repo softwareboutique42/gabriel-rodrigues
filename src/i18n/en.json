@@ -65,6 +65,7 @@
   "canvas.download.fallback": "Video export unsupported here. HTML fallback download started.",
   "canvas.download.unsupported": "Video export is not supported in this browser. Please use Chrome or Firefox, or continue with HTML export.",
   "canvas.download.keepActive": "Keep this tab active during export.",
+  "canvas.download.progressTemplate": "Frame {frame} of {total}",
   "canvas.share": "Share",
   "canvas.disclaimer": "Generated animations are AI-created and provided as-is. Gabriel Rodrigues assumes no responsibility or liability for the content, accuracy, or use of generated brand animations. Generated content does not imply any endorsement by or affiliation with the named companies. By downloading, you agree to these terms.",
   "footer.rights": "All rights reserved.",

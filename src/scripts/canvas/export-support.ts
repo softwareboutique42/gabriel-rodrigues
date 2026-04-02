@@ -1,5 +1,15 @@
 export type ExportPath = 'webm-mediarecorder' | 'mp4-webcodecs' | 'html-fallback';
 
+export type ExportFormat = 'webm' | 'mp4';
+export type ExportAspectRatio = '16:9' | '1:1' | '9:16';
+export type ExportQuality = '1080p' | '720p';
+
+export type ExportSettings = {
+  format: ExportFormat;
+  aspectRatio: ExportAspectRatio;
+  quality: ExportQuality;
+};
+
 export type ExportProfile = {
   width: number;
   height: number;
@@ -22,6 +32,28 @@ export const DEFAULT_EXPORT_PROFILE: ExportProfile = {
   fps: 30,
   durationSeconds: 12,
   totalFrames: 360,
+};
+
+export const DEFAULT_EXPORT_SETTINGS: ExportSettings = {
+  format: 'webm',
+  aspectRatio: '16:9',
+  quality: '1080p',
+};
+
+const DIMENSION_MAP: Record<
+  ExportQuality,
+  Record<ExportAspectRatio, { width: number; height: number }>
+> = {
+  '1080p': {
+    '16:9': { width: 1920, height: 1080 },
+    '1:1': { width: 1080, height: 1080 },
+    '9:16': { width: 1080, height: 1920 },
+  },
+  '720p': {
+    '16:9': { width: 1280, height: 720 },
+    '1:1': { width: 720, height: 720 },
+    '9:16': { width: 720, height: 1280 },
+  },
 };
 
 export const EXPORT_WARMUP_MS = 100;
@@ -58,6 +90,32 @@ export function detectExportCapabilities(): ExportCapabilities {
 export function selectBestExportPath(capabilities: ExportCapabilities): ExportPath {
   if (capabilities.canEncodeMp4) return 'mp4-webcodecs';
   if (capabilities.canEncodeWebM) return 'webm-mediarecorder';
+  return 'html-fallback';
+}
+
+export function resolveExportProfile(settings: ExportSettings): ExportProfile {
+  const dimensions = DIMENSION_MAP[settings.quality][settings.aspectRatio];
+  return {
+    width: dimensions.width,
+    height: dimensions.height,
+    fps: DEFAULT_EXPORT_PROFILE.fps,
+    durationSeconds: DEFAULT_EXPORT_PROFILE.durationSeconds,
+    totalFrames: DEFAULT_EXPORT_PROFILE.totalFrames,
+  };
+}
+
+export function selectExportPathForFormat(
+  capabilities: ExportCapabilities,
+  format: ExportFormat,
+): ExportPath {
+  if (format === 'mp4') {
+    if (capabilities.canEncodeMp4) return 'mp4-webcodecs';
+    if (capabilities.canEncodeWebM) return 'webm-mediarecorder';
+    return 'html-fallback';
+  }
+
+  if (capabilities.canEncodeWebM) return 'webm-mediarecorder';
+  if (capabilities.canEncodeMp4) return 'mp4-webcodecs';
   return 'html-fallback';
 }
 

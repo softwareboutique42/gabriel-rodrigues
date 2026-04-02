@@ -189,6 +189,7 @@ const t = useTranslations('pt');
       data-unsupported-text={t('canvas.download.unsupported')}
       data-error-text={t('canvas.download.error')}
       data-keep-active-text={t('canvas.download.keepActive')}
+      data-progress-template-text={t('canvas.download.progressTemplate')}
     >
       <div class="text-center">
         <p
@@ -203,6 +204,12 @@ const t = useTranslations('pt');
         >
           {t('canvas.download.keepActive')}
         </p>
+        <div class="mt-4 max-w-md mx-auto">
+          <div class="h-1 w-full bg-surface-container-high overflow-hidden">
+            <div id="download-progress-bar" class="h-full bg-neon" style="width: 0%;"></div>
+          </div>
+          <p id="download-progress-label" class="font-mono text-xs text-text-muted mt-2"></p>
+        </div>
       </div>
     </div>
 

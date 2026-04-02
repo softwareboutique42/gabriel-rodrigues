@@ -65,6 +65,7 @@
   "canvas.download.fallback": "Exportacao de video indisponivel aqui. Download HTML alternativo iniciado.",
   "canvas.download.unsupported": "Exportacao de video nao e suportada neste navegador. Use Chrome ou Firefox, ou continue com exportacao HTML.",
   "canvas.download.keepActive": "Mantenha esta aba ativa durante a exportacao.",
+  "canvas.download.progressTemplate": "Quadro {frame} de {total}",
   "canvas.share": "Compartilhar",
   "canvas.disclaimer": "As animacoes geradas sao criadas por IA e fornecidas no estado em que se encontram. Gabriel Rodrigues nao assume responsabilidade pelo conteudo, precisao ou uso das animacoes de marca geradas. O conteudo gerado nao implica endosso ou afiliacao com as empresas mencionadas. Ao baixar, voce concorda com estes termos.",
   "footer.rights": "Todos os direitos reservados.",

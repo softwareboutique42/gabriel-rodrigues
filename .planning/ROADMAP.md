@@ -123,6 +123,16 @@ Plans:
 
 **Requirements:** FR-4.1 – FR-4.5, NFR-4
 
+**Plans:** 5 plans
+
+Plans:
+
+- [x] 04-01-PLAN.md — Export settings contracts, aspect-ratio capture profile mapping, and progress bar baseline (FR-4.1, FR-4.2, FR-4.4, FR-4.5)
+- [ ] 04-02-PLAN.md — Export modal shell and option controls for format/aspect ratio/quality (FR-4.1, FR-4.5)
+- [ ] 04-03-PLAN.md — Progress-state UX polish with explicit keep-active guidance (FR-4.2, FR-4.3, NFR-4)
+- [ ] 04-04-PLAN.md — End-to-end aspect ratio and quality application across export flow (FR-4.1, FR-4.4)
+- [ ] 04-05-PLAN.md — Validation closeout, bilingual parity audit, and sign-off (FR-4.5, NFR-4)
+
 **Success criteria:**
 
 - Export modal opens cleanly in both EN and PT

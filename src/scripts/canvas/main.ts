@@ -333,6 +333,8 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
   const warningEl = document.getElementById('download-warning');
+  const progressBarEl = document.getElementById('download-progress-bar') as HTMLElement | null;
+  const progressLabelEl = document.getElementById('download-progress-label') as HTMLElement | null;
   const normalizedConfig = normalizeCompanyConfig(config);
 
   try {
@@ -341,6 +343,8 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
       statusEl.textContent = getExportStatusText('processing', 'Processing payment...');
       statusEl.classList.add('animate-pulse');
     }
+    if (progressBarEl) progressBarEl.style.width = '0%';
+    if (progressLabelEl) progressLabelEl.textContent = '';
     warningEl?.classList.remove('hidden');
 
     const res = await fetch(`${WORKER_URL}/checkout`, {
@@ -372,8 +376,12 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
   const warningEl = document.getElementById('download-warning');
+  const progressBarEl = document.getElementById('download-progress-bar') as HTMLElement | null;
+  const progressLabelEl = document.getElementById('download-progress-label') as HTMLElement | null;
   processingEl?.classList.remove('hidden');
   warningEl?.classList.remove('hidden');
+  if (progressBarEl) progressBarEl.style.width = '0%';
+  if (progressLabelEl) progressLabelEl.textContent = '';
 
   try {
     const res = await fetch(`${WORKER_URL}/download?session_id=${encodeURIComponent(sessionId)}`);
@@ -404,6 +412,15 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
           if (!statusEl) return;
           const prefix = getExportStatusText('exporting', 'Exporting video');
           statusEl.textContent = `${prefix}: ${percent}% (${frame}/${totalFrames})`;
+          if (progressBarEl) {
+            progressBarEl.style.width = `${percent}%`;
+          }
+          if (progressLabelEl) {
+            const template = getExportStatusText('progressTemplate', 'Frame {frame} of {total}');
+            progressLabelEl.textContent = template
+              .replace('{frame}', String(frame))
+              .replace('{total}', String(totalFrames));
+          }
         },
       });
 
@@ -415,6 +432,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
         );
         statusEl.classList.remove('animate-pulse');
       }
+      if (progressBarEl) progressBarEl.style.width = '100%';
       warningEl?.classList.add('hidden');
     } else {
       if (statusEl) {
