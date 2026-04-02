@@ -1,6 +1,6 @@
 import type { CompanyConfig } from './types';
 import { CanvasRenderer } from './renderer';
-import { VERSIONS, getDefaultVersion } from './versions';
+import { VERSIONS, getDefaultVersion, getVersion } from './versions';
 import { generateExportHTML, downloadHTML } from './export';
 import { normalizeCompanyConfig } from './config-normalization';
 import {
@@ -211,7 +211,9 @@ function showState(state: 'idle' | 'loading' | 'result' | 'error'): void {
 function renderInfo(config: CompanyConfig): void {
   getEl('info-industry').textContent = config.industry;
   getEl('info-description').textContent = config.description;
-  getEl('info-style').textContent = config.animationStyle;
+  getEl('info-style').textContent = config.presetId
+    ? `${config.presetId} (${config.animationStyle})`
+    : config.animationStyle;
 
   const paletteEl = getEl('info-palette');
   paletteEl.innerHTML = '';
@@ -246,6 +248,12 @@ function renderInfo(config: CompanyConfig): void {
 function getSelectedVersion(): string {
   const select = document.getElementById('version-select') as HTMLSelectElement | null;
   return select?.value ?? getDefaultVersion().id;
+}
+
+function getSelectedPresetId(): string | undefined {
+  const select = document.getElementById('preset-select') as HTMLSelectElement | null;
+  if (!select || !select.value) return undefined;
+  return select.value;
 }
 
 function isValidHex(color: string): boolean {
@@ -320,7 +328,11 @@ async function generate(companyName: string): Promise<void> {
     }
 
     const payload: CompanyConfig = await res.json();
-    const config = normalizeCompanyConfig({ ...payload, version });
+    const config = normalizeCompanyConfig({
+      ...payload,
+      version,
+      presetId: getSelectedPresetId(),
+    });
     currentConfig = config;
 
     showState('result');
@@ -352,7 +364,11 @@ async function fetchBrandedConfig(companySlug: string): Promise<void> {
     }
 
     const payload: CompanyConfig = await res.json();
-    const config = normalizeCompanyConfig({ ...payload, version });
+    const config = normalizeCompanyConfig({
+      ...payload,
+      version,
+      presetId: getSelectedPresetId(),
+    });
     currentConfig = config;
 
     showState('result');
@@ -373,6 +389,42 @@ function renderDemo(): void {
   startRenderer(config);
 }
 
+function populatePresetOptions(versionId: string): void {
+  const select = document.getElementById('preset-select') as HTMLSelectElement | null;
+  if (!select) return;
+
+  const selectedVersion = getVersion(versionId) ?? getDefaultVersion();
+  const autoLabel = select.dataset.autoLabel ?? 'Auto (Deterministic)';
+  const labelMap: Record<string, string> = {
+    'education-story': select.dataset.labelEducationStory ?? '',
+    'hospitality-orbit': select.dataset.labelHospitalityOrbit ?? '',
+    'commerce-signal': select.dataset.labelCommerceSignal ?? '',
+  };
+  const previousValue = select.value;
+
+  select.innerHTML = '';
+
+  const autoOption = document.createElement('option');
+  autoOption.value = '';
+  autoOption.textContent = autoLabel;
+  select.appendChild(autoOption);
+
+  selectedVersion.verticalPresets.forEach((preset) => {
+    const option = document.createElement('option');
+    option.value = preset.id;
+    option.textContent = labelMap[preset.id] || preset.label;
+    option.title = `${preset.description} (${preset.baseStyle})`;
+    select.appendChild(option);
+  });
+
+  if (
+    previousValue &&
+    selectedVersion.verticalPresets.some((preset) => preset.id === previousValue)
+  ) {
+    select.value = previousValue;
+  }
+}
+
 function populateVersions(): void {
   const select = document.getElementById('version-select') as HTMLSelectElement | null;
   if (!select) return;
@@ -384,6 +436,8 @@ function populateVersions(): void {
     opt.title = v.description;
     select.appendChild(opt);
   });
+
+  populatePresetOptions(select.value || getDefaultVersion().id);
 }
 
 export function initCanvas(): void {
@@ -418,6 +472,15 @@ export function initCanvas(): void {
       e.preventDefault();
       const name = input.value.trim();
       if (name) generate(name);
+    },
+    { signal },
+  );
+
+  getEl<HTMLSelectElement>('version-select')?.addEventListener(
+    'change',
+    (event) => {
+      const target = event.target as HTMLSelectElement;
+      populatePresetOptions(target.value);
     },
     { signal },
   );

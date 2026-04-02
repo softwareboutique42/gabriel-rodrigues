@@ -16,6 +16,11 @@ test('selector exposes deterministic preset resolution API', () => {
 test('new categories route deterministically to vertical presets', () => {
   assert.match(source, /education:\s*'education-story'/);
   assert.match(source, /hospitality:\s*'hospitality-orbit'/);
+  assert.match(source, /retail:\s*'commerce-signal'/);
+});
+
+test('preset routing uses deterministic null fallback when no route exists', () => {
+  assert.match(source, /return VERTICAL_PRESET_ROUTING\[version\]\?\.\[industryCategory\] \?\? null;/);
 });
 
 test('version metadata publishes selector-ready vertical presets', () => {

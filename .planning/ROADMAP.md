@@ -22,7 +22,7 @@ Phase 8: Verification and Audit Automation
 
 Plans:
 
-- [ ] 06-01-PLAN.md — Vertical presets, deterministic routing expansion, and regression locks (PACK-01, PACK-02, PACK-03)
+- [x] 06-01-PLAN.md — Vertical presets, deterministic routing expansion, and regression locks (PACK-01, PACK-02, PACK-03)
 
 **Success criteria:**
 

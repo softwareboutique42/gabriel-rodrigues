@@ -73,7 +73,7 @@ test('deterministic selector exists and normalization overwrites animationStyle'
   assert.match(selectorSource, /const V2_STYLE_MATRIX/);
 
   assert.match(configNormalizationSource, /selectAnimationStyle\(/);
-  assert.match(configNormalizationSource, /animationStyle:\s*selectAnimationStyle\(/);
+  assert.match(configNormalizationSource, /animationStyle:\s*[\s\S]*selectAnimationStyle\(/);
 });
 
 test('FR-5.1 orbit style is part of shared animation style contracts', () => {
@@ -137,9 +137,10 @@ test('FR-5.4 signal animation uses loopProgress and mood preset hooks for loop-s
 
 test('PACK-01 exposes at least three vertical preset ids in shared contracts', () => {
   assert.match(typesSource, /export type AnimationPresetId =/);
-  assert.match(typesSource, /\| 'education-story'/);
-  assert.match(typesSource, /\| 'hospitality-orbit'/);
-  assert.match(typesSource, /\| 'commerce-signal'/);
+  assert.match(
+    typesSource,
+    /AnimationPresetId\s*=\s*'education-story'\s*\|\s*'hospitality-orbit'\s*\|\s*'commerce-signal'/,
+  );
   assert.match(versionsSource, /VERTICAL_PRESETS/);
 });
 
