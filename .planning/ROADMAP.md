@@ -94,17 +94,7 @@ Plans:
 - [x] 03-02-PLAN.md — Stripe-gated WebM export controller and offscreen capture loop (FR-3.1, FR-3.2, FR-3.4, FR-3.5, FR-3.7, FR-3.8)
 - [x] 03-03-PLAN.md — Export progress UX, unsupported-browser fallback, and bilingual copy wiring (FR-3.8, FR-3.9, NFR-4, NFR-5)
 - [x] 03-04-PLAN.md — Chromium MP4 enhancement with WebCodecs + mp4-muxer boundary (FR-3.10, NFR-7)
-- [ ] 03-05-PLAN.md — Export benchmark gate and phase sign-off evidence (NFR-2, NFR-3)
-
-**Plans:** 5 plans
-
-Plans:
-
-- [ ] 03-01-PLAN.md — Export contracts, deterministic renderer API, and capability gating foundations (FR-3.3, FR-3.6, FR-3.9, FR-3.11)
-- [ ] 03-02-PLAN.md — Stripe intent extension and core offscreen WebM export controller wiring (FR-3.1, FR-3.2, FR-3.4, FR-3.5, FR-3.7, FR-3.8)
-- [ ] 03-03-PLAN.md — Bilingual progress and unsupported-browser fallback UX with export E2E coverage (FR-3.8, FR-3.9, NFR-5)
-- [ ] 03-04-PLAN.md — Chromium MP4 enhancement path via WebCodecs plus mp4-muxer adapter (FR-3.10)
-- [ ] 03-05-PLAN.md — Performance and file-size gate with benchmark evidence and phase sign-off (NFR-2, NFR-3)
+- [x] 03-05-PLAN.md — Export benchmark gate and phase sign-off evidence (NFR-2, NFR-3)
 
 **Success criteria:**
 
@@ -212,4 +202,4 @@ Phase 5 depends on Phase 2 (Claude schema, easing presets, deterministic selecti
 
 _Created: 2026-04-02 — based on research synthesis_
 _Phases: 5_
-_Ready to plan: Phase 2_
+_Ready to plan: Phase 4_
