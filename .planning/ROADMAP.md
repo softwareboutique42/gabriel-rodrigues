@@ -71,7 +71,7 @@ Plans:
 
 **Plans:** 1 plan
 
-- [ ] 08-01-PLAN.md — Validation template standardization, soft audit gate, and debt surfacing in /gsd:next
+- [x] 08-01-PLAN.md — Validation template standardization, soft audit gate, and debt surfacing in /gsd:next
 
 **Depends on:** Phases 6-7
 

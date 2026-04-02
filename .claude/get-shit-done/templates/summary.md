@@ -80,6 +80,11 @@ _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 - `path/to/file.ts` - What it does
 - `path/to/another.ts` - What it does
 
+## Validation
+
+- [test command and result]
+- [build command and result]
+
 ## Decisions Made
 
 [Key decisions with brief rationale, or "None - followed plan as specified"]

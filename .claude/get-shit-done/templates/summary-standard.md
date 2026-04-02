@@ -39,6 +39,11 @@ completed: YYYY-MM-DD
 2. **Task 2: [task name]** - `hash`
 3. **Task 3: [task name]** - `hash`
 
+## Validation
+
+- [test command and result]
+- [build command and result]
+
 ## Files Created/Modified
 
 - `path/to/file.ts` - What it does

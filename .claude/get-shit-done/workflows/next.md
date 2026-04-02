@@ -87,6 +87,29 @@ Display the determination:
   [One-line explanation of why this is the next step]
 ```
 
+**Verification debt check (Routes 6 and 7 only):**
+
+When the determined next action routes to advancing to the next phase (`/gsd:discuss-phase <next>` after phase completion — Route 6) or completing the milestone (`/gsd:complete-milestone` — Route 7):
+
+```bash
+UNVERIFIED=()
+for summary in .planning/phases/*-*/*-*-SUMMARY.md; do
+  [ -e "$summary" ] || continue
+  grep -q "^## Validation" "$summary" || UNVERIFIED+=("$summary")
+done
+```
+
+If `${#UNVERIFIED[@]} -gt 0`, prepend before the `▶ Next step:` line:
+
+```
+⚠ Verification Debt: ${#UNVERIFIED[@]} completed phase(s) have no Validation section:
+  - {phase-name}/{summary-file}
+  - ...
+Advancing anyway. Run /gsd:verify-work to address debt before milestone closure.
+```
+
+Do NOT trigger this check for Routes 1-5. Do NOT block routing — proceed to the next step immediately after showing debt (if any).
+
 Then immediately invoke the determined command via SlashCommand.
 Do not ask for confirmation — the whole point of `/gsd:next` is zero-friction advancement.
 </step>

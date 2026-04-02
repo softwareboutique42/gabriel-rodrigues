@@ -90,6 +90,39 @@ MUST present 3 options:
 
 If user selects "Proceed anyway": note incomplete requirements in MILESTONES.md under `### Known Gaps` with REQ-IDs and descriptions.
 
+**Verification artifact audit (REQUIRED before presenting):**
+
+Scan all SUMMARY.md files for the current milestone's phases and check for `## Validation` presence:
+
+```bash
+UNVERIFIED=()
+for summary in .planning/phases/*-*/*-*-SUMMARY.md; do
+  [ -e "$summary" ] || continue
+  grep -q "^## Validation" "$summary" || UNVERIFIED+=("$summary")
+done
+```
+
+Present audit result inline:
+
+If `${#UNVERIFIED[@]} -gt 0`:
+
+```
+⚠ Verification Debt: ${#UNVERIFIED[@]} phase(s) missing Validation sections
+
+| Phase Summary | Status |
+|---|---|
+| {path} | ⚠ Missing ## Validation |
+
+These phases completed without documented test/build outcomes.
+Completion is NOT blocked — this is informational.
+```
+
+If `${#UNVERIFIED[@]} -eq 0`:
+
+```
+✓ Verification audit passed — all phase summaries contain Validation sections.
+```
+
 <config-check>
 
 ```bash
