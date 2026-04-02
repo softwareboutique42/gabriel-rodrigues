@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Slots Gameplay Foundation
 status: in-progress
-stopped_at: Phase 16 completed — milestone blocker removed; Phase 17 pending execution
-last_updated: '2026-04-02T23:59:00.000Z'
+stopped_at: Phase 17 context captured — ready to plan
+last_updated: '2026-04-02T23:59:59.000Z'
 last_activity: 2026-04-02
 progress:
   total_phases: 5
@@ -24,10 +24,10 @@ progress:
 
 ## Current Position
 
-**Phase:** 16 — Milestone Verification Backfill (completed)
-**Plan:** 16-01 — Verification artifact backfill and milestone audit refresh (completed)
-**Status:** In progress (Phase 17 pending)
-**Last Activity:** 2026-04-02 — Phase 16 completed and v1.3 audit blocker cleared
+**Phase:** 17 — Slots Runtime Coverage Hardening (context ready)
+**Plan:** —
+**Status:** Ready for planning
+**Last Activity:** 2026-04-02 — Phase 17 discuss complete; proceed to planning
 
 ## Progress
 
@@ -70,7 +70,7 @@ Phases: 4/5 complete
 
 ## Pending Todos
 
-- Execute Phase 17 plan(s) for runtime coverage hardening.
+- Run /gsd:plan-phase 17 to generate executable hardening plan(s).
 
 ## Blockers / Concerns
 
@@ -79,5 +79,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-02
-Stopped at: Phase 16 completed; continue with Phase 17 execution.
+Stopped at: Phase 17 context ready; next step is planning.
 Resume file: (none)
