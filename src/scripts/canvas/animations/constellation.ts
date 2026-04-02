@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { BaseAnimation } from './base';
 import { createTextSprite } from './text-utils';
+import { getRadialParticleTexture } from './particle-utils';
 
 export class ConstellationAnimation extends BaseAnimation {
   private stars: THREE.Mesh[] = [];
@@ -100,6 +101,7 @@ export class ConstellationAnimation extends BaseAnimation {
       color: secondaryColor,
       transparent: true,
       opacity: 0.2,
+      map: getRadialParticleTexture(),
     });
     this.scene.add(new THREE.Points(bgGeo, bgMat));
   }

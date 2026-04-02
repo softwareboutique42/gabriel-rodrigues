@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { BaseAnimation } from './base';
 import { createTextSprite } from './text-utils';
+import { getRadialParticleTexture } from './particle-utils';
 
 export class SpotlightAnimation extends BaseAnimation {
   private words: THREE.Sprite[] = [];
@@ -72,6 +73,7 @@ export class SpotlightAnimation extends BaseAnimation {
       transparent: true,
       opacity: 0.15,
       blending: THREE.AdditiveBlending,
+      map: getRadialParticleTexture(),
     });
     this.particles = new THREE.Points(partGeo, partMat);
     this.scene.add(this.particles);

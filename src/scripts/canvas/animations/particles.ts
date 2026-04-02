@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { BaseAnimation } from './base';
+import { getRadialParticleTexture } from './particle-utils';
 
 export class ParticlesAnimation extends BaseAnimation {
   private points!: THREE.Points;
@@ -54,6 +55,7 @@ export class ParticlesAnimation extends BaseAnimation {
       opacity: 0.85,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
+      map: getRadialParticleTexture(),
     });
 
     this.points = new THREE.Points(geometry, material);
@@ -77,6 +79,8 @@ export class ParticlesAnimation extends BaseAnimation {
       const frequency = this.frequencySeeds[i] * (0.8 + complexity * 0.3);
       const amplitude = this.amplitudeSeeds[i] * (0.9 + complexity * 0.4);
 
+      // Deterministic closed-form offsets from loop progress (no unbounded accumulation)
+      // This ensures seamless loop wrapping at 12s interval
       const wave = Math.sin(theta * frequency + phase + bx * 0.08) * (1.4 * amplitude);
       const drift =
         Math.cos(theta * (frequency + 0.35) + phase * 0.7 + by * 0.07) * (1.1 * amplitude);
