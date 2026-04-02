@@ -11,11 +11,14 @@ const configNormalizationPath = resolve(
   process.cwd(),
   'src/scripts/canvas/config-normalization.ts',
 );
+const selectorPath = resolve(process.cwd(), 'src/scripts/canvas/style-selector.ts');
+
 const workerIndexSource = readFileSync(workerIndexPath, 'utf8');
 const workerNormalizeSource = readFileSync(workerNormalizePath, 'utf8');
 const typesSource = readFileSync(typesPath, 'utf8');
 const mainSource = readFileSync(mainPath, 'utf8');
 const configNormalizationSource = readFileSync(configNormalizationPath, 'utf8');
+const selectorSource = readFileSync(selectorPath, 'utf8');
 
 test('worker prompt requests semantic mood, industryCategory, and energyLevel', () => {
   assert.match(workerIndexSource, /"mood":\s*"<one of:/);
@@ -52,4 +55,13 @@ test('normalization truncates visual elements to max 12 characters', () => {
 
 test('main flow normalizes payloads at the boundary', () => {
   assert.match(mainSource, /normalizeCompanyConfig\(/);
+});
+
+test('deterministic selector exists and main flow overwrites animationStyle', () => {
+  assert.match(selectorSource, /export function selectAnimationStyle\(/);
+  assert.match(selectorSource, /const V1_STYLE_MATRIX/);
+  assert.match(selectorSource, /const V2_STYLE_MATRIX/);
+
+  assert.match(mainSource, /selectAnimationStyle\(/);
+  assert.match(mainSource, /animationStyle:\s*selectAnimationStyle\(/);
 });
