@@ -1,5 +1,9 @@
 # Requirements — Company Canvas
 
+## Requirement Tracking
+
+- [x] **FR-1.2** Geometric animation material pooling
+
 ## Functional Requirements
 
 ### FR-1: Codebase Stabilization
