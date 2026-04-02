@@ -55,7 +55,7 @@ Plans:
 
 Plans:
 
-- [ ] 02-01-PLAN.md — Semantic worker schema, normalization boundary, and deterministic style selection (FR-2.1, FR-2.2, FR-2.6)
+- [x] 02-01-PLAN.md — Semantic worker schema, normalization boundary, and deterministic style selection (FR-2.1, FR-2.2, FR-2.6)
 - [ ] 02-02-PLAN.md — Shared mood presets, render profiles, and mobile particle budget contracts (FR-2.3, FR-2.5, NFR-9)
 - [ ] 02-03-PLAN.md — Premium depth layering for particles and geometric styles (FR-2.3, FR-2.5, FR-2.7, NFR-9)
 - [ ] 02-04-PLAN.md — Name-first story styles and semantic render smoke coverage (FR-2.3, FR-2.4, FR-2.5)
