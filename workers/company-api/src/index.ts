@@ -9,7 +9,16 @@ interface Env {
 }
 
 type CompanyMood = 'bold' | 'elegant' | 'playful' | 'minimal' | 'dynamic';
-type IndustryCategory = 'tech' | 'finance' | 'health' | 'retail' | 'creative' | 'food' | 'other';
+type IndustryCategory =
+  | 'tech'
+  | 'finance'
+  | 'health'
+  | 'retail'
+  | 'creative'
+  | 'food'
+  | 'education'
+  | 'hospitality'
+  | 'other';
 
 type GeneratedConfig = {
   companyName: string;
@@ -91,7 +100,7 @@ Return ONLY valid JSON with this exact schema — no markdown, no explanation:
   "industry": "<string>",
   "description": "<string, 1-2 sentences about what the company does>",
   "mood": "<one of: bold | elegant | playful | minimal | dynamic>",
-  "industryCategory": "<one of: tech | finance | health | retail | creative | food | other>",
+  "industryCategory": "<one of: tech | finance | health | retail | creative | food | education | hospitality | other>",
   "energyLevel": <number 0.0-1.0>,
   "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight | orbit | pulse | signal>",
   "animationParams": {
@@ -120,6 +129,8 @@ const VALID_INDUSTRY_CATEGORIES: IndustryCategory[] = [
   'retail',
   'creative',
   'food',
+  'education',
+  'hospitality',
   'other',
 ];
 const VALID_ANIMATION_STYLES: GeneratedConfig['animationStyle'][] = [

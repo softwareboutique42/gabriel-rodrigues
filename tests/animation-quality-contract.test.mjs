@@ -134,3 +134,43 @@ test('FR-5.4 signal animation uses loopProgress and mood preset hooks for loop-s
   assert.match(signalAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
   assert.match(signalAnimationSource, /rectilinear/);
 });
+
+test('PACK-01 exposes at least three vertical preset ids in shared contracts', () => {
+  assert.match(typesSource, /export type AnimationPresetId =/);
+  assert.match(typesSource, /\| 'education-story'/);
+  assert.match(typesSource, /\| 'hospitality-orbit'/);
+  assert.match(typesSource, /\| 'commerce-signal'/);
+  assert.match(versionsSource, /VERTICAL_PRESETS/);
+});
+
+test('PACK-03 keeps legacy mappings stable while adding deterministic category expansion', () => {
+  assert.match(selectorSource, /const V1_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/);
+  assert.match(selectorSource, /tech:\s*'particles'/);
+  assert.match(selectorSource, /finance:\s*'geometric'/);
+  assert.match(selectorSource, /health:\s*'flowing'/);
+  assert.match(selectorSource, /retail:\s*'typographic'/);
+  assert.match(selectorSource, /creative:\s*'typographic'/);
+  assert.match(selectorSource, /food:\s*'flowing'/);
+  assert.match(selectorSource, /other:\s*'particles'/);
+  assert.match(selectorSource, /education:\s*'typographic'/);
+  assert.match(selectorSource, /hospitality:\s*'flowing'/);
+  assert.match(selectorSource, /const V2_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/);
+  assert.match(selectorSource, /tech:\s*'signal'/);
+  assert.match(selectorSource, /finance:\s*'pulse'/);
+  assert.match(selectorSource, /health:\s*'pulse'/);
+  assert.match(selectorSource, /retail:\s*'narrative'/);
+  assert.match(selectorSource, /creative:\s*'orbit'/);
+  assert.match(selectorSource, /food:\s*'narrative'/);
+  assert.match(selectorSource, /other:\s*'narrative'/);
+  assert.match(selectorSource, /education:\s*'narrative'/);
+  assert.match(selectorSource, /hospitality:\s*'orbit'/);
+});
+
+test('PACK-03 worker sanitization and prompt schema include expanded categories', () => {
+  assert.match(typesSource, /\| 'education'/);
+  assert.match(typesSource, /\| 'hospitality'/);
+  assert.match(workerIndexSource, /industryCategory": "<one of: tech \| finance \| health \| retail \| creative \| food \| education \| hospitality \| other>"/);
+  assert.match(workerIndexSource, /const VALID_INDUSTRY_CATEGORIES: IndustryCategory\[] = \[/);
+  assert.match(workerIndexSource, /'education'/);
+  assert.match(workerIndexSource, /'hospitality'/);
+});

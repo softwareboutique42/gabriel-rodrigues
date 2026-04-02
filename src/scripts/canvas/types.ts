@@ -20,7 +20,11 @@ export type IndustryCategory =
   | 'retail'
   | 'creative'
   | 'food'
+  | 'education'
+  | 'hospitality'
   | 'other';
+
+export type AnimationPresetId = 'education-story' | 'hospitality-orbit' | 'commerce-signal';
 
 export interface CompanyConfig {
   companyName: string;
@@ -43,6 +47,7 @@ export interface CompanyConfig {
     complexity: number;
   };
   visualElements: string[];
+  presetId?: AnimationPresetId;
   version?: string;
 }
 

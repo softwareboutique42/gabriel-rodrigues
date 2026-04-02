@@ -14,6 +14,8 @@ const INDUSTRY_CATEGORIES: IndustryCategory[] = [
   'retail',
   'creative',
   'food',
+  'education',
+  'hospitality',
   'other',
 ];
 
