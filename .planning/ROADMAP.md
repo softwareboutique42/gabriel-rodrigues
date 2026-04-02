@@ -20,6 +20,14 @@ Phase 5: New Animation Styles         ← ORBIT, PULSE, SIGNAL
 
 **Requirements:** FR-1.1 – FR-1.5
 
+**Plans:** 3 plans
+
+Plans:
+
+- [ ] 01-01-PLAN.md — Deterministic particle loop refactor (FR-1.1)
+- [ ] 01-02-PLAN.md — Geometric material pooling and deterministic transforms (FR-1.2)
+- [ ] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5)
+
 **Success criteria:**
 
 - `ParticlesAnimation` completes 3 consecutive loops with no visual state drift at the seam
