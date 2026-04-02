@@ -38,7 +38,7 @@ const t = useTranslations('en');
             required
           />
         </div>
-        <div class="grid grid-cols-2 sm:flex sm:w-auto sm:items-end gap-3">
+        <div class="flex w-full sm:w-auto gap-3 items-end">
           <div class="shrink-0">
             <label
               for="version-select"
@@ -48,11 +48,11 @@ const t = useTranslations('en');
             </label>
             <select
               id="version-select"
-              class="w-full bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
+              class="bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
             >
             </select>
           </div>
-          <div class="sm:shrink-0">
+          <div class="shrink-0">
             <label
               for="preset-select"
               class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
@@ -65,13 +65,13 @@ const t = useTranslations('en');
               data-label-education-story={t('canvas.preset.educationStory')}
               data-label-hospitality-orbit={t('canvas.preset.hospitalityOrbit')}
               data-label-commerce-signal={t('canvas.preset.commerceSignal')}
-              class="w-full bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
+              class="bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
             >
             </select>
           </div>
           <button
             type="submit"
-            class="col-span-2 sm:col-auto clip-corners hover-glitch w-full sm:w-auto sm:flex-none min-h-11 px-6 sm:px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
+            class="clip-corners hover-glitch flex-1 sm:flex-none px-6 sm:px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
           >
             {t('canvas.generate')}
           </button>
@@ -127,9 +127,7 @@ const t = useTranslations('en');
           </p>
           <p id="overlay-tagline" class="font-mono text-sm mt-1 hud-overlay-subtitle"></p>
         </div>
-        <div
-          class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex gap-2 sm:gap-3 items-center"
-        >
+        <div class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex gap-2 sm:gap-3">
           <button
             id="canvas-download"
             class="font-mono text-xs text-neon hover:text-gold transition-colors uppercase tracking-widest hud-chip"
@@ -341,15 +339,6 @@ const t = useTranslations('en');
       }
       100% {
         transform: translateX(-100%);
-      }
-    }
-    /* Mobile: enlarge HUD chip tap targets to 44px minimum */
-    @media (max-width: 639px) {
-      #canvas-result .hud-chip {
-        padding-top: 0.875rem;
-        padding-bottom: 0.875rem;
-        min-width: 2.75rem;
-        text-align: center;
       }
     }
   </style>
