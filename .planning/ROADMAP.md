@@ -18,7 +18,11 @@ Phase 8: Verification and Audit Automation
 
 **Requirements:** PACK-01, PACK-02, PACK-03
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+Plans:
+
+- [ ] 06-01-PLAN.md — Vertical presets, deterministic routing expansion, and regression locks (PACK-01, PACK-02, PACK-03)
 
 **Success criteria:**
 
