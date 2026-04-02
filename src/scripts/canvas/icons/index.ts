@@ -14,18 +14,20 @@ export function createIndustryIcon(
 ): (elapsed: number) => void {
   const drawFn = getIconDrawFn(config.industry);
 
-  // Draw icon to an offscreen canvas
+  // Draw icon to an offscreen canvas as white template
   const canvas = document.createElement('canvas');
   canvas.width = ICON_CANVAS_SIZE;
   canvas.height = ICON_CANVAS_SIZE;
   const ctx = canvas.getContext('2d')!;
-  drawFn(ctx, config.colors.accent);
+  drawFn(ctx, '#ffffff');
 
   // Convert to Three.js sprite
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
+  const accentColor = new THREE.Color(config.colors.accent);
   const material = new THREE.SpriteMaterial({
     map: texture,
+    color: accentColor,
     transparent: true,
     opacity: 0,
     depthWrite: false,
