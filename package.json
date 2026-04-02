@@ -27,6 +27,7 @@
     "@fontsource/space-grotesk": "^5.2.10",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.8",
+    "mp4-muxer": "^5.2.2",
     "satori": "^0.26.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2",

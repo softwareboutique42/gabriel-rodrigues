@@ -178,13 +178,30 @@ const t = useTranslations('pt');
     </div>
 
     <!-- Download Processing State -->
-    <div id="canvas-download-processing" class="glow-panel p-6 mt-8 hidden">
+    <div
+      id="canvas-download-processing"
+      class="glow-panel p-6 mt-8 hidden"
+      data-processing-text={t('canvas.download.processing')}
+      data-preparing-text={t('canvas.download.preparing')}
+      data-exporting-text={t('canvas.download.exporting')}
+      data-complete-text={t('canvas.download.complete')}
+      data-fallback-text={t('canvas.download.fallback')}
+      data-unsupported-text={t('canvas.download.unsupported')}
+      data-error-text={t('canvas.download.error')}
+      data-keep-active-text={t('canvas.download.keepActive')}
+    >
       <div class="text-center">
         <p
           id="download-status"
           class="font-mono text-sm text-neon uppercase tracking-widest animate-pulse"
         >
           {t('canvas.download.processing')}
+        </p>
+        <p
+          id="download-warning"
+          class="font-mono text-xs text-text-muted mt-3 uppercase tracking-wide"
+        >
+          {t('canvas.download.keepActive')}
         </p>
       </div>
     </div>

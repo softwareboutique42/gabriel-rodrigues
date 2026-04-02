@@ -3,6 +3,7 @@ interface CheckoutConfig {
   config: string; // JSON-stringified CompanyConfig
   version: string;
   returnUrl: string;
+  exportType?: 'video' | 'html';
 }
 
 interface StripeSession {
@@ -60,6 +61,9 @@ export async function createCheckoutSession(
   params.append('metadata[version]', checkout.version);
   params.append('metadata[config_1]', config1);
   params.append('metadata[config_2]', config2);
+  if (checkout.exportType) {
+    params.append('metadata[export_type]', checkout.exportType);
+  }
 
   const session = await stripeRequest('/checkout/sessions', apiKey, 'POST', params);
   return { url: session.url };
@@ -68,7 +72,7 @@ export async function createCheckoutSession(
 export async function verifyAndGetConfig(
   apiKey: string,
   sessionId: string,
-): Promise<{ paid: boolean; config: unknown; version: string }> {
+): Promise<{ paid: boolean; config: unknown; version: string; exportType?: 'video' | 'html' }> {
   const session = await stripeRequest(
     `/checkout/sessions/${encodeURIComponent(sessionId)}`,
     apiKey,
@@ -82,6 +86,10 @@ export async function verifyAndGetConfig(
   const configStr = (session.metadata.config_1 ?? '') + (session.metadata.config_2 ?? '');
   const config = JSON.parse(configStr);
   const version = session.metadata.version ?? 'v1';
+  const exportType =
+    session.metadata.export_type === 'video' || session.metadata.export_type === 'html'
+      ? session.metadata.export_type
+      : undefined;
 
-  return { paid: true, config, version };
+  return { paid: true, config, version, exportType };
 }

@@ -3,6 +3,8 @@ import { CanvasRenderer } from './renderer';
 import { VERSIONS, getDefaultVersion } from './versions';
 import { generateExportHTML, downloadHTML } from './export';
 import { normalizeCompanyConfig } from './config-normalization';
+import { detectExportCapabilities, selectBestExportPath } from './export-support';
+import { downloadVideoBlob, startVideoExport } from './export-controller';
 
 const WORKER_URL = 'https://company-canvas-api.gabrielr47.workers.dev';
 
@@ -30,6 +32,14 @@ const DEMO_CONFIG: CompanyConfig = {
 let renderer: CanvasRenderer | null = null;
 let currentConfig: CompanyConfig | null = null;
 let controller: AbortController | null = null;
+
+function getExportStatusText(kind: string, fallback: string): string {
+  const processingEl = document.getElementById('canvas-download-processing') as HTMLElement | null;
+  if (!processingEl) return fallback;
+
+  const value = processingEl.dataset[`${kind}Text` as keyof DOMStringMap];
+  return value ?? fallback;
+}
 
 function getEl<T extends HTMLElement>(id: string): T {
   return document.getElementById(id) as T;
@@ -303,7 +313,7 @@ export function initCanvas(): void {
     { signal },
   );
 
-  handlePaymentReturn();
+  handlePaymentReturn(signal);
 
   // Clean up renderer when navigating away (View Transitions SPA mode)
   document.addEventListener(
@@ -322,11 +332,16 @@ export function initCanvas(): void {
 async function handleDownload(config: CompanyConfig): Promise<void> {
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
+  const warningEl = document.getElementById('download-warning');
   const normalizedConfig = normalizeCompanyConfig(config);
 
   try {
     processingEl?.classList.remove('hidden');
-    if (statusEl) statusEl.textContent = 'Creating checkout session...';
+    if (statusEl) {
+      statusEl.textContent = getExportStatusText('processing', 'Processing payment...');
+      statusEl.classList.add('animate-pulse');
+    }
+    warningEl?.classList.remove('hidden');
 
     const res = await fetch(`${WORKER_URL}/checkout`, {
       method: 'POST',
@@ -335,6 +350,7 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
         config: normalizedConfig,
         version: normalizedConfig.version ?? getDefaultVersion().id,
         returnUrl: window.location.href.split('?')[0],
+        exportType: 'video',
       }),
     });
 
@@ -348,36 +364,88 @@ async function handleDownload(config: CompanyConfig): Promise<void> {
   }
 }
 
-async function handlePaymentReturn(): Promise<void> {
+async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get('session_id');
   if (!sessionId) return;
 
   const processingEl = document.getElementById('canvas-download-processing');
   const statusEl = document.getElementById('download-status');
+  const warningEl = document.getElementById('download-warning');
   processingEl?.classList.remove('hidden');
+  warningEl?.classList.remove('hidden');
 
   try {
     const res = await fetch(`${WORKER_URL}/download?session_id=${encodeURIComponent(sessionId)}`);
 
     if (!res.ok) throw new Error('Download failed');
 
-    const data = (await res.json()) as { config: CompanyConfig; version: string };
+    const data = (await res.json()) as {
+      config: CompanyConfig;
+      version: string;
+      exportType?: 'video' | 'html';
+    };
     const normalizedConfig = normalizeCompanyConfig({ ...data.config, version: data.version });
-    const html = generateExportHTML(normalizedConfig, normalizedConfig.version ?? data.version);
-    const filename = `${normalizedConfig.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
-    downloadHTML(html, filename);
 
-    if (statusEl) {
-      statusEl.textContent = 'Download started!';
-      statusEl.classList.remove('animate-pulse');
+    const exportIntent = data.exportType ?? 'html';
+    const capabilities = detectExportCapabilities();
+    const bestPath = selectBestExportPath(capabilities);
+
+    if (exportIntent === 'video' && bestPath !== 'html-fallback') {
+      if (statusEl) {
+        statusEl.textContent = getExportStatusText('preparing', 'Preparing video export...');
+        statusEl.classList.add('animate-pulse');
+      }
+
+      const result = await startVideoExport(normalizedConfig, {
+        signal,
+        preferredPath: bestPath,
+        onProgress: ({ frame, totalFrames, percent }) => {
+          if (!statusEl) return;
+          const prefix = getExportStatusText('exporting', 'Exporting video');
+          statusEl.textContent = `${prefix}: ${percent}% (${frame}/${totalFrames})`;
+        },
+      });
+
+      downloadVideoBlob(result.blob, result.filename);
+      if (statusEl) {
+        statusEl.textContent = getExportStatusText(
+          'complete',
+          'Video export complete. Download started!',
+        );
+        statusEl.classList.remove('animate-pulse');
+      }
+      warningEl?.classList.add('hidden');
+    } else {
+      if (statusEl) {
+        statusEl.textContent = getExportStatusText(
+          'unsupported',
+          'Video export is not supported in this browser.',
+        );
+      }
+      const html = generateExportHTML(normalizedConfig, normalizedConfig.version ?? data.version);
+      const filename = `${normalizedConfig.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
+      downloadHTML(html, filename);
+
+      if (statusEl) {
+        statusEl.textContent = getExportStatusText(
+          'fallback',
+          'Video export unsupported here. HTML fallback download started.',
+        );
+        statusEl.classList.remove('animate-pulse');
+      }
+      warningEl?.classList.add('hidden');
     }
   } catch {
     if (statusEl) {
-      statusEl.textContent = 'Download failed. Please contact support.';
+      statusEl.textContent = getExportStatusText(
+        'error',
+        'Download failed. Please contact support.',
+      );
       statusEl.classList.remove('animate-pulse');
       statusEl.classList.add('text-gold');
     }
+    warningEl?.classList.add('hidden');
   }
 
   // Clean URL

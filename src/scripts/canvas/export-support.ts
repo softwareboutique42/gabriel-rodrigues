@@ -24,6 +24,8 @@ export const DEFAULT_EXPORT_PROFILE: ExportProfile = {
   totalFrames: 360,
 };
 
+export const EXPORT_WARMUP_MS = 100;
+
 const WEBM_TYPES = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
 
 function supportsMimeType(mimeType: string): boolean {

@@ -329,6 +329,7 @@ async function handleCheckout(request: Request, env: Env, headers: HeadersInit):
       config: unknown;
       version: string;
       returnUrl: string;
+      exportType?: 'video' | 'html';
     };
 
     if (!body.config || !body.returnUrl) {
@@ -341,6 +342,7 @@ async function handleCheckout(request: Request, env: Env, headers: HeadersInit):
       config: JSON.stringify(body.config),
       version: body.version ?? 'v1',
       returnUrl: body.returnUrl,
+      exportType: body.exportType,
     });
 
     return jsonResponse(result, 200, headers);
@@ -365,7 +367,15 @@ async function handleDownload(request: Request, env: Env, headers: HeadersInit):
       return jsonResponse({ error: 'Payment not completed' }, 402, headers);
     }
 
-    return jsonResponse({ config: result.config, version: result.version }, 200, headers);
+    return jsonResponse(
+      {
+        config: result.config,
+        version: result.version,
+        ...(result.exportType ? { exportType: result.exportType } : {}),
+      },
+      200,
+      headers,
+    );
   } catch (err) {
     console.error('Download error:', err);
     return jsonResponse({ error: 'Failed to verify payment' }, 500, headers);
