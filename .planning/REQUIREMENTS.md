@@ -43,15 +43,15 @@
 
 ## Traceability
 
-| Requirement | Phase    | Status  |
-| ----------- | -------- | ------- |
-| SLOT-10     | Phase 16 | Pending |
-| SLOT-11     | Phase 16 | Pending |
-| SLOT-12     | Phase 16 | Pending |
-| I18N-10     | Phase 16 | Pending |
-| UX-10       | Phase 16 | Pending |
-| COMP-10     | Phase 16 | Pending |
-| QA-10       | Phase 16 | Pending |
+| Requirement | Phase    | Status   |
+| ----------- | -------- | -------- |
+| SLOT-10     | Phase 13 | Verified |
+| SLOT-11     | Phase 13 | Verified |
+| SLOT-12     | Phase 14 | Verified |
+| I18N-10     | Phase 14 | Verified |
+| UX-10       | Phase 14 | Verified |
+| COMP-10     | Phase 15 | Verified |
+| QA-10       | Phase 15 | Verified |
 
 **Coverage:**
 
