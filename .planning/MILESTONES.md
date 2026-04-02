@@ -1,5 +1,15 @@
 # Milestones
 
+## v1.1 milestone (Shipped: 2026-04-02)
+
+**Phases completed:** 3 phases, 3 plans, 0 tasks
+
+**Key accomplishments:**
+
+- (none recorded)
+
+---
+
 ## v1.0 milestone (Shipped: 2026-04-02)
 
 **Delivered:** Canvas animation generator with deterministic style routing, browser video export, bilingual export UX, and 3 new premium styles.
