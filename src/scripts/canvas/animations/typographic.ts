@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 import { BaseAnimation, LOOP_DURATION } from './base';
+import { createTextSprite } from './text-utils';
 
 export class TypographicAnimation extends BaseAnimation {
   private tiles: THREE.Mesh[] = [];
   private gridGroup = new THREE.Group();
+  private companyName!: THREE.Sprite;
 
   protected createScene(): void {
     const cols = Math.floor(12 * this.config.animationParams.density);
@@ -52,6 +54,15 @@ export class TypographicAnimation extends BaseAnimation {
     }
 
     this.scene.add(this.gridGroup);
+
+    this.companyName = createTextSprite(
+      this.config.companyName.toUpperCase(),
+      this.config.colors.primary,
+      88,
+    );
+    this.companyName.position.set(0, 0, 2.4);
+    this.companyName.material.opacity = 0.95;
+    this.scene.add(this.companyName);
   }
 
   update(elapsed: number): void {
@@ -78,5 +89,9 @@ export class TypographicAnimation extends BaseAnimation {
     });
 
     this.gridGroup.rotation.z = Math.sin(phase * 0.5) * 0.02;
+
+    const namePulse = 1 + Math.sin(phase * 1.4) * (0.03 + complexity * 0.03);
+    this.companyName.scale.setScalar(namePulse);
+    this.companyName.position.y = Math.sin(phase * speed) * 0.08;
   }
 }

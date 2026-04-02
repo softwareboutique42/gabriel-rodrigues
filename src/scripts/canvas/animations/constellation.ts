@@ -10,6 +10,7 @@ export class ConstellationAnimation extends BaseAnimation {
   private nodePositions: THREE.Vector3[] = [];
 
   protected createScene(): void {
+    const renderProfile = this.getRenderProfile();
     const elements = this.config.visualElements.slice(0, 5);
     const primaryColor = this.hexToColor(this.config.colors.primary);
     const secondaryColor = this.hexToColor(this.config.colors.secondary);
@@ -37,7 +38,8 @@ export class ConstellationAnimation extends BaseAnimation {
         color: colors[i % colors.length],
         transparent: true,
         opacity: 0,
-        blending: THREE.AdditiveBlending,
+        blending:
+          renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
       });
       const star = new THREE.Mesh(starGeo, starMat);
       star.position.copy(pos);
@@ -52,7 +54,8 @@ export class ConstellationAnimation extends BaseAnimation {
         color: colors[i % colors.length],
         transparent: true,
         opacity: 0,
-        blending: THREE.AdditiveBlending,
+        blending:
+          renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
       });
       const halo = new THREE.Mesh(haloGeo, haloMat);
       halo.position.copy(pos);
@@ -78,7 +81,8 @@ export class ConstellationAnimation extends BaseAnimation {
         color: primaryColor,
         transparent: true,
         opacity: 0,
-        blending: THREE.AdditiveBlending,
+        blending:
+          renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
       });
       const line = new THREE.Line(geo, mat);
       line.userData = { index: i };
@@ -100,7 +104,7 @@ export class ConstellationAnimation extends BaseAnimation {
       size: 0.04,
       color: secondaryColor,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.2 * renderProfile.opacity,
       map: getRadialParticleTexture(),
     });
     this.scene.add(new THREE.Points(bgGeo, bgMat));

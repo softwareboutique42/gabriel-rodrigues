@@ -1,15 +1,21 @@
 import * as THREE from 'three';
 import { BaseAnimation } from './base';
-import { createTextSprite } from './text-utils';
+import { createCharacterSprites, createTextSprite } from './text-utils';
 import { getRadialParticleTexture } from './particle-utils';
 
 export class SpotlightAnimation extends BaseAnimation {
-  private words: THREE.Sprite[] = [];
+  private nameChars: THREE.Sprite[] = [];
+  private satellites: THREE.Sprite[] = [];
   private ring!: THREE.Mesh;
+  private glow!: THREE.Mesh;
+  private outerRing!: THREE.Mesh;
   private particles!: THREE.Points;
 
   protected createScene(): void {
+    const moodPreset = this.getMoodPreset();
+    const renderProfile = this.getRenderProfile();
     const elements = this.config.visualElements.slice(0, 5);
+    const companyName = this.config.companyName.trim().toUpperCase() || 'COMPANY';
     const primaryColor = this.hexToColor(this.config.colors.primary);
     const secondaryColor = this.hexToColor(this.config.colors.secondary);
     const accentColor = this.hexToColor(this.config.colors.accent);
@@ -26,7 +32,7 @@ export class SpotlightAnimation extends BaseAnimation {
       transparent: true,
       opacity: 0,
       side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
+      blending: renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
     this.ring = new THREE.Mesh(ringGeo, ringMat);
     this.ring.position.z = 0.2;
@@ -38,25 +44,40 @@ export class SpotlightAnimation extends BaseAnimation {
       color: primaryColor,
       transparent: true,
       opacity: 0,
-      blending: THREE.AdditiveBlending,
+      blending: renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
-    const glow = new THREE.Mesh(glowGeo, glowMat);
-    glow.position.z = 0.1;
-    glow.userData = { isGlow: true };
-    this.scene.add(glow);
+    this.glow = new THREE.Mesh(glowGeo, glowMat);
+    this.glow.position.z = 0.1;
+    this.scene.add(this.glow);
 
-    // Word sprites — one per element, centered
-    elements.forEach((word, i) => {
-      const sprite = createTextSprite(word.toUpperCase(), colors[i % colors.length], 56);
-      sprite.position.set(0, 0, 1);
-      sprite.material.opacity = 0;
-      sprite.userData = { index: i, total: elements.length };
+    const { sprites, totalWidth } = createCharacterSprites(
+      companyName,
+      this.config.colors.primary,
+      112,
+    );
+    let cursorX = -totalWidth / 2;
+    sprites.forEach((sprite, index) => {
+      const halfWidth = sprite.scale.x / 2;
+      cursorX += halfWidth;
+      sprite.position.set(cursorX, 0.4, 1.3);
+      sprite.userData = { index, baseX: cursorX, baseY: 0.4 };
       this.scene.add(sprite);
-      this.words.push(sprite);
+      this.nameChars.push(sprite);
+      cursorX += halfWidth;
     });
 
-    // Radial particle burst
-    const count = Math.floor(150 * this.config.animationParams.density);
+    elements.forEach((word, i) => {
+      const angle = (i / Math.max(1, elements.length)) * Math.PI * 2 - Math.PI / 2;
+      const radius = 6.6 + (i % 2) * 0.7;
+      const sprite = createTextSprite(word.toUpperCase(), colors[i % colors.length], 28);
+      sprite.position.set(Math.cos(angle) * radius, Math.sin(angle) * radius, 0.9);
+      sprite.material.opacity = 0;
+      sprite.userData = { angle, radius, index: i };
+      this.scene.add(sprite);
+      this.satellites.push(sprite);
+    });
+
+    const count = this.getParticleBudget(Math.floor(150 * this.config.animationParams.density));
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
@@ -71,11 +92,12 @@ export class SpotlightAnimation extends BaseAnimation {
       size: 0.08,
       color: secondaryColor,
       transparent: true,
-      opacity: 0.15,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.15 * renderProfile.opacity,
+      blending: renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
       map: getRadialParticleTexture(),
     });
     this.particles = new THREE.Points(partGeo, partMat);
+    this.particles.rotation.z = moodPreset.overshoot * 0.2;
     this.scene.add(this.particles);
 
     // Outer accent ring
@@ -85,76 +107,95 @@ export class SpotlightAnimation extends BaseAnimation {
       transparent: true,
       opacity: 0,
       side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
+      blending: renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
-    const outer = new THREE.Mesh(outerGeo, outerMat);
-    outer.position.z = 0.05;
-    outer.userData = { isOuterRing: true };
-    this.scene.add(outer);
+    this.outerRing = new THREE.Mesh(outerGeo, outerMat);
+    this.outerRing.position.z = 0.05;
+    this.scene.add(this.outerRing);
   }
 
   update(elapsed: number, _delta: number): void {
     const progress = this.loopProgress(elapsed);
     const speed = this.config.animationParams.speed;
-    const total = this.words.length;
-    const segmentDuration = 1 / total;
+    const moodPreset = this.getMoodPreset();
+    const charStagger = Math.min(0.06, Math.max(0.02, moodPreset.staggerStep * 0.5));
+    const holdRatio = Math.min(0.82, Math.max(0.42, moodPreset.holdRatio));
 
-    // Ring fades in during first 10%
-    const ringOpacity = Math.min(progress / 0.1, 1) * 0.3;
+    const ringOpacity = Math.min(progress / 0.1, 1) * (0.24 + moodPreset.intensityScale * 0.12);
     (this.ring.material as THREE.MeshBasicMaterial).opacity = ringOpacity;
     this.ring.rotation.z = elapsed * speed * 0.2;
-    const ringPulse = 1 + Math.sin(elapsed * 2) * 0.05;
+    const ringPulse = 1 + Math.sin(elapsed * 2) * (0.04 + moodPreset.overshoot * 0.08);
     this.ring.scale.setScalar(ringPulse);
 
-    // Inner glow + outer ring
-    this.scene.children.forEach((child) => {
-      if (child instanceof THREE.Mesh && child.userData.isGlow) {
-        (child.material as THREE.MeshBasicMaterial).opacity = ringOpacity * 0.08;
-        const pulse = 1 + Math.sin(elapsed * 1.5) * 0.03;
-        child.scale.setScalar(pulse);
-      }
-      if (child instanceof THREE.Mesh && child.userData.isOuterRing) {
-        (child.material as THREE.MeshBasicMaterial).opacity = ringOpacity * 0.4;
-        child.rotation.z = -elapsed * speed * 0.15;
-      }
-    });
+    (this.glow.material as THREE.MeshBasicMaterial).opacity = ringOpacity * 0.1;
+    this.glow.scale.setScalar(1 + Math.sin(elapsed * 1.5) * 0.03);
 
-    // Words cycle: fade in → zoom → hold → fade out
-    this.words.forEach((sprite) => {
-      const { index } = sprite.userData;
-      const segStart = index * segmentDuration;
-      const segEnd = segStart + segmentDuration;
-      const localProgress = (progress - segStart) / segmentDuration;
+    (this.outerRing.material as THREE.MeshBasicMaterial).opacity = ringOpacity * 0.5;
+    this.outerRing.rotation.z = -elapsed * speed * 0.15;
 
-      if (progress >= segStart && progress < segEnd) {
-        let opacity: number;
-        let scale: number;
-        if (localProgress < 0.15) {
-          // Zoom in from small
-          const t = localProgress / 0.15;
-          opacity = t;
-          scale = 0.5 + t * 0.5;
-        } else if (localProgress < 0.75) {
-          // Hold with gentle pulse
-          opacity = 1;
-          scale = 1 + Math.sin(elapsed * 3) * 0.05;
-        } else {
-          // Zoom out and fade
-          const t = (localProgress - 0.75) / 0.25;
-          opacity = 1 - t;
-          scale = 1 + t * 0.3;
-        }
-        sprite.material.opacity = opacity;
-        const baseScale = sprite.scale.x / sprite.scale.y;
-        sprite.scale.set(scale * baseScale * 1.5, scale * 1.5, 1);
-      } else {
+    this.nameChars.forEach((sprite) => {
+      const { index, baseX, baseY } = sprite.userData as {
+        index: number;
+        baseX: number;
+        baseY: number;
+      };
+      const revealStart = 0.08 + index * charStagger;
+      const revealEnd = revealStart + 0.14;
+      const holdEnd = revealEnd + holdRatio * 0.26;
+
+      if (progress < revealStart) {
         sprite.material.opacity = 0;
+        sprite.position.x = baseX;
+        sprite.position.y = baseY - 0.7;
+        return;
       }
+
+      if (progress <= revealEnd) {
+        const t = (progress - revealStart) / (revealEnd - revealStart);
+        const eased = 1 - Math.pow(1 - t, 3);
+        sprite.material.opacity = eased;
+        sprite.position.x = baseX;
+        sprite.position.y = baseY - (1 - eased) * (0.8 + moodPreset.overshoot * 0.7);
+        const scale = 0.8 + eased * (0.34 + moodPreset.intensityScale * 0.08);
+        const baseScale = sprite.scale.x / sprite.scale.y;
+        sprite.scale.set(scale * baseScale, scale, 1);
+        return;
+      }
+
+      if (progress <= holdEnd) {
+        const pulse =
+          1 + Math.sin(elapsed * (2.2 + moodPreset.intensityScale * 0.6) + index * 0.2) * 0.05;
+        sprite.material.opacity = 1;
+        sprite.position.x = baseX;
+        sprite.position.y = baseY + Math.sin(elapsed * 1.2 + index * 0.17) * 0.04;
+        const baseScale = sprite.scale.x / sprite.scale.y;
+        sprite.scale.set(baseScale * pulse, pulse, 1);
+        return;
+      }
+
+      const fade = Math.min(1, (progress - holdEnd) / 0.14);
+      sprite.material.opacity = 1 - fade;
+      sprite.position.x = baseX;
+      sprite.position.y = baseY + fade * 0.24;
     });
 
-    // Particles rotate slowly
+    this.satellites.forEach((sprite) => {
+      const { angle, radius, index } = sprite.userData as {
+        angle: number;
+        radius: number;
+        index: number;
+      };
+      const revealAt = 0.36 + index * 0.05;
+      const fadeIn = Math.min(1, Math.max(0, (progress - revealAt) / 0.12));
+      const fadeOut = Math.min(1, Math.max(0, (progress - 0.92) / 0.08));
+      sprite.material.opacity = fadeIn * (1 - fadeOut) * 0.7;
+      const orbit = elapsed * speed * 0.1 + index * 0.3;
+      sprite.position.x = Math.cos(angle + orbit) * radius;
+      sprite.position.y = Math.sin(angle + orbit) * radius;
+    });
+
     this.particles.rotation.z = elapsed * speed * 0.05;
     (this.particles.material as THREE.PointsMaterial).opacity =
-      0.1 + Math.sin(elapsed * 0.8) * 0.05;
+      (0.1 + Math.sin(elapsed * 0.8) * 0.05) * (0.9 + moodPreset.intensityScale * 0.05);
   }
 }

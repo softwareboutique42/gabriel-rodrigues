@@ -5,6 +5,7 @@ export class FlowingAnimation extends BaseAnimation {
   private curves: THREE.Line[] = [];
 
   protected createScene(): void {
+    const renderProfile = this.getRenderProfile();
     const curveCount = Math.floor(8 * this.config.animationParams.density);
     const palette = [
       this.hexToColor(this.config.colors.primary),
@@ -26,8 +27,9 @@ export class FlowingAnimation extends BaseAnimation {
       const material = new THREE.LineBasicMaterial({
         color: palette[c % palette.length],
         transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending,
+        opacity: 0.6 * renderProfile.opacity,
+        blending:
+          renderProfile.blending === 'normal' ? THREE.NormalBlending : THREE.AdditiveBlending,
       });
 
       const line = new THREE.Line(geometry, material);

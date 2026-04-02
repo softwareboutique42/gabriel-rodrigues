@@ -1,5 +1,10 @@
 import * as THREE from 'three';
 import type { CompanyConfig } from '../types';
+import {
+  getMoodPreset as resolveMoodPreset,
+  getParticleBudget as resolveParticleBudget,
+  getRenderProfile as resolveRenderProfile,
+} from '../quality-profiles';
 
 export const LOOP_DURATION = 12;
 
@@ -23,6 +28,18 @@ export abstract class BaseAnimation {
 
   protected loopProgress(elapsed: number): number {
     return this.loopTime(elapsed) / LOOP_DURATION;
+  }
+
+  protected getMoodPreset() {
+    return resolveMoodPreset(this.config.mood);
+  }
+
+  protected getRenderProfile() {
+    return resolveRenderProfile(this.config.colors.background);
+  }
+
+  protected getParticleBudget(baseCount: number): number {
+    return resolveParticleBudget(baseCount);
   }
 
   protected abstract createScene(): void;

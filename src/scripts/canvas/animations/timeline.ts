@@ -4,6 +4,7 @@ import { createTextSprite } from './text-utils';
 
 export class TimelineAnimation extends BaseAnimation {
   private mainLine!: THREE.Line;
+  private companyTitle!: THREE.Sprite;
   private nodes: THREE.Mesh[] = [];
   private labels: THREE.Sprite[] = [];
   private connectors: THREE.Line[] = [];
@@ -15,6 +16,15 @@ export class TimelineAnimation extends BaseAnimation {
     const accentColor = this.hexToColor(this.config.colors.accent);
     const spread = 22;
     const nodeCount = elements.length;
+
+    this.companyTitle = createTextSprite(
+      this.config.companyName.toUpperCase(),
+      this.config.colors.primary,
+      96,
+    );
+    this.companyTitle.position.set(0, 5.4, 1.4);
+    this.companyTitle.material.opacity = 0.96;
+    this.scene.add(this.companyTitle);
 
     // Main horizontal line
     const linePoints = [
@@ -134,7 +144,11 @@ export class TimelineAnimation extends BaseAnimation {
       const { index } = label.userData;
       const revealAt = 0.2 + (index / total) * 0.6;
       const localP = Math.max(0, (progress - revealAt) / 0.1);
-      label.material.opacity = Math.min(localP, 1);
+      label.material.opacity = Math.min(localP, 1) * 0.75;
     });
+
+    const titlePulse = 1 + Math.sin(elapsed * 1.4) * 0.04;
+    this.companyTitle.scale.setScalar(titlePulse);
+    this.companyTitle.position.y = 5.4 + Math.sin(elapsed) * 0.1;
   }
 }

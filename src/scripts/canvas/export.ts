@@ -1,4 +1,5 @@
 import type { CompanyConfig } from './types';
+import { MOOD_PRESETS, QUALITY_PROFILE_CONSTANTS } from './quality-profiles';
 
 const THREE_CDN = 'https://unpkg.com/three@0.183.2/build/three.module.js';
 
@@ -13,7 +14,7 @@ function generateAnimationCode(config: CompanyConfig): string {
       return `
 class Animation {
   setup(scene, config) {
-    const count = Math.floor(800 * ${density});
+    const count = getParticleBudgetForDevice(Math.floor(800 * ${density}));
     const geo = new THREE.BufferGeometry();
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -26,8 +27,8 @@ class Animation {
       size: 0.15,
       color: new THREE.Color(config.colors.primary),
       transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.8 * renderProfile.opacity,
+      blending: renderProfile.blending,
     });
     this.points = new THREE.Points(geo, mat);
     scene.add(this.points);
@@ -219,7 +220,7 @@ class Animation {
       scene.add(sprite);
       this.words.push(sprite);
     });
-    const count = Math.floor(200 * ${density});
+    const count = getParticleBudgetForDevice(Math.floor(200 * ${density}));
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 30;
@@ -228,7 +229,7 @@ class Animation {
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const mat = new THREE.PointsMaterial({ size: 0.06, color: new THREE.Color(config.colors.primary), transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+    const mat = new THREE.PointsMaterial({ size: 0.06, color: new THREE.Color(config.colors.primary), transparent: true, opacity: 0.3 * renderProfile.opacity, blending: renderProfile.blending });
     this.particles = new THREE.Points(geo, mat);
     scene.add(this.particles);
   }
@@ -349,7 +350,7 @@ class Animation {
       const pos = new THREE.Vector3(Math.cos(angle) * r, Math.sin(angle) * r, 0);
       this.nodePositions.push(pos);
       const starGeo = new THREE.CircleGeometry(0.2, 16);
-      const starMat = new THREE.MeshBasicMaterial({ color: colors[i % 3], transparent: true, opacity: 0, blending: THREE.AdditiveBlending });
+      const starMat = new THREE.MeshBasicMaterial({ color: colors[i % 3], transparent: true, opacity: 0, blending: renderProfile.blending });
       const star = new THREE.Mesh(starGeo, starMat);
       star.position.copy(pos); star.position.z = 0.5;
       star.userData = { index: i, total: elements.length };
@@ -366,13 +367,13 @@ class Animation {
       const next = (i + 1) % this.nodePositions.length;
       const points = [this.nodePositions[i], this.nodePositions[next]];
       const geo = new THREE.BufferGeometry().setFromPoints(points);
-      const mat = new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, blending: THREE.AdditiveBlending });
+      const mat = new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, blending: renderProfile.blending });
       const line = new THREE.Line(geo, mat);
       line.userData = { index: i };
       scene.add(line);
       this.connections.push(line);
     }
-    const bgCount = Math.floor(100 * ${density});
+    const bgCount = getParticleBudgetForDevice(Math.floor(100 * ${density}));
     const bgPos = new Float32Array(bgCount * 3);
     for (let i = 0; i < bgCount; i++) {
       bgPos[i*3] = (Math.random()-0.5)*35; bgPos[i*3+1] = (Math.random()-0.5)*25; bgPos[i*3+2] = -1;
@@ -426,12 +427,12 @@ class Animation {
     const accentColor = new THREE.Color(config.colors.accent);
     const colors = [config.colors.primary, config.colors.secondary, config.colors.accent];
     const ringGeo = new THREE.RingGeometry(3.5, 4.0, 64);
-    const ringMat = new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+    const ringMat = new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, side: THREE.DoubleSide, blending: renderProfile.blending });
     this.ring = new THREE.Mesh(ringGeo, ringMat);
     this.ring.position.z = 0.2;
     scene.add(this.ring);
     const glowGeo = new THREE.CircleGeometry(3.5, 64);
-    const glowMat = new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, blending: THREE.AdditiveBlending });
+    const glowMat = new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0, blending: renderProfile.blending });
     this.glow = new THREE.Mesh(glowGeo, glowMat);
     this.glow.position.z = 0.1;
     scene.add(this.glow);
@@ -443,7 +444,7 @@ class Animation {
       scene.add(sprite);
       this.words.push(sprite);
     });
-    const count = Math.floor(150 * ${density});
+    const count = getParticleBudgetForDevice(Math.floor(150 * ${density}));
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
@@ -452,10 +453,10 @@ class Animation {
     }
     const partGeo = new THREE.BufferGeometry();
     partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    this.particles = new THREE.Points(partGeo, new THREE.PointsMaterial({ size: 0.08, color: secondaryColor, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending }));
+    this.particles = new THREE.Points(partGeo, new THREE.PointsMaterial({ size: 0.08, color: secondaryColor, transparent: true, opacity: 0.15 * renderProfile.opacity, blending: renderProfile.blending }));
     scene.add(this.particles);
     const outerGeo = new THREE.RingGeometry(5.5, 5.7, 64);
-    this.outerRing = new THREE.Mesh(outerGeo, new THREE.MeshBasicMaterial({ color: accentColor, transparent: true, opacity: 0, side: THREE.DoubleSide, blending: THREE.AdditiveBlending }));
+    this.outerRing = new THREE.Mesh(outerGeo, new THREE.MeshBasicMaterial({ color: accentColor, transparent: true, opacity: 0, side: THREE.DoubleSide, blending: renderProfile.blending }));
     this.outerRing.position.z = 0.05;
     scene.add(this.outerRing);
   }
@@ -498,6 +499,10 @@ class Animation {
 export function generateExportHTML(config: CompanyConfig, version: string): string {
   const animCode = generateAnimationCode(config);
   const configJSON = JSON.stringify(config);
+  const qualityProfilesJSON = JSON.stringify({
+    moodPresets: MOOD_PRESETS,
+    constants: QUALITY_PROFILE_CONSTANTS,
+  });
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -550,6 +555,55 @@ export function generateExportHTML(config: CompanyConfig, version: string): stri
     import * as THREE from 'three';
 
     const config = ${configJSON};
+    const qualityProfiles = ${qualityProfilesJSON};
+
+    function toSixDigitHex(hex) {
+      const value = String(hex || '').trim();
+      if (/^#[0-9a-fA-F]{6}$/.test(value)) return value;
+      if (/^#[0-9a-fA-F]{3}$/.test(value)) {
+        return '#' + value[1] + value[1] + value[2] + value[2] + value[3] + value[3];
+      }
+      return '#000000';
+    }
+
+    function backgroundLightnessPercent(hex) {
+      const normalized = toSixDigitHex(hex).slice(1);
+      const r = parseInt(normalized.slice(0, 2), 16) / 255;
+      const g = parseInt(normalized.slice(2, 4), 16) / 255;
+      const b = parseInt(normalized.slice(4, 6), 16) / 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      return ((max + min) / 2) * 100;
+    }
+
+    function getRenderProfileForBackground(backgroundHex) {
+      const isLightBackground =
+        backgroundLightnessPercent(backgroundHex) > qualityProfiles.constants.lightnessThreshold;
+      if (isLightBackground) {
+        return {
+          blending: THREE.NormalBlending,
+          opacity: qualityProfiles.constants.lightBackgroundOpacity,
+        };
+      }
+
+      return {
+        blending: THREE.AdditiveBlending,
+        opacity: 1,
+      };
+    }
+
+    function getParticleBudgetForDevice(baseCount) {
+      const hardwareConcurrency =
+        typeof navigator === 'undefined' || typeof navigator.hardwareConcurrency !== 'number'
+          ? Number.POSITIVE_INFINITY
+          : navigator.hardwareConcurrency;
+      if (hardwareConcurrency < qualityProfiles.constants.mobileConcurrencyThreshold) {
+        return Math.min(baseCount, qualityProfiles.constants.mobileParticleCap);
+      }
+      return baseCount;
+    }
+
+    const renderProfile = getRenderProfileForBackground(config.colors.background);
 
     ${animCode}
 

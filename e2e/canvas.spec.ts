@@ -74,4 +74,162 @@ test.describe('Company Canvas', () => {
     // Should transition from idle to loading
     await expect(page.locator('#canvas-loading')).toBeVisible({ timeout: 5000 });
   });
+
+  test('canvas renders normalized semantic payload with deterministic style info', async ({
+    page,
+  }) => {
+    const companyName = 'Deterministic Labs';
+
+    await page.route('https://company-canvas-api.gabrielr47.workers.dev/', async (route) => {
+      const request = route.request();
+      if (request.method() !== 'POST') {
+        await route.continue();
+        return;
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          companyName,
+          colors: {
+            primary: '#4cf0c6',
+            secondary: '#7aa9ff',
+            accent: '#f9ce5d',
+            background: '#0d1620',
+          },
+          tagline: 'Designing certainty',
+          industry: 'Creative Technology',
+          description: 'Deterministic Labs designs visual systems.',
+          mood: 'bold',
+          industryCategory: 'creative',
+          energyLevel: 0.77,
+          animationStyle: 'particles',
+          animationParams: {
+            speed: 1,
+            density: 0.7,
+            complexity: 0.8,
+          },
+          visualElements: [
+            'hyper-personalization',
+            'cross-channel-orchestration',
+            'high-fidelity-motion-system',
+          ],
+        }),
+      });
+    });
+
+    await page.goto('/en/canvas/');
+    await page.locator('#version-select').selectOption('v2');
+    await page.locator('#canvas-input').fill(companyName);
+    await page.locator('#canvas-form').locator('button[type="submit"]').click();
+
+    await expect(page.locator('#canvas-result')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#overlay-name')).toHaveText(companyName);
+
+    // v2 + creative should deterministically resolve to spotlight despite mocked animationStyle value.
+    await expect(page.locator('#info-style')).toHaveText('spotlight');
+  });
+
+  test('canvas renders light-background payload without entering error state', async ({ page }) => {
+    const companyName = 'Light Theme Co';
+
+    await page.route('https://company-canvas-api.gabrielr47.workers.dev/', async (route) => {
+      if (route.request().method() !== 'POST') {
+        await route.continue();
+        return;
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          companyName,
+          colors: {
+            primary: '#1d4ed8',
+            secondary: '#0f766e',
+            accent: '#d97706',
+            background: '#f5f3ec',
+          },
+          tagline: 'Readable motion on light palettes',
+          industry: 'Healthcare',
+          description: 'Light Theme Co builds accessible brand systems.',
+          mood: 'elegant',
+          industryCategory: 'health',
+          energyLevel: 0.41,
+          animationStyle: 'particles',
+          animationParams: {
+            speed: 0.9,
+            density: 0.75,
+            complexity: 0.66,
+          },
+          visualElements: ['clarity', 'trust', 'care'],
+        }),
+      });
+    });
+
+    await page.goto('/en/canvas/');
+    await page.locator('#version-select').selectOption('v1');
+    await page.locator('#canvas-input').fill(companyName);
+    await page.locator('#canvas-form').locator('button[type="submit"]').click();
+
+    await expect(page.locator('#canvas-result')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#canvas-error')).toHaveClass(/hidden/);
+    await expect(page.locator('#overlay-name')).toHaveText(companyName);
+    await expect(page.locator('#info-style')).toHaveText('flowing');
+  });
+
+  test('canvas reaches result state when low-concurrency branch is forced', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window.navigator, 'hardwareConcurrency', {
+        configurable: true,
+        get: () => 2,
+      });
+    });
+
+    const companyName = 'Mobile Budget Labs';
+
+    await page.route('https://company-canvas-api.gabrielr47.workers.dev/', async (route) => {
+      if (route.request().method() !== 'POST') {
+        await route.continue();
+        return;
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          companyName,
+          colors: {
+            primary: '#7c3aed',
+            secondary: '#14b8a6',
+            accent: '#f59e0b',
+            background: '#090d1f',
+          },
+          tagline: 'Stable output on constrained devices',
+          industry: 'Technology',
+          description: 'Mobile Budget Labs focuses on resilient GPU-heavy interfaces.',
+          mood: 'dynamic',
+          industryCategory: 'tech',
+          energyLevel: 0.82,
+          animationStyle: 'flowing',
+          animationParams: {
+            speed: 1,
+            density: 1,
+            complexity: 0.9,
+          },
+          visualElements: ['gpu', 'latency', 'budget', 'frames'],
+        }),
+      });
+    });
+
+    await page.goto('/en/canvas/');
+    await page.locator('#version-select').selectOption('v1');
+    await page.locator('#canvas-input').fill(companyName);
+    await page.locator('#canvas-form').locator('button[type="submit"]').click();
+
+    await expect(page.locator('#canvas-result')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#overlay-name')).toHaveText(companyName);
+    await expect(page.locator('#info-style')).toHaveText('particles');
+  });
 });

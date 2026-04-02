@@ -32,3 +32,27 @@ export function createTextSprite(text: string, color: string, fontSize = 64): TH
 
   return sprite;
 }
+
+export type CharacterSpriteLayout = {
+  sprites: THREE.Sprite[];
+  totalWidth: number;
+};
+
+export function createCharacterSprites(
+  text: string,
+  color: string,
+  fontSize = 96,
+): CharacterSpriteLayout {
+  const normalized = text.trim();
+  const sprites: THREE.Sprite[] = [];
+
+  for (const char of normalized) {
+    const safeChar = char === ' ' ? '\u00A0' : char;
+    const sprite = createTextSprite(safeChar, color, fontSize);
+    sprite.material.opacity = 0;
+    sprites.push(sprite);
+  }
+
+  const totalWidth = sprites.reduce((acc, sprite) => acc + sprite.scale.x, 0);
+  return { sprites, totalWidth };
+}
