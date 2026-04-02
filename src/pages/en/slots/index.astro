@@ -55,13 +55,13 @@ const t = useTranslations('en');
       <div class="flex flex-wrap gap-3">
         <a
           href="/en/projects/"
-          class="clip-corners hover-glitch inline-block text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
         >
           {t('slots.cta.projects')}
         </a>
         <a
           href="/en/canvas/"
-          class="inline-block text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
+          class="inline-flex items-center justify-center min-h-11 text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
         >
           {t('slots.cta.canvas')}
         </a>
@@ -78,7 +78,7 @@ const t = useTranslations('en');
           <button
             id="slots-bet-dec"
             type="button"
-            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary"
+            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary hover:text-neon transition-colors hud-outline-subtle"
           >
             -
           </button>
@@ -86,7 +86,7 @@ const t = useTranslations('en');
           <button
             id="slots-bet-inc"
             type="button"
-            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary"
+            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary hover:text-neon transition-colors hud-outline-subtle"
           >
             +
           </button>
@@ -96,7 +96,7 @@ const t = useTranslations('en');
             id="slots-spin-button"
             data-slots-action="spin"
             type="button"
-            class="clip-corners inline-block text-center px-4 py-2 bg-cyan text-background font-bold text-xs uppercase tracking-wider"
+            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-4 py-2 bg-cyan text-surface-dim font-bold text-xs uppercase tracking-wider"
           >
             {t('slots.gameplay.cta.spin')}
           </button>
@@ -113,7 +113,7 @@ const t = useTranslations('en');
         <pre
           id="slots-round-result"
           data-slots-result
-          class="mt-3 p-3 text-xs overflow-auto border border-surface-container-high bg-background/50">
+          class="mt-3 p-3 text-xs overflow-x-auto max-w-full break-all sm:break-normal border border-surface-container-high bg-background/50">
         </pre>
       </div>
     </article>

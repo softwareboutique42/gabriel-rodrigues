@@ -543,6 +543,18 @@ body::after {
   outline-offset: 2px;
 }
 
+:where(a, button) {
+  transition:
+    color 0.2s ease-out,
+    background-color 0.2s ease-out,
+    transform 0.15s ease-out,
+    box-shadow 0.2s ease-out;
+}
+
+:where(a, button):active {
+  transform: translateY(1px);
+}
+
 /* === REDUCED MOTION — respect user preference === */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -556,5 +568,9 @@ body::after {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+
+  :where(a, button):active {
+    transform: none;
   }
 }

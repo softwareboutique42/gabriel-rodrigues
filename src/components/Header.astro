@@ -24,7 +24,7 @@ const isProjectsSurface =
       <a
         href={`/${lang}/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
+          'inline-flex items-center min-h-11 px-1 text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath === `/${lang}/`
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -35,7 +35,7 @@ const isProjectsSurface =
       <a
         href={`/${lang}/resume/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
+          'inline-flex items-center min-h-11 px-1 text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath.includes('/resume')
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -46,7 +46,7 @@ const isProjectsSurface =
       <a
         href={`/${lang}/blog/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
+          'inline-flex items-center min-h-11 px-1 text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           currentPath.includes('/blog')
             ? 'nav-active text-neon'
             : 'text-text-secondary hover:text-neon',
@@ -57,7 +57,7 @@ const isProjectsSurface =
       <a
         href={`/${lang}/projects/`}
         class:list={[
-          'text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
+          'inline-flex items-center min-h-11 px-1 text-xs font-mono uppercase tracking-normal sm:tracking-wider transition-colors',
           isProjectsSurface ? 'nav-active text-neon' : 'text-text-secondary hover:text-neon',
         ]}
       >
