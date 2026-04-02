@@ -84,9 +84,19 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Next Milestone Goals
 
-- Define Slots gameplay requirements — reels, paylines, win logic, game economy
-- Decide on analytics instrumentation scope for Projects/Slots funnel
-- Evaluate alias routes (`/projects/canvas/`) if discovery data shows demand
+- Ship playable Slots core loop with deterministic reels, paylines, and win evaluation
+- Add lightweight game economy configuration with controlled progression rules
+- Preserve EN/PT parity and canonical route behavior while introducing gameplay flows
+
+## Current Milestone: v1.3 Slots Gameplay Foundation
+
+**Goal:** Make the Slots game work well by shipping the first complete gameplay loop on top of the existing shell routes.
+
+**Target features:**
+
+- Reels, paylines, and outcome evaluation with deterministic loop behavior
+- Core economy rules (bet sizing, payout table, session-safe credits)
+- Bilingual EN/PT gameplay copy and interaction parity
 
 ## Evolution
 
@@ -109,4 +119,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-02 after v1.2 milestone completion_
+_Last updated: 2026-04-02 after v1.3 milestone kickoff_
