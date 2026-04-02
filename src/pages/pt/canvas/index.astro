@@ -210,6 +210,7 @@ const t = useTranslations('pt');
       data-modal-format-hint-mp4-text={t('canvas.exportModal.hint.mp4')}
       data-modal-format-hint-webm-only-text={t('canvas.exportModal.hint.webmOnly')}
       data-modal-format-hint-unsupported-text={t('canvas.exportModal.hint.unsupported')}
+      data-payment-confirmed-text={t('canvas.download.paymentConfirmed')}
     >
       <div class="text-center">
         <p
@@ -292,6 +293,10 @@ const t = useTranslations('pt');
 
           <p id="export-format-hint" class="font-mono text-xs text-text-muted mt-4">
             {t('canvas.exportModal.hint.mp4')}
+          </p>
+
+          <p class="font-mono text-xs text-neon/80 mt-3 uppercase tracking-wide">
+            {t('canvas.exportModal.valueProp')}
           </p>
 
           <div class="flex items-center justify-end gap-3 mt-6">

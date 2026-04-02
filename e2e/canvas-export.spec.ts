@@ -205,4 +205,36 @@ test.describe('Canvas Export UX', () => {
     expect(result.capture).toEqual({ width: 1080, height: 1920 });
     expect(result.recorderMime).toContain('webm');
   });
+
+  test('export modal presents value framing and single checkout CTA in EN', async ({ page }) => {
+    await page.goto('/en/canvas/');
+
+    // Wait for demo canvas result to become visible
+    await expect(page.locator('#canvas-result')).not.toHaveClass(/hidden/, { timeout: 5000 });
+
+    // Open export modal
+    await page.locator('#canvas-download').click();
+
+    // Assert modal is visible
+    await expect(page.locator('#canvas-export-modal')).toBeVisible();
+
+    // Assert value prop framing text is present (no watermarks copy)
+    await expect(page.locator('#canvas-export-modal')).toContainText(/no watermarks|DRM-free/i);
+
+    // Assert single dominant checkout CTA is visible and no competing action
+    await expect(page.locator('#export-modal-confirm')).toBeVisible();
+    await expect(page.locator('#export-modal-confirm')).toHaveCount(1);
+  });
+
+  test('export modal presents value framing in PT locale', async ({ page }) => {
+    await page.goto('/pt/canvas/');
+
+    await expect(page.locator('#canvas-result')).not.toHaveClass(/hidden/, { timeout: 5000 });
+
+    await page.locator('#canvas-download').click();
+
+    await expect(page.locator('#canvas-export-modal')).toBeVisible();
+    await expect(page.locator('#canvas-export-modal')).toContainText(/sem marca|DRM/i);
+    await expect(page.locator('#export-modal-confirm')).toHaveCount(1);
+  });
 });

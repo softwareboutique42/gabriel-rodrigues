@@ -11,6 +11,10 @@ const workerStripePath = resolve(process.cwd(), 'workers/company-api/src/stripe.
 const workerIndexPath = resolve(process.cwd(), 'workers/company-api/src/index.ts');
 const mainPath = resolve(process.cwd(), 'src/scripts/canvas/main.ts');
 const packageJsonPath = resolve(process.cwd(), 'package.json');
+const enJsonPath = resolve(process.cwd(), 'src/i18n/en.json');
+const ptJsonPath = resolve(process.cwd(), 'src/i18n/pt.json');
+const enAstroPath = resolve(process.cwd(), 'src/pages/en/canvas/index.astro');
+const ptAstroPath = resolve(process.cwd(), 'src/pages/pt/canvas/index.astro');
 
 const exportSupportSource = readFileSync(exportSupportPath, 'utf8');
 const rendererSource = readFileSync(rendererPath, 'utf8');
@@ -20,6 +24,10 @@ const workerStripeSource = readFileSync(workerStripePath, 'utf8');
 const workerIndexSource = readFileSync(workerIndexPath, 'utf8');
 const mainSource = readFileSync(mainPath, 'utf8');
 const packageJsonSource = readFileSync(packageJsonPath, 'utf8');
+const enJsonSource = readFileSync(enJsonPath, 'utf8');
+const ptJsonSource = readFileSync(ptJsonPath, 'utf8');
+const enAstroSource = readFileSync(enAstroPath, 'utf8');
+const ptAstroSource = readFileSync(ptAstroPath, 'utf8');
 
 test('FR-3.6 default export profile is 1920x1080 at 30fps for 12 seconds and 360 frames', () => {
   assert.match(exportSupportSource, /DEFAULT_EXPORT_PROFILE/);
@@ -146,4 +154,44 @@ test('FR-3.10 VideoFrame resources are closed after encode submission', () => {
   assert.match(encodersSource, /this\.encoder\.encode\(frame\)/);
   assert.match(encodersSource, /frame\.close\(\)/);
   assert.match(encodersSource, /bitmap\.close\(\)/);
+});
+
+test('CONV-01 canvas.exportModal.valueProp key exists in EN and PT locales', () => {
+  assert.match(enJsonSource, /canvas\.exportModal\.valueProp/);
+  assert.match(ptJsonSource, /canvas\.exportModal\.valueProp/);
+});
+
+test('CONV-03 canvas.download.paymentConfirmed key exists in EN and PT locales', () => {
+  assert.match(enJsonSource, /canvas\.download\.paymentConfirmed/);
+  assert.match(ptJsonSource, /canvas\.download\.paymentConfirmed/);
+});
+
+test('CONV-03 data-payment-confirmed-text attribute is wired in EN and PT Astro pages', () => {
+  assert.match(enAstroSource, /data-payment-confirmed-text/);
+  assert.match(ptAstroSource, /data-payment-confirmed-text/);
+});
+
+test('CONV-03 handlePaymentReturn sets paymentConfirmed status before fetch', () => {
+  const returnFnMatch = mainSource.match(/async function handlePaymentReturn[\s\S]+/);
+  assert.ok(returnFnMatch, 'handlePaymentReturn function must exist');
+  const fnBody = returnFnMatch[0];
+  const paymentConfirmedIndex = fnBody.indexOf("'paymentConfirmed'");
+  const fetchIndex = fnBody.indexOf('await fetch(');
+  assert.ok(paymentConfirmedIndex !== -1, 'paymentConfirmed status key must be used in handlePaymentReturn');
+  assert.ok(paymentConfirmedIndex < fetchIndex, 'paymentConfirmed status must be set before the download fetch call');
+});
+
+test('CONV-02 export modal valueProp text is rendered in EN and PT pages', () => {
+  assert.match(enAstroSource, /canvas\.exportModal\.valueProp/);
+  assert.match(ptAstroSource, /canvas\.exportModal\.valueProp/);
+});
+
+test('CONV-02 single primary checkout CTA uses continue key in EN and PT pages', () => {
+  assert.match(enAstroSource, /canvas\.exportModal\.continue/);
+  assert.match(ptAstroSource, /canvas\.exportModal\.continue/);
+  // Confirm no duplicate confirm CTA IDs exist
+  const enConfirmCount = (enAstroSource.match(/export-modal-confirm/g) ?? []).length;
+  const ptConfirmCount = (ptAstroSource.match(/export-modal-confirm/g) ?? []).length;
+  assert.ok(enConfirmCount <= 2, 'EN page must have at most one #export-modal-confirm element (id + handler)');
+  assert.ok(ptConfirmCount <= 2, 'PT page must have at most one #export-modal-confirm element (id + handler)');
 });

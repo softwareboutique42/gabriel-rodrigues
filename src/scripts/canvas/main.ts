@@ -640,6 +640,13 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
   const progressBarEl = document.getElementById('download-progress-bar') as HTMLElement | null;
   const progressLabelEl = document.getElementById('download-progress-label') as HTMLElement | null;
   processingEl?.classList.remove('hidden');
+  setDownloadStatus(
+    statusEl,
+    'paymentConfirmed',
+    'Payment confirmed \u2014 starting your export.',
+    true,
+    false,
+  );
   warningEl?.classList.add('hidden');
   if (progressBarEl) progressBarEl.style.width = '0%';
   if (progressLabelEl) progressLabelEl.textContent = '';
