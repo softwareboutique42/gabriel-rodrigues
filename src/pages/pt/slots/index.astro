@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+const t = useTranslations('pt');
+---
+
+<BaseLayout
+  title="Slots - Gabriel Rodrigues"
+  description="Base shell de Slots com mensagem bilingue de desenvolvimento e aviso de conformidade."
+>
+  <section
+    id="slots-shell-root"
+    class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
+  >
+    <h1
+      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2"
+      style="letter-spacing: -0.03em;"
+    >
+      {t('slots.title')}
+    </h1>
+    <p class="text-text-muted font-mono text-xs sm:text-sm mb-8 sm:mb-10">{t('slots.subtitle')}</p>
+
+    <article class="glow-panel p-5 sm:p-6">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span
+          class="font-mono text-[10px] uppercase tracking-widest text-gold bg-gold-dim px-2 py-1"
+        >
+          {t('slots.badge.foundation')}
+        </span>
+        <span id="slots-shell-status" class="font-mono text-xs uppercase tracking-wider text-neon">
+          {t('slots.status.inDevelopment')}
+        </span>
+      </div>
+
+      <p class="text-sm text-text-secondary mb-6">{t('slots.description')}</p>
+
+      <div class="border border-surface-container-high bg-surface-container p-4 sm:p-5 mb-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-text-muted mb-2">
+          {t('slots.disclaimer.heading')}
+        </p>
+        <p class="text-sm text-text-secondary">{t('slots.disclaimer.noGambling')}</p>
+        <p class="text-sm text-text-secondary mt-1">{t('slots.disclaimer.noRealMoney')}</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/pt/projects/"
+          class="clip-corners hover-glitch inline-block text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+        >
+          {t('slots.cta.projects')}
+        </a>
+        <a
+          href="/pt/canvas/"
+          class="inline-block text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
+        >
+          {t('slots.cta.canvas')}
+        </a>
+      </div>
+    </article>
+  </section>
+
+  <script>
+    import { initSlotsShell } from '../../../scripts/slots/main';
+
+    document.addEventListener('astro:page-load', () => {
+      if (document.getElementById('slots-shell-root')) {
+        initSlotsShell();
+      }
+    });
+  </script>
+</BaseLayout>

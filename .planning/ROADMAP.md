@@ -65,7 +65,9 @@ Phase 12: Compatibility and QA Hardening
 
 **Requirements:** SLOT-01, SLOT-02, SLOT-03
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+- [x] 11-01-PLAN.md — EN/PT slots shell routes, compliance disclaimer contract, and SPA-safe bootstrap lifecycle
 
 **Depends on:** Phases 9-10
 
