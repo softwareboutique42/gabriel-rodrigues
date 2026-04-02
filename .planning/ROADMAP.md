@@ -160,7 +160,7 @@ Plans:
 Plans:
 
 - [x] 05-01-PLAN.md — ORBIT style foundation, registration, deterministic selector integration, and baseline contracts (FR-5.1, FR-5.4, NFR-1, NFR-6)
-- [ ] 05-02-PLAN.md — ORBIT polish pass and loop seam review (FR-5.1, FR-5.4, NFR-1)
+- [x] 05-02-PLAN.md — ORBIT polish pass and loop seam review (FR-5.1, FR-5.4, NFR-1)
 - [ ] 05-03-PLAN.md — PULSE style implementation and deterministic mapping integration (FR-5.2, FR-5.4)
 - [ ] 05-04-PLAN.md — SIGNAL style implementation and deterministic mapping integration (FR-5.3, FR-5.4)
 - [ ] 05-05-PLAN.md — Worker schema style-ID expansion, matrix parity audit, and phase sign-off (FR-5.5, NFR-6)

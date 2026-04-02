@@ -5,6 +5,7 @@ import { getRadialParticleTexture } from './particle-utils';
 
 type SatelliteNode = {
   sprite: THREE.Sprite;
+  trail: THREE.Sprite;
   baseAngle: number;
   radius: number;
   speed: number;
@@ -23,6 +24,12 @@ export class OrbitAnimation extends BaseAnimation {
     const companyName = this.config.companyName.trim().toUpperCase() || 'COMPANY';
     const words = this.config.visualElements.slice(0, 6);
     const orbitLabels = words.length > 0 ? words : ['BRAND', 'STORY', 'SIGNAL'];
+    const mobileDevice =
+      typeof navigator !== 'undefined' &&
+      typeof navigator.hardwareConcurrency === 'number' &&
+      navigator.hardwareConcurrency < 4;
+    const satelliteFontSize = mobileDevice ? 24 : 28;
+    const radiusStep = mobileDevice ? 1.1 : 1.35;
     const brandColors = [
       this.config.colors.primary,
       this.config.colors.secondary,
@@ -65,20 +72,34 @@ export class OrbitAnimation extends BaseAnimation {
 
     orbitLabels.forEach((label, index) => {
       const color = brandColors[index % brandColors.length];
-      const sprite = createTextSprite(label.toUpperCase(), color, 28);
-      const radius = 5.2 + (index % 3) * 1.35;
+      const sprite = createTextSprite(label.toUpperCase(), color, satelliteFontSize);
+      const trail = createTextSprite(
+        label.toUpperCase(),
+        color,
+        Math.max(16, satelliteFontSize - 6),
+      );
+      const radius = 5.2 + (index % 3) * radiusStep;
       const baseAngle = (index / orbitLabels.length) * Math.PI * 2;
-      const speed = 0.28 + (index % 3) * 0.09 + moodPreset.intensityScale * 0.07;
+      const speed = 0.26 + (index % 3) * 0.085 + moodPreset.intensityScale * 0.06;
       const node: SatelliteNode = {
         sprite,
+        trail,
         radius,
         baseAngle,
         speed,
         bobPhase: index * 0.7,
       };
       sprite.material.opacity = 0;
+      trail.material.opacity = 0;
       sprite.position.set(Math.cos(baseAngle) * radius, Math.sin(baseAngle) * radius, 0.9);
+      trail.position.set(
+        Math.cos(baseAngle - 0.12) * (radius - 0.15),
+        Math.sin(baseAngle - 0.12) * (radius - 0.15),
+        0.76,
+      );
+      trail.scale.multiplyScalar(0.82);
       this.scene.add(sprite);
+      this.scene.add(trail);
       this.satellites.push(node);
     });
 
@@ -110,6 +131,7 @@ export class OrbitAnimation extends BaseAnimation {
 
   update(elapsed: number, _delta: number): void {
     const progress = this.loopProgress(elapsed);
+    const loopAngle = progress * Math.PI * 2;
     const moodPreset = this.getMoodPreset();
     const speed = this.config.animationParams.speed;
 
@@ -129,14 +151,14 @@ export class OrbitAnimation extends BaseAnimation {
       sprite.material.opacity = visible;
       sprite.position.x = baseX;
       sprite.position.y =
-        baseY + (1 - eased) * -0.7 + Math.sin(elapsed * 1.1 + index * 0.22) * 0.03;
+        baseY + (1 - eased) * -0.7 + Math.sin(loopAngle * 1.15 + index * 0.22) * 0.03;
     });
 
     this.rings.forEach((ring, index) => {
       const material = ring.material as THREE.MeshBasicMaterial;
-      const ringPulse = 1 + Math.sin(elapsed * (0.8 + index * 0.25)) * 0.03;
+      const ringPulse = 1 + Math.sin(loopAngle * (1 + index * 0.3)) * 0.03;
       ring.scale.setScalar(ringPulse);
-      ring.rotation.z = elapsed * speed * (0.08 + index * 0.03) * (index % 2 === 0 ? 1 : -1);
+      ring.rotation.z = loopAngle * speed * (0.18 + index * 0.06) * (index % 2 === 0 ? 1 : -1);
       material.opacity = (0.1 + centerReveal * 0.08) * (1 - centerFade);
     });
 
@@ -146,15 +168,21 @@ export class OrbitAnimation extends BaseAnimation {
       const fade = Math.min(1, Math.max(0, (progress - 0.92) / 0.08));
       const alpha = reveal * (1 - fade) * 0.84;
 
-      const orbitAngle = node.baseAngle + elapsed * speed * node.speed;
-      const bob = Math.sin(elapsed * 1.7 + node.bobPhase) * 0.18;
+      const orbitAngle = node.baseAngle + loopAngle * speed * node.speed;
+      const bob = Math.sin(loopAngle * 1.7 + node.bobPhase) * 0.18;
       node.sprite.position.x = Math.cos(orbitAngle) * (node.radius + bob);
       node.sprite.position.y = Math.sin(orbitAngle) * (node.radius + bob);
       node.sprite.material.opacity = alpha;
+
+      const trailAngle = orbitAngle - (0.11 + node.speed * 0.05);
+      const trailRadius = node.radius - 0.18 + bob * 0.55;
+      node.trail.position.x = Math.cos(trailAngle) * trailRadius;
+      node.trail.position.y = Math.sin(trailAngle) * trailRadius;
+      node.trail.material.opacity = alpha * 0.38;
     });
 
-    this.particles.rotation.z = elapsed * speed * 0.06;
+    this.particles.rotation.z = loopAngle * speed * 0.14;
     (this.particles.material as THREE.PointsMaterial).opacity =
-      (0.12 + Math.sin(elapsed * 0.8) * 0.05) * (1 - centerFade * 0.8);
+      (0.12 + Math.sin(loopAngle * 0.8) * 0.05) * (1 - centerFade * 0.8);
   }
 }

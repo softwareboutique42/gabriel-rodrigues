@@ -87,5 +87,7 @@ test('FR-5.1 deterministic selector can route creative v2 profiles to orbit', ()
 test('FR-5.4 orbit animation uses loopProgress and mood preset hooks for stable cycles', () => {
   assert.match(orbitAnimationSource, /export class OrbitAnimation extends BaseAnimation/);
   assert.match(orbitAnimationSource, /const progress = this\.loopProgress\(elapsed\)/);
+  assert.match(orbitAnimationSource, /const loopAngle = progress \* Math\.PI \* 2/);
   assert.match(orbitAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
+  assert.match(orbitAnimationSource, /trail/);
 });
