@@ -131,7 +131,7 @@ Plans:
 - [x] 04-02-PLAN.md — Export modal shell and option controls for format/aspect ratio/quality (FR-4.1, FR-4.5)
 - [x] 04-03-PLAN.md — Progress-state UX polish with explicit keep-active guidance (FR-4.2, FR-4.3, NFR-4)
 - [x] 04-04-PLAN.md — End-to-end aspect ratio and quality application across export flow (FR-4.1, FR-4.4)
-- [ ] 04-05-PLAN.md — Validation closeout, bilingual parity audit, and sign-off (FR-4.5, NFR-4)
+- [x] 04-05-PLAN.md — Validation closeout, bilingual parity audit, and sign-off (FR-4.5, NFR-4)
 
 **Success criteria:**
 
@@ -212,4 +212,4 @@ Phase 5 depends on Phase 2 (Claude schema, easing presets, deterministic selecti
 
 _Created: 2026-04-02 — based on research synthesis_
 _Phases: 5_
-_Ready to plan: Phase 4_
+_Ready to plan: Phase 5_
