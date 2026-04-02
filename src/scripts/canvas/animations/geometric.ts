@@ -1,6 +1,15 @@
 import * as THREE from 'three';
 import { BaseAnimation, LOOP_DURATION } from './base';
 
+type GeometricShapeData = {
+  baseX: number;
+  baseY: number;
+  rotSpeed: number;
+  orbitRadius: number;
+  orbitPhase: number;
+  scale: number;
+};
+
 export class GeometricAnimation extends BaseAnimation {
   private shapes: THREE.Group = new THREE.Group();
 
@@ -11,6 +20,18 @@ export class GeometricAnimation extends BaseAnimation {
       this.hexToColor(this.config.colors.secondary),
       this.hexToColor(this.config.colors.accent),
     ];
+
+    // One reusable material per palette bucket keeps material allocations bounded.
+    const materialPool = palette.map(
+      (color) =>
+        new THREE.MeshBasicMaterial({
+          color,
+          transparent: true,
+          opacity: 0.5,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+        }),
+    );
 
     for (let i = 0; i < count; i++) {
       const group = new THREE.Group();
@@ -25,15 +46,8 @@ export class GeometricAnimation extends BaseAnimation {
         geometry = new THREE.RingGeometry(0.3, 0.45, 3);
       }
 
-      const material = new THREE.MeshBasicMaterial({
-        color: palette[i % palette.length],
-        transparent: true,
-        opacity: 0.5,
-        side: THREE.DoubleSide,
-        blending: THREE.AdditiveBlending,
-      });
-
-      const mesh = new THREE.Mesh(geometry, material);
+      const paletteIndex = i % materialPool.length;
+      const mesh = new THREE.Mesh(geometry, materialPool[paletteIndex]);
       group.add(mesh);
 
       group.position.set((Math.random() - 0.5) * 25, (Math.random() - 0.5) * 16, 0);
@@ -45,7 +59,7 @@ export class GeometricAnimation extends BaseAnimation {
         orbitRadius: Math.random() * 1.5,
         orbitPhase: Math.random() * Math.PI * 2,
         scale: 0.6 + Math.random() * 1.2,
-      };
+      } satisfies GeometricShapeData;
 
       group.scale.setScalar(group.userData.scale);
       this.shapes.add(group);
@@ -62,7 +76,7 @@ export class GeometricAnimation extends BaseAnimation {
     const phase = progress * Math.PI * 2;
 
     this.shapes.children.forEach((group) => {
-      const d = group.userData;
+      const d = group.userData as GeometricShapeData;
 
       group.position.x = d.baseX + Math.cos(phase * speed + d.orbitPhase) * d.orbitRadius;
       group.position.y = d.baseY + Math.sin(phase * speed + d.orbitPhase) * d.orbitRadius;
@@ -71,10 +85,6 @@ export class GeometricAnimation extends BaseAnimation {
 
       const pulse = 1 + Math.sin(phase * speed * complexity + d.orbitPhase) * 0.15;
       group.scale.setScalar(d.scale * pulse);
-
-      const mesh = group.children[0] as THREE.Mesh;
-      const mat = mesh.material as THREE.MeshBasicMaterial;
-      mat.opacity = 0.3 + Math.sin(phase + d.orbitPhase) * 0.25;
     });
   }
 }
