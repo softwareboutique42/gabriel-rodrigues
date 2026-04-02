@@ -4,9 +4,11 @@ import { BaseAnimation, LOOP_DURATION } from './base';
 type GeometricShapeData = {
   baseX: number;
   baseY: number;
-  rotSpeed: number;
+  baseRotation: number;
   orbitRadius: number;
   orbitPhase: number;
+  rotPhase: number;
+  rotAmplitude: number;
   scale: number;
 };
 
@@ -55,9 +57,11 @@ export class GeometricAnimation extends BaseAnimation {
       group.userData = {
         baseX: group.position.x,
         baseY: group.position.y,
-        rotSpeed: (Math.random() - 0.5) * 2,
+        baseRotation: (Math.random() - 0.5) * Math.PI,
         orbitRadius: Math.random() * 1.5,
         orbitPhase: Math.random() * Math.PI * 2,
+        rotPhase: Math.random() * Math.PI * 2,
+        rotAmplitude: 0.08 + Math.random() * 0.14,
         scale: 0.6 + Math.random() * 1.2,
       } satisfies GeometricShapeData;
 
@@ -74,16 +78,20 @@ export class GeometricAnimation extends BaseAnimation {
     const speed = this.config.animationParams.speed;
     const complexity = this.config.animationParams.complexity;
     const phase = progress * Math.PI * 2;
+    const speedScale = 0.7 + speed * 0.3;
+    const pulseAmplitude = 0.08 + complexity * 0.07;
 
     this.shapes.children.forEach((group) => {
       const d = group.userData as GeometricShapeData;
+      const orbitAngle = phase + d.orbitPhase;
+      const rotationAngle = phase + d.rotPhase;
 
-      group.position.x = d.baseX + Math.cos(phase * speed + d.orbitPhase) * d.orbitRadius;
-      group.position.y = d.baseY + Math.sin(phase * speed + d.orbitPhase) * d.orbitRadius;
+      group.position.x = d.baseX + Math.cos(orbitAngle) * d.orbitRadius * speedScale;
+      group.position.y = d.baseY + Math.sin(orbitAngle) * d.orbitRadius * speedScale;
 
-      group.rotation.z += d.rotSpeed * 0.01 * speed;
+      group.rotation.z = d.baseRotation + Math.sin(rotationAngle) * d.rotAmplitude * speedScale;
 
-      const pulse = 1 + Math.sin(phase * speed * complexity + d.orbitPhase) * 0.15;
+      const pulse = 1 + Math.sin(phase + d.orbitPhase) * pulseAmplitude;
       group.scale.setScalar(d.scale * pulse);
     });
   }
