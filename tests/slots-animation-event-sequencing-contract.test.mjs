@@ -135,8 +135,40 @@ test('ANIM-10: runtime mount/dispose is idempotent across re-subscriptions', () 
 
   assert.equal(root.dataset.slotsAnimState, 'stop');
   assert.equal(root.dataset.slotsAnimOutcome, 'loss');
+  assert.equal(root.dataset.slotsAnimSeq, '2');
 
   runtime.dispose();
   runtime.dispose();
   runtimeAgain.dispose();
+});
+
+test('ANIM-11: blocked visual events never overwrite resolved feedback outcome', () => {
+  const root = /** @type {HTMLElement} */ ({ dataset: {} });
+  const visualEvents = createSlotsVisualEventStore();
+  const runtime = mountSlotsAnimationRuntime(root, visualEvents);
+
+  visualEvents.emit(
+    createSpinResolvedVisualEvent({
+      spinIndex: 3,
+      seed: 'slots-phase-13-en:3',
+      outcome: 'win',
+      totalPayoutUnits: 4,
+      stops: [1, 2, 3],
+    }),
+  );
+  assert.equal(root.dataset.slotsAnimOutcome, 'win');
+
+  visualEvents.emit(
+    createSpinBlockedVisualEvent({
+      spinIndex: 4,
+      reason: 'insufficient',
+      balance: 0,
+      bet: 10,
+    }),
+  );
+
+  assert.equal(root.dataset.slotsAnimState, 'blocked');
+  assert.equal(root.dataset.slotsAnimOutcome, 'win');
+
+  runtime.dispose();
 });
