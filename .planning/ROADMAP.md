@@ -67,6 +67,7 @@ Phase 15: Compatibility and Regression Hardening
 **Plans:** 1 plan
 
 - [ ] 15-01-PLAN.md — Contract + E2E regression gates for gameplay loop, i18n switching, and canonical routing
+- [x] 15-01-PLAN.md — Contract + E2E regression gates for gameplay loop, i18n switching, and canonical routing
 
 **Depends on:** Phases 13-14
 
@@ -105,4 +106,4 @@ Phase 13 -> Phase 14 -> Phase 15
 ---
 
 _Created: 2026-04-02 after v1.3 kickoff_
-_Ready to plan: Phase 15_
+_Ready to plan: none (all v1.3 phases complete)_
