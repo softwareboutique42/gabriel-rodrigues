@@ -8,8 +8,19 @@ import {
   settleRound,
 } from './economy.ts';
 import type { EngineState } from './engine/types.ts';
+import {
+  createSpinAcceptedVisualEvent,
+  createSpinBlockedVisualEvent,
+  createSpinResolvedVisualEvent,
+  createSlotsVisualEventStore,
+  type SlotsVisualEventStore,
+} from './animation/events.ts';
 
 const SPIN_DELAY_MS = 240;
+
+export interface SlotsControllerMount {
+  visualEvents: SlotsVisualEventStore;
+}
 
 function setText(id: string, value: string): void {
   const el = document.getElementById(id);
@@ -82,14 +93,15 @@ function renderState(
   setText('slots-gameplay-seed', `${getMessage(root, 'slotsLabelSeed', 'Seed')}: -`);
 }
 
-export function mountSlotsController(root: HTMLElement, signal: AbortSignal): void {
+export function mountSlotsController(root: HTMLElement, signal: AbortSignal): SlotsControllerMount {
   let state = createInitialEngineState();
   let economy = createInitialEconomyState();
   let feedbackKey = 'idle';
+  const visualEvents = createSlotsVisualEventStore();
   renderState(root, state, economy.balance, economy.bet, feedbackKey);
 
   const spinButton = document.getElementById('slots-spin-button') as HTMLButtonElement | null;
-  if (!spinButton) return;
+  if (!spinButton) return { visualEvents };
   const decBetButton = document.getElementById('slots-bet-dec') as HTMLButtonElement | null;
   const incBetButton = document.getElementById('slots-bet-inc') as HTMLButtonElement | null;
 
@@ -104,6 +116,14 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): vo
   const onSpin = () => {
     const blocked = getSpinBlockReason(economy, state.status);
     if (blocked) {
+      visualEvents.emit(
+        createSpinBlockedVisualEvent({
+          spinIndex: blocked === 'spinning' ? state.spinIndex : state.spinIndex + 1,
+          reason: blocked,
+          balance: economy.balance,
+          bet: economy.bet,
+        }),
+      );
       feedbackKey = blocked === 'insufficient' ? 'insufficient' : 'blockedSpinning';
       renderState(root, state, economy.balance, economy.bet, feedbackKey);
       return;
@@ -113,6 +133,14 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): vo
     if (requested === state) return;
     state = requested;
     economy = debitForRound(economy);
+    visualEvents.emit(
+      createSpinAcceptedVisualEvent({
+        spinIndex: state.spinIndex,
+        baseSeed,
+        bet: economy.bet,
+        balanceAfterDebit: economy.balance,
+      }),
+    );
     feedbackKey = 'spinning';
     renderState(root, state, economy.balance, economy.bet, feedbackKey);
 
@@ -121,6 +149,15 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): vo
       const result = resolveRound({ baseSeed, spinIndex: activeSpin });
       state = transitionEngineState(state, { type: 'SPIN_RESOLVED', result });
       economy = settleRound(economy, result.totalPayoutUnits);
+      visualEvents.emit(
+        createSpinResolvedVisualEvent({
+          spinIndex: result.spinIndex,
+          seed: result.seed,
+          outcome: result.outcome,
+          totalPayoutUnits: result.totalPayoutUnits,
+          stops: result.stops,
+        }),
+      );
       feedbackKey = 'result';
       renderState(root, state, economy.balance, economy.bet, feedbackKey);
     }, SPIN_DELAY_MS);
@@ -129,4 +166,6 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): vo
   spinButton.addEventListener('click', onSpin, { signal });
   if (decBetButton) decBetButton.addEventListener('click', () => onAdjustBet(-1), { signal });
   if (incBetButton) incBetButton.addEventListener('click', () => onAdjustBet(1), { signal });
+
+  return { visualEvents };
 }

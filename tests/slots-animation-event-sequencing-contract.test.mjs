@@ -41,8 +41,9 @@ test('ANIM-10: visual event snapshots are immutable and preserve sequence order'
     ['spin-accepted', 'spin-resolved', 'spin-blocked'],
   );
 
+  const [firstSnapshot] = store.snapshot();
   assert.throws(() => {
     // @ts-expect-error read-only contract check
-    accepted.type = 'spin-blocked';
+    firstSnapshot.type = 'spin-blocked';
   });
 });
