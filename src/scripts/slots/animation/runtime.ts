@@ -16,12 +16,14 @@ function writeSnapshots(
   root: HTMLElement,
   timeline: ReturnType<typeof createReelTimelineModel>,
   feedback: ReturnType<typeof createOutcomeFeedbackModel>,
+  sequence: number,
 ): void {
   const timelineSnapshot = timeline.snapshot();
   const feedbackSnapshot = feedback.snapshot();
 
   root.dataset.slotsAnimState = timelineSnapshot.phase;
   root.dataset.slotsAnimOutcome = feedbackSnapshot.status;
+  root.dataset.slotsAnimSeq = String(sequence);
 
   if (timelineSnapshot.activeSpinIndex === null) {
     deleteDatasetKey(root, 'slotsAnimSpinIndex');
@@ -51,6 +53,7 @@ export function mountSlotsAnimationRuntime(
 
   const timeline = createReelTimelineModel();
   const feedback = createOutcomeFeedbackModel();
+  let sequence = 0;
   let disposed = false;
 
   const unsubscribe = visualEvents.subscribe((event) => {
@@ -58,18 +61,19 @@ export function mountSlotsAnimationRuntime(
 
     timeline.onVisualEvent(event);
     feedback.onVisualEvent(event);
-    writeSnapshots(root, timeline, feedback);
+    sequence += 1;
+    writeSnapshots(root, timeline, feedback, sequence);
 
     if (event.type === 'spin-accepted') {
       queueMicrotask(() => {
         if (disposed) return;
         timeline.advanceToSustain(event.spinIndex);
-        writeSnapshots(root, timeline, feedback);
+        writeSnapshots(root, timeline, feedback, sequence);
       });
     }
   });
 
-  writeSnapshots(root, timeline, feedback);
+  writeSnapshots(root, timeline, feedback, sequence);
 
   const runtime: SlotsAnimationRuntimeMount = {
     dispose() {
@@ -81,6 +85,7 @@ export function mountSlotsAnimationRuntime(
       deleteDatasetKey(root, 'slotsAnimBlockedReason');
       root.dataset.slotsAnimState = 'idle';
       root.dataset.slotsAnimOutcome = 'idle';
+      root.dataset.slotsAnimSeq = '0';
       runtimes.delete(root);
     },
   };
