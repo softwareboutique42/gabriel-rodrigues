@@ -33,7 +33,10 @@ type GeneratedConfig = {
     | 'narrative'
     | 'timeline'
     | 'constellation'
-    | 'spotlight';
+    | 'spotlight'
+    | 'orbit'
+    | 'pulse'
+    | 'signal';
   animationParams: {
     speed: number;
     density: number;
@@ -90,7 +93,7 @@ Return ONLY valid JSON with this exact schema — no markdown, no explanation:
   "mood": "<one of: bold | elegant | playful | minimal | dynamic>",
   "industryCategory": "<one of: tech | finance | health | retail | creative | food | other>",
   "energyLevel": <number 0.0-1.0>,
-  "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight>",
+  "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight | orbit | pulse | signal>",
   "animationParams": {
     "speed": <number 0.5-2.0>,
     "density": <number 0.3-1.0>,
@@ -128,6 +131,9 @@ const VALID_ANIMATION_STYLES: GeneratedConfig['animationStyle'][] = [
   'timeline',
   'constellation',
   'spotlight',
+  'orbit',
+  'pulse',
+  'signal',
 ];
 
 function sanitizeMood(value: unknown): CompanyMood {
