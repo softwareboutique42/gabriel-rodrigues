@@ -59,7 +59,11 @@ function checkRateLimit(ip: string): boolean {
 
 function corsHeaders(origin: string, allowedOrigins: string): HeadersInit {
   const allowed = allowedOrigins.split(',').map((o) => o.trim());
-  const isAllowed = allowed.includes(origin);
+
+  // Allow any localhost origin for development
+  const isLocalhost = origin.startsWith('http://localhost');
+  const isAllowed = isLocalhost || allowed.includes(origin);
+
   return {
     'Access-Control-Allow-Origin': isAllowed ? origin : '',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
