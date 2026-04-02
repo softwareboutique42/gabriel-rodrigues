@@ -17,16 +17,19 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ Stripe payment integration — existing
 - ✓ Three.js animation runtime — existing
 - ✓ KV caching for brand analysis responses — existing
+- ✓ Preset style library with industry + mood as selection axes — v1.0
+- ✓ Company name + brand color input drives animation appearance — v1.0
+- ✓ Sprite-based animations polished by style family and loop-safe — v1.0
+- ✓ Live canvas preview updates from name/color/style changes — v1.0
+- ✓ MP4/WebM export of generated animation — v1.0
+- ✓ Stripe-gated download flow (free preview, paid export) — v1.0
+- ✓ Bilingual EN/PT coverage for export UX strings — v1.0
 
 ### Active
 
-- [ ] Preset style library with industry + mood as selection axes (3–5 styles)
-- [ ] Company name + brand color input that drives animation appearance
-- [ ] Sprite-based animations that look polished and professional per style
-- [ ] Live canvas preview updates as user changes name/colors/style
-- [ ] MP4/WebM export of the animation
-- [ ] Export gated behind Stripe payment (free to preview, paid to download)
-- [ ] Bilingual UI (EN + PT) for all new UI elements
+- [ ] Conversion and growth improvements for the canvas export funnel
+- [ ] Additional vertical-specific animation presets for post-v1.0 milestone
+- [ ] Automated UAT/audit cadence before each milestone closeout
 
 ### Out of Scope
 
@@ -56,12 +59,24 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Key Decisions
 
-| Decision                                       | Rationale                                         | Outcome   |
-| ---------------------------------------------- | ------------------------------------------------- | --------- |
-| Preset style library over AI-generated sprites | Predictable quality, faster v1                    | — Pending |
-| Browser-side MP4 capture                       | Avoids server infra complexity                    | — Pending |
-| Industry + mood as style axes                  | More expressive selection than one dimension      | — Pending |
-| Free preview / paid export                     | Maximizes conversion funnel, Stripe already wired | — Pending |
+| Decision                                       | Rationale                                         | Outcome     |
+| ---------------------------------------------- | ------------------------------------------------- | ----------- |
+| Preset style library over AI-generated sprites | Predictable quality, faster v1                    | ✓ Confirmed |
+| Browser-side MP4 capture                       | Avoids server infra complexity                    | ✓ Confirmed |
+| Industry + mood as style axes                  | More expressive selection than one dimension      | ✓ Confirmed |
+| Free preview / paid export                     | Maximizes conversion funnel, Stripe already wired | ✓ Confirmed |
+
+## Current State
+
+- Shipped milestone: v1.0 (2026-04-02)
+- Scope delivered: Phase 1-5 roadmap complete (23/23 plans)
+- Archive artifacts: `.planning/milestones/v1.0-ROADMAP.md`, `.planning/milestones/v1.0-REQUIREMENTS.md`
+
+## Next Milestone Goals
+
+- Define v1.1 requirements from observed usage and conversion friction
+- Prioritize highest-impact UX and performance follow-ups
+- Keep roadmap milestone-scoped with fresh requirements and phased validation
 
 ## Evolution
 
@@ -84,4 +99,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-01 after initialization_
+_Last updated: 2026-04-02 after v1.0 milestone completion_
