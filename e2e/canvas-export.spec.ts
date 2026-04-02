@@ -100,10 +100,13 @@ test.describe('Canvas Export UX', () => {
     await page.goto('/en/canvas/?session_id=test-export-supported');
 
     await expect(page.locator('#canvas-download-processing')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#download-warning')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#download-warning')).toContainText(/Keep this tab active/i);
     await expect(page.locator('#download-status')).toContainText(/Video export complete/i, {
       timeout: 15000,
     });
-    await expect(page.locator('#download-warning')).toContainText(/Keep this tab active/i);
+    await expect(page.locator('#download-warning')).toBeHidden();
+    await expect(page.locator('#download-progress-bar')).toHaveAttribute('style', /100%/);
     await expect(page.locator('#canvas-el')).toHaveCount(1);
   });
 

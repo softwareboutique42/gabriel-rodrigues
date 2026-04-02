@@ -175,6 +175,19 @@ function closeExportModal(): void {
   modal.setAttribute('aria-hidden', 'true');
 }
 
+function setDownloadStatus(
+  statusEl: HTMLElement | null,
+  key: string,
+  fallback: string,
+  pulse = false,
+  isError = false,
+): void {
+  if (!statusEl) return;
+  statusEl.textContent = getExportStatusText(key, fallback);
+  statusEl.classList.toggle('animate-pulse', pulse);
+  statusEl.classList.toggle('text-gold', isError);
+}
+
 function getExportStatusText(kind: string, fallback: string): string {
   const processingEl = document.getElementById('canvas-download-processing') as HTMLElement | null;
   if (!processingEl) return fallback;
@@ -526,13 +539,10 @@ async function handleDownload(config: CompanyConfig, settings: ExportSettings): 
   try {
     savePendingExportSettings(settings);
     processingEl?.classList.remove('hidden');
-    if (statusEl) {
-      statusEl.textContent = getExportStatusText('processing', 'Processing payment...');
-      statusEl.classList.add('animate-pulse');
-    }
+    setDownloadStatus(statusEl, 'processing', 'Processing payment...', true, false);
     if (progressBarEl) progressBarEl.style.width = '0%';
     if (progressLabelEl) progressLabelEl.textContent = '';
-    warningEl?.classList.remove('hidden');
+    warningEl?.classList.add('hidden');
 
     const res = await fetch(`${WORKER_URL}/checkout`, {
       method: 'POST',
@@ -567,7 +577,7 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
   const progressBarEl = document.getElementById('download-progress-bar') as HTMLElement | null;
   const progressLabelEl = document.getElementById('download-progress-label') as HTMLElement | null;
   processingEl?.classList.remove('hidden');
-  warningEl?.classList.remove('hidden');
+  warningEl?.classList.add('hidden');
   if (progressBarEl) progressBarEl.style.width = '0%';
   if (progressLabelEl) progressLabelEl.textContent = '';
 
@@ -589,19 +599,20 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
     const bestPath = selectExportPathForFormat(capabilities, selectedSettings.format);
 
     if (exportIntent === 'video' && bestPath !== 'html-fallback') {
-      if (statusEl) {
-        statusEl.textContent = getExportStatusText('preparing', 'Preparing video export...');
-        statusEl.classList.add('animate-pulse');
-      }
+      setDownloadStatus(statusEl, 'preparing', 'Preparing video export...', true, false);
+      warningEl?.classList.remove('hidden');
 
       const result = await startVideoExport(normalizedConfig, {
         signal,
         preferredPath: bestPath,
         settings: selectedSettings,
         onProgress: ({ frame, totalFrames, percent }) => {
+          warningEl?.classList.remove('hidden');
           if (!statusEl) return;
           const prefix = getExportStatusText('exporting', 'Exporting video');
           statusEl.textContent = `${prefix}: ${percent}% (${frame}/${totalFrames})`;
+          statusEl.classList.add('animate-pulse');
+          statusEl.classList.remove('text-gold');
           if (progressBarEl) {
             progressBarEl.style.width = `${percent}%`;
           }
@@ -615,46 +626,40 @@ async function handlePaymentReturn(signal?: AbortSignal): Promise<void> {
       });
 
       downloadVideoBlob(result.blob, result.filename);
-      if (statusEl) {
-        statusEl.textContent = getExportStatusText(
-          'complete',
-          'Video export complete. Download started!',
-        );
-        statusEl.classList.remove('animate-pulse');
-      }
+      setDownloadStatus(
+        statusEl,
+        'complete',
+        'Video export complete. Download started!',
+        false,
+        false,
+      );
       if (progressBarEl) progressBarEl.style.width = '100%';
       warningEl?.classList.add('hidden');
       clearPendingExportSettings();
     } else {
-      if (statusEl) {
-        statusEl.textContent = getExportStatusText(
-          'unsupported',
-          'Video export is not supported in this browser.',
-        );
-      }
+      setDownloadStatus(
+        statusEl,
+        'unsupported',
+        'Video export is not supported in this browser.',
+        false,
+        false,
+      );
       const html = generateExportHTML(normalizedConfig, normalizedConfig.version ?? data.version);
       const filename = `${normalizedConfig.companyName.toLowerCase().replace(/\s+/g, '-')}-canvas.html`;
       downloadHTML(html, filename);
 
-      if (statusEl) {
-        statusEl.textContent = getExportStatusText(
-          'fallback',
-          'Video export unsupported here. HTML fallback download started.',
-        );
-        statusEl.classList.remove('animate-pulse');
-      }
+      setDownloadStatus(
+        statusEl,
+        'fallback',
+        'Video export unsupported here. HTML fallback download started.',
+        false,
+        false,
+      );
       warningEl?.classList.add('hidden');
       clearPendingExportSettings();
     }
   } catch {
-    if (statusEl) {
-      statusEl.textContent = getExportStatusText(
-        'error',
-        'Download failed. Please contact support.',
-      );
-      statusEl.classList.remove('animate-pulse');
-      statusEl.classList.add('text-gold');
-    }
+    setDownloadStatus(statusEl, 'error', 'Download failed. Please contact support.', false, true);
     warningEl?.classList.add('hidden');
     clearPendingExportSettings();
   }
