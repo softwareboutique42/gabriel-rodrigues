@@ -1,10 +1,16 @@
 import { mountSlotsController } from './controller.ts';
+import {
+  mountSlotsAnimationRuntime,
+  type SlotsAnimationRuntimeMount,
+} from './animation/runtime.ts';
 
 let controller: AbortController | null = null;
+let runtime: SlotsAnimationRuntimeMount | null = null;
 
 export function initSlotsShell(): void {
   // Abort previous listeners to prevent duplicates after SPA navigation.
   if (controller) controller.abort();
+  if (runtime) runtime.dispose();
   controller = new AbortController();
   const { signal } = controller;
 
@@ -16,11 +22,13 @@ export function initSlotsShell(): void {
     status.setAttribute('data-lifecycle', 'active');
   }
 
-  mountSlotsController(root, signal);
+  const mountedController = mountSlotsController(root, signal);
+  runtime = mountSlotsAnimationRuntime(root, mountedController.visualEvents, signal);
 
   document.addEventListener(
     'astro:before-swap',
     () => {
+      runtime?.dispose();
       controller?.abort();
     },
     { once: true, signal },
