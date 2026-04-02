@@ -164,6 +164,7 @@ class Animation {
     case 'constellation':
     case 'spotlight':
     case 'orbit':
+    case 'pulse':
       return generateV2AnimationCode(config);
   }
 }
@@ -564,6 +565,71 @@ class Animation {
       sprite.position.x = Math.cos(angle) * radius;
       sprite.position.y = Math.sin(angle) * radius;
       sprite.material.opacity = alpha * 0.84;
+    });
+  }
+}`;
+
+    case 'pulse':
+      return `
+${textHelper}
+class Animation {
+  setup(scene, config) {
+    this.rings = [];
+    this.center = [];
+    const colors = [
+      new THREE.Color(config.colors.primary),
+      new THREE.Color(config.colors.secondary),
+      new THREE.Color(config.colors.accent),
+    ];
+
+    const chars = (config.companyName || 'COMPANY').toUpperCase().split('');
+    const spacing = 0.9;
+    const startX = -((chars.length - 1) * spacing) / 2;
+    chars.forEach((char, i) => {
+      const sprite = createTextSprite(char, config.colors.primary, 70);
+      sprite.position.set(startX + i * spacing, 0, 1.2);
+      sprite.material.opacity = 0;
+      sprite.userData = { index: i, baseX: sprite.position.x };
+      scene.add(sprite);
+      this.center.push(sprite);
+    });
+
+    for (let i = 0; i < 7; i++) {
+      const ringGeo = new THREE.RingGeometry(1.05, 1.2, 96);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: colors[i % colors.length],
+        transparent: true,
+        opacity: 0,
+        side: THREE.DoubleSide,
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.userData = { phaseOffset: i / 7, sizeBias: 0.5 + (i % 3) * 0.12 };
+      scene.add(ring);
+      this.rings.push(ring);
+    }
+  }
+
+  update(elapsed) {
+    const progress = ((elapsed % ${LOOP_DURATION}) + ${LOOP_DURATION}) % ${LOOP_DURATION} / ${LOOP_DURATION};
+    const loopAngle = progress * Math.PI * 2;
+
+    this.rings.forEach((ring) => {
+      const { phaseOffset, sizeBias } = ring.userData;
+      const localProgress = (progress + phaseOffset) % 1;
+      const curve = localProgress < 0.6 ? localProgress / 0.6 : 1 - (localProgress - 0.6) / 0.4;
+      const pulse = Math.max(0, Math.min(1, curve));
+      ring.scale.setScalar(0.75 + pulse * (2.7 + sizeBias));
+      ring.material.opacity = pulse * 0.3;
+      ring.rotation.z = loopAngle * ${speed} * 0.06 * (1 + sizeBias);
+    });
+
+    const fadeIn = Math.min(1, Math.max(0, (progress - 0.08) / 0.18));
+    const fadeOut = Math.min(1, Math.max(0, (progress - 0.88) / 0.12));
+    this.center.forEach((sprite, i) => {
+      const reveal = Math.min(1, Math.max(0, (progress - 0.08 - i * 0.03) / 0.16));
+      const eased = 1 - Math.pow(1 - reveal, 3);
+      sprite.material.opacity = eased * fadeIn * (1 - fadeOut);
+      sprite.position.y = (1 - eased) * -0.5 + Math.sin(loopAngle * 1.1 + i * 0.2) * 0.025;
     });
   }
 }`;

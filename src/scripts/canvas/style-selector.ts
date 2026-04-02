@@ -19,8 +19,8 @@ const V1_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = {
 
 const V2_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = {
   tech: 'constellation',
-  finance: 'timeline',
-  health: 'timeline',
+  finance: 'pulse',
+  health: 'pulse',
   retail: 'narrative',
   creative: 'orbit',
   food: 'narrative',
@@ -40,6 +40,20 @@ const V1_MOOD_TIE_BREAKER: Partial<Record<IndustryCategory, Record<CompanyMood, 
 
 const V2_MOOD_TIE_BREAKER: Partial<Record<IndustryCategory, Record<CompanyMood, AnimationStyle>>> =
   {
+    finance: {
+      elegant: 'pulse',
+      minimal: 'pulse',
+      dynamic: 'timeline',
+      bold: 'pulse',
+      playful: 'timeline',
+    },
+    health: {
+      elegant: 'pulse',
+      minimal: 'pulse',
+      dynamic: 'pulse',
+      bold: 'timeline',
+      playful: 'timeline',
+    },
     creative: {
       elegant: 'orbit',
       minimal: 'orbit',

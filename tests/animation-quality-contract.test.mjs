@@ -14,6 +14,7 @@ const configNormalizationPath = resolve(
 const selectorPath = resolve(process.cwd(), 'src/scripts/canvas/style-selector.ts');
 const animationIndexPath = resolve(process.cwd(), 'src/scripts/canvas/animations/index.ts');
 const orbitAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/orbit.ts');
+const pulseAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/pulse.ts');
 const versionsPath = resolve(process.cwd(), 'src/scripts/canvas/versions.ts');
 
 const workerIndexSource = readFileSync(workerIndexPath, 'utf8');
@@ -24,6 +25,7 @@ const configNormalizationSource = readFileSync(configNormalizationPath, 'utf8');
 const selectorSource = readFileSync(selectorPath, 'utf8');
 const animationIndexSource = readFileSync(animationIndexPath, 'utf8');
 const orbitAnimationSource = readFileSync(orbitAnimationPath, 'utf8');
+const pulseAnimationSource = readFileSync(pulseAnimationPath, 'utf8');
 const versionsSource = readFileSync(versionsPath, 'utf8');
 
 test('worker prompt requests semantic mood, industryCategory, and energyLevel', () => {
@@ -73,10 +75,10 @@ test('deterministic selector exists and normalization overwrites animationStyle'
 });
 
 test('FR-5.1 orbit style is part of shared animation style contracts', () => {
-  assert.match(typesSource, /\| 'orbit';/);
+  assert.match(typesSource, /\| 'orbit'/);
   assert.match(animationIndexSource, /import \{ OrbitAnimation \} from '\.\/orbit';/);
   assert.match(animationIndexSource, /orbit:\s*OrbitAnimation/);
-  assert.match(versionsSource, /styles:\s*\['narrative', 'timeline', 'constellation', 'spotlight', 'orbit'\]/);
+  assert.match(versionsSource, /styles:\s*\[[^\]]*'orbit'[^\]]*\]/);
 });
 
 test('FR-5.1 deterministic selector can route creative v2 profiles to orbit', () => {
@@ -90,4 +92,26 @@ test('FR-5.4 orbit animation uses loopProgress and mood preset hooks for stable 
   assert.match(orbitAnimationSource, /const loopAngle = progress \* Math\.PI \* 2/);
   assert.match(orbitAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
   assert.match(orbitAnimationSource, /trail/);
+});
+
+test('FR-5.2 pulse style is part of shared animation style contracts', () => {
+  assert.match(typesSource, /\| 'pulse';/);
+  assert.match(animationIndexSource, /import \{ PulseAnimation \} from '\.\/pulse';/);
+  assert.match(animationIndexSource, /pulse:\s*PulseAnimation/);
+  assert.match(
+    versionsSource,
+    /styles:\s*\['narrative', 'timeline', 'constellation', 'spotlight', 'orbit', 'pulse'\]/,
+  );
+});
+
+test('FR-5.2 deterministic selector routes finance and health v2 profiles to pulse', () => {
+  assert.match(selectorSource, /finance:\s*'pulse'/);
+  assert.match(selectorSource, /health:\s*'pulse'/);
+});
+
+test('FR-5.4 pulse animation uses loopProgress and mood preset hooks for seam-safe timing', () => {
+  assert.match(pulseAnimationSource, /export class PulseAnimation extends BaseAnimation/);
+  assert.match(pulseAnimationSource, /const progress = this\.loopProgress\(elapsed\)/);
+  assert.match(pulseAnimationSource, /const loopAngle = progress \* Math\.PI \* 2/);
+  assert.match(pulseAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
 });
