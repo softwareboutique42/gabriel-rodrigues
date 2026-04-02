@@ -2,12 +2,14 @@
 
 ## Overview
 
-3 phases for milestone v1.3, continuing numbering after v1.2.
+5 phases for milestone v1.3, continuing numbering after v1.2.
 
 ```
 Phase 13: Slots Core Gameplay Loop
 Phase 14: Economy, UX, and i18n Parity
 Phase 15: Compatibility and Regression Hardening
+Phase 16: Milestone Verification Backfill
+Phase 17: Slots Runtime Coverage Hardening
 ```
 
 ---
@@ -83,10 +85,58 @@ Phase 15: Compatibility and Regression Hardening
 
 ---
 
+## Phase 16: Milestone Verification Backfill
+
+**Goal:** Close the v1.3 audit blocker by backfilling verification artifacts and restoring requirement-level audit traceability for the already-shipped Slots gameplay work.
+
+**Requirements:** SLOT-10, SLOT-11, SLOT-12, I18N-10, UX-10, COMP-10, QA-10
+
+**Gap Closure:** Closes orphaned milestone requirements caused by missing phase verification artifacts for phases 13-15.
+
+**Plans:** 0 plans
+
+**Depends on:** Phases 13-15
+
+**Success criteria:**
+
+- Phase 13, 14, and 15 each have `VERIFICATION.md` artifacts aligned with their summaries and completed requirements.
+- `.planning/v1.3-MILESTONE-AUDIT.md` can be rerun without orphaned requirement failures.
+- REQUIREMENTS traceability reflects the gap-closure phase until milestone audit passes.
+
+**Key risks:**
+
+- Verification backfill can drift from actual shipped evidence if phase artifacts are recreated loosely instead of from recorded validation commands.
+
+---
+
+## Phase 17: Slots Runtime Coverage Hardening
+
+**Goal:** Strengthen runtime confidence for the Slots milestone by adding browser coverage for PT gameplay transitions, insufficient-credit states, and localized runtime messaging.
+
+**Requirements:** —
+
+**Gap Closure:** Closes non-blocking audit tech debt from the v1.3 milestone review.
+
+**Plans:** 0 plans
+
+**Depends on:** Phase 16
+
+**Success criteria:**
+
+- Playwright exercises PT runtime spin behavior, not just attribute presence after navigation.
+- Browser coverage includes an insufficient-credit blocked gameplay path.
+- Runtime-rendered localized messaging is asserted directly in browser flows where practical.
+
+**Key risks:**
+
+- Browser-only hardening can add maintenance cost if assertions become coupled too tightly to transient copy.
+
+---
+
 ## Phase Dependencies
 
 ```
-Phase 13 -> Phase 14 -> Phase 15
+Phase 13 -> Phase 14 -> Phase 15 -> Phase 16 -> Phase 17
 ```
 
 ---
@@ -95,15 +145,15 @@ Phase 13 -> Phase 14 -> Phase 15
 
 | Requirement | Phase    |
 | ----------- | -------- |
-| SLOT-10     | Phase 13 |
-| SLOT-11     | Phase 13 |
-| SLOT-12     | Phase 14 |
-| I18N-10     | Phase 14 |
-| UX-10       | Phase 14 |
-| COMP-10     | Phase 15 |
-| QA-10       | Phase 15 |
+| SLOT-10     | Phase 16 |
+| SLOT-11     | Phase 16 |
+| SLOT-12     | Phase 16 |
+| I18N-10     | Phase 16 |
+| UX-10       | Phase 16 |
+| COMP-10     | Phase 16 |
+| QA-10       | Phase 16 |
 
 ---
 
 _Created: 2026-04-02 after v1.3 kickoff_
-_Ready to plan: none (all v1.3 phases complete)_
+_Ready to plan: Phase 16, Phase 17_
