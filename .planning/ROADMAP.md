@@ -91,7 +91,7 @@ Phase 12: Compatibility and QA Hardening
 
 **Plans:** 1 plan
 
-- [ ] 12-01-PLAN.md — Compatibility contracts, EN/PT route-switch E2E checks, and canonical-route hardening gates
+- [x] 12-01-PLAN.md — Compatibility contracts, EN/PT route-switch E2E checks, and canonical-route hardening gates
 
 **Depends on:** Phases 9-11
 
