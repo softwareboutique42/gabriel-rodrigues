@@ -41,7 +41,9 @@ Phase 12: Compatibility and QA Hardening
 
 **Requirements:** HUB-02, HUB-03, I18N-02
 
-**Plans:** 0 plans
+**Plans:** 1 plan
+
+- [ ] 10-01-PLAN.md — EN/PT projects hub pages, canonical CTA routes, and language-switch parity checks
 
 **Depends on:** Phase 9
 
