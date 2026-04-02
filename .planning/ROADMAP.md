@@ -1,115 +1,127 @@
-# Roadmap — Company Canvas (v1.1 New Style Packs)
+# Roadmap — Company Canvas (v1.2 Projects Hub & Slots Foundation)
 
 ## Overview
 
-3 phases for milestone v1.1, continuing numbering after v1.0.
+4 phases for milestone v1.2, continuing numbering after v1.1.
 
 ```
-Phase 6: Vertical Style Pack Foundation
-Phase 7: Export Funnel Conversion Uplift
-Phase 8: Verification and Audit Automation
+Phase 9: Navigation and i18n Primitives
+Phase 10: Projects Hub Delivery
+Phase 11: Slots Shell Foundation
+Phase 12: Compatibility and QA Hardening
 ```
 
 ---
 
-## Phase 6: Vertical Style Pack Foundation
+## Phase 9: Navigation and i18n Primitives
 
-**Goal:** Add new vertical-specific presets and deterministic routing coverage while preserving loop and quality contracts.
+**Goal:** Establish bilingual navigation and translation primitives for Projects/Slots without breaking existing Canvas access.
 
-**Requirements:** PACK-01, PACK-02, PACK-03
+**Requirements:** HUB-01, I18N-01
 
-**Plans:** 1 plan
-
-Plans:
-
-- [x] 06-01-PLAN.md — Vertical presets, deterministic routing expansion, and regression locks (PACK-01, PACK-02, PACK-03)
+**Plans:** 0 plans
 
 **Success criteria:**
 
-- At least 3 additional presets are available in selector and render correctly.
-- New presets pass seam-safe loop behavior at 12-second duration.
-- Deterministic selector routes at least 2 new categories to the new presets.
-- Existing style mappings remain stable (no regressions in current matrix).
+- Header navigation exposes Projects as the top-level entry and removes direct Canvas nav link.
+- Required EN/PT keys for navigation, projects, and slots labels are present and parity-checked.
+- Navigation active-state logic includes `/projects`, `/canvas`, and `/slots` surfaces consistently.
 
 **Key risks:**
 
-- New style routing could reduce existing mapping quality if tie-breakers are not updated carefully.
+- Missing EN/PT key parity can cascade into broken labels in later phases.
 
 ---
 
-## Phase 7: Export Funnel Conversion Uplift
+## Phase 10: Projects Hub Delivery
 
-**Goal:** Increase successful paid exports by improving clarity and flow through the premium export journey.
+**Goal:** Deliver Projects hub pages in EN/PT as the discovery surface for Canvas and Slots while preserving canonical Canvas routes.
 
-**Requirements:** CONV-01, CONV-02, CONV-03
+**Requirements:** HUB-02, HUB-03, I18N-02
 
-**Plans:** 1 plan
+**Plans:** 0 plans
 
-Plans:
-
-- [x] 07-01-PLAN.md — Conversion-focused value framing, CTA simplification, and post-payment confirmation flow
-
-**Depends on:** Phase 6
+**Depends on:** Phase 9
 
 **Success criteria:**
 
-- Premium value proposition is visible before payment in EN/PT.
-- CTA copy and flow transitions are simplified without losing required safeguards.
-- Post-payment success state gives a clear export next-step outcome.
+- `/en/projects/` and `/pt/projects/` pages exist with clear cards for Canvas and Slots.
+- Canvas remains canonical at `/en/canvas/` and `/pt/canvas/` with no route regression.
+- Language switching from projects and canvas paths resolves to valid counterpart routes.
 
 **Key risks:**
 
-- Conversion-focused copy changes can unintentionally create i18n drift between EN/PT.
+- Navigation restructuring can break legacy discovery paths if links are not updated consistently.
 
 ---
 
-## Phase 8: Verification and Audit Automation
+## Phase 11: Slots Shell Foundation
 
-**Goal:** Standardize verification artifacts and make milestone closure audit-first by default.
+**Goal:** Add EN/PT Slots shell routes and SPA-safe bootstrap structure, explicitly scoped to non-gameplay foundation.
 
-**Requirements:** QVER-01, QVER-02, QVER-03
+**Requirements:** SLOT-01, SLOT-02, SLOT-03
 
-**Plans:** 1 plan
+**Plans:** 0 plans
 
-- [x] 08-01-PLAN.md — Validation template standardization, soft audit gate, and debt surfacing in /gsd:next
-
-**Depends on:** Phases 6-7
+**Depends on:** Phases 9-10
 
 **Success criteria:**
 
-- Milestone closeout path clearly requires audit status visibility before completion.
-- Phase-level verification artifacts follow a consistent, queryable structure.
-- Progress output highlights verification debt to prevent silent carryover.
+- `/en/slots/` and `/pt/slots/` render shell pages with in-development and non-real-money disclaimers.
+- Slots shell script wiring uses Astro SPA-safe lifecycle (`astro:page-load` + cleanup guard).
+- No gameplay logic, RNG, or monetization features are introduced in this milestone.
 
 **Key risks:**
 
-- Process hardening can add friction if guardrails are too rigid for small changes.
+- Shell pages can accidentally expand into gameplay scope without clear milestone boundaries.
+
+---
+
+## Phase 12: Compatibility and QA Hardening
+
+**Goal:** Lock discovery/navigation/i18n behavior with regression coverage and compatibility checks for the new IA.
+
+**Requirements:** COMP-01
+
+**Plans:** 0 plans
+
+**Depends on:** Phases 9-11
+
+**Success criteria:**
+
+- E2E coverage verifies Projects -> Canvas/Slots discovery flow in EN/PT.
+- i18n switching and navigation labels are regression-locked across updated routes.
+- Compatibility checks confirm canonical Canvas routes remain stable post-restructure.
+
+**Key risks:**
+
+- Inadequate regression coverage can hide route/language breakage until after deployment.
 
 ---
 
 ## Phase Dependencies
 
 ```
-Phase 6 -> Phase 7 -> Phase 8
+Phase 9 -> Phase 10 -> Phase 11 -> Phase 12
 ```
 
 ---
 
 ## Requirements Coverage
 
-| Requirement | Phase   |
-| ----------- | ------- |
-| PACK-01     | Phase 6 |
-| PACK-02     | Phase 6 |
-| PACK-03     | Phase 6 |
-| CONV-01     | Phase 7 |
-| CONV-02     | Phase 7 |
-| CONV-03     | Phase 7 |
-| QVER-01     | Phase 8 |
-| QVER-02     | Phase 8 |
-| QVER-03     | Phase 8 |
+| Requirement | Phase    |
+| ----------- | -------- |
+| HUB-01      | Phase 9  |
+| HUB-02      | Phase 10 |
+| HUB-03      | Phase 10 |
+| SLOT-01     | Phase 11 |
+| SLOT-02     | Phase 11 |
+| SLOT-03     | Phase 11 |
+| I18N-01     | Phase 9  |
+| I18N-02     | Phase 10 |
+| COMP-01     | Phase 12 |
 
 ---
 
-_Created: 2026-04-02 after v1.1 kickoff_
-_Ready to plan: Phase 6_
+_Created: 2026-04-02 after v1.2 kickoff_
+_Ready to plan: Phase 9_

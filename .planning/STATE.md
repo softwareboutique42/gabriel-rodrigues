@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: milestone
-status: completed
-stopped_at: Milestone v1.2 kickoff — requirements and roadmap not yet defined
-last_updated: '2026-04-02T17:34:58.417Z'
+milestone: v1.2
+milestone_name: Projects Hub & Slots Foundation
+status: in-progress
+stopped_at: Milestone v1.2 started — defining requirements
+last_updated: '2026-04-02T00:00:00.000Z'
 last_activity: 2026-04-02
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 3
-  completed_plans: 3
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
   percent: 0
 ---
 
@@ -26,8 +26,8 @@ progress:
 
 **Phase:** Not started (defining requirements)
 **Plan:** —
-**Status:** v1.1 milestone complete
-**Last Activity:** 2026-04-02
+**Status:** Defining requirements
+**Last Activity:** 2026-04-02 — Milestone v1.2 started
 
 ## Progress
 
@@ -39,9 +39,12 @@ Phases: 0/? complete
 
 ## Phase Summary
 
-| Phase | Name | Status | Goal            |
-| ----- | ---- | ------ | --------------- |
-| TBD   | —    | ○      | Roadmap pending |
+| Phase    | Name                           | Status | Goal                                                     |
+| -------- | ------------------------------ | ------ | -------------------------------------------------------- |
+| Phase 9  | Navigation and i18n Primitives | ○      | Establish nav/i18n baseline for Projects + Slots rollout |
+| Phase 10 | Projects Hub Delivery          | ○      | Deliver EN/PT projects discovery pages                   |
+| Phase 11 | Slots Shell Foundation         | ○      | Add EN/PT slots shell with SPA-safe bootstrap            |
+| Phase 12 | Compatibility and QA Hardening | ○      | Lock regressions for routes/nav/i18n behavior            |
 
 ## Key Decisions
 

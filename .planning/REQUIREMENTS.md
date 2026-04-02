@@ -1,68 +1,69 @@
-# Requirements — Company Canvas (v1.1 New Style Packs)
+# Requirements — Company Canvas (v1.2 Projects Hub & Slots Foundation)
 
 **Defined:** 2026-04-02
 **Core Value:** Branded, download-ready animation in under a minute.
 
-## v1.1 Requirements
+## v1.2 Requirements
 
-### Style Packs
+### Navigation and Discovery
 
-- [ ] **PACK-01**: User can choose from at least 3 new vertical-specific style presets in the canvas style selector.
-- [ ] **PACK-02**: Each new style loops seamlessly at 12 seconds and respects brand colors and existing easing contracts.
-- [ ] **PACK-03**: Deterministic selector routes at least 2 additional industry categories to new style defaults without breaking existing mappings.
+- [ ] **HUB-01**: Header navigation replaces direct Canvas top-menu item with Projects while preserving clear access paths to Canvas and Slots.
+- [ ] **HUB-02**: Projects hub exists at `/en/projects/` and `/pt/projects/` and lists Canvas and Slots with clear status labels.
+- [ ] **HUB-03**: Existing canonical Canvas routes (`/en/canvas/`, `/pt/canvas/`) remain unchanged and reachable without route regressions.
 
-### Conversion Funnel
+### Slots Foundation
 
-- [ ] **CONV-01**: Export flow shows clear premium value framing before payment (what user receives and delivery format).
-- [ ] **CONV-02**: Export flow reduces friction by simplifying primary call-to-action labels and payment-step transitions in EN/PT.
-- [ ] **CONV-03**: Post-payment success state clearly confirms export status and next action.
+- [ ] **SLOT-01**: Slots shell pages exist at `/en/slots/` and `/pt/slots/` with bilingual parity and explicit in-development messaging.
+- [ ] **SLOT-02**: Slots shell includes clear non-gambling/no-real-money disclaimer copy in both locales.
+- [ ] **SLOT-03**: Slots client bootstrap follows Astro SPA-safe lifecycle patterns (`astro:page-load` + idempotent init/cleanup).
 
-### Verification Automation
+### i18n and Compatibility
 
-- [ ] **QVER-01**: Milestone closeout workflow enforces a documented audit-first gate before completion.
-- [ ] **QVER-02**: Verification artifacts are standardized per phase (summary, validation, and UAT status visibility).
-- [ ] **QVER-03**: Progress reporting surfaces outstanding verification debt before milestone completion.
+- [ ] **I18N-01**: All new user-facing strings for Projects/Slots/navigation are added to both `en.json` and `pt.json` with parity.
+- [ ] **I18N-02**: Language switch behavior resolves correctly between EN/PT counterparts for `/projects/`, `/slots/`, and `/canvas/` routes.
+- [ ] **COMP-01**: Navigation and route changes are regression-locked by E2E coverage for discovery flow (`Projects -> Canvas/Slots`) and locale switching.
 
 ## v2+ Requirements (Deferred)
 
-### Style Marketplace
+### Slots Gameplay
 
-- **PACK-10**: User can unlock paid style packs by industry bundle.
-- **PACK-11**: User can preview animated thumbnails for all style packs before selection.
+- **SLOT-10**: Functional slot machine gameplay (reels, paylines, payouts, win logic).
+- **SLOT-11**: Game economy/balance tuning and progression systems.
 
-### Growth Insights
+### Growth and Analytics
 
-- **CONV-10**: Funnel analytics dashboard shows drop-off by step and locale.
+- **ANL-10**: Analytics instrumentation for Projects/Slots funnel interactions.
 
 ## Out of Scope
 
-| Feature                               | Reason                                                       |
-| ------------------------------------- | ------------------------------------------------------------ |
-| AI-generated custom styles per prompt | Too broad for v1.1; increases unpredictability and QA burden |
-| Server-rendered video pipeline        | Conflicts with browser-first export architecture             |
-| Full billing model redesign           | Focus this milestone on UX/conversion iteration only         |
+| Feature                             | Reason                                                       |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `/projects/canvas/*` alias routes   | Deferred to avoid unnecessary routing complexity in v1.2     |
+| Slots gameplay implementation       | Foundation-only milestone; gameplay is a future milestone    |
+| New framework or game engine        | Preserve current Astro static architecture and delivery pace |
+| Mandatory analytics instrumentation | Deferred by decision for v1.2 scope control                  |
 
 ## Traceability
 
-| Requirement | Phase   | Status  |
-| ----------- | ------- | ------- |
-| PACK-01     | Phase 6 | Pending |
-| PACK-02     | Phase 6 | Pending |
-| PACK-03     | Phase 6 | Pending |
-| CONV-01     | Phase 7 | Pending |
-| CONV-02     | Phase 7 | Pending |
-| CONV-03     | Phase 7 | Pending |
-| QVER-01     | Phase 8 | Pending |
-| QVER-02     | Phase 8 | Pending |
-| QVER-03     | Phase 8 | Pending |
+| Requirement | Phase    | Status  |
+| ----------- | -------- | ------- |
+| HUB-01      | Phase 9  | Pending |
+| HUB-02      | Phase 10 | Pending |
+| HUB-03      | Phase 10 | Pending |
+| SLOT-01     | Phase 11 | Pending |
+| SLOT-02     | Phase 11 | Pending |
+| SLOT-03     | Phase 11 | Pending |
+| I18N-01     | Phase 9  | Pending |
+| I18N-02     | Phase 10 | Pending |
+| COMP-01     | Phase 12 | Pending |
 
 **Coverage:**
 
-- v1.1 requirements: 9 total
+- v1.2 requirements: 9 total
 - Mapped to phases: 9
 - Unmapped: 0
 
 ---
 
 _Requirements defined: 2026-04-02_
-_Last updated: 2026-04-02 after v1.1 kickoff_
+_Last updated: 2026-04-02 after v1.2 kickoff_
