@@ -1,3 +1,5 @@
+import { mountSlotsController } from './controller.ts';
+
 let controller: AbortController | null = null;
 
 export function initSlotsShell(): void {
@@ -13,6 +15,8 @@ export function initSlotsShell(): void {
   if (status) {
     status.setAttribute('data-lifecycle', 'active');
   }
+
+  mountSlotsController(root, signal);
 
   document.addEventListener(
     'astro:before-swap',

@@ -20,7 +20,7 @@ Phase 15: Compatibility and Regression Hardening
 
 **Plans:** 1 plan
 
-- [ ] 13-01-PLAN.md — Reel state model, spin orchestration, payline evaluation, and deterministic outcome contracts
+- [x] 13-01-PLAN.md — Reel state model, spin orchestration, payline evaluation, and deterministic outcome contracts
 
 **Success criteria:**
 
@@ -105,4 +105,4 @@ Phase 13 -> Phase 14 -> Phase 15
 ---
 
 _Created: 2026-04-02 after v1.3 kickoff_
-_Ready to plan: Phase 13_
+_Ready to plan: Phase 14_

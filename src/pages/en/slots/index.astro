@@ -11,6 +11,7 @@ const t = useTranslations('en');
 >
   <section
     id="slots-shell-root"
+    data-slots-seed="slots-phase-13-en"
     class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
   >
     <h1
@@ -56,6 +57,30 @@ const t = useTranslations('en');
         >
           {t('slots.cta.canvas')}
         </a>
+      </div>
+
+      <div id="slots-gameplay" class="mt-6 border border-surface-container-high p-4 sm:p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-text-muted mb-2">
+          Core Loop Preview
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mb-3">
+          <button
+            id="slots-spin-button"
+            data-slots-action="spin"
+            type="button"
+            class="clip-corners inline-block text-center px-4 py-2 bg-cyan text-background font-bold text-xs uppercase tracking-wider"
+          >
+            Start Round
+          </button>
+          <p id="slots-gameplay-status" class="font-mono text-xs text-text-muted">State: idle</p>
+        </div>
+        <p id="slots-gameplay-outcome" class="text-sm text-text-secondary">Outcome: pending</p>
+        <p id="slots-gameplay-seed" class="text-xs text-text-muted mt-1">Seed: -</p>
+        <pre
+          id="slots-round-result"
+          data-slots-result
+          class="mt-3 p-3 text-xs overflow-auto border border-surface-container-high bg-background/50">
+        </pre>
       </div>
     </article>
   </section>

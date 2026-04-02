@@ -74,15 +74,11 @@ test('SLOT-03: SPA-safe lifecycle wiring uses page-load, root guard, and AbortCo
   assert.match(scriptSource, /controller\?\.abort\(\)/);
 });
 
-test('scope and canonical locks: no gameplay, monetization, or alias route drift', () => {
+test('canonical and safety locks: no monetization or alias route drift', () => {
   assert.doesNotMatch(enPage, /\/en\/projects\/slots\//);
   assert.doesNotMatch(ptPage, /\/pt\/projects\/slots\//);
 
   const forbiddenPatterns = [
-    /\bspin\b/i,
-    /\breels?\b/i,
-    /\bpayline\b/i,
-    /\bpayout\b/i,
     /\bwager\b/i,
     /\bjackpot\b/i,
     /\bstripe\b/i,
