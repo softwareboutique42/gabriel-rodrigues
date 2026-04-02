@@ -8,7 +8,8 @@ export type AnimationStyle =
   | 'constellation'
   | 'spotlight'
   | 'orbit'
-  | 'pulse';
+  | 'pulse'
+  | 'signal';
 
 export type CompanyMood = 'bold' | 'elegant' | 'playful' | 'minimal' | 'dynamic';
 

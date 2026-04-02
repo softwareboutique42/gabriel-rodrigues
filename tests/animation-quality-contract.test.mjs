@@ -15,6 +15,7 @@ const selectorPath = resolve(process.cwd(), 'src/scripts/canvas/style-selector.t
 const animationIndexPath = resolve(process.cwd(), 'src/scripts/canvas/animations/index.ts');
 const orbitAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/orbit.ts');
 const pulseAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/pulse.ts');
+const signalAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/signal.ts');
 const versionsPath = resolve(process.cwd(), 'src/scripts/canvas/versions.ts');
 
 const workerIndexSource = readFileSync(workerIndexPath, 'utf8');
@@ -26,6 +27,7 @@ const selectorSource = readFileSync(selectorPath, 'utf8');
 const animationIndexSource = readFileSync(animationIndexPath, 'utf8');
 const orbitAnimationSource = readFileSync(orbitAnimationPath, 'utf8');
 const pulseAnimationSource = readFileSync(pulseAnimationPath, 'utf8');
+const signalAnimationSource = readFileSync(signalAnimationPath, 'utf8');
 const versionsSource = readFileSync(versionsPath, 'utf8');
 
 test('worker prompt requests semantic mood, industryCategory, and energyLevel', () => {
@@ -95,13 +97,10 @@ test('FR-5.4 orbit animation uses loopProgress and mood preset hooks for stable 
 });
 
 test('FR-5.2 pulse style is part of shared animation style contracts', () => {
-  assert.match(typesSource, /\| 'pulse';/);
+  assert.match(typesSource, /\| 'pulse'/);
   assert.match(animationIndexSource, /import \{ PulseAnimation \} from '\.\/pulse';/);
   assert.match(animationIndexSource, /pulse:\s*PulseAnimation/);
-  assert.match(
-    versionsSource,
-    /styles:\s*\['narrative', 'timeline', 'constellation', 'spotlight', 'orbit', 'pulse'\]/,
-  );
+  assert.match(versionsSource, /styles:\s*\[[^\]]*'pulse'[^\]]*\]/);
 });
 
 test('FR-5.2 deterministic selector routes finance and health v2 profiles to pulse', () => {
@@ -114,4 +113,24 @@ test('FR-5.4 pulse animation uses loopProgress and mood preset hooks for seam-sa
   assert.match(pulseAnimationSource, /const progress = this\.loopProgress\(elapsed\)/);
   assert.match(pulseAnimationSource, /const loopAngle = progress \* Math\.PI \* 2/);
   assert.match(pulseAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
+});
+
+test('FR-5.3 signal style is part of shared animation style contracts', () => {
+  assert.match(typesSource, /\| 'signal';/);
+  assert.match(animationIndexSource, /import \{ SignalAnimation \} from '\.\/signal';/);
+  assert.match(animationIndexSource, /signal:\s*SignalAnimation/);
+  assert.match(versionsSource, /styles:\s*\[[^\]]*'signal'[^\]]*\]/);
+});
+
+test('FR-5.3 deterministic selector routes tech-focused v2 profiles to signal', () => {
+  assert.match(selectorSource, /tech:\s*'signal'/);
+  assert.match(selectorSource, /tech:\s*\{[\s\S]*elegant:\s*'signal'/);
+});
+
+test('FR-5.4 signal animation uses loopProgress and mood preset hooks for loop-safe graph timing', () => {
+  assert.match(signalAnimationSource, /export class SignalAnimation extends BaseAnimation/);
+  assert.match(signalAnimationSource, /const progress = this\.loopProgress\(elapsed\)/);
+  assert.match(signalAnimationSource, /const loopAngle = progress \* Math\.PI \* 2/);
+  assert.match(signalAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
+  assert.match(signalAnimationSource, /rectilinear/);
 });

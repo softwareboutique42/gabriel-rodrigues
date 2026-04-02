@@ -10,6 +10,7 @@ import { ConstellationAnimation } from './constellation';
 import { SpotlightAnimation } from './spotlight';
 import { OrbitAnimation } from './orbit';
 import { PulseAnimation } from './pulse';
+import { SignalAnimation } from './signal';
 
 const registry: Record<CompanyConfig['animationStyle'], new () => BaseAnimation> = {
   particles: ParticlesAnimation,
@@ -22,6 +23,7 @@ const registry: Record<CompanyConfig['animationStyle'], new () => BaseAnimation>
   spotlight: SpotlightAnimation,
   orbit: OrbitAnimation,
   pulse: PulseAnimation,
+  signal: SignalAnimation,
 };
 
 export function createAnimation(style: CompanyConfig['animationStyle']): BaseAnimation {

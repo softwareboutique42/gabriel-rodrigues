@@ -165,6 +165,7 @@ class Animation {
     case 'spotlight':
     case 'orbit':
     case 'pulse':
+    case 'signal':
       return generateV2AnimationCode(config);
   }
 }
@@ -630,6 +631,98 @@ class Animation {
       const eased = 1 - Math.pow(1 - reveal, 3);
       sprite.material.opacity = eased * fadeIn * (1 - fadeOut);
       sprite.position.y = (1 - eased) * -0.5 + Math.sin(loopAngle * 1.1 + i * 0.2) * 0.025;
+    });
+  }
+}`;
+
+    case 'signal':
+      return `
+${textHelper}
+class Animation {
+  setup(scene, config) {
+    this.nodes = [];
+    this.edges = [];
+    const labels = (${elements}.length ? ${elements} : ['sync', 'data', 'flow', 'core', 'link']).map((word) => word.toUpperCase());
+    const cols = 4;
+    const rows = 3;
+    const spacingX = 5.2;
+    const spacingY = 3.5;
+    const startX = -((cols - 1) * spacingX) / 2;
+    const startY = -((rows - 1) * spacingY) / 2;
+    const nodeColor = new THREE.Color(config.colors.primary);
+    const edgeColor = new THREE.Color(config.colors.secondary);
+
+    let labelIndex = 0;
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const baseX = startX + col * spacingX;
+        const baseY = startY + row * spacingY;
+        const mesh = new THREE.Mesh(
+          new THREE.CircleGeometry(0.28, 24),
+          new THREE.MeshBasicMaterial({ color: nodeColor, transparent: true, opacity: 0 })
+        );
+        mesh.position.set(baseX, baseY, 0.55);
+        const label = createTextSprite(labels[labelIndex % labels.length], config.colors.accent, 24);
+        label.material.opacity = 0;
+        label.position.set(baseX, baseY + 0.86, 0.95);
+        scene.add(mesh);
+        scene.add(label);
+        this.nodes.push({ mesh, label, baseX, baseY, lane: row, phase: (row * cols + col) * 0.24 });
+        labelIndex++;
+      }
+    }
+
+    const createEdge = (from, to, laneBias) => {
+      const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+      const material = new THREE.LineBasicMaterial({ color: edgeColor, transparent: true, opacity: 0.12 });
+      const line = new THREE.Line(geometry, material);
+      scene.add(line);
+      this.edges.push({ line, from, to, laneBias });
+    };
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const index = row * cols + col;
+        if (col < cols - 1) createEdge(index, index + 1, row * 0.08);
+        if (row < rows - 1) createEdge(index, index + cols, col * 0.07 + 0.2);
+      }
+    }
+  }
+
+  update(elapsed) {
+    const progress = ((elapsed % ${LOOP_DURATION}) + ${LOOP_DURATION}) % ${LOOP_DURATION} / ${LOOP_DURATION};
+    const loopAngle = progress * Math.PI * 2;
+
+    this.nodes.forEach((node, index) => {
+      const reveal = Math.min(1, Math.max(0, (progress - index * 0.012) / 0.18));
+      const fade = Math.min(1, Math.max(0, (progress - 0.92) / 0.08));
+      const alpha = reveal * (1 - fade);
+      const lanePulse = Math.sin(loopAngle * (1.2 + node.lane * 0.08) + node.phase);
+      const xShift = Math.sign(lanePulse) * 0.32;
+      const yShift = Math.sin(loopAngle * (0.9 + ${speed} * 0.12) + node.phase * 1.4) * 0.22;
+      node.mesh.position.x = node.baseX + xShift;
+      node.mesh.position.y = node.baseY + yShift;
+      node.label.position.x = node.mesh.position.x;
+      node.label.position.y = node.mesh.position.y + 0.86;
+      node.label.material.opacity = alpha * 0.88;
+      node.mesh.material.opacity = alpha * 0.95;
+      const scale = 0.92 + Math.sin(loopAngle * 1.6 + node.phase) * 0.14;
+      node.mesh.scale.setScalar(scale);
+    });
+
+    this.edges.forEach((edge, index) => {
+      const fromNode = this.nodes[edge.from];
+      const toNode = this.nodes[edge.to];
+      const pos = edge.line.geometry.attributes.position.array;
+      pos[0] = fromNode.mesh.position.x;
+      pos[1] = fromNode.mesh.position.y;
+      pos[2] = 0.2;
+      pos[3] = toNode.mesh.position.x;
+      pos[4] = toNode.mesh.position.y;
+      pos[5] = 0.2;
+      edge.line.geometry.attributes.position.needsUpdate = true;
+      const pulse = Math.sin(loopAngle * (1.7 + edge.laneBias) + index * 0.11) * 0.5 + 0.5;
+      edge.line.material.opacity = 0.06 + pulse * 0.26;
     });
   }
 }`;

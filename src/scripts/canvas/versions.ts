@@ -20,8 +20,8 @@ export const VERSIONS: AnimationVersion[] = [
     id: 'v2',
     label: 'v2 — Story',
     description:
-      'Story-driven animations that tell what the company does, including orbit and pulse modes',
-    styles: ['narrative', 'timeline', 'constellation', 'spotlight', 'orbit', 'pulse'],
+      'Story-driven animations that tell what the company does, including orbit, pulse, and signal modes',
+    styles: ['narrative', 'timeline', 'constellation', 'spotlight', 'orbit', 'pulse', 'signal'],
   },
 ];
 
