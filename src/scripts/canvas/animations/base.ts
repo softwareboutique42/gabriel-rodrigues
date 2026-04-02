@@ -18,7 +18,7 @@ export abstract class BaseAnimation {
   }
 
   protected loopTime(elapsed: number): number {
-    return elapsed % LOOP_DURATION;
+    return ((elapsed % LOOP_DURATION) + LOOP_DURATION) % LOOP_DURATION;
   }
 
   protected loopProgress(elapsed: number): number {
