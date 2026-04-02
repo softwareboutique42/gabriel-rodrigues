@@ -1,17 +1,21 @@
 import * as THREE from 'three';
-import { BaseAnimation, LOOP_DURATION } from './base';
+import { BaseAnimation } from './base';
 
 export class ParticlesAnimation extends BaseAnimation {
   private points!: THREE.Points;
-  private velocities: Float32Array = new Float32Array(0);
   private basePositions: Float32Array = new Float32Array(0);
+  private phaseOffsets: Float32Array = new Float32Array(0);
+  private frequencySeeds: Float32Array = new Float32Array(0);
+  private amplitudeSeeds: Float32Array = new Float32Array(0);
 
   protected createScene(): void {
     const count = Math.floor(800 * this.config.animationParams.density);
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-    this.velocities = new Float32Array(count * 3);
     this.basePositions = new Float32Array(count * 3);
+    this.phaseOffsets = new Float32Array(count);
+    this.frequencySeeds = new Float32Array(count);
+    this.amplitudeSeeds = new Float32Array(count);
 
     const palette = [
       this.hexToColor(this.config.colors.primary),
@@ -29,9 +33,9 @@ export class ParticlesAnimation extends BaseAnimation {
       this.basePositions[i3 + 1] = positions[i3 + 1];
       this.basePositions[i3 + 2] = positions[i3 + 2];
 
-      this.velocities[i3] = (Math.random() - 0.5) * 0.02;
-      this.velocities[i3 + 1] = (Math.random() - 0.5) * 0.02;
-      this.velocities[i3 + 2] = 0;
+      this.phaseOffsets[i] = Math.random() * Math.PI * 2;
+      this.frequencySeeds[i] = 0.8 + Math.random() * 1.4;
+      this.amplitudeSeeds[i] = 0.6 + Math.random() * 1.1;
 
       const color = palette[i % palette.length];
       colors[i3] = color.r;
@@ -57,10 +61,10 @@ export class ParticlesAnimation extends BaseAnimation {
   }
 
   update(elapsed: number): void {
-    const t = this.loopTime(elapsed);
-    const progress = t / LOOP_DURATION;
+    const progress = this.loopProgress(elapsed);
     const speed = this.config.animationParams.speed;
     const complexity = this.config.animationParams.complexity;
+    const theta = progress * Math.PI * 2;
 
     const positions = this.points.geometry.attributes.position.array as Float32Array;
     const count = positions.length / 3;
@@ -69,12 +73,16 @@ export class ParticlesAnimation extends BaseAnimation {
       const i3 = i * 3;
       const bx = this.basePositions[i3];
       const by = this.basePositions[i3 + 1];
+      const phase = this.phaseOffsets[i];
+      const frequency = this.frequencySeeds[i] * (0.8 + complexity * 0.3);
+      const amplitude = this.amplitudeSeeds[i] * (0.9 + complexity * 0.4);
 
-      const wave = Math.sin(progress * Math.PI * 2 + bx * 0.3 * complexity) * 2;
-      const drift = Math.cos(progress * Math.PI * 2 + by * 0.2 * complexity) * 1.5;
+      const wave = Math.sin(theta * frequency + phase + bx * 0.08) * (1.4 * amplitude);
+      const drift =
+        Math.cos(theta * (frequency + 0.35) + phase * 0.7 + by * 0.07) * (1.1 * amplitude);
 
-      positions[i3] = bx + drift * speed + this.velocities[i3] * t * 60;
-      positions[i3 + 1] = by + wave * speed + this.velocities[i3 + 1] * t * 60;
+      positions[i3] = bx + drift * speed;
+      positions[i3 + 1] = by + wave * speed;
     }
 
     this.points.geometry.attributes.position.needsUpdate = true;
