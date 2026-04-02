@@ -163,6 +163,7 @@ class Animation {
     case 'timeline':
     case 'constellation':
     case 'spotlight':
+    case 'orbit':
       return generateV2AnimationCode(config);
   }
 }
@@ -488,6 +489,82 @@ class Animation {
     });
     this.particles.rotation.z = elapsed * ${speed} * 0.05;
     this.particles.material.opacity = 0.1 + Math.sin(elapsed * 0.8) * 0.05;
+  }
+}`;
+
+    case 'orbit':
+      return `
+${textHelper}
+class Animation {
+  setup(scene, config) {
+    const elements = ${elements};
+    this.center = [];
+    this.satellites = [];
+    this.rings = [];
+    const colors = [config.colors.primary, config.colors.secondary, config.colors.accent];
+
+    const chars = (config.companyName || 'COMPANY').toUpperCase().split('');
+    const spacing = 0.9;
+    const startX = -((chars.length - 1) * spacing) / 2;
+    chars.forEach((char, i) => {
+      const sprite = createTextSprite(char, config.colors.primary, 70);
+      sprite.position.set(startX + i * spacing, 0, 1.2);
+      sprite.material.opacity = 0;
+      sprite.userData = { index: i, baseX: sprite.position.x };
+      scene.add(sprite);
+      this.center.push(sprite);
+    });
+
+    [4.8, 6.4, 8.1].forEach((radius, i) => {
+      const ringGeo = new THREE.RingGeometry(radius - 0.05, radius + 0.05, 96);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(colors[i % colors.length]),
+        transparent: true,
+        opacity: 0.12,
+        side: THREE.DoubleSide,
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      scene.add(ring);
+      this.rings.push(ring);
+    });
+
+    const words = elements.length ? elements : ['brand', 'story', 'signal'];
+    words.forEach((word, i) => {
+      const sprite = createTextSprite(word.toUpperCase(), colors[i % colors.length], 28);
+      const radius = 5.2 + (i % 3) * 1.35;
+      const baseAngle = (i / words.length) * Math.PI * 2;
+      sprite.position.set(Math.cos(baseAngle) * radius, Math.sin(baseAngle) * radius, 0.8);
+      sprite.material.opacity = 0;
+      sprite.userData = { radius, baseAngle, speed: 0.28 + (i % 3) * 0.09 };
+      scene.add(sprite);
+      this.satellites.push(sprite);
+    });
+  }
+
+  update(elapsed) {
+    const progress = ((elapsed % ${LOOP_DURATION}) + ${LOOP_DURATION}) % ${LOOP_DURATION} / ${LOOP_DURATION};
+    const fadeOut = Math.min(1, Math.max(0, (progress - 0.9) / 0.1));
+
+    this.center.forEach((sprite, i) => {
+      const reveal = Math.min(1, Math.max(0, (progress - 0.08 - i * 0.03) / 0.16));
+      const eased = 1 - Math.pow(1 - reveal, 3);
+      sprite.material.opacity = eased * (1 - fadeOut);
+      sprite.position.y = (1 - eased) * -0.7 + Math.sin(elapsed * 1.1 + i * 0.2) * 0.03;
+    });
+
+    this.rings.forEach((ring, i) => {
+      ring.rotation.z = elapsed * ${speed} * (0.08 + i * 0.03) * (i % 2 === 0 ? 1 : -1);
+    });
+
+    this.satellites.forEach((sprite, i) => {
+      const reveal = Math.min(1, Math.max(0, (progress - 0.24 - i * 0.03) / 0.12));
+      const alpha = reveal * (1 - Math.min(1, Math.max(0, (progress - 0.92) / 0.08)));
+      const { radius, baseAngle, speed } = sprite.userData;
+      const angle = baseAngle + elapsed * ${speed} * speed;
+      sprite.position.x = Math.cos(angle) * radius;
+      sprite.position.y = Math.sin(angle) * radius;
+      sprite.material.opacity = alpha * 0.84;
+    });
   }
 }`;
 

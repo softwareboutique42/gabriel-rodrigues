@@ -8,6 +8,7 @@ import { NarrativeAnimation } from './narrative';
 import { TimelineAnimation } from './timeline';
 import { ConstellationAnimation } from './constellation';
 import { SpotlightAnimation } from './spotlight';
+import { OrbitAnimation } from './orbit';
 
 const registry: Record<CompanyConfig['animationStyle'], new () => BaseAnimation> = {
   particles: ParticlesAnimation,
@@ -18,6 +19,7 @@ const registry: Record<CompanyConfig['animationStyle'], new () => BaseAnimation>
   timeline: TimelineAnimation,
   constellation: ConstellationAnimation,
   spotlight: SpotlightAnimation,
+  orbit: OrbitAnimation,
 };
 
 export function createAnimation(style: CompanyConfig['animationStyle']): BaseAnimation {

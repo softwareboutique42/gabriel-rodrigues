@@ -12,6 +12,9 @@ const configNormalizationPath = resolve(
   'src/scripts/canvas/config-normalization.ts',
 );
 const selectorPath = resolve(process.cwd(), 'src/scripts/canvas/style-selector.ts');
+const animationIndexPath = resolve(process.cwd(), 'src/scripts/canvas/animations/index.ts');
+const orbitAnimationPath = resolve(process.cwd(), 'src/scripts/canvas/animations/orbit.ts');
+const versionsPath = resolve(process.cwd(), 'src/scripts/canvas/versions.ts');
 
 const workerIndexSource = readFileSync(workerIndexPath, 'utf8');
 const workerNormalizeSource = readFileSync(workerNormalizePath, 'utf8');
@@ -19,6 +22,9 @@ const typesSource = readFileSync(typesPath, 'utf8');
 const mainSource = readFileSync(mainPath, 'utf8');
 const configNormalizationSource = readFileSync(configNormalizationPath, 'utf8');
 const selectorSource = readFileSync(selectorPath, 'utf8');
+const animationIndexSource = readFileSync(animationIndexPath, 'utf8');
+const orbitAnimationSource = readFileSync(orbitAnimationPath, 'utf8');
+const versionsSource = readFileSync(versionsPath, 'utf8');
 
 test('worker prompt requests semantic mood, industryCategory, and energyLevel', () => {
   assert.match(workerIndexSource, /"mood":\s*"<one of:/);
@@ -64,4 +70,22 @@ test('deterministic selector exists and normalization overwrites animationStyle'
 
   assert.match(configNormalizationSource, /selectAnimationStyle\(/);
   assert.match(configNormalizationSource, /animationStyle:\s*selectAnimationStyle\(/);
+});
+
+test('FR-5.1 orbit style is part of shared animation style contracts', () => {
+  assert.match(typesSource, /\| 'orbit';/);
+  assert.match(animationIndexSource, /import \{ OrbitAnimation \} from '\.\/orbit';/);
+  assert.match(animationIndexSource, /orbit:\s*OrbitAnimation/);
+  assert.match(versionsSource, /styles:\s*\['narrative', 'timeline', 'constellation', 'spotlight', 'orbit'\]/);
+});
+
+test('FR-5.1 deterministic selector can route creative v2 profiles to orbit', () => {
+  assert.match(selectorSource, /creative:\s*'orbit'/);
+  assert.match(selectorSource, /creative:\s*\{[\s\S]*elegant:\s*'orbit'/);
+});
+
+test('FR-5.4 orbit animation uses loopProgress and mood preset hooks for stable cycles', () => {
+  assert.match(orbitAnimationSource, /export class OrbitAnimation extends BaseAnimation/);
+  assert.match(orbitAnimationSource, /const progress = this\.loopProgress\(elapsed\)/);
+  assert.match(orbitAnimationSource, /const moodPreset = this\.getMoodPreset\(\)/);
 });

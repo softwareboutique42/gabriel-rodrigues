@@ -19,8 +19,8 @@ export const VERSIONS: AnimationVersion[] = [
   {
     id: 'v2',
     label: 'v2 — Story',
-    description: 'Story-driven animations that tell what the company does',
-    styles: ['narrative', 'timeline', 'constellation', 'spotlight'],
+    description: 'Story-driven animations that tell what the company does, including orbit mode',
+    styles: ['narrative', 'timeline', 'constellation', 'spotlight', 'orbit'],
   },
 ];
 

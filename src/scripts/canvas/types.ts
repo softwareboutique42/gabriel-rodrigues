@@ -6,7 +6,8 @@ export type AnimationStyle =
   | 'narrative'
   | 'timeline'
   | 'constellation'
-  | 'spotlight';
+  | 'spotlight'
+  | 'orbit';
 
 export type CompanyMood = 'bold' | 'elegant' | 'playful' | 'minimal' | 'dynamic';
 
