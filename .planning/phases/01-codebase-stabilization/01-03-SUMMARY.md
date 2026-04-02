@@ -4,8 +4,11 @@ plan: 03
 subsystem: Canvas Animations & Icons
 tags: [seam-validation, particles, icon-recoloring, deterministic-loops]
 type: checkpoint-incomplete
+@@type: checkpoint-complete
 completed_date: 2026-04-02
+@@approval_date: 2026-04-02
 checkpoint_reached: human-verify
+@@checkpoint_verified: approved
 requirements_met: [FR-1.3, FR-1.4, FR-1.5, D-01, D-02, D-03]
 requirements_awaiting: [D-04]
 dependency_graph:

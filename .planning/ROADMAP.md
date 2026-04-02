@@ -27,6 +27,7 @@ Plans:
 - [x] 01-01-PLAN.md — Deterministic particle loop refactor (FR-1.1)
 - [x] 01-02-PLAN.md — Geometric material pooling and deterministic transforms (FR-1.2)
 - [ ] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5)
+      @@- [x] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5) ✓ APPROVED
 
 **Success criteria:**
 
