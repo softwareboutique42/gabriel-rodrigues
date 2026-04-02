@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.2 Projects Hub & Slots Foundation (Shipped: 2026-04-02)
+
+**Phases completed:** 4 phases, 4 plans | 30 files changed (+2,751 / -9 lines)
+
+**Git range:** `e50c181..d978fbe`
+
+**Key accomplishments:**
+
+- Replaced Canvas top-menu link with Projects, added active-surface matching for `/projects`, `/canvas`, and `/slots` in both locales, and added EN/PT parity contract tests.
+- Delivered `/en/projects/` and `/pt/projects/` hub pages with two-card Canvas/Slots discovery layout and canonical CTA routing — no alias routes introduced.
+- Delivered `/en/slots/` and `/pt/slots/` shell pages with explicit in-development + non-gambling/no-real-money disclaimer copy, SPA-safe `initSlotsShell()` lifecycle, and SLOT-01/02/03 contract coverage.
+- Added `tests/compatibility-contract.test.mjs` + `e2e/compatibility.spec.ts` to lock counterpart mapping, canonical discovery links, alias deny-list, and EN/PT language-switch journeys across all IA surfaces.
+
+**Requirements:** 9/9 shipped (HUB-01, HUB-02, HUB-03, SLOT-01, SLOT-02, SLOT-03, I18N-01, I18N-02, COMP-01)
+
+---
+
 ## v1.1 milestone (Shipped: 2026-04-02)
 
 **Phases completed:** 3 phases, 3 plans, 0 tasks

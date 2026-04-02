@@ -1,135 +1,67 @@
-# Roadmap — Company Canvas (v1.2 Projects Hub & Slots Foundation)
+# Roadmap — Company Canvas
 
-## Overview
+## Milestones
 
-4 phases for milestone v1.2, continuing numbering after v1.1.
+- ✅ **v1.0 MVP** — Phases 1-5 (shipped 2026-04-02)
+- ✅ **v1.1 New Style Packs** — Phases 6-8 (shipped 2026-04-02)
+- ✅ **v1.2 Projects Hub & Slots Foundation** — Phases 9-12 (shipped 2026-04-02)
+- 📋 **v1.3** — Not yet planned
 
-```
-Phase 9: Navigation and i18n Primitives
-Phase 10: Projects Hub Delivery
-Phase 11: Slots Shell Foundation
-Phase 12: Compatibility and QA Hardening
-```
+## Phases
 
----
+<details>
+<summary>✅ v1.0 MVP (Phases 1-5) — SHIPPED 2026-04-02</summary>
 
-## Phase 9: Navigation and i18n Primitives
+- [x] Phase 1: Codebase Stabilization (3/3 plans) — completed 2026-04-02
+- [x] Phase 2: Animation Quality (5/5 plans) — completed 2026-04-02
+- [x] Phase 3: Video Export (5/5 plans) — completed 2026-04-02
+- [x] Phase 4: Export UX + Aspect Ratios (5/5 plans) — completed 2026-04-02
+- [x] Phase 5: New Animation Styles (5/5 plans) — completed 2026-04-02
 
-**Goal:** Establish bilingual navigation and translation primitives for Projects/Slots without breaking existing Canvas access.
+Full archive: `.planning/milestones/v1.0-ROADMAP.md`
 
-**Requirements:** HUB-01, I18N-01
+</details>
 
-**Plans:** 1 plan
+<details>
+<summary>✅ v1.1 New Style Packs (Phases 6-8) — SHIPPED 2026-04-02</summary>
 
-- [x] 09-01-PLAN.md — Header Projects nav swap, active-state primitives, and EN/PT i18n parity guards
+- [x] Phase 6: Vertical Style Pack Foundation (1/1 plan) — completed 2026-04-02
+- [x] Phase 7: Export Funnel Conversion Uplift (1/1 plan) — completed 2026-04-02
+- [x] Phase 8: Verification and Audit Automation (1/1 plan) — completed 2026-04-02
 
-**Success criteria:**
+Full archive: `.planning/milestones/v1.1-ROADMAP.md`
 
-- Header navigation exposes Projects as the top-level entry and removes direct Canvas nav link.
-- Required EN/PT keys for navigation, projects, and slots labels are present and parity-checked.
-- Navigation active-state logic includes `/projects`, `/canvas`, and `/slots` surfaces consistently.
+</details>
 
-**Key risks:**
+<details>
+<summary>✅ v1.2 Projects Hub & Slots Foundation (Phases 9-12) — SHIPPED 2026-04-02</summary>
 
-- Missing EN/PT key parity can cascade into broken labels in later phases.
+- [x] Phase 9: Navigation and i18n Primitives (1/1 plan) — completed 2026-04-02
+- [x] Phase 10: Projects Hub Delivery (1/1 plan) — completed 2026-04-02
+- [x] Phase 11: Slots Shell Foundation (1/1 plan) — completed 2026-04-02
+- [x] Phase 12: Compatibility and QA Hardening (1/1 plan) — completed 2026-04-02
 
----
+Full archive: `.planning/milestones/v1.2-ROADMAP.md`
 
-## Phase 10: Projects Hub Delivery
+</details>
 
-**Goal:** Deliver Projects hub pages in EN/PT as the discovery surface for Canvas and Slots while preserving canonical Canvas routes.
+## Progress
 
-**Requirements:** HUB-02, HUB-03, I18N-02
-
-**Plans:** 1 plan
-
-- [x] 10-01-PLAN.md — EN/PT projects hub pages, canonical CTA routes, and language-switch parity checks
-
-**Depends on:** Phase 9
-
-**Success criteria:**
-
-- `/en/projects/` and `/pt/projects/` pages exist with clear cards for Canvas and Slots.
-- Canvas remains canonical at `/en/canvas/` and `/pt/canvas/` with no route regression.
-- Language switching from projects and canvas paths resolves to valid counterpart routes.
-
-**Key risks:**
-
-- Navigation restructuring can break legacy discovery paths if links are not updated consistently.
-
----
-
-## Phase 11: Slots Shell Foundation
-
-**Goal:** Add EN/PT Slots shell routes and SPA-safe bootstrap structure, explicitly scoped to non-gameplay foundation.
-
-**Requirements:** SLOT-01, SLOT-02, SLOT-03
-
-**Plans:** 1 plan
-
-- [x] 11-01-PLAN.md — EN/PT slots shell routes, compliance disclaimer contract, and SPA-safe bootstrap lifecycle
-
-**Depends on:** Phases 9-10
-
-**Success criteria:**
-
-- `/en/slots/` and `/pt/slots/` render shell pages with in-development and non-real-money disclaimers.
-- Slots shell script wiring uses Astro SPA-safe lifecycle (`astro:page-load` + cleanup guard).
-- No gameplay logic, RNG, or monetization features are introduced in this milestone.
-
-**Key risks:**
-
-- Shell pages can accidentally expand into gameplay scope without clear milestone boundaries.
+| Phase                              | Milestone | Plans Complete | Status   | Completed  |
+| ---------------------------------- | --------- | -------------- | -------- | ---------- |
+| 1. Codebase Stabilization          | v1.0      | 3/3            | Complete | 2026-04-02 |
+| 2. Animation Quality               | v1.0      | 5/5            | Complete | 2026-04-02 |
+| 3. Video Export                    | v1.0      | 5/5            | Complete | 2026-04-02 |
+| 4. Export UX + Aspect Ratios       | v1.0      | 5/5            | Complete | 2026-04-02 |
+| 5. New Animation Styles            | v1.0      | 5/5            | Complete | 2026-04-02 |
+| 6. Vertical Style Pack Foundation  | v1.1      | 1/1            | Complete | 2026-04-02 |
+| 7. Export Funnel Conversion Uplift | v1.1      | 1/1            | Complete | 2026-04-02 |
+| 8. Verification and Audit          | v1.1      | 1/1            | Complete | 2026-04-02 |
+| 9. Navigation and i18n Primitives  | v1.2      | 1/1            | Complete | 2026-04-02 |
+| 10. Projects Hub Delivery          | v1.2      | 1/1            | Complete | 2026-04-02 |
+| 11. Slots Shell Foundation         | v1.2      | 1/1            | Complete | 2026-04-02 |
+| 12. Compatibility and QA Hardening | v1.2      | 1/1            | Complete | 2026-04-02 |
 
 ---
 
-## Phase 12: Compatibility and QA Hardening
-
-**Goal:** Lock discovery/navigation/i18n behavior with regression coverage and compatibility checks for the new IA.
-
-**Requirements:** COMP-01
-
-**Plans:** 1 plan
-
-- [x] 12-01-PLAN.md — Compatibility contracts, EN/PT route-switch E2E checks, and canonical-route hardening gates
-
-**Depends on:** Phases 9-11
-
-**Success criteria:**
-
-- E2E coverage verifies Projects -> Canvas/Slots discovery flow in EN/PT.
-- i18n switching and navigation labels are regression-locked across updated routes.
-- Compatibility checks confirm canonical Canvas routes remain stable post-restructure.
-
-**Key risks:**
-
-- Inadequate regression coverage can hide route/language breakage until after deployment.
-
----
-
-## Phase Dependencies
-
-```
-Phase 9 -> Phase 10 -> Phase 11 -> Phase 12
-```
-
----
-
-## Requirements Coverage
-
-| Requirement | Phase    |
-| ----------- | -------- |
-| HUB-01      | Phase 9  |
-| HUB-02      | Phase 10 |
-| HUB-03      | Phase 10 |
-| SLOT-01     | Phase 11 |
-| SLOT-02     | Phase 11 |
-| SLOT-03     | Phase 11 |
-| I18N-01     | Phase 9  |
-| I18N-02     | Phase 10 |
-| COMP-01     | Phase 12 |
-
----
-
-_Created: 2026-04-02 after v1.2 kickoff_
-_Ready to plan: Phase 9_
+_Updated: 2026-04-02 after v1.2 milestone completion_
