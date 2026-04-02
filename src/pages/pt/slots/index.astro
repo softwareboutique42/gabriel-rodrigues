@@ -12,6 +12,15 @@ const t = useTranslations('pt');
   <section
     id="slots-shell-root"
     data-slots-seed="slots-phase-13-pt"
+    data-slots-label-state={t('slots.gameplay.label.state')}
+    data-slots-label-outcome={t('slots.gameplay.label.outcome')}
+    data-slots-label-seed={t('slots.gameplay.label.seed')}
+    data-slots-msg-idle={t('slots.gameplay.status.idle')}
+    data-slots-msg-spinning={t('slots.gameplay.status.spinning')}
+    data-slots-msg-result={t('slots.gameplay.status.result')}
+    data-slots-msg-insufficient={t('slots.gameplay.status.insufficient')}
+    data-slots-msg-blocked-spinning={t('slots.gameplay.status.blockedSpinning')}
+    data-slots-msg-pending={t('slots.gameplay.status.pending')}
     class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
   >
     <h1
@@ -61,8 +70,28 @@ const t = useTranslations('pt');
 
       <div id="slots-gameplay" class="mt-6 border border-surface-container-high p-4 sm:p-5">
         <p class="font-mono text-xs uppercase tracking-wider text-text-muted mb-2">
-          Preview do Loop Core
+          {t('slots.gameplay.panel.title')}
         </p>
+        <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
+          <span class="text-text-muted">{t('slots.gameplay.label.balance')}:</span>
+          <strong id="slots-balance-value" class="text-neon">40</strong>
+          <span class="text-text-muted ml-4">{t('slots.gameplay.label.bet')}:</span>
+          <button
+            id="slots-bet-dec"
+            type="button"
+            class="px-2 py-1 border border-surface-container-high text-text-primary"
+          >
+            -
+          </button>
+          <strong id="slots-bet-value" class="text-cyan">2</strong>
+          <button
+            id="slots-bet-inc"
+            type="button"
+            class="px-2 py-1 border border-surface-container-high text-text-primary"
+          >
+            +
+          </button>
+        </div>
         <div class="flex flex-wrap items-center gap-3 mb-3">
           <button
             id="slots-spin-button"
@@ -70,12 +99,18 @@ const t = useTranslations('pt');
             type="button"
             class="clip-corners inline-block text-center px-4 py-2 bg-cyan text-background font-bold text-xs uppercase tracking-wider"
           >
-            Iniciar Rodada
+            {t('slots.gameplay.cta.spin')}
           </button>
-          <p id="slots-gameplay-status" class="font-mono text-xs text-text-muted">State: idle</p>
+          <p id="slots-gameplay-status" class="font-mono text-xs text-text-muted">
+            {t('slots.gameplay.label.state')}: {t('slots.gameplay.status.idle')}
+          </p>
         </div>
-        <p id="slots-gameplay-outcome" class="text-sm text-text-secondary">Outcome: pending</p>
-        <p id="slots-gameplay-seed" class="text-xs text-text-muted mt-1">Seed: -</p>
+        <p id="slots-gameplay-outcome" class="text-sm text-text-secondary">
+          {t('slots.gameplay.label.outcome')}: {t('slots.gameplay.status.pending')}
+        </p>
+        <p id="slots-gameplay-seed" class="text-xs text-text-muted mt-1">
+          {t('slots.gameplay.label.seed')}: -
+        </p>
         <pre
           id="slots-round-result"
           data-slots-result

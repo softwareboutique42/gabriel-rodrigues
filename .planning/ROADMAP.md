@@ -42,7 +42,7 @@ Phase 15: Compatibility and Regression Hardening
 
 **Plans:** 1 plan
 
-- [ ] 14-01-PLAN.md — Session-safe balance loop, interaction guardrails, and EN/PT gameplay copy parity
+- [x] 14-01-PLAN.md — Session-safe balance loop, interaction guardrails, and EN/PT gameplay copy parity
 
 **Depends on:** Phase 13
 
@@ -105,4 +105,4 @@ Phase 13 -> Phase 14 -> Phase 15
 ---
 
 _Created: 2026-04-02 after v1.3 kickoff_
-_Ready to plan: Phase 14_
+_Ready to plan: Phase 15_
