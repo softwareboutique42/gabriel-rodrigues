@@ -26,8 +26,7 @@ Plans:
 
 - [x] 01-01-PLAN.md — Deterministic particle loop refactor (FR-1.1)
 - [x] 01-02-PLAN.md — Geometric material pooling and deterministic transforms (FR-1.2)
-- [ ] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5)
-      @@- [x] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5) ✓ APPROVED
+- [x] 01-03-PLAN.md — Icon tinting, particle polish, and 8-style seam validation (FR-1.3 to FR-1.5) ✓ APPROVED
 
 **Success criteria:**
 
@@ -51,6 +50,16 @@ Plans:
 **Goal:** Animations clear the "more premium than Canva" bar. Claude returns structured `mood` and `industryCategory` fields. Style selection is deterministic.
 
 **Requirements:** FR-2.1 – FR-2.7
+
+**Plans:** 5 plans
+
+Plans:
+
+- [ ] 02-01-PLAN.md — Semantic worker schema, normalization boundary, and deterministic style selection (FR-2.1, FR-2.2, FR-2.6)
+- [ ] 02-02-PLAN.md — Shared mood presets, render profiles, and mobile particle budget contracts (FR-2.3, FR-2.5, NFR-9)
+- [ ] 02-03-PLAN.md — Premium depth layering for particles and geometric styles (FR-2.3, FR-2.5, FR-2.7, NFR-9)
+- [ ] 02-04-PLAN.md — Name-first story styles and semantic render smoke coverage (FR-2.3, FR-2.4, FR-2.5)
+- [ ] 02-05-PLAN.md — Remaining style audit, light-background closeout, and premium review gate (FR-2.4, FR-2.5, NFR-9)
 
 **Success criteria:**
 
@@ -183,4 +192,4 @@ Phase 5 depends on Phase 2 (Claude schema, easing presets, deterministic selecti
 
 _Created: 2026-04-02 — based on research synthesis_
 _Phases: 5_
-_Ready to plan: Phase 1_
+_Ready to plan: Phase 2_
