@@ -20,6 +20,7 @@ export const QUALITY_PROFILE_CONSTANTS = {
   lightBackgroundOpacity: 0.7,
   mobileConcurrencyThreshold: 4,
   mobileParticleCap: 400,
+  exportParticleReductionRatio: 0.7,
 } as const;
 
 export const MOOD_PRESETS: Record<CompanyMood, MoodPreset> = {
@@ -123,4 +124,12 @@ export function getParticleBudget(baseCount: number): number {
     return Math.min(normalizedBaseCount, QUALITY_PROFILE_CONSTANTS.mobileParticleCap);
   }
   return normalizedBaseCount;
+}
+
+export function getExportParticleBudget(baseCount: number): number {
+  const normalizedBaseCount = Math.max(0, Math.floor(baseCount));
+  const reducedBaseCount = Math.floor(
+    normalizedBaseCount * QUALITY_PROFILE_CONSTANTS.exportParticleReductionRatio,
+  );
+  return getParticleBudget(reducedBaseCount);
 }

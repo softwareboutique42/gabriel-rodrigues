@@ -4,6 +4,11 @@ import type { BaseAnimation } from './animations/base';
 import { createAnimation } from './animations/index';
 import { createIndustryIcon } from './icons/index';
 
+export type RendererInitOptions = {
+  exportMode?: boolean;
+  preserveDrawingBuffer?: boolean;
+};
+
 export class CanvasRenderer {
   private renderer!: THREE.WebGLRenderer;
   private scene!: THREE.Scene;
@@ -13,9 +18,13 @@ export class CanvasRenderer {
   private iconUpdate: ((elapsed: number) => void) | null = null;
   private animationId = 0;
   private canvas!: HTMLCanvasElement;
+  private exportMode = false;
+  private manualElapsed: number | null = null;
 
-  init(canvas: HTMLCanvasElement, config: CompanyConfig): void {
+  init(canvas: HTMLCanvasElement, config: CompanyConfig, options: RendererInitOptions = {}): void {
     this.canvas = canvas;
+    this.exportMode = options.exportMode ?? false;
+    this.manualElapsed = null;
     const container = canvas.parentElement!;
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -24,6 +33,7 @@ export class CanvasRenderer {
       canvas,
       antialias: true,
       alpha: true,
+      preserveDrawingBuffer: options.preserveDrawingBuffer ?? this.exportMode,
     });
     const dpr = Math.min(window.devicePixelRatio, 2);
     this.renderer.setPixelRatio(dpr);
@@ -77,11 +87,21 @@ export class CanvasRenderer {
       this.animationId = requestAnimationFrame(loop);
       const elapsed = this.clock.getElapsedTime();
       const delta = this.clock.getDelta();
-      this.animation.update(elapsed, delta);
-      this.iconUpdate?.(elapsed);
-      this.renderer.render(this.scene, this.camera);
+      this.renderFrame(elapsed, delta);
     };
     loop();
+  }
+
+  setExportFrame(elapsed: number): void {
+    this.manualElapsed = elapsed;
+  }
+
+  renderFrame(elapsed: number, delta: number): void {
+    const effectiveElapsed =
+      this.exportMode && this.manualElapsed !== null ? this.manualElapsed : elapsed;
+    this.animation.update(effectiveElapsed, delta);
+    this.iconUpdate?.(effectiveElapsed);
+    this.renderer.render(this.scene, this.camera);
   }
 
   stop(): void {

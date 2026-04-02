@@ -86,6 +86,26 @@ Plans:
 
 **Requirements:** FR-3.1 – FR-3.11, NFR-2, NFR-3, NFR-7
 
+**Plans:** 5 plans
+
+Plans:
+
+- [x] 03-01-PLAN.md — Export defaults, deterministic renderer contracts, capability gates, and export particle reduction baseline (FR-3.3, FR-3.6, FR-3.9, FR-3.11, NFR-7)
+- [ ] 03-02-PLAN.md — Stripe-gated WebM export controller and offscreen capture loop (FR-3.1, FR-3.2, FR-3.4, FR-3.5, FR-3.7, FR-3.8)
+- [ ] 03-03-PLAN.md — Export progress UX, unsupported-browser fallback, and bilingual copy wiring (FR-3.8, FR-3.9, NFR-4, NFR-5)
+- [ ] 03-04-PLAN.md — Chromium MP4 enhancement with WebCodecs + mp4-muxer boundary (FR-3.10, NFR-7)
+- [ ] 03-05-PLAN.md — Export benchmark gate and phase sign-off evidence (NFR-2, NFR-3)
+
+**Plans:** 5 plans
+
+Plans:
+
+- [ ] 03-01-PLAN.md — Export contracts, deterministic renderer API, and capability gating foundations (FR-3.3, FR-3.6, FR-3.9, FR-3.11)
+- [ ] 03-02-PLAN.md — Stripe intent extension and core offscreen WebM export controller wiring (FR-3.1, FR-3.2, FR-3.4, FR-3.5, FR-3.7, FR-3.8)
+- [ ] 03-03-PLAN.md — Bilingual progress and unsupported-browser fallback UX with export E2E coverage (FR-3.8, FR-3.9, NFR-5)
+- [ ] 03-04-PLAN.md — Chromium MP4 enhancement path via WebCodecs plus mp4-muxer adapter (FR-3.10)
+- [ ] 03-05-PLAN.md — Performance and file-size gate with benchmark evidence and phase sign-off (NFR-2, NFR-3)
+
 **Success criteria:**
 
 - Clicking "Download" after Stripe payment triggers a WebM download on Chrome/Firefox
