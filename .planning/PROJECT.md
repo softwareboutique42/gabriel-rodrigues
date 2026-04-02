@@ -27,9 +27,10 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] Add vertical-specific style packs beyond the current 11-style matrix
-- [ ] Improve conversion in the paid export funnel with clearer value framing
-- [ ] Automate milestone verification/audit cadence before release closure
+- [ ] Projects page (nav hub) listing Canvas and Slots, replacing top-menu Canvas link
+- [ ] Canvas relocated to /en/projects/ → /en/canvas/ hierarchy
+- [ ] Slots game research — game concepts, themed machine directions, sprite asset sources
+- [ ] Slots foundation — /en/slots/ and /pt/slots/ shell (bilingual, no gameplay)
 
 ### Out of Scope
 
@@ -78,15 +79,15 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - Prioritize highest-impact UX and performance follow-ups
 - Keep roadmap milestone-scoped with fresh requirements and phased validation
 
-## Current Milestone: v1.1 New Style Packs
+## Current Milestone: v1.2 Projects Hub & Slots Foundation
 
-**Goal:** Expand style coverage for additional verticals while improving export conversion and standardizing release verification.
+**Goal:** Restructure navigation around a Projects hub, relocate Canvas under it, and research + scaffold a new Slots game with themed machines.
 
 **Target features:**
 
-- New vertical-specific preset styles with deterministic routing support
-- Export funnel messaging and UX refinements to increase paid conversion
-- Audit/verification workflow hardening at milestone boundaries
+- Projects page (nav hub) — lists Canvas and Slots, replaces top-menu direct Canvas link
+- Slots research — game concepts, themed machine directions, sprite sources / asset libraries
+- Slots foundation — /en/slots/ + /pt/slots/ project shell (bilingual, no gameplay yet)
 
 ## Evolution
 
@@ -109,4 +110,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-02 after v1.1 milestone kickoff_
+_Last updated: 2026-04-02 after v1.2 milestone kickoff_
