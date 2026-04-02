@@ -27,9 +27,9 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] Conversion and growth improvements for the canvas export funnel
-- [ ] Additional vertical-specific animation presets for post-v1.0 milestone
-- [ ] Automated UAT/audit cadence before each milestone closeout
+- [ ] Add vertical-specific style packs beyond the current 11-style matrix
+- [ ] Improve conversion in the paid export funnel with clearer value framing
+- [ ] Automate milestone verification/audit cadence before release closure
 
 ### Out of Scope
 
@@ -78,6 +78,16 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - Prioritize highest-impact UX and performance follow-ups
 - Keep roadmap milestone-scoped with fresh requirements and phased validation
 
+## Current Milestone: v1.1 New Style Packs
+
+**Goal:** Expand style coverage for additional verticals while improving export conversion and standardizing release verification.
+
+**Target features:**
+
+- New vertical-specific preset styles with deterministic routing support
+- Export funnel messaging and UX refinements to increase paid conversion
+- Audit/verification workflow hardening at milestone boundaries
+
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
@@ -99,4 +109,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-02 after v1.0 milestone completion_
+_Last updated: 2026-04-02 after v1.1 milestone kickoff_
