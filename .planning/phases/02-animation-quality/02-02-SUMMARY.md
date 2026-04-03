@@ -48,3 +48,9 @@ Automated checks executed:
 - npm run build: pass (static build completed)
 
 Observed build warnings were non-blocking and unchanged from baseline.
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

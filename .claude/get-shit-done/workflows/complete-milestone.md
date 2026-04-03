@@ -114,7 +114,14 @@ If `${#UNVERIFIED[@]} -gt 0`:
 | {path} | ⚠ Missing ## Validation |
 
 These phases completed without documented test/build outcomes.
-Completion is NOT blocked — this is informational.
+Completion is BLOCKED until validation sections are backfilled.
+```
+
+Stop workflow and return actionable remediation command:
+
+```
+Run /gsd:execute-phase 24 (or applicable remediation phase) to backfill Validation sections,
+then re-run /gsd:complete-milestone.
 ```
 
 If `${#UNVERIFIED[@]} -eq 0`:

@@ -33,9 +33,9 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] Analytics instrumentation for Projects → Slots funnel and gameplay events
-- [ ] Motion accessibility controls (`prefers-reduced-motion` + intensity tiers) for Slots runtime
-- [ ] Runtime performance guardrails for animation-heavy gameplay loops
+- [ ] ANL-10/ANL-11/ANL-12 analytics baseline for canonical Projects -> Slots and gameplay lifecycle parity
+- [ ] VER-10/VER-11/VER-12 verification hygiene and milestone closure guards
+- [ ] QA-21/QA-22 compatibility and contract confidence for instrumented flows
 
 ### Out of Scope
 
@@ -86,28 +86,28 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v1.4 (in progress)
-- Phase progress: 3/5 phases complete (18-20 done, 21 next)
-- Scope delivered in v1.4 so far: deterministic animation runtime, sprite atlas integration, animated symbol states, and presentation-only theme variants
+- Active milestone: v1.5 (initialized)
+- Phase progress: 23-01 planned, execution pending
+- v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop and upgraded visual runtime observability
-- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`
+- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Upgrade Slots visual quality with polished reel/symbol/effect animation systems
-- Introduce a production sprite pipeline (atlases + animated symbols + theme variants)
-- Preserve deterministic gameplay behavior, EN/PT parity, accessibility motion controls, and runtime performance while visual complexity increases
+- Ship v1.5 phases 23-25 with deterministic analytics instrumentation and closure guardrails.
+- Backfill legacy verification debt needed for reliable milestone-level audits.
+- Preserve EN/PT parity and deterministic gameplay authority while expanding observability.
 
-## Current Milestone: v1.4 Slots Animation & Sprite Upgrade
+## Current Milestone: v1.5 Growth & Observability Foundation
 
-**Goal:** Improve the Slots experience with richer animation and sprite presentation while keeping deterministic gameplay and strong runtime confidence.
+**Goal:** Improve product observability and delivery confidence with analytics instrumentation and enforceable validation hygiene.
 
 **Target features:**
 
-- Reel spin, stop, win/lose, idle, and UI transition animation polish
-- New sprite symbol set with atlas pipeline, animated symbols, and theme variants
-- Motion accessibility controls (`prefers-reduced-motion` + in-product intensity levels)
-- Performance and regression hardening for animation-heavy runtime paths
+- Projects -> Slots funnel analytics primitives with EN/PT parity-safe event hooks
+- Gameplay event instrumentation boundaries that preserve deterministic runtime authority
+- Verification evidence backfill and guardrails to prevent milestone closure without validation sections
+- Scoped v1.5 requirements/roadmap preparation for execution handoff
 
 ## Evolution
 
@@ -130,4 +130,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 after Phase 20 completion_
+_Last updated: 2026-04-03 at v1.5 kickoff_

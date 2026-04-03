@@ -91,3 +91,9 @@ _Completed: 2026-04-02_
 - FOUND: commit 05faeef
 - FOUND: commit 9e1d841
 - FOUND: commit 2539a16
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

@@ -1,5 +1,17 @@
 # Milestones
 
+## v1.4 milestone (Shipped: 2026-04-03)
+
+**Phases completed:** 5 phases, 5 plans, 8 tasks
+
+**Key accomplishments:**
+
+- Deterministic slots reel lifecycle runtime with presentation-only visual events, outcome feedback wiring, and stable animation observability contracts for EN/PT compatibility paths
+- Slots runtime now resolves reduced-motion and intensity deterministically, applies bounded performance fallback tiers, and exposes stable accessibility/performance observability hooks validated across EN/PT contracts and compatibility E2E.
+- Deterministic slots runtime confidence lock with stronger sequencing/snapshot contracts and EN/PT parity-safe Playwright coverage for QA-20
+
+---
+
 ## v1.3 Slots Gameplay Foundation (Shipped: 2026-04-02)
 
 **Phases completed:** 5 phases, 5 plans, 0 tasks

@@ -30,6 +30,9 @@ const t = useTranslations('en');
         <p class="text-sm text-text-secondary mb-6">{t('projects.card.canvas.description')}</p>
         <a
           href="/en/canvas/"
+          data-projects-analytics-target="canvas"
+          data-projects-analytics-locale="en"
+          data-projects-analytics-route="/en/projects/"
           class="mt-auto clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
         >
           {t('projects.card.canvas.cta')}
@@ -44,6 +47,9 @@ const t = useTranslations('en');
         <p class="text-sm text-text-secondary mb-6">{t('projects.card.slots.description')}</p>
         <a
           href="/en/slots/"
+          data-projects-analytics-target="slots"
+          data-projects-analytics-locale="en"
+          data-projects-analytics-route="/en/projects/"
           class="mt-auto clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-cyan text-surface-dim font-bold text-xs uppercase tracking-wider"
         >
           {t('projects.card.slots.cta')}
@@ -52,3 +58,39 @@ const t = useTranslations('en');
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../../../scripts/analytics/events';
+
+  document.addEventListener('astro:page-load', () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-projects-analytics-target]');
+    for (const link of links) {
+      link.addEventListener(
+        'click',
+        () => {
+          emitAnalyticsEvent({
+            name: ANALYTICS_EVENT_NAMES.PROJECTS_CTA_CLICK,
+            route: link.dataset.projectsAnalyticsRoute ?? '/en/projects/',
+            locale: link.dataset.projectsAnalyticsLocale === 'pt' ? 'pt' : 'en',
+            surface: 'projects',
+            payload: {
+              target: link.dataset.projectsAnalyticsTarget ?? 'unknown',
+            },
+          });
+        },
+        { signal },
+      );
+    }
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        controller.abort();
+      },
+      { once: true, signal },
+    );
+  });
+</script>

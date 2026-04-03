@@ -55,3 +55,9 @@ Automated checks executed:
 ## Gate Decision
 
 Phase 2 implementation and validation requirements are complete. Project is ready to move to Phase 3 planning/execution.
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

@@ -1,69 +1,63 @@
-# Requirements — Company Canvas (v1.4 Slots Animation & Sprite Upgrade)
+# Requirements — Company Canvas (v1.5 Growth & Observability Foundation)
 
-**Defined:** 2026-04-02
+**Defined:** 2026-04-03
 **Core Value:** Branded, download-ready animation in under a minute.
 
-## v1.4 Requirements
+## v1.5 Requirements
 
-### Animation Experience
+### Analytics and Observability
 
-- [x] **ANIM-10**: Reel animation lifecycle includes polished spin-up, sustained spin, and deterministic stop choreography that visually reflects the existing round state machine.
-- [x] **ANIM-11**: Win/loss feedback animations (line/symbol emphasis + status transitions) trigger from resolved outcomes without mutating gameplay authority.
-- [x] **ANIM-12**: Idle ambient and gameplay UI transition animations remain subtle, non-blocking, and consistent across EN/PT routes.
+- [ ] **ANL-10**: Projects to Slots discovery journey emits deterministic analytics events on canonical EN/PT routes.
+- [ ] **ANL-11**: Slots gameplay lifecycle (spin attempt, resolved outcome, insufficient-credit block) exposes stable analytics events without mutating gameplay authority.
+- [ ] **ANL-12**: Analytics payloads include locale-safe, parity-safe dimensions (route, locale, surface, outcome category) with no PII.
 
-### Sprite System
+### Verification Hygiene and Release Gates
 
-- [x] **SPRITE-10**: Slots symbol visuals migrate to a production sprite atlas pipeline with deterministic symbol-to-frame mapping.
-- [x] **SPRITE-11**: Animated symbol sprite states (idle/spin/win-react) are supported for core symbols without changing payout/evaluation logic.
-- [x] **SPRITE-12**: At least one additional visual theme variant can be applied through shared theme tokens and sprite assets without branching gameplay logic.
+- [ ] **VER-10**: Phase summaries must include a Validation section before milestone close.
+- [ ] **VER-11**: Existing verification debt is backfilled for historical summaries needed by milestone-level audits.
+- [ ] **VER-12**: Milestone closure checks fail fast when required validation artifacts are missing.
 
-### Accessibility, Performance, and QA
+### QA and Compatibility Confidence
 
-- [ ] **A11Y-10**: Reduced-motion and motion-intensity controls are available and preserve behavior parity with default mode.
-- [ ] **PERF-10**: Animation/sprite upgrades respect defined runtime performance guardrails for active gameplay loops.
-- [ ] **QA-20**: Contract + Playwright coverage is expanded to lock animation/sprite runtime behavior, deterministic visual event sequencing, and EN/PT parity.
+- [ ] **QA-21**: Contract and compatibility suites cover analytics hook stability and EN/PT parity for instrumented flows.
+- [ ] **QA-22**: Release verification chain documents lint, targeted tests, E2E, and build outcomes for each completed v1.5 plan.
 
 ## v2+ Requirements (Deferred)
 
-### Visual Ambition
+### Product Growth
 
-- **ANIM-20**: Cinematic multi-tier celebration sequences with optional skip controls.
-- **SPRITE-20**: Dynamic live-theme/event skin delivery pipeline.
-
-### Growth and Analytics
-
-- **ANL-10**: Analytics instrumentation for Projects → Slots funnel and gameplay events.
+- **ANL-20**: Conversion dashboards and cohort reporting in external analytics tooling.
+- **ANL-21**: Experimentation framework for CTA/flow A-B testing.
 
 ## Out of Scope
 
-| Feature                                           | Reason                                                                           |
-| ------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Gameplay rule changes (new paylines/payout model) | v1.4 focuses on presentation and runtime confidence, not core game rule redesign |
-| Real-money betting and payouts                    | Deferred beyond current product strategy and compliance scope                    |
-| Full rendering framework migration                | Existing Astro + TypeScript architecture remains the baseline                    |
-| Theme-specific gameplay forks                     | Themes remain presentation-only to preserve deterministic behavior               |
+| Feature                               | Reason                                                                       |
+| ------------------------------------- | ---------------------------------------------------------------------------- |
+| Real-money wagering analytics         | Product remains non-gambling and no-money-play for Slots.                    |
+| Gameplay rule redesign                | v1.5 targets observability and verification confidence, not economy changes. |
+| Full telemetry warehouse integration  | Start with lightweight event hooks and compatibility-safe payloads.          |
+| User tracking across sessions/devices | Defer identity-level analytics; keep anonymous interaction events only.      |
 
 ## Traceability
 
-| Requirement | Phase    | Status   |
-| ----------- | -------- | -------- |
-| ANIM-10     | Phase 18 | Complete |
-| ANIM-11     | Phase 18 | Complete |
-| ANIM-12     | Phase 19 | Complete |
-| SPRITE-10   | Phase 19 | Complete |
-| SPRITE-11   | Phase 20 | Complete |
-| SPRITE-12   | Phase 20 | Complete |
-| A11Y-10     | Phase 21 | Pending  |
-| PERF-10     | Phase 21 | Pending  |
-| QA-20       | Phase 22 | Pending  |
+| Requirement | Phase    | Status  |
+| ----------- | -------- | ------- |
+| ANL-10      | Phase 23 | Planned |
+| ANL-11      | Phase 23 | Planned |
+| ANL-12      | Phase 23 | Planned |
+| VER-10      | Phase 24 | Planned |
+| VER-11      | Phase 24 | Planned |
+| VER-12      | Phase 24 | Planned |
+| QA-21       | Phase 25 | Planned |
+| QA-22       | Phase 25 | Planned |
 
 **Coverage:**
 
-- v1.4 requirements: 9 total
-- Mapped to phases: 9
+- v1.5 requirements: 8 total
+- Mapped to phases: 8
 - Unmapped: 0
 
 ---
 
-_Requirements defined: 2026-04-02_
-_Last updated: 2026-04-02 after phase 20 verification_
+_Requirements defined: 2026-04-03_
+_Last updated: 2026-04-03 at v1.5 kickoff_

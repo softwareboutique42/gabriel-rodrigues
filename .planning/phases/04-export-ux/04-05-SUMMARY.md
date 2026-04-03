@@ -42,3 +42,9 @@ Phase 4 is closed with full verification and bilingual parity evidence.
 ## Gate Decision
 
 Phase 4 approved. Transition to Phase 5 planning/execution.
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

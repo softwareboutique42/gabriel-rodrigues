@@ -33,6 +33,27 @@ async function expectRuntimeParityEnvelope(root: Locator): Promise<void> {
   await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
 }
 
+async function clearPersistedAnalyticsEvents(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    try {
+      sessionStorage.removeItem('cc.analytics.events');
+    } catch {
+      // Some browsers block storage access on about:blank before first navigation.
+    }
+  });
+}
+
+async function readPersistedAnalyticsEvents(page: Page): Promise<Array<Record<string, unknown>>> {
+  return page.evaluate(() => {
+    try {
+      const raw = sessionStorage.getItem('cc.analytics.events');
+      return raw ? (JSON.parse(raw) as Array<Record<string, unknown>>) : [];
+    } catch {
+      return [];
+    }
+  });
+}
+
 async function spinAndWaitForResolution(
   page: Page,
   root: Locator,
@@ -65,21 +86,76 @@ test.describe('Compatibility hardening', () => {
   test('projects discovery journey resolves to canonical canvas and slots routes in EN/PT', async ({
     page,
   }) => {
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/en/projects/');
     await page.getByRole('link', { name: 'Explore Canvas', exact: true }).click();
     await expect(page).toHaveURL(pathRegex('/en/canvas/'));
+    const enCanvasEvents = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() => enCanvasEvents.some((event) => event.name === 'projects_cta_click'))
+      .toBe(true);
+    await expect
+      .poll(() =>
+        enCanvasEvents.some(
+          (event) =>
+            event.route === '/en/projects/' &&
+            event.locale === 'en' &&
+            event.surface === 'projects' &&
+            (event.payload as { target?: string })?.target === 'canvas',
+        ),
+      )
+      .toBe(true);
 
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/en/projects/');
     await page.getByRole('link', { name: 'See Slots', exact: true }).click();
     await expect(page).toHaveURL(pathRegex('/en/slots/'));
+    const enSlotsEvents = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        enSlotsEvents.some(
+          (event) =>
+            event.name === 'projects_cta_click' &&
+            event.route === '/en/projects/' &&
+            event.locale === 'en' &&
+            (event.payload as { target?: string })?.target === 'slots',
+        ),
+      )
+      .toBe(true);
 
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/projects/');
     await page.getByRole('link', { name: 'Explorar Canvas', exact: true }).click();
     await expect(page).toHaveURL(pathRegex('/pt/canvas/'));
+    const ptCanvasEvents = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        ptCanvasEvents.some(
+          (event) =>
+            event.name === 'projects_cta_click' &&
+            event.route === '/pt/projects/' &&
+            event.locale === 'pt' &&
+            (event.payload as { target?: string })?.target === 'canvas',
+        ),
+      )
+      .toBe(true);
 
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/projects/');
     await page.getByRole('link', { name: 'Ver Slots', exact: true }).click();
     await expect(page).toHaveURL(pathRegex('/pt/slots/'));
+    const ptSlotsEvents = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        ptSlotsEvents.some(
+          (event) =>
+            event.name === 'projects_cta_click' &&
+            event.route === '/pt/projects/' &&
+            event.locale === 'pt' &&
+            (event.payload as { target?: string })?.target === 'slots',
+        ),
+      )
+      .toBe(true);
   });
 
   test('language switch resolves exact EN/PT counterpart routes for projects, canvas, and slots', async ({
@@ -116,6 +192,7 @@ test.describe('Compatibility hardening', () => {
   test('slots runtime compatibility keeps machine-readable gameplay state in EN/PT', async ({
     page,
   }) => {
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/en/slots/');
 
     const root = page.locator('#slots-shell-root');
@@ -140,7 +217,30 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-outcome', /win|loss/);
     await expect(page.locator('#slots-gameplay-outcome')).toHaveText(/Outcome: (win|loss) \(\d+\)/);
     await expect(page.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-en:1');
+    const enSlotsAnalytics = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        enSlotsAnalytics.some(
+          (event) =>
+            event.name === 'slots_spin_attempt' &&
+            event.locale === 'en' &&
+            event.route === '/en/slots/',
+        ),
+      )
+      .toBe(true);
+    await expect
+      .poll(() =>
+        enSlotsAnalytics.some(
+          (event) =>
+            event.name === 'slots_spin_resolved' &&
+            event.locale === 'en' &&
+            event.route === '/en/slots/' &&
+            typeof (event.payload as { payout?: unknown })?.payout === 'number',
+        ),
+      )
+      .toBe(true);
 
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/slots/');
     const ptRoot = page.locator('#slots-shell-root');
     await expectRuntimeParityEnvelope(ptRoot);
@@ -166,11 +266,33 @@ test.describe('Compatibility hardening', () => {
       /Resultado: (win|loss) \(\d+\)/,
     );
     await expect(page.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-pt:1');
+    const ptSlotsAnalytics = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        ptSlotsAnalytics.some(
+          (event) =>
+            event.name === 'slots_spin_attempt' &&
+            event.locale === 'pt' &&
+            event.route === '/pt/slots/',
+        ),
+      )
+      .toBe(true);
+    await expect
+      .poll(() =>
+        ptSlotsAnalytics.some(
+          (event) =>
+            event.name === 'slots_spin_resolved' &&
+            event.locale === 'pt' &&
+            event.route === '/pt/slots/',
+        ),
+      )
+      .toBe(true);
   });
 
   test('slots insufficient-credit flow blocks additional PT spin attempts with localized runtime state', async ({
     page,
   }) => {
+    await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/slots/');
 
     const root = page.locator('#slots-shell-root');
@@ -212,5 +334,18 @@ test.describe('Compatibility hardening', () => {
     await expectSlotsStatus(page, 'Estado: Saldo insuficiente');
     await expect(root).toHaveAttribute('data-slots-balance', '0');
     await expect(root).toHaveAttribute('data-slots-bet', '10');
+
+    const blockedAnalytics = await readPersistedAnalyticsEvents(page);
+    await expect
+      .poll(() =>
+        blockedAnalytics.some(
+          (event) =>
+            event.name === 'slots_spin_blocked' &&
+            event.locale === 'pt' &&
+            event.route === '/pt/slots/' &&
+            (event.payload as { blocked_reason?: string })?.blocked_reason === 'insufficient',
+        ),
+      )
+      .toBe(true);
   });
 });

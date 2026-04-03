@@ -15,6 +15,7 @@ import {
   createSlotsVisualEventStore,
   type SlotsVisualEventStore,
 } from './animation/events.ts';
+import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../analytics/events.ts';
 
 const SPIN_DELAY_MS = 240;
 
@@ -30,6 +31,10 @@ function setText(id: string, value: string): void {
 function getMessage(root: HTMLElement, key: string, fallback: string): string {
   const value = root.dataset[key as keyof DOMStringMap];
   return value ?? fallback;
+}
+
+function getLocaleFromSeed(baseSeed: string): 'en' | 'pt' {
+  return baseSeed.endsWith('-pt') ? 'pt' : 'en';
 }
 
 function renderState(
@@ -106,6 +111,8 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
   const incBetButton = document.getElementById('slots-bet-inc') as HTMLButtonElement | null;
 
   const baseSeed = root.getAttribute('data-slots-seed') ?? 'slots-phase-13';
+  const locale = getLocaleFromSeed(baseSeed);
+  const route = `/${locale}/slots/`;
 
   const onAdjustBet = (delta: number) => {
     economy = adjustBet(economy, delta);
@@ -124,6 +131,18 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
           bet: economy.bet,
         }),
       );
+      emitAnalyticsEvent({
+        name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_BLOCKED,
+        route,
+        locale,
+        surface: 'slots',
+        payload: {
+          blocked_reason: blocked,
+          spin_index: blocked === 'spinning' ? state.spinIndex : state.spinIndex + 1,
+          balance: economy.balance,
+          bet: economy.bet,
+        },
+      });
       feedbackKey = blocked === 'insufficient' ? 'insufficient' : 'blockedSpinning';
       renderState(root, state, economy.balance, economy.bet, feedbackKey);
       return;
@@ -133,6 +152,17 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
     if (requested === state) return;
     state = requested;
     economy = debitForRound(economy);
+    emitAnalyticsEvent({
+      name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_ATTEMPT,
+      route,
+      locale,
+      surface: 'slots',
+      payload: {
+        spin_index: state.spinIndex,
+        bet: economy.bet,
+        balance_after_debit: economy.balance,
+      },
+    });
     visualEvents.emit(
       createSpinAcceptedVisualEvent({
         spinIndex: state.spinIndex,
@@ -149,6 +179,17 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
       const result = resolveRound({ baseSeed, spinIndex: activeSpin });
       state = transitionEngineState(state, { type: 'SPIN_RESOLVED', result });
       economy = settleRound(economy, result.totalPayoutUnits);
+      emitAnalyticsEvent({
+        name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_RESOLVED,
+        route,
+        locale,
+        surface: 'slots',
+        payload: {
+          spin_index: result.spinIndex,
+          outcome: result.outcome,
+          payout: result.totalPayoutUnits,
+        },
+      });
       visualEvents.emit(
         createSpinResolvedVisualEvent({
           spinIndex: result.spinIndex,

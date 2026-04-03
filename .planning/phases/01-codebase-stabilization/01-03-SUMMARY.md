@@ -184,3 +184,9 @@ None. All implementations are complete and functional.
 - No framework changes, no new dependencies
 - Changes are backward-compatible with existing canvas architecture
 - Next Plan (01-04) can proceed in parallel if this checkpoint approves early
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

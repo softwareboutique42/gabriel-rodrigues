@@ -93,3 +93,9 @@ None - no external service configuration required.
 
 _Phase: 01-codebase-stabilization_
 _Completed: 2026-04-02_
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

@@ -40,3 +40,9 @@ Plan 03-05 closeout is complete from a workflow perspective.
 ## Gate Decision
 
 Phase 3 is marked complete based on explicit approval signal after benchmark-checkpoint handoff.
+
+## Validation
+
+- Historical validation evidence is partially available from surviving session artifacts.
+- Where command-by-command outputs were not preserved, this summary explicitly marks evidence as unavailable rather than inferring results.
+- Backfill added in Phase 24 to satisfy milestone auditability and closure-guard requirements.

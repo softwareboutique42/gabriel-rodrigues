@@ -1,4 +1,4 @@
-# Roadmap — Company Canvas (v1.4 Slots Animation & Sprite Upgrade)
+# Roadmap — Company Canvas (v1.5 Growth & Observability Foundation)
 
 ## Archived Milestones
 
@@ -6,145 +6,96 @@
 - ✅ v1.1 — [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 - ✅ v1.2 Projects Hub & Slots Foundation — [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 - ✅ v1.3 Slots Gameplay Foundation — [milestones/v1.3-ROADMAP.md](milestones/v1.3-ROADMAP.md)
+- ✅ v1.4 Slots Animation & Sprite Upgrade — [milestones/v1.4-ROADMAP.md](milestones/v1.4-ROADMAP.md)
 
 ## Overview
 
-5 phases for milestone v1.4, continuing numbering after v1.3.
+3 phases for milestone v1.5, continuing numbering after v1.4.
 
 ```
-Phase 18: Slots Animation Runtime Foundation
-Phase 19: Sprite Atlas Integration and UI Motion
-Phase 20: Animated Symbols and Theme Variants
-Phase 21: Accessibility and Performance Hardening
-Phase 22: Regression and Runtime Confidence Lock
+Phase 23: Analytics Instrumentation Baseline
+Phase 24: Verification Debt Backfill and Closure Guards
+Phase 25: Runtime Compatibility Confidence for Instrumented Flows
 ```
 
 ---
 
-## Phase 18: Slots Animation Runtime Foundation
+## Phase 23: Analytics Instrumentation Baseline
 
-**Goal:** Introduce a deterministic visual animation runtime that consumes gameplay state transitions without altering engine authority.
+**Goal:** Introduce parity-safe analytics hooks for Projects to Slots discovery and Slots gameplay lifecycle events.
 
-**Requirements:** ANIM-10, ANIM-11
-
-**Plans:** 1/1 plans complete
-
-- [x] 18-01-PLAN.md — Reel lifecycle choreography and outcome-driven animation event wiring
-
-**Depends on:** Phase 17
-
-**Success criteria:**
-
-- Reel spin lifecycle animations (start/spin/stop) reflect deterministic runtime state transitions.
-- Win/loss feedback triggers from resolved outcomes only and does not mutate core game logic.
-- Existing gameplay contracts remain green after visual runtime integration.
-
-**Key risks:**
-
-- Animation callbacks could accidentally influence authoritative state timing.
-
----
-
-## Phase 19: Sprite Atlas Integration and UI Motion
-
-**Goal:** Replace placeholder symbol visuals with atlas-backed sprites and polish UI/idle transition motion patterns.
-
-**Requirements:** SPRITE-10, ANIM-12
+**Requirements:** ANL-10, ANL-11, ANL-12
 
 **Plans:** 1/1 plans complete
 
-- [x] 19-01-PLAN.md — Sprite atlas foundation, symbol-frame mapping, and idle/UI motion pass
+- [x] 23-01-PLAN.md — Deterministic analytics event contracts and runtime hook integration
 
-**Depends on:** Phase 18
+**Depends on:** Phase 22
 
 **Success criteria:**
 
-- Symbol rendering is atlas-backed with deterministic symbol-to-frame mapping.
-- Idle and UI transition animations are integrated without blocking interactions.
-- EN/PT runtime states remain visually consistent in both locales.
+- Canonical EN/PT discovery routes emit stable analytics events with shared payload shape.
+- Gameplay lifecycle analytics events are emitted from presentation/runtime boundaries without authority mutation.
+- Compatibility and contract checks can assert event parity and schema stability.
 
 **Key risks:**
 
-- Atlas loading or mapping drift could produce symbol mismatches during spins.
+- Event plumbing could leak locale-specific payload drift or unstable names.
 
 ---
 
-## Phase 20: Animated Symbols and Theme Variants
+## Phase 24: Verification Debt Backfill and Closure Guards
 
-**Goal:** Add animated symbol states and at least one additional theme variant while keeping gameplay behavior invariant.
+**Goal:** Remove milestone verification debt and enforce summary validation sections as a release gate.
 
-**Requirements:** SPRITE-11, SPRITE-12
+**Requirements:** VER-10, VER-11, VER-12
 
 **Plans:** 1/1 plans complete
 
-- [x] 20-01-PLAN.md — Animated symbol states and presentation-only theme variant architecture
+- [x] 24-01-PLAN.md — Validation section backfill, enforcement checks, and closeout policy hardening
 
-**Depends on:** Phase 19
+**Depends on:** Phase 23
 
 **Success criteria:**
 
-- Core symbols support animated states (idle/spin/win-react) through shared sprite contracts.
-- At least one theme variant is selectable without branching gameplay rules.
-- Theme and sprite changes do not affect deterministic payout or state outcomes.
+- Historical summaries in-scope for audits include explicit Validation sections.
+- Milestone closeout tooling flags missing validation artifacts before completion.
+- Verification evidence remains concise, repeatable, and machine-checkable.
 
 **Key risks:**
 
-- Theme-specific asset assumptions could bleed into gameplay behavior.
+- Backfill changes may unintentionally rewrite historical intent instead of documenting validation evidence.
 
 ---
 
-## Phase 21: Accessibility and Performance Hardening
+## Phase 25: Runtime Compatibility Confidence for Instrumented Flows
 
-**Goal:** Enforce motion accessibility and runtime performance guardrails for the expanded animation/sprite system.
+**Goal:** Lock runtime confidence for analytics-instrumented flows with deterministic contracts and compatibility E2E assertions.
 
-**Requirements:** A11Y-10, PERF-10
+**Requirements:** QA-21, QA-22
 
-**Plans:** 1 plan
+**Plans:** 0/1 plans complete
 
-- [ ] 21-01-PLAN.md — Reduced-motion controls, intensity tiers, and performance budget enforcement
+- [ ] 25-01-PLAN.md — Contract and browser parity hardening for analytics-instrumented runtime flows
 
-**Depends on:** Phase 20
-
-**Success criteria:**
-
-- Reduced-motion and intensity controls work across gameplay lifecycle states.
-- Animation-heavy paths remain inside defined performance budgets.
-- Accessibility mode parity is preserved for state, outcome, and localized messaging behavior.
-
-**Key risks:**
-
-- Visual effects may regress frame stability on low-end devices if budget caps are not enforced.
-
----
-
-## Phase 22: Regression and Runtime Confidence Lock
-
-**Goal:** Lock v1.4 runtime behavior with contract and browser regression coverage for animation, sprites, i18n parity, and deterministic flow.
-
-**Requirements:** QA-20
-
-**Plans:** 1 plan
-
-- [ ] 22-01-PLAN.md — Contract and Playwright hardening for visual runtime determinism and parity
-
-**Depends on:** Phases 18-21
+**Depends on:** Phase 24
 
 **Success criteria:**
 
-- Contract tests validate animation/sprite event sequencing remains deterministic for fixed seeds.
-- Playwright covers EN/PT runtime animation and sprite behaviors with stable selectors and state hooks.
-- Full verification chain passes and milestone closes without untracked runtime debt.
+- Contracts fail on analytics hook drift, payload-schema regressions, or EN/PT parity mismatches.
+- Compatibility suite verifies instrumented canonical journeys across desktop and mobile projects.
+- Verification chain outputs clear evidence suitable for milestone closeout.
 
 **Key risks:**
 
-- Highly visual assertions can become brittle if they depend on unstable timing or copy assumptions.
+- Additional assertions can become brittle if tied to copy instead of stable data hooks.
 
 ---
 
 ## Phase Dependencies
 
 ```
-Phase 18 -> Phase 19 -> Phase 20 -> Phase 21 -> Phase 22
+Phase 23 -> Phase 24 -> Phase 25
 ```
 
 ---
@@ -153,17 +104,16 @@ Phase 18 -> Phase 19 -> Phase 20 -> Phase 21 -> Phase 22
 
 | Requirement | Phase    |
 | ----------- | -------- |
-| ANIM-10     | Phase 18 |
-| ANIM-11     | Phase 18 |
-| ANIM-12     | Phase 19 |
-| SPRITE-10   | Phase 19 |
-| SPRITE-11   | Phase 20 |
-| SPRITE-12   | Phase 20 |
-| A11Y-10     | Phase 21 |
-| PERF-10     | Phase 21 |
-| QA-20       | Phase 22 |
+| ANL-10      | Phase 23 |
+| ANL-11      | Phase 23 |
+| ANL-12      | Phase 23 |
+| VER-10      | Phase 24 |
+| VER-11      | Phase 24 |
+| VER-12      | Phase 24 |
+| QA-21       | Phase 25 |
+| QA-22       | Phase 25 |
 
 ---
 
-_Created: 2026-04-02 after v1.4 kickoff_
-_Ready to plan: Phase 21_
+_Created: 2026-04-03 after v1.5 kickoff_
+_Ready to plan: Phase 25_
