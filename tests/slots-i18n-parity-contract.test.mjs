@@ -101,3 +101,39 @@ test('I18N-12: EN/PT casinocraftz host embeds slots module with canonical host q
   assert.match(slotsMain, /new URLSearchParams\(window\.location\.search\)\.get\('host'\)/);
   assert.match(slotsMain, /houseEdgeLesson\.classList\.toggle\('hidden', !isEmbeddedHost\)/);
 });
+
+test('BRG-50: tutorial/main.ts bridge handler has no locale-specific branches', () => {
+  const tutorialMain = readFileSync(
+    resolve(process.cwd(), 'src/scripts/casinocraftz/tutorial/main.ts'),
+    'utf8',
+  );
+  // The parseSpinSettledBridgeEvent function must not branch on locale/lang
+  assert.doesNotMatch(
+    tutorialMain,
+    /if\s*\(\s*lang\s*===\s*['"]en['"]/,
+    'bridge handler must not branch on lang === en',
+  );
+  assert.doesNotMatch(
+    tutorialMain,
+    /if\s*\(\s*lang\s*===\s*['"]pt['"]/,
+    'bridge handler must not branch on lang === pt',
+  );
+});
+
+test('BRG-50: slots/main.ts bridge emit is not wrapped in locale conditions', () => {
+  assert.doesNotMatch(
+    slotsMain,
+    /if\s*\(\s*lang\s*===\s*['"]en['"]/,
+    'slots bridge emit must not have locale condition',
+  );
+  assert.doesNotMatch(
+    slotsMain,
+    /if\s*\(\s*lang\s*===\s*['"]pt['"]/,
+    'slots bridge emit must not have locale condition',
+  );
+  assert.doesNotMatch(
+    slotsMain,
+    /if\s*\(\s*locale\s*===\s*['"]en['"]/,
+    'slots bridge emit must not have locale condition',
+  );
+});

@@ -112,3 +112,22 @@ test('integrated casinocraftz surfaces keep zero-risk framing and reject monetiz
     }
   }
 });
+
+test('casinocraftz canonical pages expose tutorial step dataset in EN and PT', () => {
+  assert.match(enCasinocraftz, /data-casinocraftz-tutorial-step/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-tutorial-step/);
+  assert.ok(
+    enCasinocraftzPath.endsWith('src/pages/en/casinocraftz/index.astro'),
+    'EN casinocraftz page must be at canonical path',
+  );
+  assert.ok(
+    ptCasinocraftzPath.endsWith('src/pages/pt/casinocraftz/index.astro'),
+    'PT casinocraftz page must be at canonical path',
+  );
+});
+
+test('bridge event sender in slots/main.ts emits versioned envelope with payload wrapper', () => {
+  assert.match(slotsMain, /version:\s*1/);
+  assert.match(slotsMain, /payload:\s*\{/);
+  assert.match(slotsMain, /ccz:spin-settled/);
+});

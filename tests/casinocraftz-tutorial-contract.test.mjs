@@ -80,3 +80,85 @@ test('tutorial module boundaries and slot bridge contracts are in place', () => 
   assert.match(dialogueSource, /export function getDialogue/);
   assert.match(slotsMainSource, /ccz:spin-settled/);
 });
+
+test('Bridge Versioning: types.ts exports versioned bridge event types', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/types.ts');
+
+  assert.match(src, /export interface BridgeEvent/);
+  assert.match(src, /export interface SpinSettledV1Payload/);
+  assert.match(src, /export type CczSpinSettledEvent/);
+  assert.match(src, /version: 1/);
+  assert.match(src, /payload: SpinSettledV1Payload/);
+});
+
+test('Bridge Versioning: parseSpinSettledBridgeEvent is exported and handles v1 payload', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.match(src, /export function parseSpinSettledBridgeEvent/);
+  // v1 version branch
+  assert.match(src, /version.*===.*1/);
+  // extracts spinIndex from payload object
+  assert.match(src, /payload.*spinIndex|spinIndex.*payload/);
+});
+
+test('Bridge Versioning: parseSpinSettledBridgeEvent handles legacy unversioned payload', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // legacy branch: version is undefined
+  assert.match(src, /version.*===.*undefined/);
+});
+
+test('Bridge Versioning: parseSpinSettledBridgeEvent rejects unknown versions and returns null', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // catches unknown versions and returns null (else branch returning null)
+  assert.match(src, /return null/);
+  // uses Number.isInteger for spinIndex validation
+  assert.match(src, /Number\.isInteger/);
+  // validates spinIndex >= 0
+  assert.match(src, /spinIndex.*<.*0|<.*0.*spinIndex/);
+});
+
+test('Bridge Versioning: parseSpinSettledBridgeEvent rejects null/non-object/missing-type payloads', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // null guard
+  assert.match(src, /data.*===.*null|=== null/);
+  // type guard
+  assert.match(src, /typeof data.*!==.*'object'|typeof.*data.*!==.*"object"/);
+  // type field check
+  assert.match(src, /ccz:spin-settled/);
+});
+
+test('Bridge Versioning: onSpinMessage uses safe parser and returns early on null', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.match(src, /parseSpinSettledBridgeEvent\(event\.data\)/);
+  assert.match(src, /parsed.*===.*null|=== null/);
+});
+
+test('Authority Isolation: tutorial engine does not import Slots modules', () => {
+  const engineSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+
+  assert.doesNotMatch(engineSource, /import.*slots\//i);
+  assert.doesNotMatch(engineSource, /import.*slots\/rng/i);
+  assert.doesNotMatch(engineSource, /import.*slots\/payout/i);
+  assert.doesNotMatch(engineSource, /import.*slots\/economy/i);
+});
+
+test('Authority Isolation: tutorial cards module does not import Slots modules', () => {
+  const cardsSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/cards.ts');
+
+  assert.doesNotMatch(cardsSource, /import.*slots\//i);
+  assert.doesNotMatch(cardsSource, /import.*slots\/rng/i);
+  assert.doesNotMatch(cardsSource, /import.*slots\/payout/i);
+  assert.doesNotMatch(cardsSource, /import.*slots\/economy/i);
+});
+
+test('Authority Isolation: tutorial main does not import Slots RNG/payout/economy internals', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.doesNotMatch(src, /import.*slots\/rng/i);
+  assert.doesNotMatch(src, /import.*slots\/payout/i);
+  assert.doesNotMatch(src, /import.*slots\/economy/i);
+});
