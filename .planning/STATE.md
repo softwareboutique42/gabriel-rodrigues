@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.6
-milestone_name: slots-visual-polish-and-atmosphere
-status: complete
-stopped_at: Completed milestone v1.6
+milestone: v1.7
+milestone_name: casinocraftz-foundation-and-slots-integration
+status: active
+stopped_at: Started v1.7 milestone definition
 last_updated: '2026-04-03'
 last_activity: 2026-04-03
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE.md - Company Canvas
@@ -21,30 +21,31 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** v1.6 shipped; awaiting next milestone definition
+**Current Focus:** Phase 29 ready to discuss for the Casinocraftz shell and route foundation
 
 ## Current Position
 
-**Phase:** Phase 28 - Visual Confidence Lock
-**Plan:** 28-01
-**Status:** Complete
+**Phase:** Not started (phase discussion)
+**Plan:** -
+**Status:** Ready to discuss Phase 29
 **Last Activity:** 2026-04-03
 
 ## Progress
 
 ```
-Progress: ██████████ 100%
+Progress: ░░░░░░░░░░ 0%
 ```
 
-Phases: 3/3 complete
+Phases: 0/4 complete
 
 ## Phase Summary
 
-| Phase    | Name                                 | Status | Goal                                                                     |
-| -------- | ------------------------------------ | ------ | ------------------------------------------------------------------------ |
-| Phase 26 | Slots Shell and Presentation Upgrade | ✓      | Improve shell hierarchy, reel framing, and gameplay HUD readability      |
-| Phase 27 | Effects and Atmosphere Pass          | ✓      | Add richer motion, effects, and visual atmosphere without gameplay forks |
-| Phase 28 | Visual Confidence Lock               | ✓      | Protect refreshed visuals with deterministic parity and release evidence |
+| Phase    | Name                                     | Status | Goal                                                                        |
+| -------- | ---------------------------------------- | ------ | --------------------------------------------------------------------------- |
+| Phase 29 | Casinocraftz Shell and Route Foundation  | ○      | Establish browser routes and transparent zero-risk framing for Casinocraftz |
+| Phase 30 | Slots Integration and Improvement Pass   | ○      | Embed and improve the Slots module inside Casinocraftz                      |
+| Phase 31 | House Edge Tutorial and Utility Cards    | ○      | Teach house edge and establish the first progression loop                   |
+| Phase 32 | Casinocraftz Integration Confidence Lock | ○      | Validate the integrated product with deterministic QA and release evidence  |
 
 ## Key Decisions
 
@@ -72,19 +73,20 @@ Phases: 3/3 complete
 - [Phase 21-accessibility-and-performance-hardening]: Accessibility/performance assertions rely on stable data-slots-anim-\* snapshots across EN/PT routes.
 - [Phase 27-effects-and-atmosphere-pass]: Runtime effect and atmosphere datasets are derived from timeline, feedback, and theme snapshots without authority drift.
 - [Phase 27-effects-and-atmosphere-pass]: Neon atmosphere overrides remain presentation-only and preserve canonical route behavior.
+- [v1.7 kickoff]: The first tutorial lesson will focus on house edge.
+- [v1.7 kickoff]: AI cards start as utility tools, not a battle system.
+- [v1.7 kickoff]: Educational delivery should be hybrid, with narrative framing plus direct system explanations.
+- [v1.7 kickoff]: Phase 30 and Phase 31 are intended to run in parallel after Phase 29 stabilizes the host shell.
 
 ## Performance Metrics
 
-| Phase | Plan  | Duration | Tasks | Files | Completed  |
-| ----- | ----- | -------- | ----- | ----- | ---------- |
-| 26    | 26-01 | 1 wave   | 3     | 8     | 2026-04-02 |
-| 27    | 27-01 | 1 wave   | 3     | 6     | 2026-04-03 |
-| 28    | 28-01 | 1 wave   | 3     | 2     | 2026-04-03 |
+| Phase | Plan | Duration | Tasks | Files | Completed |
+| ----- | ---- | -------- | ----- | ----- | --------- |
 
 ## Pending Todos
 
-- Define the next milestone before resuming `/gsd:next`.
-- Archive or commit the completed v1.6 work when ready.
+- Run /gsd:discuss-phase 29 to gather implementation context for the Casinocraftz shell and routing.
+- Keep Slots integration and educational systems parallelizable after the host shell is established.
 
 ## Blockers / Concerns
 
@@ -93,5 +95,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-03
-Stopped at: Completed milestone v1.6
+Stopped at: Started v1.7 milestone definition
 Resume file: None

@@ -1,4 +1,4 @@
-# Roadmap — Company Canvas (v1.6 Slots Visual Polish and Atmosphere)
+# Roadmap — Company Canvas (v1.7 Casinocraftz Foundation and Slots Integration)
 
 ## Archived Milestones
 
@@ -12,92 +12,120 @@
 
 ## Overview
 
-3 phases for milestone v1.6, continuing numbering after v1.5.
+4 phases for milestone v1.7, continuing numbering after v1.6.
 
 ```
-Phase 26: Slots Shell and Presentation Upgrade
-Phase 27: Effects and Atmosphere Pass
-Phase 28: Visual Confidence Lock
+Phase 29: Casinocraftz Shell and Route Foundation
+Phase 30: Slots Integration and Improvement Pass
+Phase 31: House Edge Tutorial and Utility Card Systems
+Phase 32: Casinocraftz Integration Confidence Lock
 ```
 
 ---
 
-## Phase 26: Slots Shell and Presentation Upgrade
+## Phase 29: Casinocraftz Shell and Route Foundation
 
-**Goal:** Upgrade the Slots shell, reel framing, and HUD presentation so the game feels visually intentional and easier to read.
+**Goal:** Establish canonical browser routes and a distinct Casinocraftz shell that frames the experience as a transparent, zero-risk casino simulation.
 
-**Requirements:** VIS-20, VIS-21, VIS-22
+**Requirements:** CCZ-40, CCZ-41
 
-**Plans:** 1/1 plans complete
+**Plans:** 0/1 plans complete
 
-- [x] 26-01-PLAN.md — Shell composition, reel framing, and gameplay HUD visual polish
+- [ ] 29-01-PLAN.md — Canonical Casinocraftz routes, shell framing, and EN/PT project foundations
 
-**Depends on:** Phase 25
+**Depends on:** Phase 28
 
 **Success criteria:**
 
-- Slots shell presents a stronger hierarchy for reels, controls, balance, bet, and status surfaces.
-- Visual treatment reads consistently across EN/PT routes and desktop/mobile layouts.
-- Presentation upgrades remain strictly visual and do not alter gameplay authority.
+- Canonical EN/PT Casinocraftz routes exist and clearly communicate the anti-gambling, zero-risk premise.
+- The visual shell feels intentionally futuristic and educational rather than like a conventional casino lobby.
+- The route and shell structure create a stable host surface for the embedded Slots module and future Casinocraftz modules.
 
 **Key risks:**
 
-- Shell polish can regress readability or introduce layout drift if not structured carefully.
+- The shell can accidentally glamorize casino aesthetics unless the transparent-teaching posture stays explicit.
 
 ---
 
-## Phase 27: Effects and Atmosphere Pass
+## Phase 30: Slots Integration and Improvement Pass
 
-**Goal:** Add richer motion, feedback effects, and atmosphere layers that make spins and results feel more satisfying.
+**Goal:** Move the Slots game inside Casinocraftz as the first playable module and improve the slot experience where that supports clarity, teaching, and retention.
 
-**Requirements:** FX-20, FX-21, FX-22
+**Requirements:** SLOT-40, SLOT-41
 
-**Plans:** 1/1 plans complete
+**Plans:** 0/1 plans complete
 
-- [x] 27-01-PLAN.md — Motion effects, state feedback polish, and theme atmosphere integration
+- [ ] 30-01-PLAN.md — Embed the Slots module in Casinocraftz and improve educational gameplay surfaces
 
-**Depends on:** Phase 26
+**Depends on:** Phase 29
 
 **Success criteria:**
 
-- Spin, stop, win, blocked, and idle states gain richer but deterministic visual feedback.
-- Reduced-motion behavior remains safe and intentional after effects upgrades.
-- Atmosphere/theming upgrades stay presentation-only and avoid gameplay forks.
+- The Slots module runs inside Casinocraftz without losing deterministic authority boundaries or EN/PT parity.
+- Improvements to the slot experience make house edge, blocked states, outcomes, and manipulation cues easier to understand.
+- The integration leaves room for the standalone Slots route to remain stable or intentionally transition without route confusion.
 
 **Key risks:**
 
-- Visual effects can become noisy or expensive if not constrained by the existing runtime guardrails.
+- Integration can create route, lifecycle, or state-ownership drift if the host shell and slot runtime are not cleanly separated.
 
 ---
 
-## Phase 28: Visual Confidence Lock
+## Phase 31: House Edge Tutorial and Utility Card Systems
 
-**Goal:** Lock refreshed Slots visuals with deterministic runtime assertions, EN/PT parity checks, and release evidence.
+**Goal:** Deliver the first educational loop through a house-edge-first tutorial, hybrid dialogue, AI Essence rewards, and three starter utility cards.
 
-**Requirements:** QA-30, QA-31
+**Requirements:** EDU-40, EDU-41, SYS-40, SYS-41
 
-**Plans:** 1/1 plans complete
+**Plans:** 0/1 plans complete
 
-- [x] 28-01-PLAN.md — Contracts, compatibility checks, and release validation for refreshed Slots visuals
+- [ ] 31-01-PLAN.md — Tutorial beats, dialogue engine, AI Essence, and starter utility cards
 
-**Depends on:** Phase 27
+**Depends on:** Phase 29
 
 **Success criteria:**
 
-- Visual-state hooks and compatibility checks catch regressions in refreshed Slots presentation.
-- Release validation captures the evidence needed to ship the visual refresh with confidence.
-- EN/PT parity and performance constraints remain protected after the polish pass.
+- The first-run experience teaches house edge through play rather than static explanation alone.
+- Narrative dialogue and direct explanatory UI work together without becoming noisy or preachy.
+- Probability Seer, Dopamine Dampener, and House Edge cards each have a concrete utility that supports the lesson instead of acting as trophies only.
 
 **Key risks:**
 
-- Visual regressions can hide behind subjective review unless machine-readable hooks remain first-class.
+- The lesson loop can collapse into exposition unless tutorial events, rewards, and utility cards reinforce each other.
+
+---
+
+## Phase 32: Casinocraftz Integration Confidence Lock
+
+**Goal:** Lock the integrated Casinocraftz experience with deterministic contracts, EN/PT compatibility coverage, and release evidence.
+
+**Requirements:** SYS-42, QA-40, QA-41
+
+**Plans:** 0/1 plans complete
+
+- [ ] 32-01-PLAN.md — Integrated QA, route parity, and release validation for Casinocraftz plus embedded Slots
+
+**Depends on:** Phase 30, Phase 31
+
+**Success criteria:**
+
+- Contracts and browser checks protect the integrated Casinocraftz shell, embedded Slots module, tutorial flow, and starter-card loop.
+- Release verification captures lint, targeted tests, browser checks, and build evidence for the new project surface.
+- Parallel phase outputs reconcile cleanly into one canonical product flow.
+
+**Key risks:**
+
+- Parallel tracks can diverge in route assumptions, UI structure, or runtime hooks if the integration contract is not made explicit.
 
 ---
 
 ## Phase Dependencies
 
 ```
-Phase 26 -> Phase 27 -> Phase 28
+Phase 29 -> Phase 30
+Phase 29 -> Phase 31
+Phase 30 -> Phase 32
+Phase 31 -> Phase 32
 ```
 
 ---
@@ -106,16 +134,19 @@ Phase 26 -> Phase 27 -> Phase 28
 
 | Requirement | Phase    |
 | ----------- | -------- |
-| VIS-20      | Phase 26 |
-| VIS-21      | Phase 26 |
-| VIS-22      | Phase 26 |
-| FX-20       | Phase 27 |
-| FX-21       | Phase 27 |
-| FX-22       | Phase 27 |
-| QA-30       | Phase 28 |
-| QA-31       | Phase 28 |
+| CCZ-40      | Phase 29 |
+| CCZ-41      | Phase 29 |
+| SLOT-40     | Phase 30 |
+| SLOT-41     | Phase 30 |
+| EDU-40      | Phase 31 |
+| EDU-41      | Phase 31 |
+| SYS-40      | Phase 31 |
+| SYS-41      | Phase 31 |
+| SYS-42      | Phase 32 |
+| QA-40       | Phase 32 |
+| QA-41       | Phase 32 |
 
 ---
 
-_Created: 2026-04-03 after v1.6 kickoff_
-_Shipped: 2026-04-03_
+_Created: 2026-04-03 after v1.7 kickoff_
+_Ready to discuss: Phase 29_

@@ -36,7 +36,11 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] Next milestone not defined yet
+- [ ] CCZ-40/CCZ-41 browser-first Casinocraftz project foundation with explicit zero-risk framing and canonical EN/PT routes
+- [ ] SLOT-40/SLOT-41 move the Slots experience into Casinocraftz as the first playable module and improve it to better support the educational loop
+- [ ] EDU-40/EDU-41 house-edge-first tutorial with hybrid narrative and system explanations
+- [ ] SYS-40/SYS-41 AI Essence and three starter utility cards for the first progression loop
+- [ ] QA-40/QA-41 deterministic parity and release validation for the integrated Casinocraftz experience
 
 ### Out of Scope
 
@@ -87,29 +91,31 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: none
+- Active milestone: v1.7 Casinocraftz Foundation and Slots Integration
 - Latest shipped milestone: v1.6 Slots Visual Polish and Atmosphere (completed 2026-04-03)
-- Phase progress: v1.6 complete
+- Phase progress: Phase 29 ready to discuss
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Improve the overall look and feel of the Slots game so it reads as a polished product, not a prototype.
-- Upgrade reel, symbol, and state feedback visuals without affecting deterministic gameplay authority.
-- Preserve EN/PT parity, reduced-motion safety, and runtime performance while increasing visual quality.
+- Create Casinocraftz as a browser-first project surface that reframes the casino loop as a transparent educational simulation.
+- Move the Slots game inside Casinocraftz as the first playable module and keep improving the slot experience where it supports the educational premise.
+- Teach house edge first through a hybrid narrative-plus-system tutorial, backed by AI Essence and starter utility cards.
+- Preserve EN/PT parity, deterministic runtime behavior, and release confidence while the new surfaces are integrated.
 
-## Current Milestone: v1.6 Slots Visual Polish and Atmosphere
+## Current Milestone: v1.7 Casinocraftz Foundation and Slots Integration
 
-**Goal:** Improve Slots visual quality with a stronger shell, richer effects, and a coherent atmosphere pass while keeping the game deterministic and stable.
+**Goal:** Build a browser-first Casinocraftz proof of concept that contains an improved Slots module, teaches house edge first, and introduces a transparent progression loop.
 
 **Target features:**
 
-- Refined Slots shell, reel frame, typography hierarchy, and gameplay HUD presentation
-- Stronger spin, stop, win, blocked, and idle visual feedback with reduced-motion-safe fallbacks
-- Cohesive visual theme and atmosphere upgrades that stay presentation-only
-- Visual QA and release evidence for refreshed Slots routes
+- Canonical EN/PT Casinocraftz routes with explicit anti-gambling and zero-risk framing
+- The Slots game embedded as the first playable Casinocraftz module, with parallel improvements to teaching surfaces and player clarity
+- A house-edge-first tutorial delivered through both story dialogue and direct explanatory UI
+- AI Essence plus three starter utility cards: Probability Seer, Dopamine Dampener, and House Edge
+- Deterministic QA and release evidence for the integrated Casinocraftz experience
 
 ## Evolution
 
@@ -132,4 +138,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 after v1.6 completion_
+_Last updated: 2026-04-03 at v1.7 kickoff_
