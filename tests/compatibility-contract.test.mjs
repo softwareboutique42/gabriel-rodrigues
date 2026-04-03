@@ -12,6 +12,7 @@ const enCasinocraftzPath = resolve(process.cwd(), 'src/pages/en/casinocraftz/ind
 const ptCasinocraftzPath = resolve(process.cwd(), 'src/pages/pt/casinocraftz/index.astro');
 const enSlotsPath = resolve(process.cwd(), 'src/pages/en/slots/index.astro');
 const ptSlotsPath = resolve(process.cwd(), 'src/pages/pt/slots/index.astro');
+const slotsMainPath = resolve(process.cwd(), 'src/scripts/slots/main.ts');
 
 const utils = readFileSync(utilsPath, 'utf8');
 const switcher = readFileSync(switcherPath, 'utf8');
@@ -22,6 +23,7 @@ const enCasinocraftz = readFileSync(enCasinocraftzPath, 'utf8');
 const ptCasinocraftz = readFileSync(ptCasinocraftzPath, 'utf8');
 const enSlots = readFileSync(enSlotsPath, 'utf8');
 const ptSlots = readFileSync(ptSlotsPath, 'utf8');
+const slotsMain = readFileSync(slotsMainPath, 'utf8');
 
 test('counterpart mapping contract for projects/canvas/slots/casinocraftz surfaces stays exact', () => {
   assert.match(utils, /getLocalizedPath\(path: string, lang: Lang\)/);
@@ -58,8 +60,10 @@ test('casinocraftz embeds canonical slots module paths in EN/PT', () => {
   assert.match(ptCasinocraftz, /data-casinocraftz-slots-embed/);
   assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
   assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
-  assert.match(enSlots, /Astro\.url\.searchParams\.get\('host'\) === 'casinocraftz'/);
-  assert.match(ptSlots, /Astro\.url\.searchParams\.get\('host'\) === 'casinocraftz'/);
+  assert.match(enSlots, /data-slots-host="standalone"/);
+  assert.match(ptSlots, /data-slots-host="standalone"/);
+  assert.match(slotsMain, /new URLSearchParams\(window\.location\.search\)\.get\('host'\)/);
+  assert.match(slotsMain, /root\.dataset\.slotsHost = hostMode/);
 });
 
 test('alias route deny-list remains enforced for projects and canonical surfaces', () => {
@@ -77,5 +81,13 @@ test('alias route deny-list remains enforced for projects and canonical surfaces
     for (const source of sources) {
       assert.doesNotMatch(source, pattern, `forbidden alias detected: ${pattern}`);
     }
+  }
+});
+
+test('standalone slots route remains locale-prefixed and rejects bare /slots alias links', () => {
+  const canonicalSurfaces = [enProjects, ptProjects, enCasinocraftz, ptCasinocraftz];
+  for (const source of canonicalSurfaces) {
+    assert.doesNotMatch(source, /href="\/slots\/?"/);
+    assert.doesNotMatch(source, /href='\/slots\/?'/);
   }
 });
