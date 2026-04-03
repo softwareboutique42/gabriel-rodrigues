@@ -17,10 +17,10 @@
 
 ### Tutorial, Dialogue, and Progression
 
-- [ ] **EDU-40**: The first-run tutorial focuses on house edge as the primary early lesson.
-- [ ] **EDU-41**: Educational delivery combines narrative dialogue with direct real-time system explanations.
-- [ ] **SYS-40**: AI Essence and three starter utility cards, Probability Seer, Dopamine Dampener, and House Edge, provide the first progression loop.
-- [ ] **SYS-41**: Tutorial events, dialogue, and card utilities interact deterministically rather than as disconnected features.
+- [x] **EDU-40**: The first-run tutorial focuses on house edge as the primary early lesson.
+- [x] **EDU-41**: Educational delivery combines narrative dialogue with direct real-time system explanations.
+- [x] **SYS-40**: AI Essence and three starter utility cards, Probability Seer, Dopamine Dampener, and House Edge, provide the first progression loop.
+- [x] **SYS-41**: Tutorial events, dialogue, and card utilities interact deterministically rather than as disconnected features.
 
 ### Validation and Release Confidence
 
@@ -46,19 +46,19 @@
 
 ## Traceability
 
-| Requirement | Phase    | Status  |
-| ----------- | -------- | ------- |
-| CCZ-40      | Phase 29 | Planned |
-| CCZ-41      | Phase 29 | Planned |
-| SLOT-40     | Phase 30 | Planned |
-| SLOT-41     | Phase 30 | Planned |
-| EDU-40      | Phase 31 | Planned |
-| EDU-41      | Phase 31 | Planned |
-| SYS-40      | Phase 31 | Planned |
-| SYS-41      | Phase 31 | Planned |
-| SYS-42      | Phase 32 | Planned |
-| QA-40       | Phase 32 | Planned |
-| QA-41       | Phase 32 | Planned |
+| Requirement | Phase    | Status   |
+| ----------- | -------- | -------- |
+| CCZ-40      | Phase 29 | Planned  |
+| CCZ-41      | Phase 29 | Planned  |
+| SLOT-40     | Phase 30 | Planned  |
+| EDU-40      | Phase 31 | Complete |
+| EDU-41      | Phase 31 | Complete |
+| SYS-40      | Phase 31 | Complete |
+| SYS-41      | Phase 31 | Complete |
+| SYS-41      | Phase 31 | Planned  |
+| SYS-42      | Phase 32 | Planned  |
+| QA-40       | Phase 32 | Planned  |
+| QA-41       | Phase 32 | Planned  |
 
 **Coverage:**
 
@@ -69,4 +69,4 @@
 ---
 
 _Requirements defined: 2026-04-03_
-_Last updated: 2026-04-03 at v1.7 kickoff_
+_Last updated: 2026-04-03 after Phase 31 execution_

@@ -78,9 +78,9 @@ Phase 32: Casinocraftz Integration Confidence Lock
 
 **Requirements:** EDU-40, EDU-41, SYS-40, SYS-41
 
-**Plans:** 0/1 plans complete
+**Plans:** 1/1 plans complete
 
-- [ ] 31-01-PLAN.md — Tutorial beats, dialogue engine, AI Essence, and starter utility cards
+- [x] 31-01-PLAN.md — Tutorial beats, dialogue engine, AI Essence, and starter utility cards
 
 **Depends on:** Phase 29
 
@@ -150,4 +150,4 @@ Phase 31 -> Phase 32
 ---
 
 _Created: 2026-04-03 after v1.7 kickoff_
-_Ready to plan: Phase 31 plan 01_
+_Ready to execute: Phase 32 plan 01_

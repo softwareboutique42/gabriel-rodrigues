@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.7
-milestone_name: casinocraftz-foundation-and-slots-integration
+milestone_name: milestone
 status: active
-stopped_at: Discussed Phase 31 context (auto)
-last_updated: '2026-04-03'
+stopped_at: Completed 31-01-PLAN.md
+last_updated: '2026-04-03T12:54:33.446Z'
 last_activity: 2026-04-03
 progress:
   total_phases: 4
-  completed_phases: 2
-  total_plans: 5
-  completed_plans: 3
-  percent: 75
+  completed_phases: 3
+  total_plans: 4
+  completed_plans: 4
+  percent: 100
 ---
 
 # STATE.md - Company Canvas
@@ -21,22 +21,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Phase 31 context gathered and ready for planning
+**Current Focus:** Phase 32 plan 01 planning and integration confidence verification
 
 ## Current Position
 
-**Phase:** Phase 31 - House Edge Tutorial and Utility Card Systems
-**Plan:** -
-**Status:** Ready to plan
+**Phase:** Phase 32 - Casinocraftz Integration Confidence Lock
+**Plan:** 32-01
+**Status:** Planned (next)
 **Last Activity:** 2026-04-03
 
 ## Progress
 
 ```
-Progress: ████████░░ 75%
+Progress: ██████████ 100%
 ```
 
-Phases: 1/4 complete
+Phases: 3/4 complete
 
 ## Phase Summary
 
@@ -44,7 +44,7 @@ Phases: 1/4 complete
 | -------- | ---------------------------------------- | ------ | --------------------------------------------------------------------------- |
 | Phase 29 | Casinocraftz Shell and Route Foundation  | ✓      | Establish browser routes and transparent zero-risk framing for Casinocraftz |
 | Phase 30 | Slots Integration and Improvement Pass   | ✓      | Embed and improve the Slots module inside Casinocraftz                      |
-| Phase 31 | House Edge Tutorial and Utility Cards    | ○      | Teach house edge and establish the first progression loop                   |
+| Phase 31 | House Edge Tutorial and Utility Cards    | ✓      | Teach house edge and establish the first progression loop                   |
 | Phase 32 | Casinocraftz Integration Confidence Lock | ○      | Validate the integrated product with deterministic QA and release evidence  |
 
 ## Key Decisions
@@ -77,6 +77,9 @@ Phases: 1/4 complete
 - [v1.7 kickoff]: AI cards start as utility tools, not a battle system.
 - [v1.7 kickoff]: Educational delivery should be hybrid, with narrative framing plus direct system explanations.
 - [v1.7 kickoff]: Phase 30 and Phase 31 are intended to run in parallel after Phase 29 stabilizes the host shell.
+- [Phase 31-house-edge-tutorial-and-utility-card-systems]: Tutorial/card modules remain authority-isolated from slots runtime internals.
+- [Phase 31-house-edge-tutorial-and-utility-card-systems]: Play-and-observe progression advances only via ccz:spin-settled bridge events from spin-resolved visuals.
+- [Phase 31-house-edge-tutorial-and-utility-card-systems]: Casinocraftz tutorial root datasets are first-class compatibility anchors for EN/PT deterministic assertions.
 
 ## Performance Metrics
 
@@ -85,11 +88,12 @@ Phases: 1/4 complete
 | 29    | 29-01 | 1 session | 3     | 10+   | 2026-04-03 |
 | 30    | 30-01 | 1 session | 3     | 9+    | 2026-04-03 |
 | 30    | 30-02 | 1 session | 3     | 3+    | 2026-04-03 |
+| 31    | 31-01 | 6min      | 3     | 11    | 2026-04-03 |
 
 ## Pending Todos
 
-- Run /gsd:plan-phase 31 to define tutorial, dialogue, AI Essence, and starter card delivery.
-- Prepare Phase 32 integration contract assumptions while Phase 31 planning is active.
+- Plan and execute /gsd:plan-phase 32 then /gsd:execute-phase 32 for final integration confidence lock.
+- Capture release evidence for integrated EN/PT Casinocraftz + Slots + tutorial flow.
 
 ## Blockers / Concerns
 
@@ -97,8 +101,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-03
-Stopped at: Started v1.7 milestone definition
+Last session: 2026-04-03T12:54:33.436Z
+Stopped at: Completed 31-01-PLAN.md
 Stopped at: Gathered Phase 29 context
 Stopped at: Planned Phase 29 plan 01
 Stopped at: Completed Phase 29 plan 01
@@ -107,4 +111,5 @@ Stopped at: Completed Phase 30 plan 01
 Stopped at: Planned Phase 30 plan 02
 Stopped at: Completed Phase 30 plan 02
 Stopped at: Discussed Phase 31 context (auto)
+Stopped at: Planned Phase 31 plan 01
 Resume file: None
