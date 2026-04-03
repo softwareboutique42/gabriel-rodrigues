@@ -106,7 +106,7 @@ async function setMaximumBet(page: Page): Promise<void> {
 }
 
 test.describe('Compatibility hardening', () => {
-  test('projects discovery journey resolves to canonical canvas and slots routes in EN/PT', async ({
+  test('projects discovery journey resolves to canonical canvas and casinocraftz routes in EN/PT', async ({
     page,
   }) => {
     await clearPersistedAnalyticsEvents(page);
@@ -131,17 +131,17 @@ test.describe('Compatibility hardening', () => {
 
     await clearPersistedAnalyticsEvents(page);
     await page.goto('/en/projects/');
-    await page.getByRole('link', { name: 'See Slots', exact: true }).click();
-    await expect(page).toHaveURL(pathRegex('/en/slots/'));
-    const enSlotsEvents = await readPersistedAnalyticsEvents(page);
+    await page.getByRole('link', { name: 'Open Casinocraftz', exact: true }).click();
+    await expect(page).toHaveURL(pathRegex('/en/casinocraftz/'));
+    const enCasinocraftzEvents = await readPersistedAnalyticsEvents(page);
     await expect
       .poll(() =>
-        enSlotsEvents.some(
+        enCasinocraftzEvents.some(
           (event) =>
             event.name === 'projects_cta_click' &&
             event.route === '/en/projects/' &&
             event.locale === 'en' &&
-            (event.payload as { target?: string })?.target === 'slots',
+            (event.payload as { target?: string })?.target === 'casinocraftz',
         ),
       )
       .toBe(true);
@@ -165,23 +165,23 @@ test.describe('Compatibility hardening', () => {
 
     await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/projects/');
-    await page.getByRole('link', { name: 'Ver Slots', exact: true }).click();
-    await expect(page).toHaveURL(pathRegex('/pt/slots/'));
-    const ptSlotsEvents = await readPersistedAnalyticsEvents(page);
+    await page.getByRole('link', { name: 'Abrir Casinocraftz', exact: true }).click();
+    await expect(page).toHaveURL(pathRegex('/pt/casinocraftz/'));
+    const ptCasinocraftzEvents = await readPersistedAnalyticsEvents(page);
     await expect
       .poll(() =>
-        ptSlotsEvents.some(
+        ptCasinocraftzEvents.some(
           (event) =>
             event.name === 'projects_cta_click' &&
             event.route === '/pt/projects/' &&
             event.locale === 'pt' &&
-            (event.payload as { target?: string })?.target === 'slots',
+            (event.payload as { target?: string })?.target === 'casinocraftz',
         ),
       )
       .toBe(true);
   });
 
-  test('language switch resolves exact EN/PT counterpart routes for projects, canvas, and slots', async ({
+  test('language switch resolves exact EN/PT counterpart routes for projects, canvas, slots, and casinocraftz', async ({
     page,
   }) => {
     const matrix: Array<[string, string, string]> = [
@@ -191,6 +191,8 @@ test.describe('Compatibility hardening', () => {
       ['/pt/canvas/', 'EN', '/en/canvas/'],
       ['/en/slots/', 'PT', '/pt/slots/'],
       ['/pt/slots/', 'EN', '/en/slots/'],
+      ['/en/casinocraftz/', 'PT', '/pt/casinocraftz/'],
+      ['/pt/casinocraftz/', 'EN', '/en/casinocraftz/'],
     ];
 
     for (const [fromPath, switchLabel, expectedPath] of matrix) {
@@ -208,8 +210,9 @@ test.describe('Compatibility hardening', () => {
     await expect(page).not.toHaveURL(/\/projects\/(canvas|slots)\//);
 
     await page.goto('/pt/projects/');
-    await page.getByRole('link', { name: 'Ver Slots', exact: true }).click();
+    await page.getByRole('link', { name: 'Abrir Casinocraftz', exact: true }).click();
     await expect(page).not.toHaveURL(/\/projects\/(canvas|slots)\//);
+    await expect(page).not.toHaveURL(/\/projects\/casinocraftz\//);
   });
 
   test('slots runtime compatibility keeps machine-readable gameplay state in EN/PT', async ({

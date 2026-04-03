@@ -17,10 +17,11 @@ test('nav labels contract: header uses Projects and removes Canvas top-level lin
   assert.ok(headerSource.includes('href={`/${lang}/projects/`}'));
 });
 
-test('active-state contract: Projects nav covers /projects /canvas /slots surfaces', () => {
+test('active-state contract: Projects nav covers /projects /canvas /slots /casinocraftz surfaces', () => {
   assert.match(headerSource, /currentPath\.includes\('\/projects'\)/);
   assert.match(headerSource, /currentPath\.includes\('\/canvas'\)/);
   assert.match(headerSource, /currentPath\.includes\('\/slots'\)/);
+  assert.match(headerSource, /currentPath\.includes\('\/casinocraftz'\)/);
   assert.match(headerSource, /isProjectsSurface/);
 });
 
@@ -31,6 +32,18 @@ test('i18n parity: nav labels and primitives exist in EN/PT with matching keys',
     'projects.subtitle',
     'projects.status.live',
     'projects.status.foundation',
+    'projects.status.educationalLab',
+    'projects.card.casinocraftz.description',
+    'projects.card.casinocraftz.cta',
+    'casinocraftz.title',
+    'casinocraftz.subtitle',
+    'casinocraftz.badge.liveLab',
+    'casinocraftz.disclaimer.zeroRisk',
+    'casinocraftz.zone.foundation',
+    'casinocraftz.zone.modules',
+    'casinocraftz.zone.transparency',
+    'casinocraftz.cta.openSlots',
+    'casinocraftz.cta.backProjects',
     'slots.title',
     'slots.subtitle',
     'slots.status.inDevelopment',

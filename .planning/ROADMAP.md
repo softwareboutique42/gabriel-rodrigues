@@ -149,4 +149,4 @@ Phase 31 -> Phase 32
 ---
 
 _Created: 2026-04-03 after v1.7 kickoff_
-_Ready to discuss: Phase 29_
+_Ready to plan: Phase 30 and Phase 31 in parallel_

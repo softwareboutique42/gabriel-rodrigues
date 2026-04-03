@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+const t = useTranslations('pt');
+---
+
+<BaseLayout
+  title="Casinocraftz - Gabriel Rodrigues"
+  description="Simulacao educacional transparente no navegador com estrutura sem risco e entrada para o modulo Slots."
+>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16">
+    <article class="glow-panel p-6 sm:p-8">
+      <header class="mb-8 sm:mb-10" data-casinocraftz-zone="foundation">
+        <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
+          {t('casinocraftz.badge.liveLab')}
+        </p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3 ls-tight-3">
+          {t('casinocraftz.title')}
+        </h1>
+        <p class="text-text-muted font-mono text-xs sm:text-sm mb-4">
+          {t('casinocraftz.subtitle')}
+        </p>
+        <p class="text-sm text-text-secondary max-w-2xl">{t('casinocraftz.disclaimer.zeroRisk')}</p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
+        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="foundation">
+          <p class="font-mono text-xs text-neon uppercase tracking-wider mb-2">
+            {t('casinocraftz.zone.foundation')}
+          </p>
+          <p class="text-sm text-text-secondary">
+            Paridade de rotas e estabilidade do shell principal agora estao garantidas.
+          </p>
+        </section>
+        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="modules">
+          <p class="font-mono text-xs text-cyan uppercase tracking-wider mb-2">
+            {t('casinocraftz.zone.modules')}
+          </p>
+          <p class="text-sm text-text-secondary">
+            Slots entra como modulo inicial enquanto utilitarios evoluem em paralelo.
+          </p>
+        </section>
+        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="transparency">
+          <p class="font-mono text-xs text-gold uppercase tracking-wider mb-2">
+            {t('casinocraftz.zone.transparency')}
+          </p>
+          <p class="text-sm text-text-secondary">
+            House edge e resultados permanecem explicaveis e nunca ligados a aposta real.
+          </p>
+        </section>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <a
+          href="/pt/slots/"
+          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+        >
+          {t('casinocraftz.cta.openSlots')}
+        </a>
+        <a
+          href="/pt/projects/"
+          class="inline-flex items-center justify-center min-h-11 px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
+        >
+          {t('casinocraftz.cta.backProjects')}
+        </a>
+      </div>
+    </article>
+  </section>
+</BaseLayout>
