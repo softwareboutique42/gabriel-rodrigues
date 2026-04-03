@@ -680,4 +680,184 @@ test.describe('Compatibility hardening', () => {
 
     await expect(ptRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
   });
+
+  test('casinocraftz tutorial: player sees why step transitioned after 3 spins - EN', async ({
+    page,
+  }) => {
+    await page.goto('/en/casinocraftz/');
+    const root = page.locator('[data-casinocraftz-shell-root]');
+
+    // Advance to play-and-observe, then trigger 3 spins
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+    const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+
+    // Check that probability-reveal dialogue includes causality context
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+    const dialogueZone = page.locator('[data-casinocraftz-dialogue]');
+    await expect(dialogueZone).toContainText(/observed.*spins?|spins?.*observed/i);
+  });
+
+  test('casinocraftz tutorial: player sees why step transitioned after 3 spins - PT', async ({
+    page,
+  }) => {
+    await page.goto('/pt/casinocraftz/');
+    const root = page.locator('[data-casinocraftz-shell-root]');
+
+    // Advance to play-and-observe, then trigger 3 spins
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+    const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+
+    // Check that probability-reveal dialogue includes causality context in PT
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+    const dialogueZone = page.locator('[data-casinocraftz-dialogue]');
+    await expect(dialogueZone).toContainText(/observou.*giros|giros.*observou/i);
+  });
+
+  test('casinocraftz tutorial: replay button rerenders lesson without state reset', async ({
+    page,
+  }) => {
+    await page.goto('/en/casinocraftz/');
+    const root = page.locator('[data-casinocraftz-shell-root]');
+
+    await expect(page.locator('[data-casinocraftz-replay="true"]')).not.toBeVisible();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await expect(page.locator('[data-casinocraftz-replay="true"]')).toBeVisible();
+
+    // Advance and trigger spins to reach probability-reveal
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+
+    // Record the spin count before replay
+    const spinsBefore = await root.getAttribute('data-casinocraftz-spins-observed');
+
+    // Click replay button
+    const replayBtn = page.locator('[data-casinocraftz-replay="true"]');
+    await expect(replayBtn).toBeVisible();
+    await replayBtn.click();
+
+    // Verify dialogue re-renders (should still be on probability-reveal)
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+
+    // Spin count should not change after replay
+    const spinsAfter = await root.getAttribute('data-casinocraftz-spins-observed');
+    expect(spinsBefore).toBe(spinsAfter);
+  });
+
+  test('casinocraftz tutorial: recap disclosure appears after spin-triggered transition', async ({
+    page,
+  }) => {
+    await page.goto('/en/casinocraftz/');
+    const root = page.locator('[data-casinocraftz-shell-root]');
+
+    // Recap should not be visible on initial load
+    await expect(page.locator('[data-casinocraftz-recap="true"]')).toHaveCount(0);
+
+    // Advance to play-and-observe and trigger 3 spins
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+
+    // Recap should now be visible after spin-triggered transition
+    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+    const recap = page.locator('[data-casinocraftz-recap="true"]');
+    await expect(recap).toBeVisible();
+
+    // Click to expand and verify content
+    await recap.locator('summary').click();
+    await expect(recap).toContainText(/unlocked|spins|threshold/i);
+  });
+
+  test('casinocraftz tutorial: card badges show LOCKED and UNLOCKED states correctly', async ({
+    page,
+  }) => {
+    await page.goto('/en/casinocraftz/');
+
+    // Initially, all cards should be LOCKED
+    let badges = page.locator('[data-casinocraftz-card-status="locked"]');
+    const lockedCount = await badges.count();
+    expect(lockedCount).toBeGreaterThan(0);
+
+    // Advance to card-unlock step to unlock cards
+    await page.locator('[data-casinocraftz-tutorial-next]').click(); // house-edge-intro
+    await page.locator('[data-casinocraftz-tutorial-next]').click(); // play-and-observe
+    const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+    await page.locator('[data-casinocraftz-tutorial-next]').click(); // probability-reveal -> card-unlock
+
+    // Now cards should be UNLOCKED
+    badges = page.locator('[data-casinocraftz-card-status="unlocked"]');
+    const unlockedCount = await badges.count();
+    expect(unlockedCount).toBeGreaterThan(0);
+  });
+
+  test('casinocraftz tutorial: EN/PT card badges remain parity-matched', async ({ page }) => {
+    // EN route
+    await page.goto('/en/casinocraftz/');
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    const enFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await enFrame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+
+    // Get EN card badge count
+    const enLockedCount = await page
+      .locator('[data-casinocraftz-shell-root] [data-casinocraftz-card-status="locked"]')
+      .count();
+    const enUnlockedCount = await page
+      .locator('[data-casinocraftz-shell-root] [data-casinocraftz-card-status="unlocked"]')
+      .count();
+
+    // PT route
+    await page.goto('/pt/casinocraftz/');
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    const ptFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    for (let i = 0; i < 3; i += 1) {
+      await ptFrame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+    }
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+
+    // Get PT card badge count
+    const ptLockedCount = await page
+      .locator('[data-casinocraftz-shell-root] [data-casinocraftz-card-status="locked"]')
+      .count();
+    const ptUnlockedCount = await page
+      .locator('[data-casinocraftz-shell-root] [data-casinocraftz-card-status="unlocked"]')
+      .count();
+
+    // Verify parity: same locked/unlocked counts in both locales
+    expect(enLockedCount).toBe(ptLockedCount);
+    expect(enUnlockedCount).toBe(ptUnlockedCount);
+  });
 });

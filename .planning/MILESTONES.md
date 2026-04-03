@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.8 Deterministic Learning Loop Expansion (Shipped: 2026-04-03)
+
+**Delivered:** Deterministic bridge hardening, tutorial clarity upgrades, parity matrix lock, and final anti-monetization confidence evidence for Casinocraftz + Slots.
+
+**Phases completed:** 4 phases, 4 plans
+
+**Key accomplishments:**
+
+- Locked versioned `ccz:spin-settled` bridge compatibility and authority isolation boundaries across tutorial/cards and slots runtime.
+- Shipped spin-trigger causality, replay/recap controls, and bounded LOCKED/UNLOCKED card progression visibility with EN/PT parity.
+- Enforced EN/PT and embedded/standalone host-mode parity matrix through deterministic source and browser validation slices.
+- Closed SAFE-50/SAFE-51 with explicit anti-monetization and zero-risk evidence across contracts, compatibility checks, lint, and build.
+
+**Requirements:** 9/9 shipped (BRG-50, BRG-51, LEARN-50, LEARN-51, PROG-50, PAR-50, PAR-51, SAFE-50, SAFE-51)
+
+---
+
 ## v1.7 Casinocraftz Foundation and Slots Integration (Shipped: 2026-04-03)
 
 **Delivered:** Browser-first Casinocraftz integration with embedded Slots, deterministic tutorial/card progression, and confidence-lock release evidence.

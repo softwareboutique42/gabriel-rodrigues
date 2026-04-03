@@ -84,7 +84,7 @@ export const DIALOGUE_REGISTRY: Record<TutorialStepId, Record<'en' | 'pt', Dialo
       {
         id: 'pr-narrator-en',
         role: 'narrator',
-        text: 'You\u0027ve observed 3 spins on the slot machine. Here\u0027s what the outcomes tell us about probability.',
+        text: 'Because you\u0027ve now observed 3 spins, this probability reveal unlocked. Here\u0027s what the outcomes tell us.',
       },
       {
         id: 'pr-system-en',
@@ -96,7 +96,7 @@ export const DIALOGUE_REGISTRY: Record<TutorialStepId, Record<'en' | 'pt', Dialo
       {
         id: 'pr-narrator-pt',
         role: 'narrator',
-        text: 'Você observou 3 giros na máquina de slots. Aqui está o que os resultados nos dizem sobre probabilidade.',
+        text: 'Como voce agora observou 3 giros, esta revelacao de probabilidade foi desbloqueada. Aqui esta o que os resultados mostram.',
       },
       {
         id: 'pr-system-pt',

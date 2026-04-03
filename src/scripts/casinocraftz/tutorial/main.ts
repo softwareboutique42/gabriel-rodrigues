@@ -18,17 +18,27 @@ interface MountTutorialOptions {
 
 let activeController: AbortController | null = null;
 
+const REPLAY_ENABLED_STEPS: TutorialStepId[] = [
+  'house-edge-intro',
+  'play-and-observe',
+  'probability-reveal',
+  'card-unlock',
+  'complete',
+];
+
 function stepReward(stepId: TutorialStepId): number {
   return TUTORIAL_STEPS.find((step) => step.id === stepId)?.essenceReward ?? 0;
 }
 
 function renderDialogue(
+  root: HTMLElement,
   zone: HTMLElement,
   stepId: TutorialStepId,
   lang: 'en' | 'pt',
   state?: TutorialState,
 ): void {
   const messages = getDialogue(stepId, lang);
+  const copy = buildCardCopy(root);
   zone.replaceChildren();
 
   for (const message of messages) {
@@ -48,22 +58,23 @@ function renderDialogue(
     zone.append(entry);
   }
 
-  // Replay button
-  const replayBtnWrapper = document.createElement('div');
-  replayBtnWrapper.className = 'mt-2';
+  if (REPLAY_ENABLED_STEPS.includes(stepId)) {
+    const replayBtnWrapper = document.createElement('div');
+    replayBtnWrapper.className = 'mt-2';
 
-  const replayBtn = document.createElement('button');
-  replayBtn.className =
-    'font-mono text-xs text-cyan uppercase tracking-wider hover:text-neon transition-colors';
-  replayBtn.dataset.casinocraftzReplay = 'true';
-  replayBtn.textContent = lang === 'pt' ? 'Revisite a licao' : 'Revisit lesson';
+    const replayBtn = document.createElement('button');
+    replayBtn.className =
+      'font-mono text-xs text-cyan uppercase tracking-wider hover:text-neon transition-colors';
+    replayBtn.dataset.casinocraftzReplay = 'true';
+    replayBtn.textContent = copy.replayLesson;
 
-  replayBtn.addEventListener('click', () => {
-    renderDialogue(zone, stepId, lang, state);
-  });
+    replayBtn.addEventListener('click', () => {
+      renderDialogue(root, zone, stepId, lang, state);
+    });
 
-  replayBtnWrapper.append(replayBtn);
-  zone.append(replayBtnWrapper);
+    replayBtnWrapper.append(replayBtn);
+    zone.append(replayBtnWrapper);
+  }
 
   // Recap disclosure (only for spin-triggered transitions)
   if (state?.lastTransitionTrigger === 'spin' && stepId === 'probability-reveal') {
@@ -76,14 +87,11 @@ function renderDialogue(
 
     const summary = document.createElement('summary');
     summary.className = 'font-mono text-xs text-cyan uppercase tracking-wider cursor-pointer';
-    summary.textContent = lang === 'pt' ? 'Por que isso aconteceu?' : 'Why did this happen?';
+    summary.textContent = copy.whyTransition;
 
     const content = document.createElement('p');
     content.className = 'text-sm text-text-secondary mt-2';
-    content.textContent =
-      lang === 'pt'
-        ? 'A etapa de revelação de probabilidade é desbloqueada após observar 3 giros completos. Você atingiu esse limite.'
-        : "The probability-reveal step is unlocked after observing 3 complete spins. You've reached that threshold.";
+    content.textContent = copy.probabilityRevealCausality;
 
     details.append(summary, content);
     recapWrapper.append(details);
@@ -94,6 +102,7 @@ function renderDialogue(
 function syncRootDatasets(root: HTMLElement, state: TutorialState, essenceBalance: number): void {
   root.dataset.casinocraftzTutorialStep = state.currentStep;
   root.dataset.casinocraftzEssence = String(essenceBalance);
+  root.dataset.casinocraftzSpinsObserved = String(state.spinsObserved);
 
   const essenceDisplay = root.querySelector('[data-casinocraftz-essence-display]');
   if (essenceDisplay instanceof HTMLElement) {
@@ -106,6 +115,13 @@ function buildCardCopy(root: HTMLElement): Record<string, string> {
   return {
     title: root.dataset.casinocraftzCardsTitle ?? 'Utility Cards',
     activate: root.dataset.casinocraftzActivateLabel ?? 'Activate',
+    replayLesson: root.dataset.casinocraftzReplayLabel ?? 'Revisit lesson',
+    whyTransition: root.dataset.casinocraftzRecapLabel ?? 'Why did this happen?',
+    probabilityRevealCausality:
+      root.dataset.casinocraftzCausalityProbabilityReveal ??
+      "The probability-reveal step is unlocked after observing 3 complete spins. You've reached that threshold.",
+    statusLocked: root.dataset.casinocraftzCardStatusLocked ?? 'LOCKED',
+    statusUnlocked: root.dataset.casinocraftzCardStatusUnlocked ?? 'UNLOCKED',
     probabilitySeerLabel: root.dataset.casinocraftzCardProbabilitySeerLabel ?? 'Probability Seer',
     probabilitySeerDescription:
       root.dataset.casinocraftzCardProbabilitySeerDescription ??
@@ -154,7 +170,9 @@ function renderCards(
     }
 
     // Add status badge
-    const badgeText = state.cardsUnlocked.includes(card.id) ? 'UNLOCKED' : 'LOCKED';
+    const badgeText = state.cardsUnlocked.includes(card.id)
+      ? copy.statusUnlocked
+      : copy.statusLocked;
     const badgeClass = state.cardsUnlocked.includes(card.id) ? 'text-neon' : 'text-text-muted';
 
     const badge = document.createElement('span');
@@ -256,7 +274,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
 
   const render = (): void => {
     syncRootDatasets(root, state, essenceState.balance);
-    renderDialogue(dialogueZone, state.currentStep, lang, state);
+    renderDialogue(root, dialogueZone, state.currentStep, lang, state);
     renderCards(root, cardsZone, state, (cardId) => {
       applyCard(cardId, root);
       state = {

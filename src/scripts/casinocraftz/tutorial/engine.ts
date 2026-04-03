@@ -24,6 +24,7 @@ export function createInitialTutorialState(): TutorialState {
     essenceBalance: 0,
     cardsUnlocked: [],
     activeCard: null,
+    lastTransitionTrigger: null,
   };
 }
 

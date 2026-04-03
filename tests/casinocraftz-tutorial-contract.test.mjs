@@ -193,12 +193,14 @@ test('Replay Button: renderDialogue includes replay button rendering', () => {
 
   // Replay button markup
   assert.match(src, /dataset\.casinocraftzReplay/);
-  // Button text variations
-  assert.match(src, /Revisit lesson|Revisite a licao/);
+  // Replay is localized via dataset-backed copy
+  assert.match(src, /casinocraftzReplayLabel/);
+  // Replay gate starts from house-edge-intro onward
+  assert.match(src, /house-edge-intro/);
   // Event listener for replay button
   assert.match(src, /replayBtn.*addEventListener/);
   // Calls renderDialogue to replay
-  assert.match(src, /renderDialogue\(zone, stepId, lang/);
+  assert.match(src, /renderDialogue\(root, zone, stepId, lang/);
 });
 
 test('Recap Disclosure: spin-triggered transitions show recap element', () => {
@@ -210,4 +212,6 @@ test('Recap Disclosure: spin-triggered transitions show recap element', () => {
   assert.match(src, /createElement\('details'\)|createElement\('summary'\)/);
   // Recap data attribute
   assert.match(src, /dataset\.casinocraftzRecap/);
+  // Recap copy comes from localized dataset key
+  assert.match(src, /casinocraftzCausalityProbabilityReveal/);
 });
