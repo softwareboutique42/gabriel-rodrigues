@@ -1,64 +1,112 @@
 # Technology Stack
 
-**Project:** Slots Sprite/Animation Upgrade (Astro + TypeScript, no migration)
-**Researched:** 2026-04-02
+**Project:** v1.8 Casinocraftz + Slots Integration Expansion
+**Researched:** 2026-04-03
 
-## Recommended Stack
+## Recommended Stack (Reuse-First)
 
-### Core Runtime
+### Core Platform
 
-| Technology                                   | Version | Purpose                              | Why                                                              |
-| -------------------------------------------- | ------- | ------------------------------------ | ---------------------------------------------------------------- |
-| `pixi.js`                                    | 8.17.x  | 2D renderer for reels/symbol sprites | Best fit for atlas + batched sprite animation in browser TS apps |
-| Existing deterministic engine                | Current | Authoritative game loop              | Keep payout/result logic independent from renderer timing        |
-| Fixed-step simulation + render interpolation | Pattern | Stable logic at varying FPS          | Prevents frame-rate-driven drift                                 |
+| Technology                         | Version/Constraint      | Purpose                                                        | Why for v1.8                                                                                            |
+| ---------------------------------- | ----------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Astro                              | `^6.0.8` (keep)         | Static site routing and page composition                       | Existing EN/PT route model and View Transition lifecycle already validated in production milestone flow |
+| TypeScript (workspace ESM)         | Current workspace setup | Shared runtime contracts and deterministic slots engine typing | Current controller/engine/tutorial boundaries are already contract-tested                               |
+| Node.js                            | `>=22.12.0`             | Build/test runtime baseline                                    | Already pinned in `engines`; avoid CI/runtime drift                                                     |
+| Cloudflare Pages static deployment | Static output only      | Hosting and route delivery                                     | Matches current architecture constraints (no SSR Node server)                                           |
 
-### Sprite Pipeline
+### Existing Product Runtimes to Preserve
 
-| Technology                        | Version           | Purpose                              | Why                                                                |
-| --------------------------------- | ----------------- | ------------------------------------ | ------------------------------------------------------------------ |
-| Aseprite CLI                      | Current docs 2026 | Export sprite sheets + JSON metadata | Scriptable, deterministic, good tag/layer export for symbol states |
-| TexturePacker (optional)          | Current docs 2026 | Production atlas packing             | Fast authoring flow + direct Pixi exporter                         |
-| Pixi `Assets` + manifests/bundles | v8                | Load/unload atlas bundles safely     | Built-in caching, aliases, bundle loading                          |
+| Runtime Surface             | Technology                                                      | v1.8 Recommendation                                                                                             |
+| --------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Canvas feature              | Three.js (`^0.183.2`)                                           | Reuse as-is for canvas surfaces; do not introduce a second rendering framework                                  |
+| Slots gameplay + shell      | Existing deterministic TS modules under `src/scripts/slots/*`   | Extend behavior within current engine/controller boundaries; preserve deterministic seed + spin index authority |
+| Casinocraftz tutorial/cards | Existing TS modules under `src/scripts/casinocraftz/tutorial/*` | Continue using postMessage bridge (`ccz:spin-settled`) instead of new state-sync dependency                     |
 
-### Animation & Effects
+### Payments/Monetization Boundary
 
-| Library                           | Version | Purpose                                 | When to Use                                                        |
-| --------------------------------- | ------- | --------------------------------------- | ------------------------------------------------------------------ |
-| `AnimatedSprite` (Pixi core)      | v8      | Symbol idle/win/impact frame animations | Default choice for frame-based symbol animation                    |
-| `@pixi/particle-emitter`          | 5.0.x   | Win bursts, spark trails, coin pops     | Add only for controlled, budgeted VFX                              |
-| `pixi-filters`                    | 6.1.x   | Glow/CRT/blur flavor effects            | Use sparingly and scope with `filterArea`                          |
-| `@esotericsoftware/spine-pixi-v8` | 4.2.x   | Skeletal character animation            | Only if you need complex hero mascots; not needed for reel symbols |
+| Area                             | Existing Tech                 | v1.8 Policy                                                                           |
+| -------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
+| Portfolio Canvas monetization    | Stripe (existing integration) | Keep scoped to Canvas export flow only                                                |
+| Slots + Casinocraftz experiences | No checkout/payment hooks     | Maintain strict anti-monetization guardrails; no wallet/deposit/purchase dependencies |
 
-## Alternatives Considered
+## Integration Guidance for v1.8
 
-| Category          | Recommended                       | Alternative                     | Why Not                                                  |
-| ----------------- | --------------------------------- | ------------------------------- | -------------------------------------------------------- |
-| Renderer          | PixiJS v8                         | Canvas 2D custom loop only      | More manual batching/atlas work for same result          |
-| Atlas tool        | Aseprite CLI / TexturePacker      | `spritesheet-js`                | Stale (3 years) and non-commercial license mismatch risk |
-| Animation control | Engine events -> visual timelines | Callback-driven game state      | Risks determinism regressions                            |
-| Effects baseline  | Minimal core + optional tiers     | Heavy default filters/particles | Too expensive on mid/low-end mobile                      |
+1. Keep deterministic authority in existing slots engine/state-machine/economy modules; presentation and tutorial systems must remain consumers, never authorities.
+2. Keep EN/PT parity by updating both language routes and i18n dictionaries in the same change-set.
+3. Keep canonical route policy (`/en/*`, `/pt/*`) and avoid introducing alias route trees that bypass existing parity contracts.
+4. Reuse current analytics event schema and storage path; extend only with categorical, non-PII payload fields.
+5. Avoid adding UI frameworks (React/Vue/Svelte islands) for v1.8 unless a blocker is proven; current Astro + vanilla TS pipeline is sufficient.
 
-## Installation
+## Dependency Policy (No Unnecessary Additions)
+
+### Allowed by Default
+
+- Existing dependencies already in `package.json`.
+- Dev tooling updates that are patch/minor and required for security or CI compatibility.
+
+### Require Explicit Justification
+
+- New runtime libraries for Slots/Casinocraftz rendering or state management.
+- New i18n, routing, or analytics SDKs that duplicate current project capabilities.
+- Any package that introduces monetization primitives into Slots/Casinocraftz surfaces.
+
+### Explicitly Avoid for v1.8
+
+- Rendering migration (e.g., Pixi rewrite) during milestone scope expansion.
+- SSR adapters or server runtime additions that conflict with static deployment constraint.
+- Cross-product shared abstraction work that is not tied to a v1.8 shipped requirement.
+
+## Compatibility and Testing Tooling Choices
+
+### Contract Layer (Fast Guardrails)
+
+| Tool                          | Scope                                                                           | Constraint                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `node:test` + `assert/strict` | Source-level contracts in `tests/*.test.mjs`                                    | Keep deterministic, parity, and anti-monetization assertions as release gate |
+| Existing contract suites      | Determinism, i18n parity, host embedding, tutorial boundary, analytics, economy | Update tests in same PR as behavior changes to prevent silent contract drift |
+
+### Runtime Layer (Behavior Validation)
+
+| Tool                                      | Scope                                                                          | Constraint                                                                                 |
+| ----------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| Playwright (`@playwright/test` `^1.58.2`) | E2E compatibility journeys under `e2e/compatibility.spec.ts` and related specs | Keep EN/PT parity checks and embedded host flow coverage for every v1.8 release candidate  |
+| Playwright projects                       | `chromium`, `mobile-chrome`                                                    | Do not remove mobile coverage; parity regressions often appear in embedded/mobile contexts |
+| Web server mode                           | `npm run build && npm run preview` (from `playwright.config.ts`)               | Preserve production-like validation path; avoid dev-server-only confidence                 |
+
+### Known Verification Commands
 
 ```bash
-# Core renderer
-npm install pixi.js
+# Fast contract gate for deterministic/parity/monetization protections
+npm test -- --grep "compatibility|determinism|i18n|economy|tutorial"
 
-# Optional effects
-npm install @pixi/particle-emitter pixi-filters
+# Focused runtime compatibility checks used in v1.7 closeout
+npx playwright test e2e/compatibility.spec.ts --project=chromium --workers=1 --grep "casinocraftz embeds slots module with canonical EN/PT host parity|slots runtime compatibility keeps machine-readable gameplay state in EN/PT"
 
-# Optional advanced skeletal animation
-npm install @esotericsoftware/spine-pixi-v8
+# Full E2E regression with desktop + mobile projects
+npm test
 ```
+
+## v1.8 Stack Recommendation (Opinionated)
+
+Use the existing Astro + TypeScript + deterministic Slots runtime + Playwright/contract testing stack without introducing new core dependencies. Spend v1.8 capacity on feature depth, parity hardening, and release confidence, not stack churn.
+
+## Confidence
+
+| Area                                 | Confidence  | Basis                                                                                                                        |
+| ------------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Existing stack reuse                 | HIGH        | Verified from workspace `package.json`, `PROJECT.md`, and shipped v1.7 constraints                                           |
+| Deterministic integration boundaries | HIGH        | Verified by contract tests for engine/economy/tutorial bridge                                                                |
+| Compatibility/testing tooling        | HIGH        | Verified by current Playwright config/specs and recent execution context                                                     |
+| Need for new dependencies            | MEDIUM-HIGH | No current evidence of blocker requiring additional frameworks; validate if v1.8 scope introduces novel runtime requirements |
 
 ## Sources
 
-- https://pixijs.com/8.x/guides/components/assets
-- https://pixijs.com/8.x/guides/concepts/performance-tips
-- https://pixijs.download/release/docs/scene.AnimatedSprite.html
-- https://www.aseprite.org/docs/cli/
-- https://www.codeandweb.com/texturepacker/documentation
-- https://www.npmjs.com/package/@pixi/particle-emitter
-- https://www.npmjs.com/package/pixi-filters
-- https://esotericsoftware.com/spine-pixi
+- Workspace project context: `.planning/PROJECT.md`
+- Current stack and scripts: `package.json`
+- Playwright setup: `playwright.config.ts`
+- Compatibility contracts: `tests/compatibility-contract.test.mjs`
+- Determinism contracts: `tests/slots-core-determinism-contract.test.mjs`
+- EN/PT parity contracts: `tests/slots-i18n-parity-contract.test.mjs`
+- Tutorial bridge contracts: `tests/casinocraftz-tutorial-contract.test.mjs`
+- Economy contracts: `tests/slots-economy-contract.test.mjs`
+- Runtime compatibility journeys: `e2e/compatibility.spec.ts`
