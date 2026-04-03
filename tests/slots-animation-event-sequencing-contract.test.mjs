@@ -138,6 +138,10 @@ test('ANIM-10: runtime mount/dispose is idempotent across re-subscriptions', () 
   assert.equal(root.dataset.slotsAnimAtlas, 'ready');
   assert.equal(root.dataset.slotsAnimIdle, 'idle-pulse');
   assert.equal(root.dataset.slotsAnimTheme, 'slots-core-v1');
+  assert.equal(root.dataset.slotsAnimReducedMotion, 'false');
+  assert.equal(root.dataset.slotsAnimIntensityRequested, 'full');
+  assert.equal(root.dataset.slotsAnimIntensity, 'full');
+  assert.match(root.dataset.slotsAnimPerformance, /ok|degraded/);
   assert.equal(JSON.parse(root.dataset.slotsAnimSymbolStates).A, 'idle');
   assert.equal(root.dataset.slotsAnimSeq, '2');
 
@@ -175,6 +179,10 @@ test('ANIM-11: blocked visual events never overwrite resolved feedback outcome',
   assert.equal(root.dataset.slotsAnimOutcome, 'win');
   assert.equal(root.dataset.slotsAnimAtlas, 'ready');
   assert.equal(root.dataset.slotsAnimTheme, 'slots-core-v1');
+  assert.equal(root.dataset.slotsAnimReducedMotion, 'false');
+  assert.equal(root.dataset.slotsAnimIntensityRequested, 'full');
+  assert.match(root.dataset.slotsAnimIntensity, /full|reduced|minimal/);
+  assert.match(root.dataset.slotsAnimPerformance, /ok|degraded/);
   assert.equal(JSON.parse(root.dataset.slotsAnimSymbolStates).B, 'idle');
 
   runtime.dispose();

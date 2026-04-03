@@ -107,6 +107,10 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
     await expect(root).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
     await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+    await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-seq', '0');
@@ -121,6 +125,10 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-outcome', /win|loss/);
     await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
     await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+    await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"(idle|win-react)"/);
     await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-seq', '2');
@@ -138,6 +146,10 @@ test.describe('Compatibility hardening', () => {
     await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas', 'ready');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '0');
@@ -152,6 +164,10 @@ test.describe('Compatibility hardening', () => {
     await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', 'loss');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas', 'ready');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '2');
@@ -193,6 +209,10 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-state', 'blocked');
     await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
     await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+    await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-blocked-reason', 'insufficient');
