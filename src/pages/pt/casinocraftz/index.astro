@@ -10,7 +10,22 @@ const t = useTranslations('pt');
   description="Simulacao educacional transparente no navegador com estrutura sem risco e entrada para o modulo Slots."
 >
   <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16">
-    <article class="glow-panel p-6 sm:p-8">
+    <article
+      class="glow-panel p-6 sm:p-8"
+      data-casinocraftz-shell-root
+      data-casinocraftz-lang="pt"
+      data-casinocraftz-tutorial-step="welcome"
+      data-casinocraftz-essence="0"
+      data-casinocraftz-essence-label={t('tutorial.essence.label')}
+      data-casinocraftz-cards-title="Utility Cards"
+      data-casinocraftz-activate-label={t('tutorial.cta.activateCard')}
+      data-casinocraftz-card-probability-seer-label={t('cards.probabilitySeer.label')}
+      data-casinocraftz-card-probability-seer-description={t('cards.probabilitySeer.description')}
+      data-casinocraftz-card-dopamine-dampener-label={t('cards.dopamineDampener.label')}
+      data-casinocraftz-card-dopamine-dampener-description={t('cards.dopamineDampener.description')}
+      data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
+      data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
+    >
       <header class="mb-8 sm:mb-10" data-casinocraftz-zone="foundation">
         <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
           {t('casinocraftz.badge.liveLab')}
@@ -74,6 +89,78 @@ const t = useTranslations('pt');
         </div>
       </section>
 
+      <section class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
+        <header class="mb-4">
+          <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-1">
+            {t('tutorial.step.welcome.label')}
+          </p>
+          <p
+            class="font-mono text-xs text-neon uppercase tracking-wider"
+            data-casinocraftz-essence-display
+          >
+            {t('tutorial.essence.label')}: 0
+          </p>
+        </header>
+        <div data-casinocraftz-dialogue class="space-y-3 mb-4"></div>
+        <button
+          data-casinocraftz-tutorial-next
+          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
+        >
+          {t('tutorial.cta.nextStep')}
+        </button>
+        <button
+          data-casinocraftz-tutorial-skip
+          class="ml-3 inline-flex items-center justify-center min-h-9 px-4 py-1.5 text-text-muted font-mono text-xs hover:text-neon transition-colors"
+        >
+          {t('tutorial.cta.skipTutorial')}
+        </button>
+      </section>
+
+      <section class="mt-4 sm:mt-6" data-casinocraftz-zone="cards">
+        <p class="font-mono text-xs text-gold uppercase tracking-wider mb-3">Utility Cards</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div data-casinocraftz-card="probability-seer" class="hud-outline-subtle p-3">
+            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+              {t('cards.probabilitySeer.label')}
+            </p>
+            <p class="text-xs text-text-muted mb-2">{t('cards.probabilitySeer.description')}</p>
+            <button
+              data-casinocraftz-card-activate="probability-seer"
+              aria-disabled="true"
+              class="font-mono text-xs text-text-muted uppercase tracking-wider"
+            >
+              {t('tutorial.cta.activateCard')}
+            </button>
+          </div>
+          <div data-casinocraftz-card="dopamine-dampener" class="hud-outline-subtle p-3">
+            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+              {t('cards.dopamineDampener.label')}
+            </p>
+            <p class="text-xs text-text-muted mb-2">{t('cards.dopamineDampener.description')}</p>
+            <button
+              data-casinocraftz-card-activate="dopamine-dampener"
+              aria-disabled="true"
+              class="font-mono text-xs text-text-muted uppercase tracking-wider"
+            >
+              {t('tutorial.cta.activateCard')}
+            </button>
+          </div>
+          <div data-casinocraftz-card="house-edge" class="hud-outline-subtle p-3">
+            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+              {t('cards.houseEdge.label')}
+            </p>
+            <p class="text-xs text-text-muted mb-2">{t('cards.houseEdge.description')}</p>
+            <button
+              data-casinocraftz-card-activate="house-edge"
+              aria-disabled="true"
+              class="font-mono text-xs text-text-muted uppercase tracking-wider"
+            >
+              {t('tutorial.cta.activateCard')}
+            </button>
+          </div>
+        </div>
+      </section>
+
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a
           href="/pt/slots/"
@@ -90,4 +177,15 @@ const t = useTranslations('pt');
       </div>
     </article>
   </section>
+
+  <script>
+    import { mountTutorial } from '../../../scripts/casinocraftz/tutorial/main';
+
+    document.addEventListener('astro:page-load', () => {
+      const root = document.querySelector('[data-casinocraftz-shell-root]') as HTMLElement | null;
+      if (!root) return;
+      const lang = (root.dataset.casinocraftzLang ?? 'en') as 'en' | 'pt';
+      mountTutorial({ lang });
+    });
+  </script>
 </BaseLayout>

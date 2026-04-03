@@ -105,6 +105,35 @@ async function setMaximumBet(page: Page): Promise<void> {
   await expect(page.locator('#slots-bet-value')).toHaveText('10');
 }
 
+interface RuntimeErrorSurface {
+  consoleErrors: string[];
+  pageErrors: string[];
+}
+
+function watchErrorSurface(page: Page): RuntimeErrorSurface {
+  const surface: RuntimeErrorSurface = {
+    consoleErrors: [],
+    pageErrors: [],
+  };
+
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      surface.consoleErrors.push(message.text());
+    }
+  });
+
+  page.on('pageerror', (error) => {
+    surface.pageErrors.push(String(error));
+  });
+
+  return surface;
+}
+
+function expectCleanErrorSurface(surface: RuntimeErrorSurface, contextLabel: string): void {
+  expect(surface.consoleErrors, `${contextLabel}: unexpected console errors`).toEqual([]);
+  expect(surface.pageErrors, `${contextLabel}: unexpected page errors`).toEqual([]);
+}
+
 test.describe('Compatibility hardening', () => {
   test('projects discovery journey resolves to canonical canvas and casinocraftz routes in EN/PT', async ({
     page,
@@ -215,13 +244,157 @@ test.describe('Compatibility hardening', () => {
     await expect(page).not.toHaveURL(/\/projects\/casinocraftz\//);
   });
 
+  test('casinocraftz embeds slots module with canonical EN/PT host parity', async ({ page }) => {
+    const errorSurface = watchErrorSurface(page);
+
+    await page.goto('/en/casinocraftz/');
+    const enEmbed = page.locator('[data-casinocraftz-slots-embed]');
+    await expect(enEmbed).toBeVisible();
+    await expect(enEmbed).toHaveAttribute('src', '/en/slots/?host=casinocraftz');
+
+    const enFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    await expect(enFrame.locator('#slots-shell-root')).toBeVisible();
+    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-host',
+      'casinocraftz',
+    );
+    await expect(enFrame.locator('[data-slots-lesson="house-edge"]')).toBeVisible();
+    await enFrame.locator('#slots-spin-button').click();
+    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-state',
+      'spinning',
+    );
+    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-state',
+      'result',
+    );
+    await expect(enFrame.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-en:1');
+
+    await page.goto('/pt/casinocraftz/');
+    const ptEmbed = page.locator('[data-casinocraftz-slots-embed]');
+    await expect(ptEmbed).toBeVisible();
+    await expect(ptEmbed).toHaveAttribute('src', '/pt/slots/?host=casinocraftz');
+
+    const ptFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    await expect(ptFrame.locator('#slots-shell-root')).toBeVisible();
+    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-host',
+      'casinocraftz',
+    );
+    await expect(ptFrame.locator('[data-slots-lesson="house-edge"]')).toBeVisible();
+    await ptFrame.locator('#slots-spin-button').click();
+    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-state',
+      'spinning',
+    );
+    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-state',
+      'result',
+    );
+    await expect(ptFrame.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-pt:1');
+
+    await page.goto('/en/projects/');
+    await page.getByRole('link', { name: 'Open Casinocraftz', exact: true }).click();
+    await expect(page).toHaveURL(pathRegex('/en/casinocraftz/'));
+
+    const enSpaFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    await expect(enSpaFrame.locator('#slots-shell-root')).toBeVisible();
+    await expect(enSpaFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-host',
+      'casinocraftz',
+    );
+    await enSpaFrame.locator('#slots-spin-button').click();
+    await expect(enSpaFrame.locator('#slots-shell-root')).toHaveAttribute(
+      'data-slots-state',
+      'result',
+    );
+
+    expectCleanErrorSurface(errorSurface, 'embedded host parity');
+  });
+
+  test.describe('casinocraftz tutorial system', () => {
+    test('tutorial panel and card tray are present on EN Casinocraftz page', async ({ page }) => {
+      await page.goto('/en/casinocraftz/');
+      await expect(page.locator('[data-casinocraftz-zone="tutorial"]')).toBeVisible();
+      await expect(page.locator('[data-casinocraftz-zone="cards"]')).toBeVisible();
+      await expect(page.locator('[data-casinocraftz-card]')).toHaveCount(3);
+
+      const root = page.locator('[data-casinocraftz-shell-root]');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        /welcome|house-edge-intro|play-and-observe|probability-reveal|card-unlock|complete/,
+      );
+      await expect(root).toHaveAttribute('data-casinocraftz-essence', /\d+/);
+    });
+
+    test('tutorial panel and card tray are present on PT Casinocraftz page', async ({ page }) => {
+      await page.goto('/pt/casinocraftz/');
+      await expect(page.locator('[data-casinocraftz-zone="tutorial"]')).toBeVisible();
+      await expect(page.locator('[data-casinocraftz-zone="cards"]')).toBeVisible();
+      await expect(page.locator('[data-casinocraftz-card]')).toHaveCount(3);
+
+      const root = page.locator('[data-casinocraftz-shell-root]');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        /welcome|house-edge-intro|play-and-observe|probability-reveal|card-unlock|complete/,
+      );
+      await expect(root).toHaveAttribute('data-casinocraftz-essence', /\d+/);
+    });
+
+    test('play-and-observe step advances to probability-reveal after 3 spins via postMessage bridge - EN', async ({
+      page,
+    }) => {
+      await page.goto('/en/casinocraftz/');
+
+      const root = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-next]').click();
+      await page.locator('[data-casinocraftz-tutorial-next]').click();
+      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+      const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(600);
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(600);
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+
+      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+    });
+
+    test('play-and-observe step advances to probability-reveal after 3 spins via postMessage bridge - PT', async ({
+      page,
+    }) => {
+      await page.goto('/pt/casinocraftz/');
+
+      const root = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-next]').click();
+      await page.locator('[data-casinocraftz-tutorial-next]').click();
+      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+      const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(600);
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(600);
+      await frame.locator('#slots-spin-button').click();
+      await page.waitForTimeout(1200);
+
+      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+    });
+  });
+
   test('slots runtime compatibility keeps machine-readable gameplay state in EN/PT', async ({
     page,
   }) => {
+    const errorSurface = watchErrorSurface(page);
+
     await clearPersistedAnalyticsEvents(page);
     await page.goto('/en/slots/');
 
     const root = page.locator('#slots-shell-root');
+    await expect(root).toHaveAttribute('data-slots-host', 'standalone');
+    await expect(page.locator('[data-slots-lesson="house-edge"]')).toBeHidden();
     await expectRuntimeParityEnvelope(root);
     await expectSlotsShellEnvelope(page);
     await expectSlotsState(root, /idle|result|insufficient/);
@@ -274,6 +447,8 @@ test.describe('Compatibility hardening', () => {
     await clearPersistedAnalyticsEvents(page);
     await page.goto('/pt/slots/');
     const ptRoot = page.locator('#slots-shell-root');
+    await expect(ptRoot).toHaveAttribute('data-slots-host', 'standalone');
+    await expect(page.locator('[data-slots-lesson="house-edge"]')).toBeHidden();
     await expectRuntimeParityEnvelope(ptRoot);
     await expectSlotsShellEnvelope(page);
     await expectSlotsState(ptRoot, /idle|result|insufficient/);
@@ -323,6 +498,8 @@ test.describe('Compatibility hardening', () => {
         ),
       )
       .toBe(true);
+
+    expectCleanErrorSurface(errorSurface, 'standalone runtime compatibility');
   });
 
   test('slots insufficient-credit flow blocks additional PT spin attempts with localized runtime state', async ({

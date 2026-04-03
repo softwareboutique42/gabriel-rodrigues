@@ -17,6 +17,17 @@ export function initSlotsShell(): void {
   const root = document.getElementById('slots-shell-root');
   if (!root) return;
 
+  const host = new URLSearchParams(window.location.search).get('host');
+  const hostMode = host === 'casinocraftz' ? 'casinocraftz' : 'standalone';
+  root.dataset.slotsHost = hostMode;
+
+  const houseEdgeLesson = root.querySelector('[data-slots-lesson="house-edge"]');
+  if (houseEdgeLesson instanceof HTMLElement) {
+    const isEmbeddedHost = hostMode === 'casinocraftz';
+    houseEdgeLesson.classList.toggle('hidden', !isEmbeddedHost);
+    houseEdgeLesson.setAttribute('aria-hidden', isEmbeddedHost ? 'false' : 'true');
+  }
+
   const status = document.getElementById('slots-shell-status');
   if (status) {
     status.setAttribute('data-lifecycle', 'active');
@@ -24,6 +35,22 @@ export function initSlotsShell(): void {
 
   const mountedController = mountSlotsController(root, signal);
   runtime = mountSlotsAnimationRuntime(root, mountedController.visualEvents, signal);
+
+  if (hostMode === 'casinocraftz') {
+    const unsubscribe = mountedController.visualEvents.subscribe((event) => {
+      if (event.type !== 'spin-resolved') {
+        return;
+      }
+
+      try {
+        window.parent.postMessage({ type: 'ccz:spin-settled', spinIndex: event.spinIndex }, '*');
+      } catch {
+        // Cross-origin message failures should not crash runtime.
+      }
+    });
+
+    signal.addEventListener('abort', () => unsubscribe(), { once: true });
+  }
 
   document.addEventListener(
     'astro:before-swap',
