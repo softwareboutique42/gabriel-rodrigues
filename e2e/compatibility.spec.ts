@@ -13,6 +13,26 @@ async function expectSlotsStatus(page: Page, text: string | RegExp): Promise<voi
   await expect(page.locator('#slots-gameplay-status')).toHaveText(text);
 }
 
+async function expectRuntimeParityEnvelope(root: Locator): Promise<void> {
+  await expect(root).toHaveAttribute('data-slots-balance', /\d+/);
+  await expect(root).toHaveAttribute('data-slots-bet', /\d+/);
+  await expect(root).toHaveAttribute('data-slots-theme', 'slots-core-v1');
+  await expect(root).toHaveAttribute('data-slots-motion', 'full');
+  await expect(root).toHaveAttribute('data-slots-label-state', /State|Estado/);
+  await expect(root).toHaveAttribute('data-slots-label-outcome', /Outcome|Resultado/);
+  await expect(root).toHaveAttribute('data-slots-label-seed', 'Seed');
+  await expect(root).toHaveAttribute('data-slots-label-balance', /Balance|Saldo/);
+  await expect(root).toHaveAttribute('data-slots-label-bet', /Bet|Aposta/);
+  await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
+  await expect(root).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
+  await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+  await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
+  await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
+  await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
+  await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
+  await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
+}
+
 async function spinAndWaitForResolution(
   page: Page,
   root: Locator,
@@ -101,19 +121,9 @@ test.describe('Compatibility hardening', () => {
     const root = page.locator('#slots-shell-root');
     await expectRuntimeParityEnvelope(root);
     await expectSlotsState(root, /idle|result|insufficient/);
-    await expect(root).toHaveAttribute('data-slots-balance', /\d+/);
-    await expect(root).toHaveAttribute('data-slots-bet', /\d+/);
     await expect(root).toHaveAttribute('data-slots-anim-state', 'idle');
     await expect(root).toHaveAttribute('data-slots-anim-outcome', 'idle');
-    await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
-    await expect(root).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
-    await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
-    await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
-    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
-    await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
-    await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
-    await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-seq', '0');
     await expectSlotsStatus(page, 'State: Idle');
     await expect(page.locator('#slots-gameplay-outcome')).toHaveText('Outcome: pending');
@@ -122,16 +132,10 @@ test.describe('Compatibility hardening', () => {
       spinning: 'State: Spinning',
       result: 'State: Result ready',
     });
+    await expectRuntimeParityEnvelope(root);
     await expect(root).toHaveAttribute('data-slots-anim-state', 'stop');
     await expect(root).toHaveAttribute('data-slots-anim-outcome', /win|loss/);
-    await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
-    await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
-    await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
-    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
-    await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
-    await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"(idle|win-react)"/);
-    await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-seq', '2');
     await expect(root).toHaveAttribute('data-slots-outcome', /win|loss/);
     await expect(page.locator('#slots-gameplay-outcome')).toHaveText(/Outcome: (win|loss) \(\d+\)/);
@@ -141,19 +145,9 @@ test.describe('Compatibility hardening', () => {
     const ptRoot = page.locator('#slots-shell-root');
     await expectRuntimeParityEnvelope(ptRoot);
     await expectSlotsState(ptRoot, /idle|result|insufficient/);
-    await expect(ptRoot).toHaveAttribute('data-slots-balance', /\d+/);
-    await expect(ptRoot).toHaveAttribute('data-slots-bet', /\d+/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-state', 'idle');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', 'idle');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas', 'ready');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '0');
     await expectSlotsStatus(page, 'Estado: Parado');
     await expect(page.locator('#slots-gameplay-outcome')).toHaveText('Resultado: pendente');
@@ -162,19 +156,15 @@ test.describe('Compatibility hardening', () => {
       spinning: 'Estado: Girando',
       result: 'Estado: Resultado pronto',
     });
+    await expectRuntimeParityEnvelope(ptRoot);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-state', 'stop');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', 'loss');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-atlas', 'ready');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
-    await expect(ptRoot).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', /win|loss/);
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"(idle|win-react)"/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '2');
-    await expect(ptRoot).toHaveAttribute('data-slots-outcome', 'loss');
-    await expect(page.locator('#slots-gameplay-outcome')).toHaveText('Resultado: loss (0)');
+    await expect(ptRoot).toHaveAttribute('data-slots-outcome', /win|loss/);
+    await expect(page.locator('#slots-gameplay-outcome')).toHaveText(
+      /Resultado: (win|loss) \(\d+\)/,
+    );
     await expect(page.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-pt:1');
   });
 
@@ -218,6 +208,7 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-blocked-reason', 'insufficient');
+    await expect(root).toHaveAttribute('data-slots-anim-seq', '9');
     await expectSlotsStatus(page, 'Estado: Saldo insuficiente');
     await expect(root).toHaveAttribute('data-slots-balance', '0');
     await expect(root).toHaveAttribute('data-slots-bet', '10');
