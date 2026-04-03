@@ -162,3 +162,52 @@ test('Authority Isolation: tutorial main does not import Slots RNG/payout/econom
   assert.doesNotMatch(src, /import.*slots\/payout/i);
   assert.doesNotMatch(src, /import.*slots\/economy/i);
 });
+
+test('Card Lock Transparency: locked cards have LOCKED badge in renderCards', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // Badge rendering logic for locked state
+  assert.match(src, /cardsUnlocked\.includes|LOCKED/);
+  assert.match(src, /dataset\.casinocraftzCardStatus/);
+});
+
+test('Card Lock Transparency: unlocked cards have UNLOCKED badge in renderCards', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // Badge rendering logic for unlocked state
+  assert.match(src, /UNLOCKED/);
+  assert.match(src, /text-neon/);
+});
+
+test('Causality Messaging: probability-reveal dialogue includes causality context', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/dialogue.ts');
+
+  // probability-reveal narrator message includes "observed" and "spins" language
+  assert.match(src, /observed.*spins?|spins?.*observed/i);
+  // Also check PT version
+  assert.match(src, /observou.*giros|giros.*observou/i);
+});
+
+test('Replay Button: renderDialogue includes replay button rendering', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // Replay button markup
+  assert.match(src, /dataset\.casinocraftzReplay/);
+  // Button text variations
+  assert.match(src, /Revisit lesson|Revisite a licao/);
+  // Event listener for replay button
+  assert.match(src, /replayBtn.*addEventListener/);
+  // Calls renderDialogue to replay
+  assert.match(src, /renderDialogue\(zone, stepId, lang/);
+});
+
+test('Recap Disclosure: spin-triggered transitions show recap element', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // lastTransitionTrigger check
+  assert.match(src, /lastTransitionTrigger.*===.*'spin'|lastTransitionTrigger.*==.*"spin"/);
+  // Details/summary elements for progressive enhancement
+  assert.match(src, /createElement\('details'\)|createElement\('summary'\)/);
+  // Recap data attribute
+  assert.match(src, /dataset\.casinocraftzRecap/);
+});

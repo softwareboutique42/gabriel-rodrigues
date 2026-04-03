@@ -137,3 +137,50 @@ test('BRG-50: slots/main.ts bridge emit is not wrapped in locale conditions', ()
     'slots bridge emit must not have locale condition',
   );
 });
+
+test('LEARN-51: tutorial.cta.revisitLesson and tutorial.cta.whyTransition keys exist in EN/PT', () => {
+  assert.equal(typeof en['tutorial.cta.revisitLesson'], 'string');
+  assert.equal(typeof pt['tutorial.cta.revisitLesson'], 'string');
+  assert.equal(typeof en['tutorial.cta.whyTransition'], 'string');
+  assert.equal(typeof pt['tutorial.cta.whyTransition'], 'string');
+});
+
+test('PROG-50: cards.status.locked and cards.status.unlocked keys exist in EN/PT', () => {
+  assert.equal(typeof en['cards.status.locked'], 'string');
+  assert.equal(typeof pt['cards.status.locked'], 'string');
+  assert.equal(typeof en['cards.status.unlocked'], 'string');
+  assert.equal(typeof pt['cards.status.unlocked'], 'string');
+});
+
+test('LEARN-50: tutorial.causality.probabilityReveal key exists in EN/PT', () => {
+  assert.equal(typeof en['tutorial.causality.probabilityReveal'], 'string');
+  assert.equal(typeof pt['tutorial.causality.probabilityReveal'], 'string');
+  assert.ok(en['tutorial.causality.probabilityReveal'].length > 0);
+  assert.ok(pt['tutorial.causality.probabilityReveal'].length > 0);
+});
+
+test('LEARN-51: tutorial/main.ts renderDialogue has no locale-conditional branches', () => {
+  const tutorialMain = readFileSync(
+    resolve(process.cwd(), 'src/scripts/casinocraftz/tutorial/main.ts'),
+    'utf8',
+  );
+  // renderDialogue must use lang parameter without hardcoded EN/PT branches
+  assert.doesNotMatch(
+    tutorialMain,
+    /function renderDialogue[\s\S]*?if\s*\(\s*lang\s*===\s*['"]en['"]/,
+    'renderDialogue must not have if (lang === "en") branches',
+  );
+});
+
+test('PROG-50: tutorial/main.ts renderCards has no locale-conditional branches', () => {
+  const tutorialMain = readFileSync(
+    resolve(process.cwd(), 'src/scripts/casinocraftz/tutorial/main.ts'),
+    'utf8',
+  );
+  // renderCards must not have locale-specific logic
+  assert.doesNotMatch(
+    tutorialMain,
+    /function renderCards[\s\S]*?if\s*\(\s*lang\s*===\s*['"]en['"]/,
+    'renderCards must not have if (lang === "en") branches',
+  );
+});
