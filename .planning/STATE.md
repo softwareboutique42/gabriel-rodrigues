@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.5
-milestone_name: growth-and-observability-foundation
+milestone: v1.6
+milestone_name: analytics-productization-and-experimentation
 status: active
-stopped_at: Completed 24-01-PLAN.md
-last_updated: '2026-04-03T03:25:00.000Z'
+stopped_at: Started v1.6 requirements definition
+last_updated: '2026-04-03T03:40:00.000Z'
 last_activity: 2026-04-03
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 0
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE.md - Company Canvas
@@ -21,30 +21,30 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Phase 25 planning for runtime compatibility confidence lock
+**Current Focus:** v1.6 requirements and roadmap initialization
 
 ## Current Position
 
-**Phase:** 25
-**Plan:** Not started
-**Status:** Ready to plan
+**Phase:** Not started (requirements definition)
+**Plan:** -
+**Status:** Defining v1.6 requirements
 **Last Activity:** 2026-04-03
 
 ## Progress
 
 ```
-Progress: ███████░░░ 67%
+Progress: ░░░░░░░░░░ 0%
 ```
 
-Phases: 2/3 complete
+Phases: 0/3 complete
 
 ## Phase Summary
 
-| Phase    | Name                                                    | Status | Goal                                                                    |
-| -------- | ------------------------------------------------------- | ------ | ----------------------------------------------------------------------- |
-| Phase 23 | Analytics Instrumentation Baseline                      | ✓      | Add deterministic EN/PT parity-safe analytics hooks for canonical flows |
-| Phase 24 | Verification Debt Backfill and Closure Guards           | ✓      | Enforce validation-section coverage and close verification debt         |
-| Phase 25 | Runtime Compatibility Confidence for Instrumented Flows | ○      | Lock analytics parity and schema stability via contracts and E2E        |
+| Phase    | Name                               | Status | Goal                                                                        |
+| -------- | ---------------------------------- | ------ | --------------------------------------------------------------------------- |
+| Phase 26 | Analytics Reporting Foundations    | ○      | Build deterministic reporting primitives for funnel and gameplay visibility |
+| Phase 27 | Experimentation Framework Delivery | ○      | Deliver deterministic A/B assignment and lifecycle controls                 |
+| Phase 28 | Release Confidence Automation      | ○      | Automate milestone confidence gate outputs                                  |
 
 ## Key Decisions
 
@@ -78,8 +78,8 @@ Phases: 2/3 complete
 
 ## Pending Todos
 
-- Run /gsd:plan-phase 25 to generate analytics-runtime compatibility confidence lock plan.
-- Execute phase 25 and produce milestone-closeout validation evidence.
+- Run /gsd:discuss-phase 26 to gather implementation context for reporting foundations.
+- Run /gsd:plan-phase 26 to produce first executable plan for v1.6.
 
 ## Blockers / Concerns
 
@@ -88,5 +88,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-03T00:31:58.413Z
-Stopped at: Completed 24-01-PLAN.md
+Stopped at: Started v1.6 requirements definition
 Resume file: None

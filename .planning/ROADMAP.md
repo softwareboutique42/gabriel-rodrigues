@@ -1,4 +1,4 @@
-# Roadmap — Company Canvas (v1.5 Growth & Observability Foundation)
+# Roadmap — Company Canvas (v1.6 Analytics Productization and Experimentation)
 
 ## Archived Milestones
 
@@ -7,95 +7,96 @@
 - ✅ v1.2 Projects Hub & Slots Foundation — [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 - ✅ v1.3 Slots Gameplay Foundation — [milestones/v1.3-ROADMAP.md](milestones/v1.3-ROADMAP.md)
 - ✅ v1.4 Slots Animation & Sprite Upgrade — [milestones/v1.4-ROADMAP.md](milestones/v1.4-ROADMAP.md)
+- ✅ v1.5 Growth & Observability Foundation — [milestones/v1.5-ROADMAP.md](milestones/v1.5-ROADMAP.md)
 
 ## Overview
 
-3 phases for milestone v1.5, continuing numbering after v1.4.
+3 phases for milestone v1.6, continuing numbering after v1.5.
 
 ```
-Phase 23: Analytics Instrumentation Baseline
-Phase 24: Verification Debt Backfill and Closure Guards
-Phase 25: Runtime Compatibility Confidence for Instrumented Flows
+Phase 26: Analytics Reporting Foundations
+Phase 27: Experimentation Framework Delivery
+Phase 28: Release Confidence Automation
 ```
 
 ---
 
-## Phase 23: Analytics Instrumentation Baseline
+## Phase 26: Analytics Reporting Foundations
 
-**Goal:** Introduce parity-safe analytics hooks for Projects to Slots discovery and Slots gameplay lifecycle events.
+**Goal:** Transform analytics events into deterministic reporting primitives for funnel and gameplay visibility.
 
-**Requirements:** ANL-10, ANL-11, ANL-12
-
-**Plans:** 1/1 plans complete
-
-- [x] 23-01-PLAN.md — Deterministic analytics event contracts and runtime hook integration
-
-**Depends on:** Phase 22
-
-**Success criteria:**
-
-- Canonical EN/PT discovery routes emit stable analytics events with shared payload shape.
-- Gameplay lifecycle analytics events are emitted from presentation/runtime boundaries without authority mutation.
-- Compatibility and contract checks can assert event parity and schema stability.
-
-**Key risks:**
-
-- Event plumbing could leak locale-specific payload drift or unstable names.
-
----
-
-## Phase 24: Verification Debt Backfill and Closure Guards
-
-**Goal:** Remove milestone verification debt and enforce summary validation sections as a release gate.
-
-**Requirements:** VER-10, VER-11, VER-12
-
-**Plans:** 1/1 plans complete
-
-- [x] 24-01-PLAN.md — Validation section backfill, enforcement checks, and closeout policy hardening
-
-**Depends on:** Phase 23
-
-**Success criteria:**
-
-- Historical summaries in-scope for audits include explicit Validation sections.
-- Milestone closeout tooling flags missing validation artifacts before completion.
-- Verification evidence remains concise, repeatable, and machine-checkable.
-
-**Key risks:**
-
-- Backfill changes may unintentionally rewrite historical intent instead of documenting validation evidence.
-
----
-
-## Phase 25: Runtime Compatibility Confidence for Instrumented Flows
-
-**Goal:** Lock runtime confidence for analytics-instrumented flows with deterministic contracts and compatibility E2E assertions.
-
-**Requirements:** QA-21, QA-22
+**Requirements:** ANL-20, ANL-21, ANL-22
 
 **Plans:** 0/1 plans complete
 
-- [ ] 25-01-PLAN.md — Contract and browser parity hardening for analytics-instrumented runtime flows
+- [ ] 26-01-PLAN.md — Deterministic reporting views and parity-safe aggregation foundations
 
-**Depends on:** Phase 24
+**Depends on:** Phase 25
 
 **Success criteria:**
 
-- Contracts fail on analytics hook drift, payload-schema regressions, or EN/PT parity mismatches.
-- Compatibility suite verifies instrumented canonical journeys across desktop and mobile projects.
-- Verification chain outputs clear evidence suitable for milestone closeout.
+- Reporting layer exposes canonical Projects-to-Slots conversion and gameplay summary metrics.
+- Aggregations remain deterministic and parity-safe across EN/PT contexts.
+- Reporting contracts validate schema stability and reproducibility.
 
 **Key risks:**
 
-- Additional assertions can become brittle if tied to copy instead of stable data hooks.
+- Aggregation logic may drift from canonical event schema if not contract-locked.
+
+---
+
+## Phase 27: Experimentation Framework Delivery
+
+**Goal:** Deliver deterministic experiment assignment and lifecycle controls for CTA and flow testing.
+
+**Requirements:** EXP-10, EXP-11, EXP-12
+
+**Plans:** 0/1 plans complete
+
+- [ ] 27-01-PLAN.md — Variant assignment, lifecycle toggles, and parity-safe experiment reporting
+
+**Depends on:** Phase 26
+
+**Success criteria:**
+
+- Deterministic assignment supports stable A/B comparisons across EN/PT surfaces.
+- Experiment enable/disable controls avoid brittle codepath branching.
+- Experiment telemetry integrates with reporting primitives for variant comparison.
+
+**Key risks:**
+
+- Variant-assignment drift could invalidate experiment comparisons.
+
+---
+
+## Phase 28: Release Confidence Automation
+
+**Goal:** Automate milestone confidence gates with deterministic lint/test/e2e/build workflows and summary-ready outputs.
+
+**Requirements:** REL-10, REL-11
+
+**Plans:** 0/1 plans complete
+
+- [ ] 28-01-PLAN.md — Unified release confidence runner and machine-checkable output formatting
+
+**Depends on:** Phase 27
+
+**Success criteria:**
+
+- Confidence gate executes deterministic lint/test/e2e/build sequence with stable pass/fail output.
+- Gate output can be consumed directly in phase summaries and milestone closeout checks.
+- Closeout readiness is visible without manual log spelunking.
+
+**Key risks:**
+
+- Overly strict gate coupling can block valid releases if outputs are not normalized.
 
 ---
 
 ## Phase Dependencies
 
 ```
-Phase 23 -> Phase 24 -> Phase 25
+Phase 26 -> Phase 27 -> Phase 28
 ```
 
 ---
@@ -104,16 +105,16 @@ Phase 23 -> Phase 24 -> Phase 25
 
 | Requirement | Phase    |
 | ----------- | -------- |
-| ANL-10      | Phase 23 |
-| ANL-11      | Phase 23 |
-| ANL-12      | Phase 23 |
-| VER-10      | Phase 24 |
-| VER-11      | Phase 24 |
-| VER-12      | Phase 24 |
-| QA-21       | Phase 25 |
-| QA-22       | Phase 25 |
+| ANL-20      | Phase 26 |
+| ANL-21      | Phase 26 |
+| ANL-22      | Phase 26 |
+| EXP-10      | Phase 27 |
+| EXP-11      | Phase 27 |
+| EXP-12      | Phase 27 |
+| REL-10      | Phase 28 |
+| REL-11      | Phase 28 |
 
 ---
 
-_Created: 2026-04-03 after v1.5 kickoff_
-_Ready to plan: Phase 25_
+_Created: 2026-04-03 after v1.6 kickoff_
+_Ready to discuss: Phase 26_

@@ -1,63 +1,62 @@
-# Requirements — Company Canvas (v1.5 Growth & Observability Foundation)
+# Requirements — Company Canvas (v1.6 Analytics Productization and Experimentation)
 
 **Defined:** 2026-04-03
 **Core Value:** Branded, download-ready animation in under a minute.
 
-## v1.5 Requirements
+## v1.6 Requirements
 
-### Analytics and Observability
+### Growth Analytics Productization
 
-- [ ] **ANL-10**: Projects to Slots discovery journey emits deterministic analytics events on canonical EN/PT routes.
-- [ ] **ANL-11**: Slots gameplay lifecycle (spin attempt, resolved outcome, insufficient-credit block) exposes stable analytics events without mutating gameplay authority.
-- [ ] **ANL-12**: Analytics payloads include locale-safe, parity-safe dimensions (route, locale, surface, outcome category) with no PII.
+- [ ] **ANL-20**: Analytics reporting primitives provide conversion views for Projects -> Canvas/Slots discovery funnels.
+- [ ] **ANL-21**: Analytics reporting includes gameplay progression metrics (attempt, outcome, blocked reason) with EN/PT parity-safe dimensions.
+- [ ] **ANL-22**: Reporting artifacts are deterministic and reproducible from machine-readable event fields.
 
-### Verification Hygiene and Release Gates
+### Experimentation Framework
 
-- [ ] **VER-10**: Phase summaries must include a Validation section before milestone close.
-- [ ] **VER-11**: Existing verification debt is backfilled for historical summaries needed by milestone-level audits.
-- [ ] **VER-12**: Milestone closure checks fail fast when required validation artifacts are missing.
+- [ ] **EXP-10**: CTA and flow experiments support deterministic variant assignment and logging for EN/PT routes.
+- [ ] **EXP-11**: Experiment lifecycle includes enable/disable controls without codepath instability.
+- [ ] **EXP-12**: Experiment reporting can compare variant performance using parity-safe dimensions.
 
-### QA and Compatibility Confidence
+### Release Confidence Automation
 
-- [ ] **QA-21**: Contract and compatibility suites cover analytics hook stability and EN/PT parity for instrumented flows.
-- [ ] **QA-22**: Release verification chain documents lint, targeted tests, E2E, and build outcomes for each completed v1.5 plan.
+- [ ] **REL-10**: Milestone closeout can run a single deterministic confidence gate covering lint, targeted tests, E2E, and build.
+- [ ] **REL-11**: Confidence gate output is summary-ready and machine-checkable for planning artifacts.
 
 ## v2+ Requirements (Deferred)
 
 ### Product Growth
 
-- **ANL-20**: Conversion dashboards and cohort reporting in external analytics tooling.
-- **ANL-21**: Experimentation framework for CTA/flow A-B testing.
+- **ANL-30**: Cohort and retention analysis across recurring visitors.
+- **EXP-20**: Multi-armed bandit experiment allocation.
 
 ## Out of Scope
 
-| Feature                               | Reason                                                                       |
-| ------------------------------------- | ---------------------------------------------------------------------------- |
-| Real-money wagering analytics         | Product remains non-gambling and no-money-play for Slots.                    |
-| Gameplay rule redesign                | v1.5 targets observability and verification confidence, not economy changes. |
-| Full telemetry warehouse integration  | Start with lightweight event hooks and compatibility-safe payloads.          |
-| User tracking across sessions/devices | Defer identity-level analytics; keep anonymous interaction events only.      |
+| Feature                               | Reason                                                                 |
+| ------------------------------------- | ---------------------------------------------------------------------- |
+| User-identifying analytics enrichment | Keep telemetry anonymous and parity-safe by default.                   |
+| Real-money monetization experiments   | Product direction remains non-gambling and no-money-play for Slots.    |
+| Full BI platform migration            | v1.6 focuses on in-repo reporting primitives and confidence workflows. |
 
 ## Traceability
 
 | Requirement | Phase    | Status  |
 | ----------- | -------- | ------- |
-| ANL-10      | Phase 23 | Planned |
-| ANL-11      | Phase 23 | Planned |
-| ANL-12      | Phase 23 | Planned |
-| VER-10      | Phase 24 | Planned |
-| VER-11      | Phase 24 | Planned |
-| VER-12      | Phase 24 | Planned |
-| QA-21       | Phase 25 | Planned |
-| QA-22       | Phase 25 | Planned |
+| ANL-20      | Phase 26 | Planned |
+| ANL-21      | Phase 26 | Planned |
+| ANL-22      | Phase 26 | Planned |
+| EXP-10      | Phase 27 | Planned |
+| EXP-11      | Phase 27 | Planned |
+| EXP-12      | Phase 27 | Planned |
+| REL-10      | Phase 28 | Planned |
+| REL-11      | Phase 28 | Planned |
 
 **Coverage:**
 
-- v1.5 requirements: 8 total
+- v1.6 requirements: 8 total
 - Mapped to phases: 8
 - Unmapped: 0
 
 ---
 
 _Requirements defined: 2026-04-03_
-_Last updated: 2026-04-03 at v1.5 kickoff_
+_Last updated: 2026-04-03 at v1.6 kickoff_

@@ -33,9 +33,9 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] ANL-10/ANL-11/ANL-12 analytics baseline for canonical Projects -> Slots and gameplay lifecycle parity
-- [ ] VER-10/VER-11/VER-12 verification hygiene and milestone closure guards
-- [ ] QA-21/QA-22 compatibility and contract confidence for instrumented flows
+- [ ] ANL-20 analytics reporting foundations for conversion and funnel visibility
+- [ ] ANL-21 experimentation framework for CTA and flow A/B testing
+- [ ] REL-10 release confidence automation for milestone closeout readiness
 
 ### Out of Scope
 
@@ -86,28 +86,28 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v1.5 (initialized)
-- Phase progress: 23-01 planned, execution pending
+- Active milestone: v1.6 (requirements definition in progress)
+- Phase progress: not started for v1.6
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop and upgraded visual runtime observability
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Ship v1.5 phases 23-25 with deterministic analytics instrumentation and closure guardrails.
-- Backfill legacy verification debt needed for reliable milestone-level audits.
-- Preserve EN/PT parity and deterministic gameplay authority while expanding observability.
+- Establish analytics reporting primitives that expose conversion and gameplay funnel health.
+- Add an experimentation framework to test CTA and onboarding-flow variants safely.
+- Automate release confidence checks to reduce manual milestone closeout overhead.
 
-## Current Milestone: v1.5 Growth & Observability Foundation
+## Current Milestone: v1.6 Analytics Productization and Experimentation
 
-**Goal:** Improve product observability and delivery confidence with analytics instrumentation and enforceable validation hygiene.
+**Goal:** Turn instrumentation into actionable growth workflows (reporting + experiments) with stronger release confidence automation.
 
 **Target features:**
 
-- Projects -> Slots funnel analytics primitives with EN/PT parity-safe event hooks
-- Gameplay event instrumentation boundaries that preserve deterministic runtime authority
-- Verification evidence backfill and guardrails to prevent milestone closure without validation sections
-- Scoped v1.5 requirements/roadmap preparation for execution handoff
+- Analytics dashboard-ready event aggregations and conversion views
+- Experiment assignment and variant tracking for key Projects/Slots CTAs
+- Guarded rollout and release confidence automation for milestone quality gates
+- Scoped v1.6 requirements and phase roadmap preparation
 
 ## Evolution
 
@@ -130,4 +130,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 at v1.5 kickoff_
+_Last updated: 2026-04-03 at v1.6 kickoff_
