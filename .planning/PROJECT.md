@@ -28,10 +28,14 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ Header nav replaced direct Canvas link with Projects — v1.2
 - ✓ Slots shell at `/en/slots/` and `/pt/slots/` with non-gambling disclaimer — v1.2
 - ✓ EN/PT route-switch, discovery flow, and alias-deny regression coverage — v1.2
+- ✓ Slots gameplay implementation — deterministic reels, paylines, win logic, and guarded economy flow — v1.3
+- ✓ EN/PT gameplay runtime messaging and insufficient-credit browser coverage — v1.3
 
 ### Active
 
-- [ ] Slots gameplay implementation — functional reels, paylines, win logic, game economy
+- [ ] Analytics instrumentation for Projects → Slots funnel and gameplay events
+- [ ] Motion accessibility controls (`prefers-reduced-motion` + intensity tiers) for Slots runtime
+- [ ] Runtime performance guardrails for animation-heavy gameplay loops
 
 ### Out of Scope
 
@@ -64,39 +68,46 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Key Decisions
 
-| Decision                                       | Rationale                                         | Outcome     |
-| ---------------------------------------------- | ------------------------------------------------- | ----------- |
-| Preset style library over AI-generated sprites | Predictable quality, faster v1                    | ✓ Confirmed |
-| Browser-side MP4 capture                       | Avoids server infra complexity                    | ✓ Confirmed |
-| Industry + mood as style axes                  | More expressive selection than one dimension      | ✓ Confirmed |
-| Free preview / paid export                     | Maximizes conversion funnel, Stripe already wired | ✓ Confirmed |
-| Projects hub replaces direct Canvas nav        | Canvas becomes one of two projects, sets up Slots | ✓ v1.2      |
-| Canonical Canvas routes preserved              | No alias nesting; redirects deferred              | ✓ v1.2      |
-| Slots scoped to shell + disclaimer only        | Foundation without gameplay scope creep           | ✓ v1.2      |
-| Two-layer compatibility validation             | Contract gate (fast) + E2E journeys (runtime)     | ✓ v1.2      |
+| Decision                                          | Rationale                                                      | Outcome         |
+| ------------------------------------------------- | -------------------------------------------------------------- | --------------- |
+| Preset style library over AI-generated sprites    | Predictable quality, faster v1                                 | ✓ Confirmed     |
+| Browser-side MP4 capture                          | Avoids server infra complexity                                 | ✓ Confirmed     |
+| Industry + mood as style axes                     | More expressive selection than one dimension                   | ✓ Confirmed     |
+| Free preview / paid export                        | Maximizes conversion funnel, Stripe already wired              | ✓ Confirmed     |
+| Projects hub replaces direct Canvas nav           | Canvas becomes one of two projects, sets up Slots              | ✓ v1.2          |
+| Canonical Canvas routes preserved                 | No alias nesting; redirects deferred                           | ✓ v1.2          |
+| Slots scoped to shell + disclaimer only           | Foundation without gameplay scope creep                        | ✓ v1.2          |
+| Two-layer compatibility validation                | Contract gate (fast) + E2E journeys (runtime)                  | ✓ v1.2          |
+| Deterministic Slots core loop on canonical routes | Preserve IA while shipping playable gameplay                   | ✓ v1.3          |
+| Verification backfill before milestone closeout   | Restore audit traceability before archive                      | ✓ v1.3          |
+| Runtime hardening after audit findings            | Close non-blocking debt before archive                         | ✓ v1.3          |
+| Symbol-state animations remain presentation-only  | Keep payout/economy authority invariant across visual upgrades | ✓ v1.4 Phase 20 |
+| Theme variants resolve via deterministic fallback | Allow visual customization without gameplay branching          | ✓ v1.4 Phase 20 |
 
 ## Current State
 
-- Shipped milestone: v1.2 (2026-04-02)
-- Scope delivered: Phases 9-12 complete (4/4 plans)
-- Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, Slots shell at `/en/slots/` (EN + PT)
-- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`
+- Active milestone: v1.4 (in progress)
+- Phase progress: 3/5 phases complete (18-20 done, 21 next)
+- Scope delivered in v1.4 so far: deterministic animation runtime, sprite atlas integration, animated symbol states, and presentation-only theme variants
+- Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop and upgraded visual runtime observability
+- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`
 
 ## Next Milestone Goals
 
-- Ship playable Slots core loop with deterministic reels, paylines, and win evaluation
-- Add lightweight game economy configuration with controlled progression rules
-- Preserve EN/PT parity and canonical route behavior while introducing gameplay flows
+- Upgrade Slots visual quality with polished reel/symbol/effect animation systems
+- Introduce a production sprite pipeline (atlases + animated symbols + theme variants)
+- Preserve deterministic gameplay behavior, EN/PT parity, accessibility motion controls, and runtime performance while visual complexity increases
 
-## Current Milestone: v1.3 Slots Gameplay Foundation
+## Current Milestone: v1.4 Slots Animation & Sprite Upgrade
 
-**Goal:** Make the Slots game work well by shipping the first complete gameplay loop on top of the existing shell routes.
+**Goal:** Improve the Slots experience with richer animation and sprite presentation while keeping deterministic gameplay and strong runtime confidence.
 
 **Target features:**
 
-- Reels, paylines, and outcome evaluation with deterministic loop behavior
-- Core economy rules (bet sizing, payout table, session-safe credits)
-- Bilingual EN/PT gameplay copy and interaction parity
+- Reel spin, stop, win/lose, idle, and UI transition animation polish
+- New sprite symbol set with atlas pipeline, animated symbols, and theme variants
+- Motion accessibility controls (`prefers-reduced-motion` + in-product intensity levels)
+- Performance and regression hardening for animation-heavy runtime paths
 
 ## Evolution
 
@@ -119,4 +130,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-02 after v1.3 milestone kickoff_
+_Last updated: 2026-04-03 after Phase 20 completion_

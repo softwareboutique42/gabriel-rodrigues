@@ -1,79 +1,64 @@
-# Technology Stack Research (v1.2)
+# Technology Stack
 
-Project: Projects Hub and Slots Foundation  
-Researched: 2026-04-02  
-Scope: Only NEW feature support for v1.2 while preserving current Astro static architecture
+**Project:** Slots Sprite/Animation Upgrade (Astro + TypeScript, no migration)
+**Researched:** 2026-04-02
 
-## Recommendation Summary
+## Recommended Stack
 
-Use the existing stack as-is for v1.2. Add no new core runtime framework.
+### Core Runtime
 
-Reason:
+| Technology                                   | Version | Purpose                              | Why                                                              |
+| -------------------------------------------- | ------- | ------------------------------------ | ---------------------------------------------------------------- |
+| `pixi.js`                                    | 8.17.x  | 2D renderer for reels/symbol sprites | Best fit for atlas + batched sprite animation in browser TS apps |
+| Existing deterministic engine                | Current | Authoritative game loop              | Keep payout/result logic independent from renderer timing        |
+| Fixed-step simulation + render interpolation | Pattern | Stable logic at varying FPS          | Prevents frame-rate-driven drift                                 |
 
-- Projects Hub is a static content and navigation change.
-- Canvas relocation under a Projects hierarchy is an IA/routing/linking change, not an infrastructure change.
-- Slots scope is research plus bilingual shell pages only (no gameplay runtime yet).
+### Sprite Pipeline
 
-Confidence: HIGH for no-core-changes recommendation (fully aligned with project constraints in planning docs).
+| Technology                        | Version           | Purpose                              | Why                                                                |
+| --------------------------------- | ----------------- | ------------------------------------ | ------------------------------------------------------------------ |
+| Aseprite CLI                      | Current docs 2026 | Export sprite sheets + JSON metadata | Scriptable, deterministic, good tag/layer export for symbol states |
+| TexturePacker (optional)          | Current docs 2026 | Production atlas packing             | Fast authoring flow + direct Pixi exporter                         |
+| Pixi `Assets` + manifests/bundles | v8                | Load/unload atlas bundles safely     | Built-in caching, aliases, bundle loading                          |
 
-## Required Stack Changes (Actionable)
+### Animation & Effects
 
-- No required package additions.
-- Keep existing runtime stack unchanged: Astro static pages, Tailwind styling, i18n JSON, existing Three.js/Canvas route, existing Cloudflare deployment.
-- Add only code-level structure:
-  - Add Projects pages (EN/PT) as normal Astro routes.
-  - Add Slots shell pages (EN/PT) as normal Astro routes.
-  - Add i18n keys for Projects and Slots labels/descriptions in both language files.
-  - Update header/nav to point to Projects instead of direct Canvas entry.
-  - Keep Canvas URL stable to avoid breaking existing links and flows.
+| Library                           | Version | Purpose                                 | When to Use                                                        |
+| --------------------------------- | ------- | --------------------------------------- | ------------------------------------------------------------------ |
+| `AnimatedSprite` (Pixi core)      | v8      | Symbol idle/win/impact frame animations | Default choice for frame-based symbol animation                    |
+| `@pixi/particle-emitter`          | 5.0.x   | Win bursts, spark trails, coin pops     | Add only for controlled, budgeted VFX                              |
+| `pixi-filters`                    | 6.1.x   | Glow/CRT/blur flavor effects            | Use sparingly and scope with `filterArea`                          |
+| `@esotericsoftware/spine-pixi-v8` | 4.2.x   | Skeletal character animation            | Only if you need complex hero mascots; not needed for reel symbols |
 
-## Optional Tools (Not Required)
+## Alternatives Considered
 
-Use only if they reduce delivery risk for v1.2 without changing runtime architecture:
+| Category          | Recommended                       | Alternative                     | Why Not                                                  |
+| ----------------- | --------------------------------- | ------------------------------- | -------------------------------------------------------- |
+| Renderer          | PixiJS v8                         | Canvas 2D custom loop only      | More manual batching/atlas work for same result          |
+| Atlas tool        | Aseprite CLI / TexturePacker      | `spritesheet-js`                | Stale (3 years) and non-commercial license mismatch risk |
+| Animation control | Engine events -> visual timelines | Callback-driven game state      | Risks determinism regressions                            |
+| Effects baseline  | Minimal core + optional tiers     | Heavy default filters/particles | Too expensive on mid/low-end mobile                      |
 
-- Asset research and planning:
-  - Figma or Excalidraw for Slots concept boards and themed machine direction.
-  - Spreadsheet or markdown matrix for sprite-source licensing tracking.
-- Placeholder art workflow:
-  - Aseprite or Piskel for temporary symbol sprites (exported as static assets only).
-- QA support:
-  - Add lightweight Playwright navigation checks for EN/PT routes and hub links.
+## Installation
 
-Do not add these as app runtime dependencies unless they become part of shipped gameplay in a later milestone.
+```bash
+# Core renderer
+npm install pixi.js
 
-## Avoid List (Do NOT Add in v1.2)
+# Optional effects
+npm install @pixi/particle-emitter pixi-filters
 
-- No new game engine yet (for example PixiJS, Phaser).
-- No new frontend framework layer (for example React/Svelte islands) for Projects or Slots shell.
-- No new backend services, databases, or stateful APIs.
-- No SSR/Node server changes; keep static Cloudflare Pages output.
-- No gameplay-specific RNG/audio/physics libraries yet.
-- No payment stack changes (Stripe flow is already validated and unrelated to this milestone scope).
-
-## Integration Points
-
-- Routing and pages:
-  - Create EN/PT Projects pages under existing language folder structure.
-  - Create EN/PT Slots shell pages under existing language folder structure.
-  - Keep existing Canvas routes intact.
-- Navigation:
-  - Replace top-menu direct Canvas link with Projects hub link.
-  - Link Projects hub cards/items to Canvas and Slots.
-- i18n:
-  - Add corresponding EN/PT keys for nav labels, page titles, descriptions, and CTA text.
-- Existing Canvas behavior:
-  - No change to Canvas runtime stack.
-  - If any client script is touched, keep Astro SPA lifecycle pattern already used in the repo.
-- Testing:
-  - Extend existing Playwright coverage with route and link smoke tests for new pages.
-
-## Minimal Install Delta
-
-None for v1.2 core scope.
+# Optional advanced skeletal animation
+npm install @esotericsoftware/spine-pixi-v8
+```
 
 ## Sources
 
-- .planning/PROJECT.md (v1.2 active scope and constraints)
-- .planning/MILESTONES.md (current milestone status)
-- .planning/STATE.md (current validated architecture state)
-- package.json (current installed stack and scripts)
+- https://pixijs.com/8.x/guides/components/assets
+- https://pixijs.com/8.x/guides/concepts/performance-tips
+- https://pixijs.download/release/docs/scene.AnimatedSprite.html
+- https://www.aseprite.org/docs/cli/
+- https://www.codeandweb.com/texturepacker/documentation
+- https://www.npmjs.com/package/@pixi/particle-emitter
+- https://www.npmjs.com/package/pixi-filters
+- https://esotericsoftware.com/spine-pixi

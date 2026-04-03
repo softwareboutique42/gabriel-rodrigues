@@ -1,5 +1,18 @@
 # Milestones
 
+## v1.3 Slots Gameplay Foundation (Shipped: 2026-04-02)
+
+**Phases completed:** 5 phases, 5 plans, 0 tasks
+
+**Key accomplishments:**
+
+- Delivered the first deterministic Slots gameplay loop with seeded reel resolution, explicit lifecycle control, and contract-backed payout evaluation on canonical EN/PT routes.
+- Added session-safe balance and bet guardrails with localized EN/PT gameplay copy, invalid-action blocking, and economy invariants locked by contract tests.
+- Locked route, gameplay, and i18n regressions with compatibility contracts, focused Playwright coverage, and verification backfill for requirements traceability.
+- Closed the remaining v1.3 runtime confidence debt with PT runtime journey coverage, insufficient-credit Playwright assertions, direct localized runtime messaging checks, and passing UAT.
+
+---
+
 ## v1.2 Projects Hub & Slots Foundation (Shipped: 2026-04-02)
 
 **Phases completed:** 4 phases, 4 plans | 30 files changed (+2,751 / -9 lines)

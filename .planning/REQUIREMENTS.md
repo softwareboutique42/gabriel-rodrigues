@@ -1,32 +1,34 @@
-# Requirements — Company Canvas (v1.3 Slots Gameplay Foundation)
+# Requirements — Company Canvas (v1.4 Slots Animation & Sprite Upgrade)
 
 **Defined:** 2026-04-02
 **Core Value:** Branded, download-ready animation in under a minute.
 
-## v1.3 Requirements
+## v1.4 Requirements
 
-### Gameplay Core
+### Animation Experience
 
-- [ ] **SLOT-10**: Functional reel spin system with deterministic stopping behavior and predictable state transitions.
-- [ ] **SLOT-11**: Payline evaluation and payout calculation logic produces correct outcomes across win/loss cases.
-- [ ] **SLOT-12**: Session-safe credits/bet loop supports placing bets, resolving rounds, and updating balance without negative-state bugs.
+- [x] **ANIM-10**: Reel animation lifecycle includes polished spin-up, sustained spin, and deterministic stop choreography that visually reflects the existing round state machine.
+- [x] **ANIM-11**: Win/loss feedback animations (line/symbol emphasis + status transitions) trigger from resolved outcomes without mutating gameplay authority.
+- [x] **ANIM-12**: Idle ambient and gameplay UI transition animations remain subtle, non-blocking, and consistent across EN/PT routes.
 
-### UX and Bilingual Parity
+### Sprite System
 
-- [ ] **I18N-10**: All new Slots gameplay copy and status labels are present in both EN/PT with parity checks.
-- [ ] **UX-10**: Gameplay interaction states (idle, spinning, result, insufficient credits) are clearly communicated and prevent invalid actions.
+- [x] **SPRITE-10**: Slots symbol visuals migrate to a production sprite atlas pipeline with deterministic symbol-to-frame mapping.
+- [x] **SPRITE-11**: Animated symbol sprite states (idle/spin/win-react) are supported for core symbols without changing payout/evaluation logic.
+- [x] **SPRITE-12**: At least one additional visual theme variant can be applied through shared theme tokens and sprite assets without branching gameplay logic.
 
-### Compatibility and Safety
+### Accessibility, Performance, and QA
 
-- [ ] **COMP-10**: Existing canonical routes (`/en|pt/projects/`, `/en|pt/canvas/`, `/en|pt/slots/`) remain stable after gameplay integration.
-- [ ] **QA-10**: Gameplay logic and route/i18n behavior are regression-locked with contract tests plus focused E2E flows.
+- [ ] **A11Y-10**: Reduced-motion and motion-intensity controls are available and preserve behavior parity with default mode.
+- [ ] **PERF-10**: Animation/sprite upgrades respect defined runtime performance guardrails for active gameplay loops.
+- [ ] **QA-20**: Contract + Playwright coverage is expanded to lock animation/sprite runtime behavior, deterministic visual event sequencing, and EN/PT parity.
 
 ## v2+ Requirements (Deferred)
 
-### Payments and Monetization
+### Visual Ambition
 
-- **SLOT-20**: Real-money wagering, deposits, and cash payouts.
-- **SLOT-21**: Regulatory compliance flows for gambling jurisdictions.
+- **ANIM-20**: Cinematic multi-tier celebration sequences with optional skip controls.
+- **SPRITE-20**: Dynamic live-theme/event skin delivery pipeline.
 
 ### Growth and Analytics
 
@@ -34,32 +36,34 @@
 
 ## Out of Scope
 
-| Feature                             | Reason                                                             |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| Real-money betting / payouts        | Not part of foundation milestone; legal/compliance work not scoped |
-| Multiplayer or tournament mechanics | Single-player core loop first for reliability                      |
-| New rendering framework             | Maintain current Astro + Three.js architecture                     |
-| `/projects/slots/*` alias routes    | Keep canonical routing simple and unchanged                        |
+| Feature                                           | Reason                                                                           |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Gameplay rule changes (new paylines/payout model) | v1.4 focuses on presentation and runtime confidence, not core game rule redesign |
+| Real-money betting and payouts                    | Deferred beyond current product strategy and compliance scope                    |
+| Full rendering framework migration                | Existing Astro + TypeScript architecture remains the baseline                    |
+| Theme-specific gameplay forks                     | Themes remain presentation-only to preserve deterministic behavior               |
 
 ## Traceability
 
 | Requirement | Phase    | Status   |
 | ----------- | -------- | -------- |
-| SLOT-10     | Phase 13 | Verified |
-| SLOT-11     | Phase 13 | Verified |
-| SLOT-12     | Phase 14 | Verified |
-| I18N-10     | Phase 14 | Verified |
-| UX-10       | Phase 14 | Verified |
-| COMP-10     | Phase 15 | Verified |
-| QA-10       | Phase 15 | Verified |
+| ANIM-10     | Phase 18 | Complete |
+| ANIM-11     | Phase 18 | Complete |
+| ANIM-12     | Phase 19 | Complete |
+| SPRITE-10   | Phase 19 | Complete |
+| SPRITE-11   | Phase 20 | Complete |
+| SPRITE-12   | Phase 20 | Complete |
+| A11Y-10     | Phase 21 | Pending  |
+| PERF-10     | Phase 21 | Pending  |
+| QA-20       | Phase 22 | Pending  |
 
 **Coverage:**
 
-- v1.3 requirements: 7 total
-- Mapped to phases: 7
+- v1.4 requirements: 9 total
+- Mapped to phases: 9
 - Unmapped: 0
 
 ---
 
 _Requirements defined: 2026-04-02_
-_Last updated: 2026-04-02 after v1.3 kickoff_
+_Last updated: 2026-04-02 after phase 20 verification_

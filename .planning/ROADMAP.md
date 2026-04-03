@@ -1,146 +1,150 @@
-# Roadmap — Company Canvas (v1.3 Slots Gameplay Foundation)
+# Roadmap — Company Canvas (v1.4 Slots Animation & Sprite Upgrade)
+
+## Archived Milestones
+
+- ✅ v1.0 — [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
+- ✅ v1.1 — [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
+- ✅ v1.2 Projects Hub & Slots Foundation — [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
+- ✅ v1.3 Slots Gameplay Foundation — [milestones/v1.3-ROADMAP.md](milestones/v1.3-ROADMAP.md)
 
 ## Overview
 
-5 phases for milestone v1.3, continuing numbering after v1.2.
+5 phases for milestone v1.4, continuing numbering after v1.3.
 
 ```
-Phase 13: Slots Core Gameplay Loop
-Phase 14: Economy, UX, and i18n Parity
-Phase 15: Compatibility and Regression Hardening
-Phase 16: Milestone Verification Backfill
-Phase 17: Slots Runtime Coverage Hardening
+Phase 18: Slots Animation Runtime Foundation
+Phase 19: Sprite Atlas Integration and UI Motion
+Phase 20: Animated Symbols and Theme Variants
+Phase 21: Accessibility and Performance Hardening
+Phase 22: Regression and Runtime Confidence Lock
 ```
 
 ---
 
-## Phase 13: Slots Core Gameplay Loop
+## Phase 18: Slots Animation Runtime Foundation
 
-**Goal:** Implement deterministic reel-spin and payout evaluation logic for a complete single-round gameplay loop.
+**Goal:** Introduce a deterministic visual animation runtime that consumes gameplay state transitions without altering engine authority.
 
-**Requirements:** SLOT-10, SLOT-11
+**Requirements:** ANIM-10, ANIM-11
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
-- [x] 13-01-PLAN.md — Reel state model, spin orchestration, payline evaluation, and deterministic outcome contracts
+- [x] 18-01-PLAN.md — Reel lifecycle choreography and outcome-driven animation event wiring
+
+**Depends on:** Phase 17
 
 **Success criteria:**
 
-- Spin lifecycle has explicit states (`idle` -> `spinning` -> `result`) and blocks invalid transitions.
-- Reel-stop and result calculation are deterministic for identical seeds/inputs.
-- Win/loss outcomes match payline and payout table rules in contract tests.
+- Reel spin lifecycle animations (start/spin/stop) reflect deterministic runtime state transitions.
+- Win/loss feedback triggers from resolved outcomes only and does not mutate core game logic.
+- Existing gameplay contracts remain green after visual runtime integration.
 
 **Key risks:**
 
-- State drift between UI and logic can cause duplicate rounds or stale results.
+- Animation callbacks could accidentally influence authoritative state timing.
 
 ---
 
-## Phase 14: Economy, UX, and i18n Parity
+## Phase 19: Sprite Atlas Integration and UI Motion
 
-**Goal:** Add stable credits/bet flow and bilingual gameplay UX that communicates all interaction states clearly.
+**Goal:** Replace placeholder symbol visuals with atlas-backed sprites and polish UI/idle transition motion patterns.
 
-**Requirements:** SLOT-12, I18N-10, UX-10
+**Requirements:** SPRITE-10, ANIM-12
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
-- [x] 14-01-PLAN.md — Session-safe balance loop, interaction guardrails, and EN/PT gameplay copy parity
+- [x] 19-01-PLAN.md — Sprite atlas foundation, symbol-frame mapping, and idle/UI motion pass
 
-**Depends on:** Phase 13
+**Depends on:** Phase 18
 
 **Success criteria:**
 
-- Balance updates are correct across bet placement, round resolution, and insufficient-credit cases.
-- Gameplay controls prevent invalid actions while spinning or when credits are insufficient.
-- All new gameplay strings exist in both `en.json` and `pt.json` with parity coverage.
+- Symbol rendering is atlas-backed with deterministic symbol-to-frame mapping.
+- Idle and UI transition animations are integrated without blocking interactions.
+- EN/PT runtime states remain visually consistent in both locales.
 
 **Key risks:**
 
-- Economy edge cases (zero credits, max bet, consecutive rounds) can desync UI from source-of-truth state.
+- Atlas loading or mapping drift could produce symbol mismatches during spins.
 
 ---
 
-## Phase 15: Compatibility and Regression Hardening
+## Phase 20: Animated Symbols and Theme Variants
 
-**Goal:** Lock gameplay and route behavior with regression checks while preserving canonical IA from v1.2.
+**Goal:** Add animated symbol states and at least one additional theme variant while keeping gameplay behavior invariant.
 
-**Requirements:** COMP-10, QA-10
+**Requirements:** SPRITE-11, SPRITE-12
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
-- [ ] 15-01-PLAN.md — Contract + E2E regression gates for gameplay loop, i18n switching, and canonical routing
-- [x] 15-01-PLAN.md — Contract + E2E regression gates for gameplay loop, i18n switching, and canonical routing
+- [x] 20-01-PLAN.md — Animated symbol states and presentation-only theme variant architecture
 
-**Depends on:** Phases 13-14
+**Depends on:** Phase 19
 
 **Success criteria:**
 
-- Contract tests cover gameplay determinism, payouts, and balance invariants.
-- E2E validates EN/PT Slots journeys and route stability across Projects/Canvas/Slots.
-- Alias routes remain denied unless explicitly added in a future milestone.
+- Core symbols support animated states (idle/spin/win-react) through shared sprite contracts.
+- At least one theme variant is selectable without branching gameplay rules.
+- Theme and sprite changes do not affect deterministic payout or state outcomes.
 
 **Key risks:**
 
-- Uncovered gameplay edge cases can pass manual testing but fail under repeated rounds.
+- Theme-specific asset assumptions could bleed into gameplay behavior.
 
 ---
 
-## Phase 16: Milestone Verification Backfill
+## Phase 21: Accessibility and Performance Hardening
 
-**Goal:** Close the v1.3 audit blocker by backfilling verification artifacts and restoring requirement-level audit traceability for the already-shipped Slots gameplay work.
+**Goal:** Enforce motion accessibility and runtime performance guardrails for the expanded animation/sprite system.
 
-**Requirements:** SLOT-10, SLOT-11, SLOT-12, I18N-10, UX-10, COMP-10, QA-10
-
-**Gap Closure:** Closes orphaned milestone requirements caused by missing phase verification artifacts for phases 13-15.
+**Requirements:** A11Y-10, PERF-10
 
 **Plans:** 1 plan
 
-- [x] 16-01-PLAN.md — Backfill verification artifacts for phases 13-15 and rerun v1.3 milestone audit
+- [ ] 21-01-PLAN.md — Reduced-motion controls, intensity tiers, and performance budget enforcement
 
-**Depends on:** Phases 13-15
+**Depends on:** Phase 20
 
 **Success criteria:**
 
-- Phase 13, 14, and 15 each have `VERIFICATION.md` artifacts aligned with their summaries and completed requirements.
-- `.planning/v1.3-MILESTONE-AUDIT.md` can be rerun without orphaned requirement failures.
-- REQUIREMENTS traceability reflects the gap-closure phase until milestone audit passes.
+- Reduced-motion and intensity controls work across gameplay lifecycle states.
+- Animation-heavy paths remain inside defined performance budgets.
+- Accessibility mode parity is preserved for state, outcome, and localized messaging behavior.
 
 **Key risks:**
 
-- Verification backfill can drift from actual shipped evidence if phase artifacts are recreated loosely instead of from recorded validation commands.
+- Visual effects may regress frame stability on low-end devices if budget caps are not enforced.
 
 ---
 
-## Phase 17: Slots Runtime Coverage Hardening
+## Phase 22: Regression and Runtime Confidence Lock
 
-**Goal:** Strengthen runtime confidence for the Slots milestone by adding browser coverage for PT gameplay transitions, insufficient-credit states, and localized runtime messaging.
+**Goal:** Lock v1.4 runtime behavior with contract and browser regression coverage for animation, sprites, i18n parity, and deterministic flow.
 
-**Requirements:** —
-
-**Gap Closure:** Closes non-blocking audit tech debt from the v1.3 milestone review.
+**Requirements:** QA-20
 
 **Plans:** 1 plan
 
-- [ ] 17-01-PLAN.md — Harden PT runtime journey, insufficient-credit browser path, and EN/PT runtime localization assertions
+- [ ] 22-01-PLAN.md — Contract and Playwright hardening for visual runtime determinism and parity
 
-**Depends on:** Phase 16
+**Depends on:** Phases 18-21
 
 **Success criteria:**
 
-- Playwright exercises PT runtime spin behavior, not just attribute presence after navigation.
-- Browser coverage includes an insufficient-credit blocked gameplay path.
-- Runtime-rendered localized messaging is asserted directly in browser flows where practical.
+- Contract tests validate animation/sprite event sequencing remains deterministic for fixed seeds.
+- Playwright covers EN/PT runtime animation and sprite behaviors with stable selectors and state hooks.
+- Full verification chain passes and milestone closes without untracked runtime debt.
 
 **Key risks:**
 
-- Browser-only hardening can add maintenance cost if assertions become coupled too tightly to transient copy.
+- Highly visual assertions can become brittle if they depend on unstable timing or copy assumptions.
 
 ---
 
 ## Phase Dependencies
 
 ```
-Phase 13 -> Phase 14 -> Phase 15 -> Phase 16 -> Phase 17
+Phase 18 -> Phase 19 -> Phase 20 -> Phase 21 -> Phase 22
 ```
 
 ---
@@ -149,15 +153,17 @@ Phase 13 -> Phase 14 -> Phase 15 -> Phase 16 -> Phase 17
 
 | Requirement | Phase    |
 | ----------- | -------- |
-| SLOT-10     | Phase 16 |
-| SLOT-11     | Phase 16 |
-| SLOT-12     | Phase 16 |
-| I18N-10     | Phase 16 |
-| UX-10       | Phase 16 |
-| COMP-10     | Phase 16 |
-| QA-10       | Phase 16 |
+| ANIM-10     | Phase 18 |
+| ANIM-11     | Phase 18 |
+| ANIM-12     | Phase 19 |
+| SPRITE-10   | Phase 19 |
+| SPRITE-11   | Phase 20 |
+| SPRITE-12   | Phase 20 |
+| A11Y-10     | Phase 21 |
+| PERF-10     | Phase 21 |
+| QA-20       | Phase 22 |
 
 ---
 
-_Created: 2026-04-02 after v1.3 kickoff_
-_Ready to execute: Phase 17_
+_Created: 2026-04-02 after v1.4 kickoff_
+_Ready to plan: Phase 21_
