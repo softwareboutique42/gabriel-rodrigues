@@ -1,5 +1,21 @@
 # Milestones
 
+## v1.6 Slots Visual Polish and Atmosphere (Shipped: 2026-04-03)
+
+**Delivered:** A polished Slots presentation refresh with cabinet-style shell design, richer deterministic atmosphere and effects, and release-ready confidence coverage.
+
+**Phases completed:** 3 phases, 3 plans, 9 tasks
+
+**Key accomplishments:**
+
+- Rebuilt the EN/PT Slots experience into a cabinet-style shell with stronger reel framing, HUD hierarchy, and stable controller-owned gameplay anchors.
+- Added deterministic effect and atmosphere runtime hooks so charge, sustain, win, loss, blocked, and neon-theme states feel richer without gameplay authority drift.
+- Locked the refreshed visual envelope with holistic contracts, stronger compatibility journeys, and a passing release chain across lint, targeted tests, Playwright, and build.
+
+**Requirements:** 8/8 shipped (VIS-20, VIS-21, VIS-22, FX-20, FX-21, FX-22, QA-30, QA-31)
+
+---
+
 ## v1.4 milestone (Shipped: 2026-04-03)
 
 **Phases completed:** 5 phases, 5 plans, 8 tasks

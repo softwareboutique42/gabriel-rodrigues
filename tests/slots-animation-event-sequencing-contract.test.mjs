@@ -135,6 +135,9 @@ test('ANIM-10: runtime mount/dispose is idempotent across re-subscriptions', () 
 
   assert.equal(root.dataset.slotsAnimState, 'stop');
   assert.equal(root.dataset.slotsAnimOutcome, 'loss');
+  assert.equal(root.dataset.slotsAnimEffect, 'loss');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'shadow');
+  assert.equal(root.dataset.slotsAnimAtmosphereTheme, 'core');
   assert.equal(root.dataset.slotsAnimAtlas, 'ready');
   assert.equal(root.dataset.slotsAnimIdle, 'idle-pulse');
   assert.equal(root.dataset.slotsAnimTheme, 'slots-core-v1');
@@ -166,6 +169,8 @@ test('ANIM-10: runtime sequence stays monotonic across accepted/resolved/blocked
     }),
   );
   assert.equal(root.dataset.slotsAnimSeq, '1');
+  assert.equal(root.dataset.slotsAnimEffect, 'charge');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'charge');
 
   visualEvents.emit(
     createSpinResolvedVisualEvent({
@@ -177,6 +182,8 @@ test('ANIM-10: runtime sequence stays monotonic across accepted/resolved/blocked
     }),
   );
   assert.equal(root.dataset.slotsAnimSeq, '2');
+  assert.match(root.dataset.slotsAnimEffect, /win|loss/);
+  assert.match(root.dataset.slotsAnimAtmosphere, /celebrate|shadow/);
 
   const seqAfterResolved = Number(root.dataset.slotsAnimSeq);
   const resolvedSpinIndex = root.dataset.slotsAnimResolvedSpinIndex;
@@ -193,6 +200,8 @@ test('ANIM-10: runtime sequence stays monotonic across accepted/resolved/blocked
   const seqAfterBlocked = Number(root.dataset.slotsAnimSeq);
   assert.ok(seqAfterBlocked > seqAfterResolved);
   assert.equal(root.dataset.slotsAnimOutcome, 'loss');
+  assert.equal(root.dataset.slotsAnimEffect, 'blocked');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'caution');
   assert.equal(root.dataset.slotsAnimResolvedSpinIndex, resolvedSpinIndex);
 
   runtime.dispose();
@@ -225,6 +234,8 @@ test('ANIM-11: blocked visual events never overwrite resolved feedback outcome',
 
   assert.equal(root.dataset.slotsAnimState, 'blocked');
   assert.equal(root.dataset.slotsAnimOutcome, 'win');
+  assert.equal(root.dataset.slotsAnimEffect, 'blocked');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'caution');
   assert.equal(root.dataset.slotsAnimAtlas, 'ready');
   assert.equal(root.dataset.slotsAnimTheme, 'slots-core-v1');
   assert.equal(root.dataset.slotsAnimReducedMotion, 'false');

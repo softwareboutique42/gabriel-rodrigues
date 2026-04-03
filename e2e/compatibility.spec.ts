@@ -26,11 +26,32 @@ async function expectRuntimeParityEnvelope(root: Locator): Promise<void> {
   await expect(root).toHaveAttribute('data-slots-anim-atlas', 'ready');
   await expect(root).toHaveAttribute('data-slots-anim-atlas-id', 'slots-core-v1');
   await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-core-v1');
+  await expect(root).toHaveAttribute('data-slots-anim-atmosphere-theme', 'core');
   await expect(root).toHaveAttribute('data-slots-anim-reduced-motion', 'false');
   await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'full');
   await expect(root).toHaveAttribute('data-slots-anim-intensity', /full|reduced|minimal/);
   await expect(root).toHaveAttribute('data-slots-anim-performance', /ok|degraded/);
   await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
+  await expect(root).toHaveAttribute(
+    'data-slots-anim-effect',
+    /idle|charge|sustain|win|loss|blocked/,
+  );
+  await expect(root).toHaveAttribute(
+    'data-slots-anim-atmosphere',
+    /idle|charge|vortex|celebrate|shadow|caution/,
+  );
+}
+
+async function expectSlotsShellEnvelope(page: Page): Promise<void> {
+  const zones = ['header', 'playfield', 'console', 'compliance', 'navigation'];
+
+  for (const zone of zones) {
+    const locator = page.locator(`[data-slots-zone="${zone}"]`);
+    await expect(locator).toBeVisible();
+    await expect(locator).not.toHaveText(/^\s*$/);
+  }
+
+  await expect(page.locator('[data-slots-reel-window]')).toHaveCount(3);
 }
 
 async function clearPersistedAnalyticsEvents(page: Page): Promise<void> {
@@ -67,6 +88,8 @@ async function spinAndWaitForResolution(
   await expect(page.locator('#slots-spin-button')).toBeDisabled();
   await expectSlotsStatus(page, statusText.spinning);
   await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"spin"/);
+  await expect(root).toHaveAttribute('data-slots-anim-effect', /charge|sustain/);
+  await expect(root).toHaveAttribute('data-slots-anim-atmosphere', /charge|vortex/);
 
   await expectSlotsState(root, 'result');
   await expectSlotsStatus(page, statusText.result);
@@ -197,9 +220,12 @@ test.describe('Compatibility hardening', () => {
 
     const root = page.locator('#slots-shell-root');
     await expectRuntimeParityEnvelope(root);
+    await expectSlotsShellEnvelope(page);
     await expectSlotsState(root, /idle|result|insufficient/);
     await expect(root).toHaveAttribute('data-slots-anim-state', 'idle');
     await expect(root).toHaveAttribute('data-slots-anim-outcome', 'idle');
+    await expect(root).toHaveAttribute('data-slots-anim-effect', 'idle');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', 'idle');
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(root).toHaveAttribute('data-slots-anim-seq', '0');
     await expectSlotsStatus(page, 'State: Idle');
@@ -212,6 +238,8 @@ test.describe('Compatibility hardening', () => {
     await expectRuntimeParityEnvelope(root);
     await expect(root).toHaveAttribute('data-slots-anim-state', 'stop');
     await expect(root).toHaveAttribute('data-slots-anim-outcome', /win|loss/);
+    await expect(root).toHaveAttribute('data-slots-anim-effect', /win|loss/);
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', /celebrate|shadow/);
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"(idle|win-react)"/);
     await expect(root).toHaveAttribute('data-slots-anim-seq', '2');
     await expect(root).toHaveAttribute('data-slots-outcome', /win|loss/);
@@ -244,9 +272,12 @@ test.describe('Compatibility hardening', () => {
     await page.goto('/pt/slots/');
     const ptRoot = page.locator('#slots-shell-root');
     await expectRuntimeParityEnvelope(ptRoot);
+    await expectSlotsShellEnvelope(page);
     await expectSlotsState(ptRoot, /idle|result|insufficient/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-state', 'idle');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', 'idle');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-effect', 'idle');
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-atmosphere', 'idle');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '0');
     await expectSlotsStatus(page, 'Estado: Parado');
@@ -259,6 +290,8 @@ test.describe('Compatibility hardening', () => {
     await expectRuntimeParityEnvelope(ptRoot);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-state', 'stop');
     await expect(ptRoot).toHaveAttribute('data-slots-anim-outcome', /win|loss/);
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-effect', /win|loss/);
+    await expect(ptRoot).toHaveAttribute('data-slots-anim-atmosphere', /celebrate|shadow/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-symbol-states', /"A":"(idle|win-react)"/);
     await expect(ptRoot).toHaveAttribute('data-slots-anim-seq', '2');
     await expect(ptRoot).toHaveAttribute('data-slots-outcome', /win|loss/);
@@ -330,6 +363,8 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"idle"/);
     await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-pulse');
     await expect(root).toHaveAttribute('data-slots-anim-blocked-reason', 'insufficient');
+    await expect(root).toHaveAttribute('data-slots-anim-effect', 'blocked');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', 'caution');
     await expect(root).toHaveAttribute('data-slots-anim-seq', '9');
     await expectSlotsStatus(page, 'Estado: Saldo insuficiente');
     await expect(root).toHaveAttribute('data-slots-balance', '0');
@@ -343,9 +378,83 @@ test.describe('Compatibility hardening', () => {
             event.name === 'slots_spin_blocked' &&
             event.locale === 'pt' &&
             event.route === '/pt/slots/' &&
-            (event.payload as { blocked_reason?: string })?.blocked_reason === 'insufficient',
+            (
+              event.payload as {
+                blocked_reason?: string;
+                spin_index?: number;
+                balance?: number;
+                bet?: number;
+              }
+            )?.blocked_reason === 'insufficient' &&
+            (
+              event.payload as {
+                blocked_reason?: string;
+                spin_index?: number;
+                balance?: number;
+                bet?: number;
+              }
+            )?.spin_index === 5 &&
+            (
+              event.payload as {
+                blocked_reason?: string;
+                spin_index?: number;
+                balance?: number;
+                bet?: number;
+              }
+            )?.balance === 0 &&
+            (
+              event.payload as {
+                blocked_reason?: string;
+                spin_index?: number;
+                balance?: number;
+                bet?: number;
+              }
+            )?.bet === 10,
         ),
       )
       .toBe(true);
+  });
+
+  test('theme query projects neon atmosphere without route drift or authority changes', async ({
+    page,
+  }) => {
+    await page.goto('/en/slots/?slotsTheme=slots-neon-v1');
+
+    const root = page.locator('#slots-shell-root');
+    await expect(root).toHaveAttribute('data-slots-theme', 'slots-core-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-neon-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere-theme', 'neon');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', 'idle');
+    await expectSlotsShellEnvelope(page);
+    await expect(page).toHaveURL(/\/en\/slots\/\?slotsTheme=slots-neon-v1$/);
+  });
+
+  test('minimal motion plus neon theme keeps canonical runtime confidence on slots', async ({
+    page,
+  }) => {
+    await page.goto('/en/slots/?slotsTheme=slots-neon-v1&slotsMotion=minimal');
+
+    const root = page.locator('#slots-shell-root');
+    await expect(root).toHaveAttribute('data-slots-theme', 'slots-core-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-neon-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere-theme', 'neon');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity-requested', 'minimal');
+    await expect(root).toHaveAttribute('data-slots-anim-intensity', 'minimal');
+    await expect(root).toHaveAttribute('data-slots-anim-idle', 'idle-static');
+    await expect(root).toHaveAttribute('data-slots-anim-effect', 'idle');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', 'idle');
+    await expectSlotsShellEnvelope(page);
+
+    await spinAndWaitForResolution(page, root, {
+      spinning: 'State: Spinning',
+      result: 'State: Result ready',
+    });
+
+    await expect(root).toHaveAttribute('data-slots-anim-intensity', 'minimal');
+    await expect(root).toHaveAttribute('data-slots-anim-theme', 'slots-neon-v1');
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere-theme', 'neon');
+    await expect(root).toHaveAttribute('data-slots-anim-effect', /win|loss/);
+    await expect(root).toHaveAttribute('data-slots-anim-atmosphere', /celebrate|shadow/);
+    await expect(page).toHaveURL(/\/en\/slots\/\?slotsTheme=slots-neon-v1&slotsMotion=minimal$/);
   });
 });

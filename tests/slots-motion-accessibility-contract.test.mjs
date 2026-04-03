@@ -54,6 +54,9 @@ test('A11Y-10: runtime emits accessibility snapshots without mutating authority 
   assert.equal(root.dataset.slotsAnimIntensityRequested, 'minimal');
   assert.equal(root.dataset.slotsAnimIntensity, 'minimal');
   assert.equal(root.dataset.slotsAnimIdle, 'idle-static');
+  assert.equal(root.dataset.slotsAnimEffect, 'idle');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'idle');
+  assert.equal(root.dataset.slotsAnimAtmosphereTheme, 'core');
   assert.equal(root.dataset.slotsBalance, '40');
   assert.equal(root.dataset.slotsBet, '2');
 

@@ -30,12 +30,13 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ EN/PT route-switch, discovery flow, and alias-deny regression coverage — v1.2
 - ✓ Slots gameplay implementation — deterministic reels, paylines, win logic, and guarded economy flow — v1.3
 - ✓ EN/PT gameplay runtime messaging and insufficient-credit browser coverage — v1.3
+- ✓ VIS-20/VIS-21/VIS-22 slots shell and presentation upgrade with cabinet framing, stronger HUD hierarchy, and EN/PT parity — v1.6 Phase 26
+- ✓ FX-20/FX-21/FX-22 richer effects, motion, and atmosphere polish with deterministic runtime hooks and theme-aware compatibility coverage — v1.6 Phase 27
+- ✓ QA-30/QA-31 visual confidence and release verification coverage for refreshed Slots routes — v1.6 Phase 28
 
 ### Active
 
-- [ ] ANL-20 analytics reporting foundations for conversion and funnel visibility
-- [ ] ANL-21 experimentation framework for CTA and flow A/B testing
-- [ ] REL-10 release confidence automation for milestone closeout readiness
+- [ ] Next milestone not defined yet
 
 ### Out of Scope
 
@@ -86,28 +87,29 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v1.6 (requirements definition in progress)
-- Phase progress: not started for v1.6
+- Active milestone: none
+- Latest shipped milestone: v1.6 Slots Visual Polish and Atmosphere (completed 2026-04-03)
+- Phase progress: v1.6 complete
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
-- Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop and upgraded visual runtime observability
+- Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Establish analytics reporting primitives that expose conversion and gameplay funnel health.
-- Add an experimentation framework to test CTA and onboarding-flow variants safely.
-- Automate release confidence checks to reduce manual milestone closeout overhead.
+- Improve the overall look and feel of the Slots game so it reads as a polished product, not a prototype.
+- Upgrade reel, symbol, and state feedback visuals without affecting deterministic gameplay authority.
+- Preserve EN/PT parity, reduced-motion safety, and runtime performance while increasing visual quality.
 
-## Current Milestone: v1.6 Analytics Productization and Experimentation
+## Current Milestone: v1.6 Slots Visual Polish and Atmosphere
 
-**Goal:** Turn instrumentation into actionable growth workflows (reporting + experiments) with stronger release confidence automation.
+**Goal:** Improve Slots visual quality with a stronger shell, richer effects, and a coherent atmosphere pass while keeping the game deterministic and stable.
 
 **Target features:**
 
-- Analytics dashboard-ready event aggregations and conversion views
-- Experiment assignment and variant tracking for key Projects/Slots CTAs
-- Guarded rollout and release confidence automation for milestone quality gates
-- Scoped v1.6 requirements and phase roadmap preparation
+- Refined Slots shell, reel frame, typography hierarchy, and gameplay HUD presentation
+- Stronger spin, stop, win, blocked, and idle visual feedback with reduced-motion-safe fallbacks
+- Cohesive visual theme and atmosphere upgrades that stay presentation-only
+- Visual QA and release evidence for refreshed Slots routes
 
 ## Evolution
 
@@ -130,4 +132,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 at v1.6 kickoff_
+_Last updated: 2026-04-03 after v1.6 completion_

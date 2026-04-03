@@ -11,6 +11,7 @@ const t = useTranslations('pt');
 >
   <section
     id="slots-shell-root"
+    data-slots-shell="cabinet"
     data-slots-seed="slots-phase-13-pt"
     data-slots-theme="slots-core-v1"
     data-slots-motion="full"
@@ -25,100 +26,156 @@ const t = useTranslations('pt');
     data-slots-msg-insufficient={t('slots.gameplay.status.insufficient')}
     data-slots-msg-blocked-spinning={t('slots.gameplay.status.blockedSpinning')}
     data-slots-msg-pending={t('slots.gameplay.status.pending')}
-    class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
+    class="slots-shell mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
   >
-    <h1
-      class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-1 sm:mb-2 ls-tight-3"
-    >
-      {t('slots.title')}
-    </h1>
-    <p class="text-text-muted font-mono text-xs sm:text-sm mb-8 sm:mb-10">{t('slots.subtitle')}</p>
+    <div class="slots-shell__backdrop" aria-hidden="true">
+      <div class="slots-shell__aura slots-shell__aura--neon"></div>
+      <div class="slots-shell__aura slots-shell__aura--gold"></div>
+      <div class="slots-shell__gridline"></div>
+    </div>
 
-    <article class="glow-panel p-5 sm:p-6">
-      <div class="flex flex-wrap items-center gap-3 mb-4">
-        <span
-          class="font-mono text-[10px] uppercase tracking-widest text-gold bg-gold-dim px-2 py-1"
-        >
-          {t('slots.badge.foundation')}
-        </span>
-        <span id="slots-shell-status" class="font-mono text-xs uppercase tracking-wider text-neon">
-          {t('slots.status.inDevelopment')}
-        </span>
-      </div>
-
-      <p class="text-sm text-text-secondary mb-6">{t('slots.description')}</p>
-
-      <div class="border border-surface-container-high bg-surface-container p-4 sm:p-5 mb-6">
-        <p class="font-mono text-xs uppercase tracking-widest text-text-muted mb-2">
-          {t('slots.disclaimer.heading')}
-        </p>
-        <p class="text-sm text-text-secondary">{t('slots.disclaimer.noGambling')}</p>
-        <p class="text-sm text-text-secondary mt-1">{t('slots.disclaimer.noRealMoney')}</p>
-      </div>
-
-      <div class="flex flex-wrap gap-3">
-        <a
-          href="/pt/projects/"
-          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
-        >
-          {t('slots.cta.projects')}
-        </a>
-        <a
-          href="/pt/canvas/"
-          class="inline-flex items-center justify-center min-h-11 text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
-        >
-          {t('slots.cta.canvas')}
-        </a>
-      </div>
-
-      <div id="slots-gameplay" class="mt-6 border border-surface-container-high p-4 sm:p-5">
-        <p class="font-mono text-xs uppercase tracking-wider text-text-muted mb-2">
-          {t('slots.gameplay.panel.title')}
-        </p>
-        <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
-          <span class="text-text-muted">{t('slots.gameplay.label.balance')}:</span>
-          <strong id="slots-balance-value" class="text-neon">40</strong>
-          <span class="text-text-muted ml-4">{t('slots.gameplay.label.bet')}:</span>
-          <button
-            id="slots-bet-dec"
-            type="button"
-            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary hover:text-neon transition-colors hud-outline-subtle"
-          >
-            -
-          </button>
-          <strong id="slots-bet-value" class="text-cyan">2</strong>
-          <button
-            id="slots-bet-inc"
-            type="button"
-            class="min-h-11 min-w-11 px-2 py-1 border border-surface-container-high text-text-primary hover:text-neon transition-colors hud-outline-subtle"
-          >
-            +
-          </button>
+    <article class="slots-cabinet glow-panel">
+      <header class="slots-cabinet__hero" data-slots-zone="header">
+        <div class="slots-cabinet__hero-copy">
+          <div class="slots-cabinet__chips anim-boot-1">
+            <span class="slots-chip slots-chip--gold">{t('slots.badge.foundation')}</span>
+            <span id="slots-shell-status" class="slots-chip slots-chip--neon">
+              {t('slots.status.inDevelopment')}
+            </span>
+          </div>
+          <p class="slots-cabinet__eyebrow anim-boot-2">{t('slots.shell.eyebrow')}</p>
+          <h1 class="slots-cabinet__title anim-boot-3">{t('slots.title')}</h1>
+          <p class="slots-cabinet__subtitle anim-boot-4">{t('slots.subtitle')}</p>
+          <p class="slots-cabinet__description anim-boot-5">{t('slots.description')}</p>
         </div>
-        <div class="flex flex-wrap items-center gap-3 mb-3">
-          <button
-            id="slots-spin-button"
-            data-slots-action="spin"
-            type="button"
-            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-4 py-2 bg-cyan text-surface-dim font-bold text-xs uppercase tracking-wider"
-          >
-            {t('slots.gameplay.cta.spin')}
-          </button>
-          <p id="slots-gameplay-status" class="font-mono text-xs text-text-muted">
-            {t('slots.gameplay.label.state')}: {t('slots.gameplay.status.idle')}
-          </p>
+
+        <div class="slots-cabinet__telemetry anim-terminal" data-slots-zone="telemetry">
+          <div class="slots-telemetry-card">
+            <span class="slots-telemetry-card__label">{t('slots.shell.label.routes')}</span>
+            <strong class="slots-telemetry-card__value">EN / PT</strong>
+          </div>
+          <div class="slots-telemetry-card">
+            <span class="slots-telemetry-card__label">{t('slots.shell.label.motion')}</span>
+            <strong class="slots-telemetry-card__value">TOTAL</strong>
+          </div>
+          <div class="slots-telemetry-card">
+            <span class="slots-telemetry-card__label">{t('slots.shell.label.theme')}</span>
+            <strong class="slots-telemetry-card__value">CORE V1</strong>
+          </div>
         </div>
-        <p id="slots-gameplay-outcome" class="text-sm text-text-secondary">
-          {t('slots.gameplay.label.outcome')}: {t('slots.gameplay.status.pending')}
-        </p>
-        <p id="slots-gameplay-seed" class="text-xs text-text-muted mt-1">
-          {t('slots.gameplay.label.seed')}: -
-        </p>
-        <pre
-          id="slots-round-result"
-          data-slots-result
-          class="mt-3 p-3 text-xs overflow-x-auto max-w-full break-all sm:break-normal border border-surface-container-high bg-background/50">
-        </pre>
+      </header>
+
+      <div class="slots-cabinet__grid">
+        <section id="slots-gameplay" class="slots-stage anim-tile-1" data-slots-zone="playfield">
+          <div class="slots-stage__topline">
+            <p class="slots-stage__zone-label">{t('slots.shell.zone.playfield')}</p>
+            <p class="slots-stage__panel-title">{t('slots.gameplay.panel.title')}</p>
+          </div>
+
+          <div class="slots-stage__frame" data-slots-reel-frame>
+            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+              <span>R1</span>
+            </div>
+            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+              <span>R2</span>
+            </div>
+            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+              <span>R3</span>
+            </div>
+          </div>
+
+          <div class="slots-stage__hud">
+            <div class="slots-meter" data-slots-meter="balance">
+              <span class="slots-meter__label">{t('slots.gameplay.label.balance')}</span>
+              <strong id="slots-balance-value" class="slots-meter__value slots-meter__value--neon"
+                >40</strong
+              >
+            </div>
+
+            <div class="slots-meter" data-slots-meter="bet">
+              <span class="slots-meter__label">{t('slots.gameplay.label.bet')}</span>
+              <div class="slots-meter__controls">
+                <button id="slots-bet-dec" type="button" class="slots-adjuster hud-outline-subtle">
+                  -
+                </button>
+                <strong id="slots-bet-value" class="slots-meter__value slots-meter__value--cyan"
+                  >2</strong
+                >
+                <button id="slots-bet-inc" type="button" class="slots-adjuster hud-outline-subtle">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="slots-stage__command-row">
+            <button
+              id="slots-spin-button"
+              data-slots-action="spin"
+              type="button"
+              class="slots-spin-button clip-corners hover-glitch"
+            >
+              {t('slots.gameplay.cta.spin')}
+            </button>
+            <p id="slots-gameplay-status" class="slots-stage__status-readout">
+              {t('slots.gameplay.label.state')}: {t('slots.gameplay.status.idle')}
+            </p>
+          </div>
+
+          <div class="slots-stage__signal-grid">
+            <p id="slots-gameplay-outcome" class="slots-stage__signal-card">
+              {t('slots.gameplay.label.outcome')}: {t('slots.gameplay.status.pending')}
+            </p>
+            <p
+              id="slots-gameplay-seed"
+              class="slots-stage__signal-card slots-stage__signal-card--muted"
+            >
+              {t('slots.gameplay.label.seed')}: -
+            </p>
+          </div>
+        </section>
+
+        <aside class="slots-console">
+          <section class="slots-panel anim-tile-2" data-slots-zone="console">
+            <div class="slots-panel__header">
+              <p class="slots-panel__eyebrow">{t('slots.shell.zone.console')}</p>
+              <p class="slots-panel__title">{t('slots.gameplay.label.outcome')}</p>
+            </div>
+            <pre id="slots-round-result" data-slots-result class="slots-panel__terminal"></pre>
+          </section>
+
+          <section class="slots-panel anim-tile-3" data-slots-zone="compliance">
+            <div class="slots-panel__header">
+              <p class="slots-panel__eyebrow">{t('slots.shell.zone.compliance')}</p>
+              <p class="slots-panel__title">{t('slots.disclaimer.heading')}</p>
+            </div>
+            <p class="slots-panel__body">{t('slots.disclaimer.noGambling')}</p>
+            <p class="slots-panel__body slots-panel__body--muted">
+              {t('slots.disclaimer.noRealMoney')}
+            </p>
+          </section>
+
+          <section class="slots-panel anim-tile-4" data-slots-zone="navigation">
+            <div class="slots-panel__header">
+              <p class="slots-panel__eyebrow">{t('slots.shell.zone.navigation')}</p>
+              <p class="slots-panel__title">{t('slots.title')}</p>
+            </div>
+            <div class="slots-panel__actions">
+              <a
+                href="/pt/projects/"
+                class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+              >
+                {t('slots.cta.projects')}
+              </a>
+              <a
+                href="/pt/canvas/"
+                class="inline-flex items-center justify-center min-h-11 text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
+              >
+                {t('slots.cta.canvas')}
+              </a>
+            </div>
+          </section>
+        </aside>
       </div>
     </article>
   </section>

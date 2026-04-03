@@ -574,3 +574,767 @@ body::after {
     transform: none;
   }
 }
+
+/* === SLOTS SHELL — cabinet presentation upgrade === */
+.slots-shell {
+  position: relative;
+}
+
+.slots-shell__backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.slots-shell__aura {
+  position: absolute;
+  filter: blur(10px);
+  opacity: 0.85;
+  transition:
+    opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.28s ease-out,
+    background 0.28s ease-out;
+}
+
+.slots-shell__aura--neon {
+  top: 8%;
+  left: -4%;
+  width: min(34rem, 58vw);
+  height: min(34rem, 58vw);
+  background: radial-gradient(
+    circle,
+    rgba(142, 255, 113, 0.16) 0%,
+    rgba(142, 255, 113, 0.04) 42%,
+    transparent 72%
+  );
+}
+
+.slots-shell__aura--gold {
+  right: -8%;
+  bottom: 10%;
+  width: min(28rem, 44vw);
+  height: min(28rem, 44vw);
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 9, 0.13) 0%,
+    rgba(255, 215, 9, 0.025) 46%,
+    transparent 74%
+  );
+}
+
+.slots-shell__gridline {
+  position: absolute;
+  inset: 5% 2% auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(143, 245, 255, 0.3) 18%,
+    rgba(142, 255, 113, 0.18) 52%,
+    transparent 100%
+  );
+  transition:
+    opacity 0.24s ease-out,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s ease-out;
+}
+
+.slots-cabinet {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38, 38, 38, 0.92) 0%,
+      rgba(14, 14, 14, 0.96) 18%,
+      rgba(14, 14, 14, 0.98) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(143, 245, 255, 0.05),
+      transparent 35%,
+      rgba(255, 215, 9, 0.05) 100%
+    );
+  border: 1px solid rgba(143, 245, 255, 0.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 215, 9, 0.06),
+    0 32px 80px rgba(0, 0, 0, 0.35);
+  transition:
+    background 0.35s ease-out,
+    border-color 0.24s ease-out,
+    box-shadow 0.32s ease-out,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slots-cabinet::before,
+.slots-cabinet::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.slots-cabinet::before {
+  inset: 0.75rem;
+  border: 1px solid rgba(142, 255, 113, 0.08);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+}
+
+.slots-cabinet::after {
+  inset: auto 1.25rem 1.1rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(142, 255, 113, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+.slots-cabinet__hero {
+  position: relative;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: start;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.slots-cabinet__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.slots-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.slots-chip--gold {
+  color: var(--color-gold);
+  background: rgba(255, 215, 9, 0.09);
+  border-color: rgba(255, 215, 9, 0.15);
+}
+
+.slots-chip--neon {
+  color: var(--color-neon);
+  background: rgba(142, 255, 113, 0.09);
+  border-color: rgba(142, 255, 113, 0.18);
+}
+
+.slots-cabinet__eyebrow,
+.slots-panel__eyebrow,
+.slots-stage__zone-label,
+.slots-telemetry-card__label,
+.slots-meter__label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.slots-cabinet__title {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 5.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.slots-cabinet__subtitle {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-cyan) 58%, var(--color-text-primary));
+}
+
+.slots-cabinet__description {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.9vw, 1.12rem);
+  color: color-mix(in oklab, var(--color-text-secondary) 78%, var(--color-text-primary));
+}
+
+.slots-cabinet__telemetry {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.slots-telemetry-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(180deg, rgba(34, 34, 34, 0.82), rgba(19, 19, 19, 0.92));
+  border: 1px solid rgba(143, 245, 255, 0.12);
+  transition:
+    border-color 0.24s ease-out,
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s ease-out,
+    box-shadow 0.3s ease-out;
+}
+
+.slots-telemetry-card__value,
+.slots-panel__title,
+.slots-stage__panel-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.slots-cabinet__grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+.slots-stage,
+.slots-panel {
+  position: relative;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: linear-gradient(180deg, rgba(26, 25, 25, 0.92), rgba(14, 14, 14, 0.95));
+  border: 1px solid rgba(142, 255, 113, 0.1);
+  transition:
+    border-color 0.24s ease-out,
+    background 0.32s ease-out,
+    box-shadow 0.3s ease-out,
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slots-stage::before,
+.slots-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0.65rem;
+  border: 1px solid rgba(255, 215, 9, 0.08);
+  pointer-events: none;
+}
+
+.slots-stage__topline,
+.slots-panel__header {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.slots-stage__frame {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  padding: clamp(1rem, 2vw, 1.3rem);
+  margin-bottom: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 215, 9, 0.08), rgba(255, 215, 9, 0) 26%),
+    linear-gradient(180deg, rgba(17, 17, 17, 0.95), rgba(26, 25, 25, 0.82));
+  border: 1px solid rgba(255, 215, 9, 0.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(143, 245, 255, 0.08),
+    inset 0 -20px 40px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color 0.24s ease-out,
+    box-shadow 0.3s ease-out,
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.28s ease-out,
+    filter 0.28s ease-out;
+}
+
+.slots-stage__reel-window {
+  position: relative;
+  min-height: clamp(7rem, 18vw, 10rem);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(143, 245, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(14, 14, 14, 0.8), rgba(34, 34, 34, 0.9));
+  border: 1px solid rgba(143, 245, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 0 40px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color 0.2s ease-out,
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.26s ease-out,
+    background 0.28s ease-out,
+    opacity 0.2s ease-out,
+    filter 0.24s ease-out;
+}
+
+.slots-stage__reel-window::before,
+.slots-stage__reel-window::after {
+  content: '';
+  position: absolute;
+  inset-inline: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(142, 255, 113, 0.4) 50%,
+    transparent 100%
+  );
+}
+
+.slots-stage__reel-window::before {
+  top: 18%;
+}
+
+.slots-stage__reel-window::after {
+  bottom: 18%;
+}
+
+.slots-stage__reel-window span {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 3vw, 1.45rem);
+  letter-spacing: 0.24em;
+  color: rgba(232, 230, 227, 0.7);
+  transition:
+    color 0.24s ease-out,
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s ease-out;
+}
+
+.slots-stage__hud {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.slots-meter {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  background: rgba(19, 19, 19, 0.86);
+  border: 1px solid rgba(142, 255, 113, 0.1);
+}
+
+.slots-meter__value {
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.slots-meter__value--neon {
+  color: var(--color-neon);
+}
+
+.slots-meter__value--cyan {
+  color: var(--color-cyan);
+}
+
+.slots-meter__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.slots-adjuster,
+.slots-spin-button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 1px solid rgba(143, 245, 255, 0.14);
+  background: rgba(14, 14, 14, 0.84);
+  color: var(--color-text-primary);
+  font: inherit;
+  font-weight: 700;
+}
+
+.slots-adjuster:hover,
+.slots-spin-button:hover {
+  border-color: rgba(142, 255, 113, 0.28);
+}
+
+.slots-stage__command-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.slots-spin-button {
+  padding: 0.8rem 1.45rem;
+  background: linear-gradient(180deg, rgba(143, 245, 255, 0.95), rgba(96, 210, 224, 0.9));
+  color: var(--color-surface-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.slots-stage__status-readout,
+.slots-stage__signal-card,
+.slots-panel__body,
+.slots-panel__terminal {
+  margin: 0;
+  font-family: var(--font-mono);
+}
+
+.slots-stage__status-readout {
+  flex: 1 1 16rem;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.95rem;
+  background: rgba(19, 19, 19, 0.86);
+  border: 1px solid rgba(143, 245, 255, 0.12);
+  color: var(--color-text-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  transition:
+    border-color 0.2s ease-out,
+    background 0.24s ease-out,
+    box-shadow 0.24s ease-out,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.2s ease-out;
+}
+
+.slots-stage__signal-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.slots-stage__signal-card {
+  min-height: 3rem;
+  padding: 0.9rem 1rem;
+  background: rgba(19, 19, 19, 0.86);
+  border: 1px solid rgba(255, 215, 9, 0.12);
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    border-color 0.22s ease-out,
+    background 0.26s ease-out,
+    box-shadow 0.26s ease-out,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.2s ease-out;
+}
+
+.slots-stage__signal-card--muted,
+.slots-panel__body--muted {
+  color: var(--color-text-secondary);
+}
+
+.slots-console {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.2rem);
+}
+
+.slots-panel__terminal {
+  min-height: 13rem;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid rgba(143, 245, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(14, 14, 14, 0.95), rgba(19, 19, 19, 0.95)),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 18px,
+      rgba(143, 245, 255, 0.03) 18px,
+      rgba(143, 245, 255, 0.03) 19px
+    );
+  color: var(--color-cyan);
+  font-size: 0.76rem;
+  transition:
+    border-color 0.22s ease-out,
+    box-shadow 0.26s ease-out,
+    background 0.28s ease-out,
+    color 0.2s ease-out;
+}
+
+.slots-panel__body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+.slots-panel__body + .slots-panel__body {
+  margin-top: 0.5rem;
+}
+
+.slots-panel__actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@keyframes slots-charge-sweep {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes slots-vortex-sway {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.015);
+  }
+}
+
+@keyframes slots-win-flare {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 0 0 1px rgba(143, 245, 255, 0.08),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.35),
+      0 0 0 rgba(255, 215, 9, 0);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 1px rgba(143, 245, 255, 0.18),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.25),
+      0 0 30px rgba(255, 215, 9, 0.18);
+  }
+}
+
+@keyframes slots-shadow-drift {
+  0%,
+  100% {
+    filter: saturate(0.95) brightness(1);
+  }
+  50% {
+    filter: saturate(0.78) brightness(0.92);
+  }
+}
+
+@keyframes slots-caution-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-cabinet {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18, 23, 29, 0.96) 0%,
+      rgba(8, 13, 17, 0.98) 26%,
+      rgba(7, 10, 14, 0.99) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(143, 245, 255, 0.09),
+      transparent 42%,
+      rgba(142, 255, 113, 0.07) 100%
+    );
+  border-color: rgba(143, 245, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(143, 245, 255, 0.08),
+    0 32px 80px rgba(0, 0, 0, 0.42);
+}
+
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-shell__aura--neon {
+  background: radial-gradient(
+    circle,
+    rgba(143, 245, 255, 0.2) 0%,
+    rgba(143, 245, 255, 0.05) 42%,
+    transparent 74%
+  );
+}
+
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-shell__aura--gold {
+  background: radial-gradient(
+    circle,
+    rgba(142, 255, 113, 0.14) 0%,
+    rgba(142, 255, 113, 0.03) 46%,
+    transparent 76%
+  );
+}
+
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-stage__frame,
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-panel,
+#slots-shell-root[data-slots-anim-theme='slots-neon-v1'] .slots-telemetry-card {
+  border-color: rgba(143, 245, 255, 0.2);
+}
+
+#slots-shell-root[data-slots-anim-effect='charge'] .slots-stage__frame,
+#slots-shell-root[data-slots-anim-effect='sustain'] .slots-stage__frame {
+  border-color: rgba(143, 245, 255, 0.34);
+  transform: translateY(-2px);
+}
+
+#slots-shell-root[data-slots-anim-effect='charge'] .slots-stage__reel-window {
+  animation: slots-charge-sweep 0.72s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 0 40px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(143, 245, 255, 0.12);
+}
+
+#slots-shell-root[data-slots-anim-effect='sustain'] .slots-stage__reel-window {
+  animation: slots-vortex-sway 0.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  border-color: rgba(143, 245, 255, 0.32);
+}
+
+#slots-shell-root[data-slots-anim-effect='sustain'] .slots-stage__reel-window span {
+  color: rgba(143, 245, 255, 0.92);
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='charge'] .slots-shell__gridline,
+#slots-shell-root[data-slots-anim-atmosphere='vortex'] .slots-shell__gridline {
+  opacity: 1;
+  transform: translateY(2px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(143, 245, 255, 0.6) 18%,
+    rgba(142, 255, 113, 0.45) 52%,
+    transparent 100%
+  );
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='charge'] .slots-shell__aura--neon,
+#slots-shell-root[data-slots-anim-atmosphere='vortex'] .slots-shell__aura--neon {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+#slots-shell-root[data-slots-anim-effect='win'] .slots-stage__frame {
+  animation: slots-win-flare 0.95s cubic-bezier(0.16, 1, 0.3, 1) 2;
+  border-color: rgba(255, 215, 9, 0.42);
+}
+
+#slots-shell-root[data-slots-anim-effect='win'] .slots-stage__signal-card,
+#slots-shell-root[data-slots-anim-effect='win'] .slots-stage__status-readout {
+  border-color: rgba(255, 215, 9, 0.34);
+  box-shadow: 0 0 24px rgba(255, 215, 9, 0.12);
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='celebrate'] .slots-shell__aura--gold {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+#slots-shell-root[data-slots-anim-effect='loss'] .slots-stage__frame,
+#slots-shell-root[data-slots-anim-effect='loss'] .slots-panel__terminal {
+  animation: slots-shadow-drift 1.1s ease-out 1;
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='shadow'] .slots-shell__aura--gold {
+  opacity: 0.45;
+  filter: blur(18px);
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='shadow'] .slots-stage__signal-card--muted {
+  color: color-mix(in oklab, var(--color-text-secondary) 72%, var(--color-cyan));
+}
+
+#slots-shell-root[data-slots-anim-effect='blocked'] .slots-stage__status-readout,
+#slots-shell-root[data-slots-anim-atmosphere='caution'] .slots-stage__signal-card {
+  border-color: rgba(255, 215, 9, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 215, 9, 0.08);
+  animation: slots-caution-pulse 0.6s ease-out 2;
+}
+
+#slots-shell-root[data-slots-anim-atmosphere='caution'] .slots-shell__gridline {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 9, 0.5) 50%, transparent 100%);
+}
+
+#slots-shell-root[data-slots-anim-intensity='reduced'] .slots-stage__reel-window {
+  animation-duration: 1.25s;
+}
+
+#slots-shell-root[data-slots-anim-intensity='reduced'][data-slots-anim-effect='win']
+  .slots-stage__frame {
+  animation-iteration-count: 1;
+}
+
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-stage__reel-window,
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-stage__frame,
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-stage__status-readout,
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-stage__signal-card,
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-shell__aura,
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-shell__gridline {
+  animation: none !important;
+}
+
+#slots-shell-root[data-slots-anim-intensity='minimal'] .slots-shell__aura {
+  opacity: 0.55;
+  transform: none;
+}
+
+#slots-shell-root[data-slots-anim-intensity='minimal'][data-slots-anim-effect='win']
+  .slots-stage__frame,
+#slots-shell-root[data-slots-anim-intensity='minimal'][data-slots-anim-effect='blocked']
+  .slots-stage__status-readout {
+  box-shadow: inset 0 0 0 1px rgba(255, 215, 9, 0.12);
+}
+
+@media (min-width: 768px) {
+  .slots-cabinet__hero {
+    grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 0.9fr);
+  }
+
+  .slots-cabinet__grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(20rem, 0.85fr);
+    align-items: start;
+  }
+
+  .slots-stage__hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .slots-stage__signal-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .slots-cabinet {
+    padding: 1rem;
+  }
+
+  .slots-cabinet::before {
+    inset: 0.5rem;
+  }
+
+  .slots-stage__frame {
+    gap: 0.5rem;
+    padding: 0.85rem;
+  }
+
+  .slots-stage__command-row {
+    align-items: stretch;
+  }
+
+  .slots-spin-button,
+  .slots-stage__status-readout {
+    width: 100%;
+  }
+}

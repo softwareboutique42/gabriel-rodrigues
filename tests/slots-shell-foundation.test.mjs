@@ -18,11 +18,27 @@ const pt = JSON.parse(readFileSync(ptI18nPath, 'utf8'));
 test('SLOT-01: slots shell pages exist with mirrored in-development structure', () => {
   assert.match(enPage, /id="slots-shell-root"/);
   assert.match(ptPage, /id="slots-shell-root"/);
+  assert.match(enPage, /data-slots-shell="cabinet"/);
+  assert.match(ptPage, /data-slots-shell="cabinet"/);
+  assert.match(enPage, /data-slots-zone="header"/);
+  assert.match(ptPage, /data-slots-zone="header"/);
+  assert.match(enPage, /data-slots-zone="playfield"/);
+  assert.match(ptPage, /data-slots-zone="playfield"/);
+  assert.match(enPage, /data-slots-zone="console"/);
+  assert.match(ptPage, /data-slots-zone="console"/);
+  assert.match(enPage, /data-slots-zone="compliance"/);
+  assert.match(ptPage, /data-slots-zone="compliance"/);
+  assert.match(enPage, /data-slots-zone="navigation"/);
+  assert.match(ptPage, /data-slots-zone="navigation"/);
+  assert.match(enPage, /data-slots-reel-frame/);
+  assert.match(ptPage, /data-slots-reel-frame/);
 
   assert.match(enPage, /t\('slots\.title'\)/);
   assert.match(ptPage, /t\('slots\.title'\)/);
   assert.match(enPage, /t\('slots\.status\.inDevelopment'\)/);
   assert.match(ptPage, /t\('slots\.status\.inDevelopment'\)/);
+  assert.match(enPage, /t\('slots\.shell\.eyebrow'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.eyebrow'\)/);
 
   assert.match(enPage, /href="\/en\/projects\/"/);
   assert.match(ptPage, /href="\/pt\/projects\/"/);
@@ -39,6 +55,11 @@ test('SLOT-02: visible non-gambling and no-real-money disclaimer parity', () => 
   const keys = [
     'slots.description',
     'slots.badge.foundation',
+    'slots.shell.eyebrow',
+    'slots.shell.zone.playfield',
+    'slots.shell.zone.console',
+    'slots.shell.zone.compliance',
+    'slots.shell.zone.navigation',
     'slots.disclaimer.heading',
     'slots.disclaimer.noGambling',
     'slots.disclaimer.noRealMoney',
@@ -77,6 +98,18 @@ test('SLOT-03: SPA-safe lifecycle wiring uses page-load, root guard, and AbortCo
 test('canonical and safety locks: no monetization or alias route drift', () => {
   assert.doesNotMatch(enPage, /\/en\/projects\/slots\//);
   assert.doesNotMatch(ptPage, /\/pt\/projects\/slots\//);
+  assert.match(enPage, /id="slots-balance-value"/);
+  assert.match(ptPage, /id="slots-balance-value"/);
+  assert.match(enPage, /id="slots-bet-value"/);
+  assert.match(ptPage, /id="slots-bet-value"/);
+  assert.match(enPage, /id="slots-spin-button"/);
+  assert.match(ptPage, /id="slots-spin-button"/);
+  assert.match(enPage, /id="slots-gameplay-status"/);
+  assert.match(ptPage, /id="slots-gameplay-status"/);
+  assert.match(enPage, /id="slots-gameplay-outcome"/);
+  assert.match(ptPage, /id="slots-gameplay-outcome"/);
+  assert.match(enPage, /id="slots-round-result"/);
+  assert.match(ptPage, /id="slots-round-result"/);
 
   const forbiddenPatterns = [
     /\bwager\b/i,

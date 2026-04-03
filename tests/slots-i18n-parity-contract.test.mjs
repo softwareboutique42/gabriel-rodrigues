@@ -27,6 +27,14 @@ const PHASE14_KEYS = [
   'slots.gameplay.status.insufficient',
   'slots.gameplay.status.blockedSpinning',
   'slots.gameplay.status.pending',
+  'slots.shell.eyebrow',
+  'slots.shell.zone.playfield',
+  'slots.shell.zone.console',
+  'slots.shell.zone.compliance',
+  'slots.shell.zone.navigation',
+  'slots.shell.label.routes',
+  'slots.shell.label.motion',
+  'slots.shell.label.theme',
 ];
 
 test('I18N-10: all phase-14 gameplay keys exist and are non-empty in EN/PT', () => {
@@ -51,6 +59,12 @@ test('I18N-10: slots pages consume gameplay translation keys instead of hardcode
   assert.match(ptPage, /data-slots-label-balance=\{t\('slots\.gameplay\.label\.balance'\)\}/);
   assert.match(enPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
   assert.match(ptPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
+  assert.match(enPage, /t\('slots\.shell\.eyebrow'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.eyebrow'\)/);
+  assert.match(enPage, /t\('slots\.shell\.zone\.playfield'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.zone\.playfield'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.routes'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.routes'\)/);
 });
 
 test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and deterministic seeds', () => {
@@ -62,4 +76,8 @@ test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and determ
   assert.match(ptPage, /data-slots-motion="full"/);
   assert.match(enPage, /id="slots-shell-root"/);
   assert.match(ptPage, /id="slots-shell-root"/);
+  assert.match(enPage, /data-slots-shell="cabinet"/);
+  assert.match(ptPage, /data-slots-shell="cabinet"/);
+  assert.match(enPage, /data-slots-zone="navigation"/);
+  assert.match(ptPage, /data-slots-zone="navigation"/);
 });

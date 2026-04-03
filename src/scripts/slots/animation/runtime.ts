@@ -25,6 +25,10 @@ export interface SlotsAnimationRuntimeMount {
   dispose: () => void;
 }
 
+type SlotsEffectState = 'idle' | 'charge' | 'sustain' | 'win' | 'loss' | 'blocked';
+type SlotsAtmosphereState = 'idle' | 'charge' | 'vortex' | 'celebrate' | 'shadow' | 'caution';
+type SlotsAtmosphereTheme = 'core' | 'neon';
+
 const runtimes = new WeakMap<HTMLElement, SlotsAnimationRuntimeMount>();
 
 const THEME_REGISTRY = createSlotsThemeRegistry(DEFAULT_SLOTS_THEMES, 'slots-core-v1');
@@ -93,6 +97,32 @@ function projectIdleStateForIntensity(
 
 function writeThemeSnapshot(root: HTMLElement, themeId: string): void {
   root.dataset.slotsAnimTheme = themeId;
+  root.dataset.slotsAnimAtmosphereTheme = resolveAtmosphereTheme(themeId);
+}
+
+function resolveAtmosphereTheme(themeId: string): SlotsAtmosphereTheme {
+  return themeId === 'slots-neon-v1' ? 'neon' : 'core';
+}
+
+function resolveEffectState(
+  timelineSnapshot: ReturnType<ReturnType<typeof createReelTimelineModel>['snapshot']>,
+  feedbackSnapshot: ReturnType<ReturnType<typeof createOutcomeFeedbackModel>['snapshot']>,
+): SlotsEffectState {
+  if (timelineSnapshot.phase === 'blocked') return 'blocked';
+  if (timelineSnapshot.phase === 'sustain') return 'sustain';
+  if (timelineSnapshot.phase === 'spin-up') return 'charge';
+  if (timelineSnapshot.phase === 'stop' && feedbackSnapshot.status === 'win') return 'win';
+  if (timelineSnapshot.phase === 'stop' && feedbackSnapshot.status === 'loss') return 'loss';
+  return 'idle';
+}
+
+function resolveAtmosphereState(effectState: SlotsEffectState): SlotsAtmosphereState {
+  if (effectState === 'charge') return 'charge';
+  if (effectState === 'sustain') return 'vortex';
+  if (effectState === 'win') return 'celebrate';
+  if (effectState === 'loss') return 'shadow';
+  if (effectState === 'blocked') return 'caution';
+  return 'idle';
 }
 
 function writeSymbolStatesSnapshot(
@@ -148,10 +178,13 @@ function resetRuntimeDatasets(root: HTMLElement): void {
   deleteDatasetKey(root, 'slotsAnimSymbolStateSpinIndex');
   root.dataset.slotsAnimState = 'idle';
   root.dataset.slotsAnimOutcome = 'idle';
+  root.dataset.slotsAnimEffect = 'idle';
+  root.dataset.slotsAnimAtmosphere = 'idle';
   root.dataset.slotsAnimIdle = 'idle-pulse';
   root.dataset.slotsAnimAtlas = 'ready';
   root.dataset.slotsAnimAtlasId = getDefaultThemeAtlasId();
   root.dataset.slotsAnimTheme = getDefaultThemeId();
+  root.dataset.slotsAnimAtmosphereTheme = 'core';
   root.dataset.slotsAnimReducedMotion = 'false';
   root.dataset.slotsAnimIntensityRequested = 'full';
   root.dataset.slotsAnimIntensity = 'full';
@@ -178,6 +211,8 @@ function writeRuntimeSnapshots(
   const timelineSnapshot = timeline.snapshot();
   const feedbackSnapshot = feedback.snapshot();
   const guardrailSnapshot = performanceGuardrail.snapshot();
+  const effectState = resolveEffectState(timelineSnapshot, feedbackSnapshot);
+  const atmosphereState = resolveAtmosphereState(effectState);
   const effectiveIntensity = resolveEffectiveIntensity(
     motionPolicy.effectiveIntensity,
     guardrailSnapshot.intensityOverride,
@@ -186,6 +221,8 @@ function writeRuntimeSnapshots(
   root.dataset.slotsAnimIdle = projectIdleStateForIntensity(idleSnapshot.state, effectiveIntensity);
   root.dataset.slotsAnimState = timelineSnapshot.phase;
   root.dataset.slotsAnimOutcome = feedbackSnapshot.status;
+  root.dataset.slotsAnimEffect = effectState;
+  root.dataset.slotsAnimAtmosphere = atmosphereState;
   root.dataset.slotsAnimReducedMotion = motionPolicy.reducedMotion ? 'true' : 'false';
   root.dataset.slotsAnimIntensityRequested = motionPolicy.requestedIntensity;
   root.dataset.slotsAnimIntensity = effectiveIntensity;

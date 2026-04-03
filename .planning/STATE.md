@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.6
-milestone_name: analytics-productization-and-experimentation
-status: active
-stopped_at: Started v1.6 requirements definition
-last_updated: '2026-04-03T03:40:00.000Z'
+milestone_name: slots-visual-polish-and-atmosphere
+status: complete
+stopped_at: Completed milestone v1.6
+last_updated: '2026-04-03'
 last_activity: 2026-04-03
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 3
   total_plans: 3
-  completed_plans: 0
-  percent: 0
+  completed_plans: 3
+  percent: 100
 ---
 
 # STATE.md - Company Canvas
@@ -21,30 +21,30 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** v1.6 requirements and roadmap initialization
+**Current Focus:** v1.6 shipped; awaiting next milestone definition
 
 ## Current Position
 
-**Phase:** Not started (requirements definition)
-**Plan:** -
-**Status:** Defining v1.6 requirements
+**Phase:** Phase 28 - Visual Confidence Lock
+**Plan:** 28-01
+**Status:** Complete
 **Last Activity:** 2026-04-03
 
 ## Progress
 
 ```
-Progress: ░░░░░░░░░░ 0%
+Progress: ██████████ 100%
 ```
 
-Phases: 0/3 complete
+Phases: 3/3 complete
 
 ## Phase Summary
 
-| Phase    | Name                               | Status | Goal                                                                        |
-| -------- | ---------------------------------- | ------ | --------------------------------------------------------------------------- |
-| Phase 26 | Analytics Reporting Foundations    | ○      | Build deterministic reporting primitives for funnel and gameplay visibility |
-| Phase 27 | Experimentation Framework Delivery | ○      | Deliver deterministic A/B assignment and lifecycle controls                 |
-| Phase 28 | Release Confidence Automation      | ○      | Automate milestone confidence gate outputs                                  |
+| Phase    | Name                                 | Status | Goal                                                                     |
+| -------- | ------------------------------------ | ------ | ------------------------------------------------------------------------ |
+| Phase 26 | Slots Shell and Presentation Upgrade | ✓      | Improve shell hierarchy, reel framing, and gameplay HUD readability      |
+| Phase 27 | Effects and Atmosphere Pass          | ✓      | Add richer motion, effects, and visual atmosphere without gameplay forks |
+| Phase 28 | Visual Confidence Lock               | ✓      | Protect refreshed visuals with deterministic parity and release evidence |
 
 ## Key Decisions
 
@@ -70,16 +70,21 @@ Phases: 0/3 complete
 - [Phase 21-accessibility-and-performance-hardening]: Motion policy resolves deterministically via query->dataset->default while preserving presentation-only boundaries.
 - [Phase 21-accessibility-and-performance-hardening]: Performance fallback progression remains bounded and deterministic with recover-sample hysteresis.
 - [Phase 21-accessibility-and-performance-hardening]: Accessibility/performance assertions rely on stable data-slots-anim-\* snapshots across EN/PT routes.
+- [Phase 27-effects-and-atmosphere-pass]: Runtime effect and atmosphere datasets are derived from timeline, feedback, and theme snapshots without authority drift.
+- [Phase 27-effects-and-atmosphere-pass]: Neon atmosphere overrides remain presentation-only and preserve canonical route behavior.
 
 ## Performance Metrics
 
-| Phase | Plan | Duration | Tasks | Files | Completed |
-| ----- | ---- | -------- | ----- | ----- | --------- |
+| Phase | Plan  | Duration | Tasks | Files | Completed  |
+| ----- | ----- | -------- | ----- | ----- | ---------- |
+| 26    | 26-01 | 1 wave   | 3     | 8     | 2026-04-02 |
+| 27    | 27-01 | 1 wave   | 3     | 6     | 2026-04-03 |
+| 28    | 28-01 | 1 wave   | 3     | 2     | 2026-04-03 |
 
 ## Pending Todos
 
-- Run /gsd:discuss-phase 26 to gather implementation context for reporting foundations.
-- Run /gsd:plan-phase 26 to produce first executable plan for v1.6.
+- Define the next milestone before resuming `/gsd:next`.
+- Archive or commit the completed v1.6 work when ready.
 
 ## Blockers / Concerns
 
@@ -87,6 +92,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-03T00:31:58.413Z
-Stopped at: Started v1.6 requirements definition
+Last session: 2026-04-03
+Stopped at: Completed milestone v1.6
 Resume file: None

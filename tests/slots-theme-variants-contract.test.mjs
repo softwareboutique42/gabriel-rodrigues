@@ -52,6 +52,27 @@ test('SPRITE-12: runtime theme selection stays presentation-only', () => {
   const runtime = mountSlotsAnimationRuntime(root, visualEvents);
 
   assert.equal(root.dataset.slotsAnimTheme, 'slots-core-v1');
+  assert.equal(root.dataset.slotsAnimAtmosphereTheme, 'core');
+  assert.equal(root.dataset.slotsBalance, '40');
+  assert.equal(root.dataset.slotsBet, '2');
+
+  runtime.dispose();
+});
+
+test('SPRITE-12: neon theme projects deterministic atmosphere variant without authority drift', () => {
+  const root = /** @type {HTMLElement} */ ({
+    dataset: {
+      slotsTheme: 'slots-neon-v1',
+      slotsBalance: '40',
+      slotsBet: '2',
+    },
+  });
+  const visualEvents = createSlotsVisualEventStore();
+  const runtime = mountSlotsAnimationRuntime(root, visualEvents);
+
+  assert.equal(root.dataset.slotsAnimTheme, 'slots-neon-v1');
+  assert.equal(root.dataset.slotsAnimAtmosphereTheme, 'neon');
+  assert.equal(root.dataset.slotsAnimAtmosphere, 'idle');
   assert.equal(root.dataset.slotsBalance, '40');
   assert.equal(root.dataset.slotsBet, '2');
 
