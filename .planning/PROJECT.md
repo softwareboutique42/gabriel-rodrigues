@@ -33,14 +33,15 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ VIS-20/VIS-21/VIS-22 slots shell and presentation upgrade with cabinet framing, stronger HUD hierarchy, and EN/PT parity — v1.6 Phase 26
 - ✓ FX-20/FX-21/FX-22 richer effects, motion, and atmosphere polish with deterministic runtime hooks and theme-aware compatibility coverage — v1.6 Phase 27
 - ✓ QA-30/QA-31 visual confidence and release verification coverage for refreshed Slots routes — v1.6 Phase 28
+- ✓ CCZ-40/CCZ-41 canonical EN/PT Casinocraftz host routes with explicit zero-risk framing — v1.7
+- ✓ SLOT-40/SLOT-41 Slots integrated into Casinocraftz with deterministic authority and parity protection — v1.7
+- ✓ EDU-40/EDU-41 house-edge-first tutorial shipped with hybrid narrative and direct system explanation flow — v1.7
+- ✓ SYS-40/SYS-41 AI Essence and three starter utility cards delivered with deterministic spin-bridge progression — v1.7
+- ✓ SYS-42/QA-40/QA-41 integrated confidence lock closed with anti-monetization contracts, EN/PT compatibility checks, and release evidence — v1.7
 
 ### Active
 
-- [ ] CCZ-40/CCZ-41 browser-first Casinocraftz project foundation with explicit zero-risk framing and canonical EN/PT routes
-- [ ] SLOT-40/SLOT-41 move the Slots experience into Casinocraftz as the first playable module and improve it to better support the educational loop
-- [ ] EDU-40/EDU-41 house-edge-first tutorial with hybrid narrative and system explanations
-- [ ] SYS-40/SYS-41 AI Essence and three starter utility cards for the first progression loop
-- [ ] QA-40/QA-41 deterministic parity and release validation for the integrated Casinocraftz experience
+- [ ] Define v1.8 requirements and roadmap via /gsd:new-milestone
 
 ### Out of Scope
 
@@ -91,31 +92,22 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v1.7 Casinocraftz Foundation and Slots Integration
-- Latest shipped milestone: v1.6 Slots Visual Polish and Atmosphere (completed 2026-04-03)
-- Phase progress: Phase 29 ready to discuss
+- Active milestone: none
+- Latest shipped milestone: v1.7 Casinocraftz Foundation and Slots Integration (completed 2026-04-03)
+- Phase progress: milestone complete; awaiting next milestone kickoff
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
-- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`
+- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Create Casinocraftz as a browser-first project surface that reframes the casino loop as a transparent educational simulation.
-- Move the Slots game inside Casinocraftz as the first playable module and keep improving the slot experience where it supports the educational premise.
-- Teach house edge first through a hybrid narrative-plus-system tutorial, backed by AI Essence and starter utility cards.
-- Preserve EN/PT parity, deterministic runtime behavior, and release confidence while the new surfaces are integrated.
+- Define v1.8 product scope and requirements via /gsd:new-milestone.
+- Preserve deterministic runtime behavior, EN/PT parity, and anti-monetization guardrails as baseline constraints.
+- Continue milestone-bounded delivery with archive-first roadmap and requirements management.
 
-## Current Milestone: v1.7 Casinocraftz Foundation and Slots Integration
+## Current Milestone
 
-**Goal:** Build a browser-first Casinocraftz proof of concept that contains an improved Slots module, teaches house edge first, and introduces a transparent progression loop.
-
-**Target features:**
-
-- Canonical EN/PT Casinocraftz routes with explicit anti-gambling and zero-risk framing
-- The Slots game embedded as the first playable Casinocraftz module, with parallel improvements to teaching surfaces and player clarity
-- A house-edge-first tutorial delivered through both story dialogue and direct explanatory UI
-- AI Essence plus three starter utility cards: Probability Seer, Dopamine Dampener, and House Edge
-- Deterministic QA and release evidence for the integrated Casinocraftz experience
+No active milestone. v1.7 is complete and archived.
 
 ## Evolution
 
@@ -138,4 +130,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 at v1.7 kickoff_
+_Last updated: 2026-04-03 after v1.7 milestone completion_

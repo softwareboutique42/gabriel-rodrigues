@@ -91,3 +91,24 @@ test('standalone slots route remains locale-prefixed and rejects bare /slots ali
     assert.doesNotMatch(source, /href='\/slots\/?'/);
   }
 });
+
+test('integrated casinocraftz surfaces keep zero-risk framing and reject monetization hooks', () => {
+  assert.match(enCasinocraftz, /casinocraftz\.disclaimer\.zeroRisk/);
+  assert.match(ptCasinocraftz, /casinocraftz\.disclaimer\.zeroRisk/);
+  assert.match(enCasinocraftz, /never connected to real wagers/i);
+  assert.match(ptCasinocraftz, /nunca ligados a aposta real/i);
+
+  const monetizationPatterns = [
+    /data-(stripe|checkout|payment|deposit|withdraw)/i,
+    /href="\/(checkout|billing|wallet|deposit|purchase)\/?"/i,
+    /href='\/(checkout|billing|wallet|deposit|purchase)\/?'/i,
+    /\b(microtransaction|buy now|subscribe now|real money purchase)\b/i,
+  ];
+
+  const integratedSurfaces = [enCasinocraftz, ptCasinocraftz, enSlots, ptSlots];
+  for (const source of integratedSurfaces) {
+    for (const pattern of monetizationPatterns) {
+      assert.doesNotMatch(source, pattern, `unexpected monetization hook detected: ${pattern}`);
+    }
+  }
+});

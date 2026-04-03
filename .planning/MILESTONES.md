@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.7 Casinocraftz Foundation and Slots Integration (Shipped: 2026-04-03)
+
+**Delivered:** Browser-first Casinocraftz integration with embedded Slots, deterministic tutorial/card progression, and confidence-lock release evidence.
+
+**Phases completed:** 4 phases, 5 plans
+
+**Key accomplishments:**
+
+- Established canonical EN/PT Casinocraftz host routes with explicit zero-risk framing and stable embed parity.
+- Integrated Slots as module one in Casinocraftz while preserving deterministic runtime authority and standalone route integrity.
+- Shipped house-edge-first tutorial flow with AI Essence and starter utility cards, including deterministic spin-bridge progression in EN/PT.
+- Closed release confidence with contract/E2E parity locks, anti-monetization assertions, and auditable verification artifacts.
+
+**Requirements:** 11/11 shipped (CCZ-40, CCZ-41, SLOT-40, SLOT-41, EDU-40, EDU-41, SYS-40, SYS-41, SYS-42, QA-40, QA-41)
+
+---
+
 ## v1.6 Slots Visual Polish and Atmosphere (Shipped: 2026-04-03)
 
 **Delivered:** A polished Slots presentation refresh with cabinet-style shell design, richer deterministic atmosphere and effects, and release-ready confidence coverage.
