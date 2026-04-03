@@ -29,7 +29,7 @@ Phase 32: Casinocraftz Integration Confidence Lock
 
 **Requirements:** CCZ-40, CCZ-41
 
-**Plans:** 1/2 plans complete
+**Plans:** 1/1 plans complete
 
 - [x] 29-01-PLAN.md — Canonical Casinocraftz routes, shell framing, and EN/PT project foundations
 
@@ -47,10 +47,16 @@ Phase 32: Casinocraftz Integration Confidence Lock
 
 ---
 
-**Plans:** 1/2 plans complete
+## Phase 30: Slots Integration and Improvement Pass
+
+**Goal:** Move the Slots game inside Casinocraftz as the first playable module and improve the slot experience where that supports clarity, teaching, and retention.
+
+**Requirements:** SLOT-40, SLOT-41
+
+**Plans:** 2/2 plans complete
 
 - [x] 30-01-PLAN.md — Embed the Slots module in Casinocraftz and improve educational gameplay surfaces
-- [ ] 30-02-PLAN.md — Close embedded and standalone spin-failure gaps with deterministic EN/PT regression guards
+- [x] 30-02-PLAN.md — Close embedded and standalone spin-failure gaps with deterministic EN/PT regression guards
 
 **Depends on:** Phase 29
 
@@ -144,4 +150,4 @@ Phase 31 -> Phase 32
 ---
 
 _Created: 2026-04-03 after v1.7 kickoff_
-_Ready to verify: Phase 30 plan 01_
+_Ready to plan: Phase 31 plan 01_

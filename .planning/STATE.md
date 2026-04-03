@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.7
 milestone_name: casinocraftz-foundation-and-slots-integration
 status: active
-stopped_at: Completed Phase 29 plan 01
+stopped_at: Discussed Phase 31 context (auto)
 last_updated: '2026-04-03'
 last_activity: 2026-04-03
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 4
-  completed_plans: 1
-  percent: 25
+  completed_phases: 2
+  total_plans: 5
+  completed_plans: 3
+  percent: 75
 ---
 
 # STATE.md - Company Canvas
@@ -21,11 +21,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Phase 30 and Phase 31 ready to plan in parallel after Phase 29 completion
+**Current Focus:** Phase 31 context gathered and ready for planning
 
 ## Current Position
 
-**Phase:** Phase 30 / Phase 31 - Parallel Delivery Window
+**Phase:** Phase 31 - House Edge Tutorial and Utility Card Systems
 **Plan:** -
 **Status:** Ready to plan
 **Last Activity:** 2026-04-03
@@ -33,7 +33,7 @@ See: .planning/PROJECT.md (updated 2026-04-03)
 ## Progress
 
 ```
-Progress: ██░░░░░░░░ 25%
+Progress: ████████░░ 75%
 ```
 
 Phases: 1/4 complete
@@ -43,7 +43,7 @@ Phases: 1/4 complete
 | Phase    | Name                                     | Status | Goal                                                                        |
 | -------- | ---------------------------------------- | ------ | --------------------------------------------------------------------------- |
 | Phase 29 | Casinocraftz Shell and Route Foundation  | ✓      | Establish browser routes and transparent zero-risk framing for Casinocraftz |
-| Phase 30 | Slots Integration and Improvement Pass   | ○      | Embed and improve the Slots module inside Casinocraftz                      |
+| Phase 30 | Slots Integration and Improvement Pass   | ✓      | Embed and improve the Slots module inside Casinocraftz                      |
 | Phase 31 | House Edge Tutorial and Utility Cards    | ○      | Teach house edge and establish the first progression loop                   |
 | Phase 32 | Casinocraftz Integration Confidence Lock | ○      | Validate the integrated product with deterministic QA and release evidence  |
 
@@ -83,11 +83,13 @@ Phases: 1/4 complete
 | Phase | Plan  | Duration  | Tasks | Files | Completed  |
 | ----- | ----- | --------- | ----- | ----- | ---------- |
 | 29    | 29-01 | 1 session | 3     | 10+   | 2026-04-03 |
+| 30    | 30-01 | 1 session | 3     | 9+    | 2026-04-03 |
+| 30    | 30-02 | 1 session | 3     | 3+    | 2026-04-03 |
 
 ## Pending Todos
 
-- Run /gsd:plan-phase 30 for Slots integration inside Casinocraftz host zones.
-- Run /gsd:plan-phase 31 for house-edge tutorial and utility card system.
+- Run /gsd:plan-phase 31 to define tutorial, dialogue, AI Essence, and starter card delivery.
+- Prepare Phase 32 integration contract assumptions while Phase 31 planning is active.
 
 ## Blockers / Concerns
 
@@ -100,4 +102,9 @@ Stopped at: Started v1.7 milestone definition
 Stopped at: Gathered Phase 29 context
 Stopped at: Planned Phase 29 plan 01
 Stopped at: Completed Phase 29 plan 01
+Stopped at: Planned Phase 30 plan 01
+Stopped at: Completed Phase 30 plan 01
+Stopped at: Planned Phase 30 plan 02
+Stopped at: Completed Phase 30 plan 02
+Stopped at: Discussed Phase 31 context (auto)
 Resume file: None
