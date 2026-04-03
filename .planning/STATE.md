@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.8
 milestone_name: deterministic-learning-loop-expansion
-status: active
-stopped_at: Completed Phase 36 plan 01
-last_updated: '2026-04-03T20:20:00.000Z'
+status: complete
+stopped_at: Tagged release v1.8
+last_updated: '2026-04-03T20:32:00.000Z'
 last_activity: 2026-04-03
 progress:
   total_phases: 4
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** v1.8 archived and documented — waiting for clean commit boundary to create release tag
+**Current Focus:** v1.8 milestone closed and tagged — ready to start next milestone
 
 ## Current Position
 
 **Phase:** Phase 36 - Confidence Lock and Release Evidence
 **Plan:** 36-01
-**Status:** Completed, ready for milestone closure
+**Status:** Milestone complete
 **Last Activity:** 2026-04-03
 
 ## Progress
@@ -98,11 +98,11 @@ Phases: 4/4 complete
 
 ## Pending Todos
 
-- Commit milestone closure artifacts and create release tag `v1.8` on the finalized commit.
+- Start next milestone with /gsd:new-milestone <name>.
 
 ## Blockers / Concerns
 
-Milestone release tagging is blocked until the working tree is committed/clean; current repository has multiple modified and untracked files.
+None.
 
 ## Session Continuity
 
@@ -129,4 +129,5 @@ Stopped at: Planned Phase 33 plan 01
 Stopped at: Discussed Phase 36 context (auto)
 Stopped at: Planned Phase 36 plan 01
 Stopped at: Completed Phase 36 plan 01
+Stopped at: Tagged release v1.8
 Resume file: None
