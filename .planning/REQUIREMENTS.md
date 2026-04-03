@@ -7,8 +7,8 @@
 
 ### Bridge and Authority Hardening
 
-- [ ] **BRG-50**: Slots-to-tutorial bridge events are versioned and backward-compatible so host integration remains deterministic across route modes.
-- [ ] **BRG-51**: Tutorial and card layers remain presentation-only and cannot mutate Slots gameplay authority, economy, payout, or RNG paths.
+- [x] **BRG-50**: Slots-to-tutorial bridge events are versioned and backward-compatible so host integration remains deterministic across route modes.
+- [x] **BRG-51**: Tutorial and card layers remain presentation-only and cannot mutate Slots gameplay authority, economy, payout, or RNG paths.
 
 ### Learning Loop Clarity and Progression UX
 
@@ -44,17 +44,17 @@
 
 ## Traceability
 
-| Requirement | Phase    | Status  |
-| ----------- | -------- | ------- |
-| BRG-50      | Phase 33 | Pending |
-| BRG-51      | Phase 33 | Pending |
-| LEARN-50    | Phase 34 | Pending |
-| LEARN-51    | Phase 34 | Pending |
-| PROG-50     | Phase 34 | Pending |
-| PAR-50      | Phase 35 | Pending |
-| PAR-51      | Phase 35 | Pending |
-| SAFE-50     | Phase 36 | Pending |
-| SAFE-51     | Phase 36 | Pending |
+| Requirement | Phase    | Status   |
+| ----------- | -------- | -------- |
+| BRG-50      | Phase 33 | Complete |
+| BRG-51      | Phase 33 | Complete |
+| LEARN-50    | Phase 34 | Pending  |
+| LEARN-51    | Phase 34 | Pending  |
+| PROG-50     | Phase 34 | Pending  |
+| PAR-50      | Phase 35 | Pending  |
+| PAR-51      | Phase 35 | Pending  |
+| SAFE-50     | Phase 36 | Pending  |
+| SAFE-51     | Phase 36 | Pending  |
 
 **Coverage:**
 

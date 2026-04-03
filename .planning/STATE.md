@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.8
-milestone_name: deterministic-learning-loop-expansion
-status: active
-stopped_at: Started v1.8 milestone definition
-last_updated: '2026-04-03T12:54:33.446Z'
+milestone_name: milestone
+status: executing
+stopped_at: Completed 33-01-PLAN.md
+last_updated: '2026-04-03T14:45:49.519Z'
 last_activity: 2026-04-03
 progress:
   total_phases: 4
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Defining v1.8 requirements and preparing Phase 33 context
+**Current Focus:** Executing Phase 33 bridge and authority hardening plan
 
 ## Current Position
 
 **Phase:** Phase 33 - Bridge and Authority Hardening
-**Plan:** -
-**Status:** Defining requirements
+**Plan:** 33-01
+**Status:** Planned, ready to execute
 **Last Activity:** 2026-04-03
 
 ## Progress
@@ -80,19 +80,22 @@ Phases: 0/4 complete
 - [Phase 31-house-edge-tutorial-and-utility-card-systems]: Tutorial/card modules remain authority-isolated from slots runtime internals.
 - [Phase 31-house-edge-tutorial-and-utility-card-systems]: Play-and-observe progression advances only via ccz:spin-settled bridge events from spin-resolved visuals.
 - [Phase 31-house-edge-tutorial-and-utility-card-systems]: Casinocraftz tutorial root datasets are first-class compatibility anchors for EN/PT deterministic assertions.
+- [Phase 33]: parseSpinSettledBridgeEvent exported for testability; source-reading tests match project pattern
+- [Phase 33]: Legacy unversioned bridge payloads accepted backward-compatibly (version === undefined)
 
 ## Performance Metrics
 
-| Phase | Plan  | Duration  | Tasks | Files | Completed  |
-| ----- | ----- | --------- | ----- | ----- | ---------- |
-| 29    | 29-01 | 1 session | 3     | 10+   | 2026-04-03 |
-| 30    | 30-01 | 1 session | 3     | 9+    | 2026-04-03 |
-| 30    | 30-02 | 1 session | 3     | 3+    | 2026-04-03 |
-| 31    | 31-01 | 6min      | 3     | 11    | 2026-04-03 |
+| Phase        | Plan  | Duration  | Tasks   | Files | Completed  |
+| ------------ | ----- | --------- | ------- | ----- | ---------- |
+| 29           | 29-01 | 1 session | 3       | 10+   | 2026-04-03 |
+| 30           | 30-01 | 1 session | 3       | 9+    | 2026-04-03 |
+| 30           | 30-02 | 1 session | 3       | 3+    | 2026-04-03 |
+| 31           | 31-01 | 6min      | 3       | 11    | 2026-04-03 |
+| Phase 33 P01 | 35    | 4 tasks   | 7 files |
 
 ## Pending Todos
 
-- Run /gsd:discuss-phase 33 to gather implementation context.
+- Run /gsd:execute-plan 33-01 to implement Phase 33 hardening scope.
 
 ## Blockers / Concerns
 
@@ -100,8 +103,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-03T12:54:33.436Z
-Stopped at: Completed 31-01-PLAN.md
+Last session: 2026-04-03T14:45:49.511Z
+Stopped at: Completed 33-01-PLAN.md
 Stopped at: Gathered Phase 29 context
 Stopped at: Planned Phase 29 plan 01
 Stopped at: Completed Phase 29 plan 01
@@ -118,4 +121,6 @@ Stopped at: Completed Phase 32
 Stopped at: Audited v1.7 milestone (passed)
 Stopped at: Completed milestone v1.7
 Stopped at: Started v1.8 milestone definition
+Stopped at: Discussed Phase 33 context (auto)
+Stopped at: Planned Phase 33 plan 01
 Resume file: None

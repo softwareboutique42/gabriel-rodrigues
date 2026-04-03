@@ -30,9 +30,9 @@ Phase 36: Confidence Lock and Release Evidence
 
 **Requirements:** BRG-50, BRG-51
 
-**Plans:** 0/1 plans complete
+**Plans:** 1/1 plans complete
 
-- [ ] 33-01-PLAN.md — Versioned bridge contract and authority boundary hardening
+- [x] 33-01-PLAN.md — Versioned bridge contract and authority boundary hardening
 
 **Depends on:** Phase 32
 
@@ -141,4 +141,4 @@ Phase 33 -> Phase 34 -> Phase 35 -> Phase 36
 ---
 
 _Created: 2026-04-03 after v1.8 kickoff_
-_Ready to discuss: Phase 33_
+_Ready to execute: Phase 33 plan 01_
