@@ -1,6 +1,15 @@
 import { createSlotsAtlasRegistry, snapshotSlotsAtlasRegistry } from './atlas-registry.ts';
-import { createIdleMotionModel } from './idle-motion.ts';
+import { createIdleMotionModel, type IdleMotionState } from './idle-motion.ts';
+import {
+  resolveSlotsMotionPolicy,
+  type SlotsMotionIntensity,
+  type SlotsMotionPolicySnapshot,
+} from './motion-policy.ts';
 import { createOutcomeFeedbackModel } from './outcome-feedback.ts';
+import {
+  createSlotsPerformanceGuardrailModel,
+  type SlotsPerformanceGuardrailModel,
+} from './performance-guardrail.ts';
 import { createReelTimelineModel } from './reel-timeline.ts';
 import { REQUIRED_SYMBOL_FRAME_KEYS, snapshotSymbolFrameMap } from './symbol-frame-map.ts';
 import { createIdleSymbolStates, createSymbolStatesModel } from './symbol-states.ts';
@@ -21,6 +30,11 @@ const runtimes = new WeakMap<HTMLElement, SlotsAnimationRuntimeMount>();
 const THEME_REGISTRY = createSlotsThemeRegistry(DEFAULT_SLOTS_THEMES, 'slots-core-v1');
 
 const DEFAULT_SYMBOL_STATES = JSON.stringify(createIdleSymbolStates());
+const INTENSITY_RANK: Record<SlotsMotionIntensity, number> = {
+  full: 3,
+  reduced: 2,
+  minimal: 1,
+};
 
 function getDefaultThemeId(): string {
   return THEME_REGISTRY.defaultThemeId;
@@ -43,6 +57,38 @@ function createAtlasRegistryForTheme(themeAtlasId: string) {
 function getLocationSearch(): string {
   if (typeof window === 'undefined') return '';
   return window.location.search;
+}
+
+function getPrefersReducedMotion(): boolean {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function getNow(): number {
+  if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+    return performance.now();
+  }
+  return Date.now();
+}
+
+function resolveEffectiveIntensity(
+  policyIntensity: SlotsMotionIntensity,
+  guardrailOverride: SlotsMotionIntensity | null,
+): SlotsMotionIntensity {
+  if (!guardrailOverride) return policyIntensity;
+
+  return INTENSITY_RANK[guardrailOverride] < INTENSITY_RANK[policyIntensity]
+    ? guardrailOverride
+    : policyIntensity;
+}
+
+function projectIdleStateForIntensity(
+  state: IdleMotionState,
+  effectiveIntensity: SlotsMotionIntensity,
+): string {
+  if (effectiveIntensity === 'minimal') return 'idle-static';
+  if (effectiveIntensity === 'reduced' && state === 'active-transition') return 'idle-pulse';
+  return state;
 }
 
 function writeThemeSnapshot(root: HTMLElement, themeId: string): void {
@@ -106,6 +152,10 @@ function resetRuntimeDatasets(root: HTMLElement): void {
   root.dataset.slotsAnimAtlas = 'ready';
   root.dataset.slotsAnimAtlasId = getDefaultThemeAtlasId();
   root.dataset.slotsAnimTheme = getDefaultThemeId();
+  root.dataset.slotsAnimReducedMotion = 'false';
+  root.dataset.slotsAnimIntensityRequested = 'full';
+  root.dataset.slotsAnimIntensity = 'full';
+  root.dataset.slotsAnimPerformance = 'ok';
   root.dataset.slotsAnimSymbolStates = DEFAULT_SYMBOL_STATES;
   writeSymbolMapSnapshot(root);
   root.dataset.slotsAnimSeq = '0';
@@ -119,16 +169,27 @@ function writeRuntimeSnapshots(
   idleMotion: ReturnType<typeof createIdleMotionModel>,
   timeline: ReturnType<typeof createReelTimelineModel>,
   feedback: ReturnType<typeof createOutcomeFeedbackModel>,
+  motionPolicy: SlotsMotionPolicySnapshot,
+  performanceGuardrail: SlotsPerformanceGuardrailModel,
   sequence: number,
 ) {
   writeBaseSnapshots(root, atlasRegistry, symbolStates, themeId);
   const idleSnapshot = idleMotion.snapshot();
   const timelineSnapshot = timeline.snapshot();
   const feedbackSnapshot = feedback.snapshot();
+  const guardrailSnapshot = performanceGuardrail.snapshot();
+  const effectiveIntensity = resolveEffectiveIntensity(
+    motionPolicy.effectiveIntensity,
+    guardrailSnapshot.intensityOverride,
+  );
 
-  root.dataset.slotsAnimIdle = idleSnapshot.state;
+  root.dataset.slotsAnimIdle = projectIdleStateForIntensity(idleSnapshot.state, effectiveIntensity);
   root.dataset.slotsAnimState = timelineSnapshot.phase;
   root.dataset.slotsAnimOutcome = feedbackSnapshot.status;
+  root.dataset.slotsAnimReducedMotion = motionPolicy.reducedMotion ? 'true' : 'false';
+  root.dataset.slotsAnimIntensityRequested = motionPolicy.requestedIntensity;
+  root.dataset.slotsAnimIntensity = effectiveIntensity;
+  root.dataset.slotsAnimPerformance = guardrailSnapshot.status;
   root.dataset.slotsAnimSeq = String(sequence);
 
   if (timelineSnapshot.activeSpinIndex === null) {
@@ -202,6 +263,8 @@ function writeSnapshots(
   idleMotion: ReturnType<typeof createIdleMotionModel>,
   timeline: ReturnType<typeof createReelTimelineModel>,
   feedback: ReturnType<typeof createOutcomeFeedbackModel>,
+  motionPolicy: SlotsMotionPolicySnapshot,
+  performanceGuardrail: SlotsPerformanceGuardrailModel,
   sequence: number,
 ): void {
   writeRuntimeSnapshots(
@@ -212,6 +275,8 @@ function writeSnapshots(
     idleMotion,
     timeline,
     feedback,
+    motionPolicy,
+    performanceGuardrail,
     sequence,
   );
 }
@@ -225,13 +290,21 @@ export function mountSlotsAnimationRuntime(
 
   const { atlasRegistry, themeSnapshot } = createThemeRuntimeBindings(root);
   const models = createRuntimeModels();
+  const motionPolicy = resolveSlotsMotionPolicy(
+    root,
+    getLocationSearch(),
+    getPrefersReducedMotion(),
+  );
+  const performanceGuardrail = createSlotsPerformanceGuardrailModel();
   let sequence = 0;
   let disposed = false;
 
   const unsubscribe = visualEvents.subscribe((event) => {
     if (disposed) return;
 
+    const sampleStart = getNow();
     applyVisualEventToModels(models, event);
+    performanceGuardrail.onSample(getNow() - sampleStart);
     sequence += 1;
     writeSnapshots(
       root,
@@ -241,6 +314,8 @@ export function mountSlotsAnimationRuntime(
       models.idleMotion,
       models.timeline,
       models.feedback,
+      motionPolicy,
+      performanceGuardrail,
       sequence,
     );
 
@@ -255,6 +330,8 @@ export function mountSlotsAnimationRuntime(
           models.idleMotion,
           models.timeline,
           models.feedback,
+          motionPolicy,
+          performanceGuardrail,
           sequence,
         );
       });
@@ -269,6 +346,8 @@ export function mountSlotsAnimationRuntime(
     models.idleMotion,
     models.timeline,
     models.feedback,
+    motionPolicy,
+    performanceGuardrail,
     sequence,
   );
 
