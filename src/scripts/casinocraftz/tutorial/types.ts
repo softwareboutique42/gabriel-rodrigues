@@ -1,3 +1,20 @@
+// Bridge event types — anchor the authority boundary contract (BRG-50, BRG-51)
+export interface BridgeEvent {
+  type: string;
+}
+
+export interface SpinSettledV1Payload {
+  spinIndex: number;
+}
+
+export interface SpinSettledLegacyPayload {
+  spinIndex: number;
+}
+
+export type CczSpinSettledEvent =
+  | { type: 'ccz:spin-settled'; version: 1; payload: SpinSettledV1Payload }
+  | { type: 'ccz:spin-settled'; spinIndex: number };
+
 export type TutorialStepId =
   | 'welcome'
   | 'house-edge-intro'

@@ -137,6 +137,30 @@ function renderCards(
   cardsZone.append(title, grid);
 }
 
+export function parseSpinSettledBridgeEvent(data: unknown): { spinIndex: number } | null {
+  if (data === null || typeof data !== 'object') return null;
+  const d = data as Record<string, unknown>;
+  if (d['type'] !== 'ccz:spin-settled') return null;
+
+  let spinIndex: unknown;
+
+  if (d['version'] === 1) {
+    // v1 versioned envelope
+    const payload = d['payload'];
+    if (payload === null || typeof payload !== 'object') return null;
+    spinIndex = (payload as Record<string, unknown>)['spinIndex'];
+  } else if (d['version'] === undefined) {
+    // legacy unversioned payload — backward compatible
+    spinIndex = d['spinIndex'];
+  } else {
+    // unknown version (>= 2 or unexpected) — silently ignore
+    return null;
+  }
+
+  if (!Number.isInteger(spinIndex) || (spinIndex as number) < 0) return null;
+  return { spinIndex: spinIndex as number };
+}
+
 export function mountTutorial({ lang }: MountTutorialOptions): void {
   const root = document.querySelector('[data-casinocraftz-shell-root]');
   if (!(root instanceof HTMLElement)) {
@@ -225,7 +249,8 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
   }
 
   const onSpinMessage = (event: MessageEvent): void => {
-    if (event.data?.type !== 'ccz:spin-settled') {
+    const parsed = parseSpinSettledBridgeEvent(event.data);
+    if (parsed === null) {
       return;
     }
 

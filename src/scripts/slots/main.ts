@@ -43,7 +43,10 @@ export function initSlotsShell(): void {
       }
 
       try {
-        window.parent.postMessage({ type: 'ccz:spin-settled', spinIndex: event.spinIndex }, '*');
+        window.parent.postMessage(
+          { type: 'ccz:spin-settled', version: 1, payload: { spinIndex: event.spinIndex } },
+          '*',
+        );
       } catch {
         // Cross-origin message failures should not crash runtime.
       }
