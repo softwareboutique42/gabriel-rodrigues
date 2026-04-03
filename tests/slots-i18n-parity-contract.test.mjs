@@ -7,11 +7,15 @@ const enPath = resolve(process.cwd(), 'src/i18n/en.json');
 const ptPath = resolve(process.cwd(), 'src/i18n/pt.json');
 const enPagePath = resolve(process.cwd(), 'src/pages/en/slots/index.astro');
 const ptPagePath = resolve(process.cwd(), 'src/pages/pt/slots/index.astro');
+const enCasinocraftzPath = resolve(process.cwd(), 'src/pages/en/casinocraftz/index.astro');
+const ptCasinocraftzPath = resolve(process.cwd(), 'src/pages/pt/casinocraftz/index.astro');
 
 const en = JSON.parse(readFileSync(enPath, 'utf8'));
 const pt = JSON.parse(readFileSync(ptPath, 'utf8'));
 const enPage = readFileSync(enPagePath, 'utf8');
 const ptPage = readFileSync(ptPagePath, 'utf8');
+const enCasinocraftz = readFileSync(enCasinocraftzPath, 'utf8');
+const ptCasinocraftz = readFileSync(ptCasinocraftzPath, 'utf8');
 
 const PHASE14_KEYS = [
   'slots.gameplay.panel.title',
@@ -35,6 +39,9 @@ const PHASE14_KEYS = [
   'slots.shell.label.routes',
   'slots.shell.label.motion',
   'slots.shell.label.theme',
+  'slots.education.houseEdgeLabel',
+  'slots.education.houseEdgeCopy',
+  'slots.education.manipulationCue',
 ];
 
 test('I18N-10: all phase-14 gameplay keys exist and are non-empty in EN/PT', () => {
@@ -80,4 +87,11 @@ test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and determ
   assert.match(ptPage, /data-slots-shell="cabinet"/);
   assert.match(enPage, /data-slots-zone="navigation"/);
   assert.match(ptPage, /data-slots-zone="navigation"/);
+});
+
+test('I18N-12: EN/PT casinocraftz host embeds slots module with canonical host query parity', () => {
+  assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
+  assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
+  assert.match(enPage, /data-slots-host=\{isCasinocraftzHost \? 'casinocraftz' : 'standalone'\}/);
+  assert.match(ptPage, /data-slots-host=\{isCasinocraftzHost \? 'casinocraftz' : 'standalone'\}/);
 });

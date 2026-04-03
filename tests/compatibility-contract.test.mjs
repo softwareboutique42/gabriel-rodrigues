@@ -53,6 +53,15 @@ test('canonical discovery links remain locale-correct on projects pages', () => 
   assert.match(ptProjects, /href="\/pt\/casinocraftz\/"/);
 });
 
+test('casinocraftz embeds canonical slots module paths in EN/PT', () => {
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
+  assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
+  assert.match(enSlots, /Astro\.url\.searchParams\.get\('host'\) === 'casinocraftz'/);
+  assert.match(ptSlots, /Astro\.url\.searchParams\.get\('host'\) === 'casinocraftz'/);
+});
+
 test('alias route deny-list remains enforced for projects and canonical surfaces', () => {
   const forbidden = [
     /\/en\/projects\/canvas\//,
