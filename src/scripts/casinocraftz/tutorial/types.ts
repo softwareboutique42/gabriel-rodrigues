@@ -38,6 +38,7 @@ export interface TutorialState {
   essenceBalance: number;
   cardsUnlocked: UtilityCardId[];
   activeCard: UtilityCardId | null;
+  lastTransitionTrigger?: 'spin' | 'ui' | null;
 }
 
 export interface UtilityCard {

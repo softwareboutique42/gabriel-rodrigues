@@ -22,7 +22,12 @@ function stepReward(stepId: TutorialStepId): number {
   return TUTORIAL_STEPS.find((step) => step.id === stepId)?.essenceReward ?? 0;
 }
 
-function renderDialogue(zone: HTMLElement, stepId: TutorialStepId, lang: 'en' | 'pt'): void {
+function renderDialogue(
+  zone: HTMLElement,
+  stepId: TutorialStepId,
+  lang: 'en' | 'pt',
+  state?: TutorialState,
+): void {
   const messages = getDialogue(stepId, lang);
   zone.replaceChildren();
 
@@ -41,6 +46,48 @@ function renderDialogue(zone: HTMLElement, stepId: TutorialStepId, lang: 'en' | 
 
     entry.append(role, text);
     zone.append(entry);
+  }
+
+  // Replay button
+  const replayBtnWrapper = document.createElement('div');
+  replayBtnWrapper.className = 'mt-2';
+
+  const replayBtn = document.createElement('button');
+  replayBtn.className =
+    'font-mono text-xs text-cyan uppercase tracking-wider hover:text-neon transition-colors';
+  replayBtn.dataset.casinocraftzReplay = 'true';
+  replayBtn.textContent = lang === 'pt' ? 'Revisite a licao' : 'Revisit lesson';
+
+  replayBtn.addEventListener('click', () => {
+    renderDialogue(zone, stepId, lang, state);
+  });
+
+  replayBtnWrapper.append(replayBtn);
+  zone.append(replayBtnWrapper);
+
+  // Recap disclosure (only for spin-triggered transitions)
+  if (state?.lastTransitionTrigger === 'spin' && stepId === 'probability-reveal') {
+    const recapWrapper = document.createElement('div');
+    recapWrapper.className = 'mt-3';
+
+    const details = document.createElement('details');
+    details.className = 'hud-outline-subtle p-3';
+    details.dataset.casinocraftzRecap = 'true';
+
+    const summary = document.createElement('summary');
+    summary.className = 'font-mono text-xs text-cyan uppercase tracking-wider cursor-pointer';
+    summary.textContent = lang === 'pt' ? 'Por que isso aconteceu?' : 'Why did this happen?';
+
+    const content = document.createElement('p');
+    content.className = 'text-sm text-text-secondary mt-2';
+    content.textContent =
+      lang === 'pt'
+        ? 'A etapa de revelação de probabilidade é desbloqueada após observar 3 giros completos. Você atingiu esse limite.'
+        : "The probability-reveal step is unlocked after observing 3 complete spins. You've reached that threshold.";
+
+    details.append(summary, content);
+    recapWrapper.append(details);
+    zone.append(recapWrapper);
   }
 }
 
@@ -106,6 +153,19 @@ function renderCards(
       label.textContent = copy.houseEdgeLabel;
     }
 
+    // Add status badge
+    const badgeText = state.cardsUnlocked.includes(card.id) ? 'UNLOCKED' : 'LOCKED';
+    const badgeClass = state.cardsUnlocked.includes(card.id) ? 'text-neon' : 'text-text-muted';
+
+    const badge = document.createElement('span');
+    badge.className = `font-mono text-[10px] ${badgeClass} uppercase tracking-wider`;
+    badge.dataset.casinocraftzCardStatus = badgeText.toLowerCase();
+    badge.textContent = badgeText;
+
+    const labelContainer = document.createElement('div');
+    labelContainer.className = 'flex items-center gap-2 mb-1';
+    labelContainer.append(label, badge);
+
     const description = document.createElement('p');
     description.className = 'text-xs text-text-muted mb-2';
     if (card.id === 'probability-seer') {
@@ -130,7 +190,7 @@ function renderCards(
       button.addEventListener('click', () => onActivate(card.id));
     }
 
-    cardRoot.append(label, description, button);
+    cardRoot.append(labelContainer, description, button);
     grid.append(cardRoot);
   }
 
@@ -196,7 +256,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
 
   const render = (): void => {
     syncRootDatasets(root, state, essenceState.balance);
-    renderDialogue(dialogueZone, state.currentStep, lang);
+    renderDialogue(dialogueZone, state.currentStep, lang, state);
     renderCards(root, cardsZone, state, (cardId) => {
       applyCard(cardId, root);
       state = {
@@ -210,6 +270,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
   const proceedStep = (): void => {
     const previousStep = state.currentStep;
     state = advanceTutorialStep(state);
+    state = { ...state, lastTransitionTrigger: 'ui' };
 
     if (state.currentStep !== previousStep) {
       const reward = stepReward(previousStep);
@@ -262,6 +323,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
     }
 
     if (state.currentStep !== previousStep) {
+      state = { ...state, lastTransitionTrigger: 'spin' };
       render();
       return;
     }

@@ -84,7 +84,7 @@ export const DIALOGUE_REGISTRY: Record<TutorialStepId, Record<'en' | 'pt', Dialo
       {
         id: 'pr-narrator-en',
         role: 'narrator',
-        text: 'The symbols are not equally likely. The casino decides the weights - and keeps them hidden.',
+        text: 'You\u0027ve observed 3 spins on the slot machine. Here\u0027s what the outcomes tell us about probability.',
       },
       {
         id: 'pr-system-en',
@@ -96,7 +96,7 @@ export const DIALOGUE_REGISTRY: Record<TutorialStepId, Record<'en' | 'pt', Dialo
       {
         id: 'pr-narrator-pt',
         role: 'narrator',
-        text: 'Os simbolos nao sao igualmente provaveis. O cassino define os pesos - e os mantem ocultos.',
+        text: 'Você observou 3 giros na máquina de slots. Aqui está o que os resultados nos dizem sobre probabilidade.',
       },
       {
         id: 'pr-system-pt',
