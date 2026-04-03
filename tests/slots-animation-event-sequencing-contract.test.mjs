@@ -150,6 +150,54 @@ test('ANIM-10: runtime mount/dispose is idempotent across re-subscriptions', () 
   runtimeAgain.dispose();
 });
 
+test('ANIM-10: runtime sequence stays monotonic across accepted/resolved/blocked events', () => {
+  const root = /** @type {HTMLElement} */ ({ dataset: {} });
+  const visualEvents = createSlotsVisualEventStore();
+  const runtime = mountSlotsAnimationRuntime(root, visualEvents);
+
+  assert.equal(root.dataset.slotsAnimSeq, '0');
+
+  visualEvents.emit(
+    createSpinAcceptedVisualEvent({
+      spinIndex: 5,
+      baseSeed: 'slots-phase-13-en',
+      bet: 2,
+      balanceAfterDebit: 38,
+    }),
+  );
+  assert.equal(root.dataset.slotsAnimSeq, '1');
+
+  visualEvents.emit(
+    createSpinResolvedVisualEvent({
+      spinIndex: 5,
+      seed: 'slots-phase-13-en:5',
+      outcome: 'loss',
+      totalPayoutUnits: 0,
+      stops: [1, 0, 2],
+    }),
+  );
+  assert.equal(root.dataset.slotsAnimSeq, '2');
+
+  const seqAfterResolved = Number(root.dataset.slotsAnimSeq);
+  const resolvedSpinIndex = root.dataset.slotsAnimResolvedSpinIndex;
+
+  visualEvents.emit(
+    createSpinBlockedVisualEvent({
+      spinIndex: 6,
+      reason: 'insufficient',
+      balance: 0,
+      bet: 10,
+    }),
+  );
+
+  const seqAfterBlocked = Number(root.dataset.slotsAnimSeq);
+  assert.ok(seqAfterBlocked > seqAfterResolved);
+  assert.equal(root.dataset.slotsAnimOutcome, 'loss');
+  assert.equal(root.dataset.slotsAnimResolvedSpinIndex, resolvedSpinIndex);
+
+  runtime.dispose();
+});
+
 test('ANIM-11: blocked visual events never overwrite resolved feedback outcome', () => {
   const root = /** @type {HTMLElement} */ ({ dataset: {} });
   const visualEvents = createSlotsVisualEventStore();

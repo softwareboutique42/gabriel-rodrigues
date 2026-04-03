@@ -41,8 +41,25 @@ test('I18N-10: all phase-14 gameplay keys exist and are non-empty in EN/PT', () 
 test('I18N-10: slots pages consume gameplay translation keys instead of hardcoded labels', () => {
   assert.match(enPage, /t\('slots\.gameplay\.label\.balance'\)/);
   assert.match(ptPage, /t\('slots\.gameplay\.label\.balance'\)/);
+  assert.match(enPage, /t\('slots\.gameplay\.label\.bet'\)/);
+  assert.match(ptPage, /t\('slots\.gameplay\.label\.bet'\)/);
   assert.match(enPage, /t\('slots\.gameplay\.cta\.spin'\)/);
   assert.match(ptPage, /t\('slots\.gameplay\.cta\.spin'\)/);
   assert.match(enPage, /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/);
   assert.match(ptPage, /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/);
+  assert.match(enPage, /data-slots-label-balance=\{t\('slots\.gameplay\.label\.balance'\)\}/);
+  assert.match(ptPage, /data-slots-label-balance=\{t\('slots\.gameplay\.label\.balance'\)\}/);
+  assert.match(enPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
+  assert.match(ptPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
+});
+
+test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and deterministic seeds', () => {
+  assert.match(enPage, /data-slots-seed="slots-phase-13-en"/);
+  assert.match(ptPage, /data-slots-seed="slots-phase-13-pt"/);
+  assert.match(enPage, /data-slots-theme="slots-core-v1"/);
+  assert.match(ptPage, /data-slots-theme="slots-core-v1"/);
+  assert.match(enPage, /data-slots-motion="full"/);
+  assert.match(ptPage, /data-slots-motion="full"/);
+  assert.match(enPage, /id="slots-shell-root"/);
+  assert.match(ptPage, /id="slots-shell-root"/);
 });

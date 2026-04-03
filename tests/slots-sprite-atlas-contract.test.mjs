@@ -96,3 +96,48 @@ test('ANIM-12: runtime atlas and idle hooks are presentation-only', () => {
 
   runtime.dispose();
 });
+
+test('ANIM-12: runtime atlas/symbol snapshots are deterministic across repeated mounts', () => {
+  const makeRoot = () =>
+    /** @type {HTMLElement} */ ({
+      dataset: {
+        slotsBalance: '40',
+        slotsBet: '2',
+        slotsTheme: 'slots-core-v1',
+      },
+    });
+
+  const collectSnapshot = () => {
+    const root = makeRoot();
+    const visualEvents = createSlotsVisualEventStore();
+    const runtime = mountSlotsAnimationRuntime(root, visualEvents);
+
+    visualEvents.emit(
+      createSpinAcceptedVisualEvent({
+        spinIndex: 1,
+        baseSeed: 'slots-phase-13-en',
+        bet: 2,
+        balanceAfterDebit: 38,
+      }),
+    );
+
+    const snapshot = {
+      state: root.dataset.slotsAnimState,
+      atlas: root.dataset.slotsAnimAtlas,
+      atlasId: root.dataset.slotsAnimAtlasId,
+      theme: root.dataset.slotsAnimTheme,
+      idle: root.dataset.slotsAnimIdle,
+      seq: root.dataset.slotsAnimSeq,
+      symbolStates: root.dataset.slotsAnimSymbolStates,
+      symbolMap: root.dataset.slotsAnimSymbolMap,
+    };
+
+    runtime.dispose();
+    return snapshot;
+  };
+
+  const first = collectSnapshot();
+  const second = collectSnapshot();
+
+  assert.deepEqual(second, first);
+});

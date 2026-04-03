@@ -89,3 +89,62 @@ test('SPRITE-11: runtime symbol-state hooks are presentation-only and determinis
 
   runtime.dispose();
 });
+
+test('SPRITE-11: runtime symbol-state snapshots are deterministic through resolved and blocked paths', () => {
+  const root = /** @type {HTMLElement} */ ({
+    dataset: {
+      slotsBalance: '40',
+      slotsBet: '2',
+      slotsTheme: 'slots-neon-v1',
+    },
+  });
+
+  const visualEvents = createSlotsVisualEventStore();
+  const runtime = mountSlotsAnimationRuntime(root, visualEvents);
+
+  visualEvents.emit(
+    createSpinAcceptedVisualEvent({
+      spinIndex: 7,
+      baseSeed: 'slots-phase-13-en',
+      bet: 2,
+      balanceAfterDebit: 38,
+    }),
+  );
+
+  visualEvents.emit(
+    createSpinResolvedVisualEvent({
+      spinIndex: 7,
+      seed: 'slots-phase-13-en:7',
+      outcome: 'win',
+      totalPayoutUnits: 3,
+      stops: [0, 1, 2],
+    }),
+  );
+
+  const resolvedSnapshot = JSON.parse(root.dataset.slotsAnimSymbolStates);
+  assert.equal(resolvedSnapshot.A, 'win-react');
+  assert.equal(root.dataset.slotsAnimResolvedSpinIndex, '7');
+
+  visualEvents.emit(
+    createSpinBlockedVisualEvent({
+      spinIndex: 8,
+      reason: 'insufficient',
+      balance: 0,
+      bet: 10,
+    }),
+  );
+
+  const blockedSnapshot = JSON.parse(root.dataset.slotsAnimSymbolStates);
+  assert.deepEqual(blockedSnapshot, {
+    A: 'idle',
+    B: 'idle',
+    C: 'idle',
+    D: 'idle',
+    E: 'idle',
+  });
+  assert.equal(root.dataset.slotsAnimResolvedSpinIndex, '7');
+  assert.equal(root.dataset.slotsAnimBlockedReason, 'insufficient');
+  assert.equal(root.dataset.slotsAnimSeq, '3');
+
+  runtime.dispose();
+});
