@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { useTranslations } from '../../../i18n/utils';
 
 const t = useTranslations('pt');
+const isCasinocraftzHost = Astro.url.searchParams.get('host') === 'casinocraftz';
 ---
 
 <BaseLayout
@@ -15,6 +16,7 @@ const t = useTranslations('pt');
     data-slots-seed="slots-phase-13-pt"
     data-slots-theme="slots-core-v1"
     data-slots-motion="full"
+    data-slots-host={isCasinocraftzHost ? 'casinocraftz' : 'standalone'}
     data-slots-label-state={t('slots.gameplay.label.state')}
     data-slots-label-outcome={t('slots.gameplay.label.outcome')}
     data-slots-label-seed={t('slots.gameplay.label.seed')}
@@ -71,6 +73,18 @@ const t = useTranslations('pt');
             <p class="slots-stage__zone-label">{t('slots.shell.zone.playfield')}</p>
             <p class="slots-stage__panel-title">{t('slots.gameplay.panel.title')}</p>
           </div>
+
+          {
+            isCasinocraftzHost && (
+              <div class="hud-outline-subtle p-3 mb-4" data-slots-lesson="house-edge">
+                <p class="font-mono text-xs uppercase tracking-wider text-gold mb-2">
+                  {t('slots.education.houseEdgeLabel')}
+                </p>
+                <p class="text-sm text-text-secondary mb-2">{t('slots.education.houseEdgeCopy')}</p>
+                <p class="font-mono text-xs text-cyan">{t('slots.education.manipulationCue')}</p>
+              </div>
+            )
+          }
 
           <div class="slots-stage__frame" data-slots-reel-frame>
             <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">

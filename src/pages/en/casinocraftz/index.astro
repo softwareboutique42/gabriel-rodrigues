@@ -51,6 +51,29 @@ const t = useTranslations('en');
         </section>
       </div>
 
+      <section class="mb-8 sm:mb-10" data-casinocraftz-zone="modules">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <h2 class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
+            {t('slots.title')}
+          </h2>
+          <p class="font-mono text-xs text-cyan uppercase tracking-wider">
+            Module 01: Embedded Runtime
+          </p>
+        </div>
+        <p class="text-sm text-text-secondary mb-4">
+          Live module with deterministic gameplay hooks and explicit transparency overlays.
+        </p>
+        <div class="hud-outline-subtle p-2 sm:p-3">
+          <iframe
+            data-casinocraftz-slots-embed
+            src="/en/slots/?host=casinocraftz"
+            title="Casinocraftz Slots Module"
+            loading="lazy"
+            class="w-full min-h-[980px] md:min-h-[860px] border border-surface-container-high"
+          ></iframe>
+        </div>
+      </section>
+
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <a
           href="/en/slots/"
