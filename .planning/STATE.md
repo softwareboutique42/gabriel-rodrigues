@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.7
-milestone_name: milestone
-status: complete
-stopped_at: Completed milestone v1.7
+milestone: v1.8
+milestone_name: deterministic-learning-loop-expansion
+status: active
+stopped_at: Started v1.8 milestone definition
 last_updated: '2026-04-03T12:54:33.446Z'
 last_activity: 2026-04-03
 progress:
   total_phases: 4
-  completed_phases: 4
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE.md - Company Canvas
@@ -21,31 +21,31 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Milestone v1.7 archived; ready for /gsd:new-milestone
+**Current Focus:** Defining v1.8 requirements and preparing Phase 33 context
 
 ## Current Position
 
-**Phase:** -
+**Phase:** Phase 33 - Bridge and Authority Hardening
 **Plan:** -
-**Status:** Milestone complete
+**Status:** Defining requirements
 **Last Activity:** 2026-04-03
 
 ## Progress
 
 ```
-Progress: ██████████ 100%
+Progress: ░░░░░░░░░░ 0%
 ```
 
-Phases: 4/4 complete
+Phases: 0/4 complete
 
 ## Phase Summary
 
-| Phase    | Name                                     | Status | Goal                                                                        |
-| -------- | ---------------------------------------- | ------ | --------------------------------------------------------------------------- |
-| Phase 29 | Casinocraftz Shell and Route Foundation  | ✓      | Establish browser routes and transparent zero-risk framing for Casinocraftz |
-| Phase 30 | Slots Integration and Improvement Pass   | ✓      | Embed and improve the Slots module inside Casinocraftz                      |
-| Phase 31 | House Edge Tutorial and Utility Cards    | ✓      | Teach house edge and establish the first progression loop                   |
-| Phase 32 | Casinocraftz Integration Confidence Lock | ✓      | Validate the integrated product with deterministic QA and release evidence  |
+| Phase    | Name                                             | Status | Goal                                                                        |
+| -------- | ------------------------------------------------ | ------ | --------------------------------------------------------------------------- |
+| Phase 33 | Bridge and Authority Hardening                   | ○      | Stabilize deterministic bridge contracts and authority boundaries           |
+| Phase 34 | Learning Loop Clarity and Bounded Progression UX | ○      | Improve transition clarity and bounded progression understanding            |
+| Phase 35 | EN/PT and Host-Mode Parity Matrix Lock           | ○      | Lock locale and host-mode parity for v1.8 surfaces                          |
+| Phase 36 | Confidence Lock and Release Evidence             | ○      | Finalize anti-monetization guardrails and release evidence confidence gates |
 
 ## Key Decisions
 
@@ -92,7 +92,7 @@ Phases: 4/4 complete
 
 ## Pending Todos
 
-- Run /gsd:new-milestone to define the next roadmap.
+- Run /gsd:discuss-phase 33 to gather implementation context.
 
 ## Blockers / Concerns
 
@@ -117,4 +117,5 @@ Stopped at: Completed 32-01-PLAN.md
 Stopped at: Completed Phase 32
 Stopped at: Audited v1.7 milestone (passed)
 Stopped at: Completed milestone v1.7
+Stopped at: Started v1.8 milestone definition
 Resume file: None

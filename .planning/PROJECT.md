@@ -105,9 +105,16 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - Preserve deterministic runtime behavior, EN/PT parity, and anti-monetization guardrails as baseline constraints.
 - Continue milestone-bounded delivery with archive-first roadmap and requirements management.
 
-## Current Milestone
+## Current Milestone: v1.8 Deterministic Learning Loop Expansion
 
-No active milestone. v1.7 is complete and archived.
+**Goal:** Expand learning-loop clarity and progression confidence while preserving deterministic authority boundaries, EN/PT parity, and anti-monetization guarantees.
+
+**Target features:**
+
+- Versioned and backward-compatible bridge contracts between Slots runtime and tutorial progression surfaces
+- Deterministic step-causality guidance plus bounded recap/replay UX for learning clarity
+- EN/PT and host-mode matrix parity locks across embedded and standalone flows
+- Confidence lock with explicit anti-monetization assertions and auditable release evidence chain
 
 ## Evolution
 
@@ -130,4 +137,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 after v1.7 milestone completion_
+_Last updated: 2026-04-03 after v1.8 milestone kickoff_
