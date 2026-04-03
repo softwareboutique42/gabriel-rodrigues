@@ -99,6 +99,7 @@ test.describe('Compatibility hardening', () => {
     await page.goto('/en/slots/');
 
     const root = page.locator('#slots-shell-root');
+    await expectRuntimeParityEnvelope(root);
     await expectSlotsState(root, /idle|result|insufficient/);
     await expect(root).toHaveAttribute('data-slots-balance', /\d+/);
     await expect(root).toHaveAttribute('data-slots-bet', /\d+/);
@@ -138,6 +139,7 @@ test.describe('Compatibility hardening', () => {
 
     await page.goto('/pt/slots/');
     const ptRoot = page.locator('#slots-shell-root');
+    await expectRuntimeParityEnvelope(ptRoot);
     await expectSlotsState(ptRoot, /idle|result|insufficient/);
     await expect(ptRoot).toHaveAttribute('data-slots-balance', /\d+/);
     await expect(ptRoot).toHaveAttribute('data-slots-bet', /\d+/);
