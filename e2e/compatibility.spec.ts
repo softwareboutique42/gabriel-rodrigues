@@ -637,4 +637,47 @@ test.describe('Compatibility hardening', () => {
     await expect(root).toHaveAttribute('data-slots-anim-atmosphere', /celebrate|shadow/);
     await expect(page).toHaveURL(/\/en\/slots\/\?slotsTheme=slots-neon-v1&slotsMotion=minimal$/);
   });
+
+  test('casinocraftz tutorial advances to probability reveal after three spins in EN/PT', async ({
+    page,
+  }) => {
+    // EN route
+    await page.goto('/en/casinocraftz/');
+    const enRoot = page.locator('[data-casinocraftz-shell-root]');
+    await expect(enRoot).toHaveAttribute('data-casinocraftz-tutorial-step', /.+/);
+
+    // Advance to play-and-observe step
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await expect(enRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+    const enFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    await enFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(600);
+    await enFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(600);
+    await enFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(1200);
+
+    await expect(enRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+
+    // PT route
+    await page.goto('/pt/casinocraftz/');
+    const ptRoot = page.locator('[data-casinocraftz-shell-root]');
+    await expect(ptRoot).toHaveAttribute('data-casinocraftz-tutorial-step', /.+/);
+
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await page.locator('[data-casinocraftz-tutorial-next]').click();
+    await expect(ptRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+
+    const ptFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
+    await ptFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(600);
+    await ptFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(600);
+    await ptFrame.locator('#slots-spin-button').click();
+    await page.waitForTimeout(1200);
+
+    await expect(ptRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+  });
 });
