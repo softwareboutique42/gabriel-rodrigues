@@ -27,6 +27,62 @@ const t = useTranslations('pt');
     data-slots-msg-insufficient={t('slots.gameplay.status.insufficient')}
     data-slots-msg-blocked-spinning={t('slots.gameplay.status.blockedSpinning')}
     data-slots-msg-pending={t('slots.gameplay.status.pending')}
+    data-casinocraftz-current-lesson="house-edge"
+    data-casinocraftz-tutorial-step="welcome"
+    data-casinocraftz-essence="0"
+    data-casinocraftz-essence-label={t('tutorial.essence.label')}
+    data-casinocraftz-lesson-status-active={t('tutorial.lesson.status.active')}
+    data-casinocraftz-lesson-status-complete={t('tutorial.lesson.status.complete')}
+    data-casinocraftz-lesson-status-locked={t('tutorial.lesson.status.locked')}
+    data-casinocraftz-lesson-open-label={t('tutorial.lesson.cta.open')}
+    data-casinocraftz-lesson-review-label={t('tutorial.lesson.cta.review')}
+    data-casinocraftz-lesson-preview-label={t('tutorial.lesson.cta.preview')}
+    data-casinocraftz-lesson-house-edge-label={t('tutorial.lesson.houseEdge.label')}
+    data-casinocraftz-lesson-house-edge-description={t('tutorial.lesson.houseEdge.description')}
+    data-casinocraftz-lesson-near-miss-label={t('tutorial.lesson.nearMiss.label')}
+    data-casinocraftz-lesson-near-miss-description={t('tutorial.lesson.nearMiss.description')}
+    data-casinocraftz-lesson-sensory-conditioning-soon={t('tutorial.lesson.sensoryConditioning.soon')}
+    data-casinocraftz-curriculum-progress-title={t('tutorial.curriculum.progressTitle')}
+    data-casinocraftz-curriculum-bounded-rule={t('tutorial.curriculum.boundedRule')}
+    data-casinocraftz-lesson-sensory-conditioning-label={t('tutorial.lesson.sensoryConditioning.label')}
+    data-casinocraftz-lesson-sensory-conditioning-description={t(
+      'tutorial.lesson.sensoryConditioning.description',
+    )}
+    data-casinocraftz-cards-title="Cartas Utilitarias"
+    data-casinocraftz-activate-label={t('tutorial.cta.activateCard')}
+    data-casinocraftz-replay-label={t('tutorial.cta.revisitLesson')}
+    data-casinocraftz-recap-label={t('tutorial.cta.whyTransition')}
+    data-casinocraftz-causality-probability-reveal={t('tutorial.causality.probabilityReveal')}
+    data-casinocraftz-causality-near-miss-reveal={t('tutorial.causality.nearMissReveal')}
+    data-casinocraftz-causality-sensory-reveal={t('tutorial.causality.sensoryReveal')}
+    data-casinocraftz-step-welcome-label={t('tutorial.step.welcome.label')}
+    data-casinocraftz-step-house-edge-intro-label={t('tutorial.step.houseEdgeIntro.label')}
+    data-casinocraftz-step-play-and-observe-label={t('tutorial.step.playAndObserve.label')}
+    data-casinocraftz-step-probability-reveal-label={t('tutorial.step.probabilityReveal.label')}
+    data-casinocraftz-step-card-unlock-label={t('tutorial.step.cardUnlock.label')}
+    data-casinocraftz-step-complete-label={t('tutorial.step.complete.label')}
+    data-casinocraftz-step-near-miss-intro-label={t('tutorial.step.nearMissIntro.label')}
+    data-casinocraftz-step-near-miss-observe-label={t('tutorial.step.nearMissObserve.label')}
+    data-casinocraftz-step-near-miss-reveal-label={t('tutorial.step.nearMissReveal.label')}
+    data-casinocraftz-step-near-miss-complete-label={t('tutorial.step.nearMissComplete.label')}
+    data-casinocraftz-step-sensory-conditioning-intro-label={t('tutorial.step.sensoryConditioningIntro.label')}
+    data-casinocraftz-step-sensory-conditioning-observe-label={t(
+      'tutorial.step.sensoryConditioningObserve.label',
+    )}
+    data-casinocraftz-step-sensory-conditioning-reveal-label={t(
+      'tutorial.step.sensoryConditioningReveal.label',
+    )}
+    data-casinocraftz-step-sensory-conditioning-complete-label={t(
+      'tutorial.step.sensoryConditioningComplete.label',
+    )}
+    data-casinocraftz-card-status-locked={t('cards.status.locked')}
+    data-casinocraftz-card-status-unlocked={t('cards.status.unlocked')}
+    data-casinocraftz-card-probability-seer-label={t('cards.probabilitySeer.label')}
+    data-casinocraftz-card-probability-seer-description={t('cards.probabilitySeer.description')}
+    data-casinocraftz-card-dopamine-dampener-label={t('cards.dopamineDampener.label')}
+    data-casinocraftz-card-dopamine-dampener-description={t('cards.dopamineDampener.description')}
+    data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
+    data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
     class="slots-shell mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
   >
     <div class="slots-shell__backdrop" aria-hidden="true">
@@ -52,28 +108,64 @@ const t = useTranslations('pt');
         aria-controls="slots-shell-menu"
         aria-expanded="false"
       >
-        <span aria-hidden="true">+</span>
-        <span class="sr-only">{t('slots.shell.label.theme')}</span>
+        <span data-slots-menu-icon aria-hidden="true">+</span>
+        <span class="sr-only">Abrir painel lateral</span>
       </button>
+
+      <div class="slots-shell__menu-backdrop" data-slots-menu-backdrop aria-hidden="true"></div>
 
       <aside
         id="slots-shell-menu"
         class="slots-shell__menu-drawer"
         data-slots-menu
         aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        tabindex="-1"
       >
-        <p class="slots-shell__menu-title">Ajustes de Sinal</p>
-        <div class="slots-shell__menu-row">
-          <span>{t('slots.shell.label.routes')}</span>
-          <strong data-slots-menu-routes>EN / PT</strong>
-        </div>
-        <div class="slots-shell__menu-row">
-          <span>{t('slots.shell.label.motion')}</span>
-          <strong data-slots-menu-motion>TOTAL</strong>
-        </div>
-        <div class="slots-shell__menu-row">
-          <span>{t('slots.shell.label.theme')}</span>
-          <strong data-slots-menu-theme>CORE V1</strong>
+        <div class="slots-shell__drawer-scroll">
+          <section class="slots-shell__drawer-section" aria-label="Painel Analisador">
+            <p class="slots-shell__menu-title">Painel Analisador</p>
+            <p class="slots-shell__drawer-copy">Cartas utilitarias e ferramentas de leitura.</p>
+            <div class="slots-shell__drawer-zone" data-casinocraftz-zone="cards"></div>
+          </section>
+
+          <section
+            class="slots-shell__drawer-section"
+            data-casinocraftz-zone="tutorial"
+            aria-label="Registro de Missao"
+          >
+            <p class="slots-shell__menu-title">Registro de Missao</p>
+            <p class="slots-shell__drawer-copy" data-casinocraftz-step-label></p>
+            <p class="slots-shell__drawer-copy text-cyan" data-casinocraftz-essence-display></p>
+            <div class="slots-shell__drawer-zone" data-casinocraftz-curriculum-progress></div>
+            <div class="slots-shell__drawer-zone" data-casinocraftz-curriculum></div>
+            <div class="slots-shell__drawer-zone" data-casinocraftz-dialogue></div>
+            <div class="slots-shell__drawer-actions">
+              <button type="button" class="slots-shell__drawer-btn" data-casinocraftz-tutorial-next>
+                Proximo Passo
+              </button>
+              <button type="button" class="slots-shell__drawer-btn" data-casinocraftz-tutorial-skip>
+                Pular Licao
+              </button>
+            </div>
+          </section>
+
+          <section class="slots-shell__drawer-section" aria-label="Ajustes">
+            <p class="slots-shell__menu-title">Ajustes</p>
+            <div class="slots-shell__menu-row">
+              <span>{t('slots.shell.label.routes')}</span>
+              <strong data-slots-menu-routes>EN / PT</strong>
+            </div>
+            <div class="slots-shell__menu-row">
+              <span>{t('slots.shell.label.motion')}</span>
+              <strong data-slots-menu-motion>TOTAL</strong>
+            </div>
+            <div class="slots-shell__menu-row">
+              <span>{t('slots.shell.label.theme')}</span>
+              <strong data-slots-menu-theme>CORE V1</strong>
+            </div>
+          </section>
         </div>
       </aside>
 

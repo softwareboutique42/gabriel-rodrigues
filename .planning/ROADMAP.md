@@ -28,7 +28,7 @@
 
 | Phase | Name | Goal | Requirements | Success Criteria |
 | ----- | ---- | ---- | ------------ | ---------------- |
-| 52 | Lobby Simplification | 3/3 | Complete   | 2026-04-04 |
+| 52 | Lobby Simplification | Complete ✅ | Complete | 2026-04-04 |
 | 53 | Slots Side Drawer | Expand `+` into full side drawer with Analyzer, Mission Log, Settings | LBY-03, LBY-04 | — |
 | 54 | State Migration & Parity | Tutorial progression and card activation work from slots; EN/PT + a11y verified | LBY-05 | — |
 

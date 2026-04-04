@@ -480,7 +480,7 @@ export function parseSpinSettledBridgeEvent(data: unknown): { spinIndex: number 
 }
 
 export function mountTutorial({ lang }: MountTutorialOptions): void {
-  const root = document.querySelector('[data-casinocraftz-shell-root]');
+  const root = document.querySelector('[data-casinocraftz-shell-root]') ?? document.querySelector('[data-slots-shell]');
   if (!(root instanceof HTMLElement)) {
     return;
   }

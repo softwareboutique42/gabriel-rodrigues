@@ -1,3 +1,4 @@
+import { mountTutorial } from '../casinocraftz/tutorial/main.ts';
 import { mountSlotsController } from './controller.ts';
 import {
   mountSlotsAnimationRuntime,
@@ -19,6 +20,9 @@ function normalizeThemeLabel(themeId: string): string {
 function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
   const menuToggle = root.querySelector<HTMLElement>('[data-slots-menu-toggle]');
   const menu = root.querySelector<HTMLElement>('[data-slots-menu]');
+  const drawerScroll = root.querySelector<HTMLElement>('.slots-shell__drawer-scroll');
+  const menuBackdrop = root.querySelector<HTMLElement>('[data-slots-menu-backdrop]');
+  const menuIcon = root.querySelector<HTMLElement>('[data-slots-menu-icon]');
 
   const routesValue = root.querySelector<HTMLElement>('[data-slots-menu-routes]');
   const motionValue = root.querySelector<HTMLElement>('[data-slots-menu-motion]');
@@ -40,17 +44,49 @@ function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
     }
   };
 
+  const getFocusableInMenu = (): HTMLElement[] => {
+    if (!menu) return [];
+    return Array.from(
+      menu.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((el) => !el.hasAttribute('disabled'));
+  };
+
   syncMenuValues();
 
   if (!menuToggle || !menu) return;
 
-  const setOpen = (open: boolean) => {
+  const setOpen = (open: boolean, shouldFocusToggle = false) => {
     root.dataset.slotsMenuOpen = open ? 'true' : 'false';
     menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (menuBackdrop) menuBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+    document.body.classList.toggle('slots-drawer-open', open);
+    if (menuIcon) menuIcon.textContent = open ? 'x' : '+';
+
+    try {
+      sessionStorage.setItem('ccz:slots-drawer-open', open ? 'true' : 'false');
+    } catch {
+      // sessionStorage unavailable (private browsing) — keep transient state only.
+    }
+
+    if (open) {
+      menu.scrollTop = 0;
+      if (drawerScroll) drawerScroll.scrollTop = 0;
+      menu.focus();
+    } else if (shouldFocusToggle) {
+      menuToggle.focus();
+    }
   };
 
-  setOpen(false);
+  let initialOpen = false;
+  try {
+    initialOpen = sessionStorage.getItem('ccz:slots-drawer-open') === 'true';
+  } catch {
+    // sessionStorage unavailable.
+  }
+  setOpen(initialOpen);
 
   menuToggle.addEventListener(
     'click',
@@ -60,6 +96,16 @@ function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
     },
     { signal },
   );
+
+  if (menuBackdrop) {
+    menuBackdrop.addEventListener(
+      'click',
+      () => {
+        if (root.dataset.slotsMenuOpen === 'true') setOpen(false, true);
+      },
+      { signal },
+    );
+  }
 
   document.addEventListener(
     'click',
@@ -77,8 +123,35 @@ function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
   document.addEventListener(
     'keydown',
     (event) => {
-      if (event.key === 'Escape') {
-        setOpen(false);
+      if (event.key === 'Escape' && root.dataset.slotsMenuOpen === 'true') {
+        event.preventDefault();
+        setOpen(false, true);
+        return;
+      }
+
+      if (event.key !== 'Tab' || root.dataset.slotsMenuOpen !== 'true') {
+        return;
+      }
+
+      const focusable = getFocusableInMenu();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (!menu.contains(active)) {
+        event.preventDefault();
+        first.focus();
+        return;
+      }
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     },
     { signal },
@@ -127,6 +200,9 @@ export function initSlotsShell(): void {
   if (status) {
     status.setAttribute('data-lifecycle', 'active');
   }
+
+  const lang = window.location.pathname.startsWith('/pt/') ? 'pt' : 'en';
+  mountTutorial({ lang });
 
   const mountedController = mountSlotsController(root, signal);
   runtime = mountSlotsAnimationRuntime(root, mountedController.visualEvents, signal);

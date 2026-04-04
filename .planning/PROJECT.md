@@ -47,12 +47,20 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] DTL-01: User sees Utility Cards in a persistent Analyzer Panel that frames educational tooling as the primary control surface
-- [ ] DTL-02: User can open and collapse a Mission Log that contains Curriculum Shell and Tutorial progression without crowding the main lobby
-- [ ] DTL-03: User sees game entries reframed as Simulation Chambers with a clinical, desaturated baseline visual system
-- [ ] DTL-04: User sees casino vibrance effects only when Dopamine Dampener is toggled off
-- [ ] DTL-05: User sees live telemetry previews (including a house-edge graph signal) on chamber cards instead of generic marketing copy
-- [ ] DTL-06: User receives EN/PT parity and accessible behavior across the redesigned lobby interactions
+- [ ] LBY-01: User sees the lobby as a clean launcher — header, wallet HUD, and chamber cards only (no Analyzer Panel sidebar, no Mission Log accordion)
+- [ ] LBY-02: User can tap an info (`ⓘ`) button on each chamber card metric to read a contextual explanation of what it means and what it is based on
+- [ ] LBY-03: User can open a full-height side drawer from the `+` button in the slot game, with Analyzer Panel, Mission Log, and Settings sections
+- [ ] LBY-04: Drawer state persists; `+` toggles to `×` when open; Escape closes; focus is trapped inside while open
+- [ ] LBY-05: Tutorial progression and card activation effects work from the slots drawer; EN/PT parity and accessibility verified; build clean
+
+### Shipped in v2.5
+
+- ✓ DTL-01: User sees Utility Cards in a persistent Analyzer Panel that frames educational tooling as the primary control surface
+- ✓ DTL-02: User can open and collapse a Mission Log that contains Curriculum Shell and Tutorial progression without crowding the main lobby
+- ✓ DTL-03: User sees game entries reframed as Simulation Chambers with a clinical, desaturated baseline visual system
+- ✓ DTL-04: User sees casino vibrance effects only when Dopamine Dampener is toggled off
+- ✓ DTL-05: User sees live telemetry previews (including a house-edge graph signal) on chamber cards instead of generic marketing copy
+- ✓ DTL-06: User receives EN/PT parity and accessible behavior across the redesigned lobby interactions
 
 ### Shipped in v2.3
 
@@ -110,24 +118,24 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v2.5 Diagnostic Terminal Lobby Redesign (Phase 49 next)
-- Latest shipped milestone: v2.4 Elementum Slots Interface Refinement (completed 2026-04-04)
-- Latest milestone result: Slots identity-shell and HUD refinement closed with full UAT pass (5/5), parity-safe routing, and stabilized mobile spacing
+- Active milestone: v2.6 Lobby Focus & Slots Command Center (Phase 52 next)
+- Latest shipped milestone: v2.5 Diagnostic Terminal Lobby Redesign (completed 2026-04-04)
+- Latest milestone result: Lobby reorganized into Analyzer Panel sidebar + Mission Log accordion with live telemetry chamber cards; EN/PT parity and accessibility verified (6/6 plans complete)
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
-## Current Milestone: v2.5 Diagnostic Terminal Lobby Redesign
+## Current Milestone: v2.6 Lobby Focus & Slots Command Center
 
-**Goal:** Reframe Casinocraftz from a game menu into a psychological laboratory where users analyze manipulation mechanics through instrumented, educational tooling.
+**Goal:** Refocus each surface — the lobby becomes a clean launcher (chambers + deposit only), and the slot game becomes the command center for all analytical and educational tools via an expanded side drawer behind the `+` icon.
 
 **Target features:**
 
-- Promote Utility Cards into a persistent Analyzer Panel as the primary interaction surface
-- Move Curriculum Shell and Tutorial into a retractable Mission Log progress tracker
-- Rebrand game lobby entries as Simulation Chambers with a clinical/desaturated baseline aesthetic
-- Gate casino vibrance behind Dopamine Dampener-off state only
-- Replace generic chamber blurbs with live telemetry previews, including a visible house-edge signal
+- Strip the lobby to header + wallet HUD (balance + deposit) + chamber cards only
+- Replace live telemetry blocks on chamber cards with contextual info (`ⓘ`) buttons explaining each metric
+- Expand the `+` button in the slot game into a full-height side drawer with three sections: Analyzer Panel, Mission Log, Settings
+- Migrate utility cards, curriculum shell, and tutorial dialogue into the slots side drawer
+- Ensure tutorial progression and card activation effects work correctly from the slots context
 
 **Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.5 → v2.13)
 
@@ -152,4 +160,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-04 after v2.5 milestone initialization_
+_Last updated: 2026-04-04 after v2.6 milestone initialization_
