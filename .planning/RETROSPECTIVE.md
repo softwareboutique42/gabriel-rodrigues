@@ -83,6 +83,40 @@ _A living document updated after each milestone. Lessons feed forward into futur
 
 ---
 
+## Milestone: v2.1 — Symbol Atlas Production Upgrade
+
+**Shipped:** 2026-04-04
+**Phases:** 1 (42) | **Plans:** 1
+
+### What Was Built
+
+- Production symbol assets (BAR, SEVEN, CROWN, DIAMOND, STAR) at `public/images/slots/symbols/`
+- Reel rendering updated to bind deterministic `data-slots-symbol` IDs to atlas-backed presentation assets
+- Accessibility metadata (`aria-label`, `title`) added to reel windows from deterministic symbol labels
+- Source contracts strengthened: locked asset references and documentation guardrails against unsafe symbol replacement
+
+### What Worked
+
+- Tight scope — one phase, one plan — meant execution was frictionless with no cross-phase coordination cost
+- Presentation-only constraint (no RNG/payout changes) kept the authority boundary clean and made verification straightforward
+- Existing compatibility test suite (47 contract checks + 2 Playwright slices) provided immediate coverage without writing new tests
+
+### What Was Inefficient
+
+- No milestone audit file was created, relying on the existing test suite for coverage assurance instead of a formal audit pass
+
+### Patterns Established
+
+- Atlas-backed symbol rendering follows a deterministic `data-slots-symbol` → image path mapping pattern that can extend to new symbols without touching payout logic
+- Documented the "safe to replace" vs "unsafe to touch" boundary explicitly in maintainer docs — prevents authority drift during future asset swaps
+
+### Key Lessons
+
+1. Minimal-scope milestones (one phase, one plan) can close quickly when the authority boundary is clearly defined upfront
+2. Production symbol replacement is safe as long as it stays presentation-only — the contract suite caught any authority leakage automatically
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
