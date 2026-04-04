@@ -47,7 +47,11 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-_(none — v2.3 shipped; next milestone not yet defined)_
+- [ ] UIR-80: Standardize bottom HUD/footer row height for strict symmetry and center bet controls
+- [ ] UIR-81: Add top-center `ELEMENTUM` title and top-left `← CasinoCraftz` back link
+- [ ] UIR-82: Replace reel placeholders with material-themed Gold, Rhodium, and Californium symbols with scanline depth treatment
+- [ ] UIR-83: Make Spin trigger hover state significantly more intense while preserving tactile readability
+- [ ] UIR-84: Preserve EN/PT parity and reduced-motion-safe behavior for all new visual effects
 
 ### Shipped in v2.3
 
@@ -114,18 +118,18 @@ _(none — v2.3 shipped; next milestone not yet defined)_
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
-## Current Milestone: v2.2 Sensory Conditioning Content
+## Current Milestone: v2.4 Elementum Slots Interface Refinement
 
-**Goal:** Add visible Slots celebration effects plus card-based suppression while preserving deterministic authority boundaries and motion-policy safety.
+**Goal:** Deliver a premium, material-themed Slots interface refinement pass that tightens layout symmetry, deepens thematic identity, and amplifies tactile interaction quality.
 
 **Target features:**
 
-- Win celebration effects on successful outcomes
-- Dopamine Dampener suppression path
-- Reduced-motion and motion-policy-safe effect behavior
-- EN/PT parity-safe confidence coverage for the new effect layer
+- Standardize bottom HUD symmetry and center bet controls
+- Introduce `ELEMENTUM` identity title and `← CasinoCraftz` back-navigation affordance
+- Replace generic reel placeholders with Gold, Rhodium, and Californium symbol treatments
+- Intensify Spin trigger hover feedback while preserving motion-policy accessibility
 
-**Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.3 → v2.13, 11 milestones, phases 45–66)
+**Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.5 → v2.13)
 
 ## Evolution
 
@@ -148,4 +152,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-04 after v2.2 milestone closeout_
+_Last updated: 2026-04-04 after v2.4 milestone initialization_
