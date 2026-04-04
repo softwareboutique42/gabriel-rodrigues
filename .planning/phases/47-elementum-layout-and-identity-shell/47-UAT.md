@@ -1,20 +1,15 @@
 ---
-status: testing
+status: complete
 phase: 47-elementum-layout-and-identity-shell
 source: 47-01-SUMMARY.md, 47-02-SUMMARY.md, 47-03-SUMMARY.md, 47-04-SUMMARY.md, 47-05-SUMMARY.md, 47-06-SUMMARY.md
 started: 2026-04-04T19:26:44Z
-updated: 2026-04-04T19:32:42Z
+updated: 2026-04-04T19:54:53Z
 ---
 
 ## Current Test
 <!-- OVERWRITE each test - shows where we are -->
 
-number: 2
-name: Identity header parity on PT route
-expected: |
-  On /pt/slots, the same top shell composition is present (ELEMENTUM centered plus <- CasinoCraftz back link)
-  with matching layout and spacing behavior.
-awaiting: user response
+[testing complete]
 
 ## Tests
 
@@ -26,26 +21,26 @@ severity: major
 
 ### 2. Identity header parity on PT route
 expected: On /pt/slots, the same top shell composition is present (ELEMENTUM centered plus <- CasinoCraftz back link) with matching layout and spacing behavior.
-result: [pending]
+result: pass
 
 ### 3. HUD row symmetry and centered bet controls
 expected: Across desktop and mobile breakpoints, the bottom HUD row keeps a consistent surface height and the bet control cluster sits visually centered between balance and spin surfaces.
-result: [pending]
+result: pass
 
 ### 4. Responsive integrity without overflow
 expected: At sm/md/lg viewport widths, cabinet and HUD remain aligned, spin surface respects the shared row-height contract, and horizontal overflow is not introduced by phase-47 layout changes.
-result: [pending]
+result: pass
 
 ### 5. Motion-safe identity presentation
 expected: With reduced-motion enabled, identity shell motion degrades safely (no disruptive fade/animation), while header content remains readable and correctly layered.
-result: [pending]
+result: pass
 
 ## Summary
 
 total: 5
-passed: 0
+passed: 4
 issues: 1
-pending: 4
+pending: 0
 skipped: 0
 blocked: 0
 
