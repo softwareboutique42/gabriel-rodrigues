@@ -10,9 +10,9 @@ Requirements for milestone v2.3. Each maps to roadmap phases 45–46.
 ### Sensory Effects
 
 - [ ] **FX-70**: Win outcomes trigger visible celebration effect (neon pulse, reel glow)
-- [ ] **FX-71**: Dopamine Dampener card suppresses win-celebration effects when active
+- [x] **FX-71**: Dopamine Dampener card suppresses win-celebration effects when active
 - [ ] **FX-72**: Effects system respects `prefers-reduced-motion` and motion-policy guardrails
-- [ ] **FX-73**: EN/PT parity for effects system
+- [x] **FX-73**: EN/PT parity for effects system
 
 ## Future Requirements
 
@@ -41,9 +41,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase    | Status  |
 | ----------- | -------- | ------- |
 | FX-70       | Phase 45 | Pending |
-| FX-71       | Phase 46 | Pending |
+| FX-71       | Phase 46 | Complete |
 | FX-72       | Phase 45 | Pending |
-| FX-73       | Phase 46 | Pending |
+| FX-73       | Phase 46 | Complete |
 
 **Coverage:**
 

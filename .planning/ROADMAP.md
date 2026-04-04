@@ -23,8 +23,8 @@
 
 ## Phases
 
-- [ ] **Phase 45: Win-Celebration Effects System** - Add motion-policy-safe win celebration cues driven by existing Slots outcome hooks
-- [ ] **Phase 46: Dampener Suppression and Confidence Lock** - Wire Dopamine Dampener suppression and close EN/PT confidence evidence
+- [x] **Phase 45: Win-Celebration Effects System** - Add motion-policy-safe win celebration cues driven by existing Slots outcome hooks (completed 2026-04-04)
+- [x] **Phase 46: Dampener Suppression and Confidence Lock** - Wire Dopamine Dampener suppression and close EN/PT confidence evidence *(plan ready)* (completed 2026-04-04)
 
 ## Phase Details
 
@@ -39,11 +39,11 @@
 2. Effects remain presentation-only and use existing runtime outcome hooks rather than new authority logic
 3. `prefers-reduced-motion` and current motion-policy guardrails remain respected
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 
-- [ ] 45-01-PLAN.md — Win celebration CSS (reel-win-pulse keyframes, amplified frame flare, motion-policy extensions) plus FX-70/FX-72 contract tests
+- [x] 45-01-PLAN.md — Win celebration CSS (reel-win-pulse keyframes, amplified frame flare, motion-policy extensions) plus FX-70/FX-72 contract tests
 
 ### Phase 46: Dampener Suppression and Confidence Lock
 
@@ -56,18 +56,18 @@ Plans:
 2. Suppression behavior remains deterministic and presentation-only
 3. EN/PT source contracts and browser coverage lock the effects layer release
 
-**Plans:** 0/1 planned
+**Plans:** 1/1 plans complete
 
 Plans:
 
-- [ ] 46-01-PLAN.md — Dampener suppression wiring plus parity-safe confidence coverage
+- [x] 46-01-PLAN.md — Dampener suppression wiring plus parity-safe confidence coverage
 
 ## Progress
 
 | Phase                                                  | Milestone | Plans Complete | Status      | Completed  |
 | ------------------------------------------------------ | --------- | -------------- | ----------- | ---------- |
-| 45. Win-Celebration Effects System                     | v2.3      | 0/1            | Not started | -          |
-| 46. Dampener Suppression and Confidence Lock           | v2.3      | 0/1            | Not started | -          |
+| 45. Win-Celebration Effects System                     | v2.3      | 1/1 | Complete   | 2026-04-04 |
+| 46. Dampener Suppression and Confidence Lock           | v2.3      | 1/1 | Complete   | 2026-04-04 |
 
 ---
 
