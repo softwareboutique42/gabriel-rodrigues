@@ -187,13 +187,13 @@ const t = useTranslations('en');
             </div>
           </header>
 
-          <!-- SIMULATION CHAMBERS (was "Game Lobby") -->
+          <!-- SIMULATION CHAMBERS (Diagnostic baseline + dampener-gated vibrance) -->
           <section class="mb-8 sm:mb-10" data-casinocraftz-zone="games">
             <p class="font-mono text-xs text-gold uppercase tracking-widest mb-4">{t('lobby.chambers.label')}</p>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <!-- Slots — LIVE -->
               <div
-                class="hud-outline-subtle p-5 flex flex-col gap-3"
+                class="hud-outline-subtle p-5 flex flex-col gap-3 ccz-chamber-card ccz-chamber-card--slots"
                 data-ccz-game-card="slots"
                 data-casinocraftz-slots-card
               >
@@ -201,9 +201,24 @@ const t = useTranslations('en');
                   <p class="font-mono text-xs text-neon uppercase tracking-wider">
                     {t('lobby.game.slots.label')}
                   </p>
-                  <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">Live</span>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">{t('lobby.chamber.status.live')}</span>
                 </div>
-                <p class="text-xs text-text-muted flex-1">{t('lobby.game.slots.description')}</p>
+                <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.slots.summary')}</p>
+                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
+                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
+                  <div class="flex justify-between text-text-muted">
+                    <span>{t('lobby.telemetry.houseEdge')}</span>
+                    <span data-ccz-telemetry-edge>--</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.signal')}</span>
+                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.impulse')}</span>
+                    <span data-ccz-telemetry-pulse>--</span>
+                  </div>
+                </div>
                 <a
                   href="/en/slots/"
                   data-casinocraftz-slots-link
@@ -215,7 +230,7 @@ const t = useTranslations('en');
 
               <!-- Blackjack — LOCKED -->
               <div
-                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-70 ccz-chamber-card ccz-chamber-card--blackjack"
                 data-ccz-game-card="blackjack"
                 aria-disabled="true"
               >
@@ -224,10 +239,25 @@ const t = useTranslations('en');
                     {t('lobby.game.blackjack.label')}
                   </p>
                   <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
-                    >Locked</span
+                    >{t('lobby.chamber.status.locked')}</span
                   >
                 </div>
-                <p class="text-xs text-text-muted flex-1">{t('lobby.game.blackjack.description')}</p>
+                <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.blackjack.summary')}</p>
+                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
+                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
+                  <div class="flex justify-between text-text-muted">
+                    <span>{t('lobby.telemetry.houseEdge')}</span>
+                    <span data-ccz-telemetry-edge>--</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.signal')}</span>
+                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.impulse')}</span>
+                    <span data-ccz-telemetry-pulse>--</span>
+                  </div>
+                </div>
                 <button
                   disabled
                   aria-disabled="true"
@@ -239,19 +269,32 @@ const t = useTranslations('en');
 
               <!-- Roulette — LOCKED -->
               <div
-                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-70 ccz-chamber-card ccz-chamber-card--roulette"
                 data-ccz-game-card="roulette"
                 aria-disabled="true"
               >
                 <div class="flex items-center justify-between">
-                  <p class="font-mono text-xs text-text-muted uppercase tracking-wider">Roulette</p>
+                  <p class="font-mono text-xs text-text-muted uppercase tracking-wider">{t('lobby.game.roulette.label')}</p>
                   <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
-                    >Locked</span
+                    >{t('lobby.chamber.status.locked')}</span
                   >
                 </div>
-                <p class="text-xs text-text-muted flex-1">
-                  Zero-pockets, probability math, and the gambler's fallacy deconstructed.
-                </p>
+                <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.roulette.summary')}</p>
+                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
+                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
+                  <div class="flex justify-between text-text-muted">
+                    <span>{t('lobby.telemetry.houseEdge')}</span>
+                    <span data-ccz-telemetry-edge>--</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.signal')}</span>
+                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                  </div>
+                  <div class="flex justify-between text-text-muted mt-1">
+                    <span>{t('lobby.telemetry.impulse')}</span>
+                    <span data-ccz-telemetry-pulse>--</span>
+                  </div>
+                </div>
                 <button
                   disabled
                   aria-disabled="true"

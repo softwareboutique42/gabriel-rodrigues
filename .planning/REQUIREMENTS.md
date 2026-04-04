@@ -9,12 +9,12 @@ Requirements for milestone v2.5. Each maps to roadmap phases 49-51.
 
 ### Diagnostic Terminal Experience
 
-- [ ] **DTL-01**: User sees Utility Cards in a persistent Analyzer Panel that remains available while navigating lobby surfaces.
-- [ ] **DTL-02**: User can open and collapse a Mission Log that contains Curriculum Shell + Tutorial progression without obstructing central chamber interactions.
-- [ ] **DTL-03**: User sees game entries renamed as Simulation Chambers with a clinical, desaturated visual baseline.
-- [ ] **DTL-04**: User only sees casino vibrance accents when Dopamine Dampener is toggled off.
-- [ ] **DTL-05**: User sees live telemetry previews on chamber cards (including a house-edge signal) instead of static promotional descriptions.
-- [ ] **DTL-06**: User gets EN/PT parity plus reduced-motion and accessibility-safe behavior for all redesigned lobby interactions.
+- [x] **DTL-01**: User sees Utility Cards in a persistent Analyzer Panel that remains available while navigating lobby surfaces.
+- [x] **DTL-02**: User can open and collapse a Mission Log that contains Curriculum Shell + Tutorial progression without obstructing central chamber interactions.
+- [x] **DTL-03**: User sees game entries renamed as Simulation Chambers with a clinical, desaturated visual baseline.
+- [x] **DTL-04**: User only sees casino vibrance accents when Dopamine Dampener is toggled off.
+- [x] **DTL-05**: User sees live telemetry previews on chamber cards (including a house-edge signal) instead of static promotional descriptions.
+- [x] **DTL-06**: User gets EN/PT parity plus reduced-motion and accessibility-safe behavior for all redesigned lobby interactions.
 
 ## Future Requirements
 
@@ -38,12 +38,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DTL-01 | Phase 49 | Pending |
-| DTL-02 | Phase 49 | Pending |
-| DTL-03 | Phase 50 | Pending |
-| DTL-04 | Phase 50 | Pending |
-| DTL-05 | Phase 51 | Pending |
-| DTL-06 | Phase 51 | Pending |
+| DTL-01 | Phase 49 | Satisfied |
+| DTL-02 | Phase 49 | Satisfied |
+| DTL-03 | Phase 50 | Satisfied |
+| DTL-04 | Phase 50 | Satisfied |
+| DTL-05 | Phase 51 | Satisfied |
+| DTL-06 | Phase 51 | Satisfied |
 
 **Coverage:**
 

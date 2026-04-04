@@ -189,6 +189,13 @@ body::after {
   }
 }
 
+
+@media (min-width: 640px) {
+  .ccz-analyzer-panel [data-ccz-analyzer-drawer] {
+    display: block;
+  }
+}
+
 /* === GLITCH HOVER — more aggressive === */
 @keyframes glitch-flicker {
   0% {
@@ -2211,5 +2218,47 @@ body::after {
 
   .slots-stage--immersive .slots-stage__reel-window {
     min-height: clamp(7.2rem, 21vh, 10.5rem);
+  }
+}
+
+/* === CASINOCRAFTZ SIMULATION CHAMBERS (Phase 50/51) === */
+[data-casinocraftz-shell-root] {
+  --ccz-chamber-bg: color-mix(in oklab, #101311 88%, #1f2923 12%);
+  --ccz-chamber-border: color-mix(in oklab, #6f7874 40%, transparent);
+  --ccz-chamber-accent: color-mix(in oklab, #6f7f74 48%, transparent);
+  --ccz-chamber-text: color-mix(in oklab, var(--color-text-primary) 85%, #9aa39d 15%);
+  --ccz-telemetry-glow: transparent;
+}
+
+[data-casinocraftz-shell-root][data-ccz-vibrance='enabled'] {
+  --ccz-chamber-bg: color-mix(in oklab, #0f1512 78%, var(--color-neon) 22%);
+  --ccz-chamber-border: color-mix(in oklab, var(--color-neon) 44%, transparent);
+  --ccz-chamber-accent: color-mix(in oklab, var(--color-cyan) 55%, transparent);
+  --ccz-chamber-text: color-mix(in oklab, var(--color-text-primary) 92%, white 8%);
+  --ccz-telemetry-glow: color-mix(in oklab, var(--color-neon) 30%, transparent);
+}
+
+.ccz-chamber-card {
+  background: var(--ccz-chamber-bg);
+  border: 1px solid var(--ccz-chamber-border);
+  color: var(--ccz-chamber-text);
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.ccz-chamber-card:hover {
+  border-color: var(--ccz-chamber-accent);
+  box-shadow: inset 0 0 0 0.5px var(--ccz-chamber-accent);
+}
+
+.ccz-chamber-telemetry {
+  background: color-mix(in oklab, var(--color-surface-dim) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ccz-chamber-border) 70%, transparent);
+  box-shadow: inset 0 0 12px var(--ccz-telemetry-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ccz-chamber-card,
+  .ccz-chamber-telemetry {
+    transition: none;
   }
 }

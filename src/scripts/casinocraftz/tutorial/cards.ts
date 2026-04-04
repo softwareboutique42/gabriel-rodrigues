@@ -24,6 +24,10 @@ const CARD_CLASSES = [
   'ccz-card--house-edge',
 ] as const;
 
+function notifyDampenerState(): void {
+  window.dispatchEvent(new CustomEvent('ccz:dampener-state'));
+}
+
 export function applyCard(cardId: UtilityCardId, root: HTMLElement): void {
   const tutorialZone = root.querySelector('[data-casinocraftz-zone="tutorial"]');
   if (!(tutorialZone instanceof HTMLElement)) {
@@ -40,6 +44,7 @@ export function applyCard(cardId: UtilityCardId, root: HTMLElement): void {
     } catch {
       // Private browsing may deny sessionStorage writes — silently ignore.
     }
+    notifyDampenerState();
   }
 }
 
@@ -50,6 +55,7 @@ export function clearCard(root: HTMLElement): void {
     // Silently ignore sessionStorage errors.
   }
 
+  notifyDampenerState();
   delete root.dataset.casinocraftzActiveCard;
 
   const tutorialZone = root.querySelector('[data-casinocraftz-zone="tutorial"]');

@@ -27,9 +27,9 @@
 
 | Phase | Name | Goal | Requirements | Success Criteria |
 | ----- | ---- | ---- | ------------ | ---------------- |
-| 49 | Analyzer Panel and Mission Log Architecture | Promote utility tools into a persistent Analyzer Panel and relocate curriculum/tutorial surfaces into a retractable Mission Log shell | DTL-01, DTL-02 | 3 |
-| 50 | Simulation Chambers Visual System | Rebrand lobby cards to Simulation Chambers with desaturated diagnostic styling and dampener-gated vibrance logic | DTL-03, DTL-04 | 4 |
-| 51 | Live Telemetry Chamber Integration | Replace static chamber blurbs with live telemetry previews and lock parity/accessibility behavior across EN/PT | DTL-05, DTL-06 | 4 |
+| 49 | Analyzer Panel and Mission Log Architecture | 4/4 | Complete   | 2026-04-04 |
+| 50 | Simulation Chambers Visual System | 1/1 | Complete | 2026-04-04 |
+| 51 | Live Telemetry Chamber Integration | 1/1 | Complete | 2026-04-04 |
 
 ### Phase Details
 
@@ -45,13 +45,13 @@
 2. Curriculum Shell + Tutorial move into a retractable Mission Log that can be expanded/collapsed without breaking core interactions.
 3. EN/PT layouts preserve equivalent hierarchy and interaction affordances for panel and mission-log behavior.
 
-**Plans:** 4 plans
+**Plans:** 4/4 plans complete
 
 Plans:
-- [ ] 49-01-PLAN.md — i18n strings and CSS layout foundation
-- [ ] 49-02-PLAN.md — EN lobby restructure and toggle JS logic
-- [ ] 49-03-PLAN.md — PT lobby mirror
-- [ ] 49-04-PLAN.md — build verification and human verification checkpoint
+- [x] 49-01-PLAN.md — i18n strings and CSS layout foundation
+- [x] 49-02-PLAN.md — EN lobby restructure and toggle JS logic
+- [x] 49-03-PLAN.md — PT lobby mirror
+- [x] 49-04-PLAN.md — build verification and human verification checkpoint
 
 #### Phase 50: Simulation Chambers Visual System
 
@@ -66,6 +66,11 @@ Plans:
 3. Vibrant casino accents activate only when Dopamine Dampener is off.
 4. Reduced-motion and runtime policy controls continue to degrade visual effects safely.
 
+**Plans:** 1/1 plans complete
+
+Plans:
+- [x] 50-01-PLAN.md — simulation chamber visual baseline and dampener-gated vibrance
+
 #### Phase 51: Live Telemetry Chamber Integration
 
 **Goal:** Replace static descriptions with informative telemetry previews that reinforce analytical learning.
@@ -78,3 +83,8 @@ Plans:
 2. Telemetry surfaces update safely without introducing gameplay-authority coupling.
 3. EN/PT output parity is preserved for labels, telemetry units, and interaction controls.
 4. Accessibility checks pass for contrast, reduced motion, and semantic labeling across redesigned lobby modules.
+
+**Plans:** 1/1 plans complete
+
+Plans:
+- [x] 51-01-PLAN.md — live telemetry previews and EN/PT accessibility parity
