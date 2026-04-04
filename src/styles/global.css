@@ -157,6 +157,38 @@ body::after {
   border-left: 1px solid color-mix(in oklab, var(--color-neon) 10%, transparent);
 }
 
+
+/* === CASINOCRAFTZ LOBBY LAYOUT === */
+.ccz-lobby-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 639px) {
+  .ccz-lobby-grid {
+    display: block;
+  }
+}
+
+.ccz-analyzer-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+@media (max-width: 639px) {
+  .ccz-analyzer-panel {
+    position: static;
+  }
+  .ccz-analyzer-panel [data-ccz-analyzer-drawer] {
+    display: none;
+  }
+  .ccz-analyzer-panel [data-ccz-analyzer-drawer]:not([hidden]) {
+    display: block;
+  }
+}
+
 /* === GLITCH HOVER — more aggressive === */
 @keyframes glitch-flicker {
   0% {
