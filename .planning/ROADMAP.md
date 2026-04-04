@@ -45,6 +45,14 @@
 2. Curriculum Shell + Tutorial move into a retractable Mission Log that can be expanded/collapsed without breaking core interactions.
 3. EN/PT layouts preserve equivalent hierarchy and interaction affordances for panel and mission-log behavior.
 
+**Plans:** 4 plans
+
+Plans:
+- [ ] 49-01-PLAN.md — i18n strings and CSS layout foundation
+- [ ] 49-02-PLAN.md — EN lobby restructure and toggle JS logic
+- [ ] 49-03-PLAN.md — PT lobby mirror
+- [ ] 49-04-PLAN.md — build verification and human verification checkpoint
+
 #### Phase 50: Simulation Chambers Visual System
 
 **Goal:** Establish a clinical simulation atmosphere where baseline visuals are diagnostic and casino vibrance appears only when dampening is disabled.
