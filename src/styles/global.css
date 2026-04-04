@@ -160,40 +160,7 @@ body::after {
 
 /* === CASINOCRAFTZ LOBBY LAYOUT === */
 .ccz-lobby-grid {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-@media (max-width: 639px) {
-  .ccz-lobby-grid {
-    display: block;
-  }
-}
-
-.ccz-analyzer-panel {
-  position: sticky;
-  top: 1.5rem;
-}
-
-@media (max-width: 639px) {
-  .ccz-analyzer-panel {
-    position: static;
-  }
-  .ccz-analyzer-panel [data-ccz-analyzer-drawer] {
-    display: none;
-  }
-  .ccz-analyzer-panel [data-ccz-analyzer-drawer]:not([hidden]) {
-    display: block;
-  }
-}
-
-
-@media (min-width: 640px) {
-  .ccz-analyzer-panel [data-ccz-analyzer-drawer] {
-    display: block;
-  }
+  display: block;
 }
 
 /* === GLITCH HOVER — more aggressive === */
