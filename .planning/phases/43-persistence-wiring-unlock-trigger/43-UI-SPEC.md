@@ -1,7 +1,8 @@
 ---
 phase: 43
 slug: persistence-wiring-unlock-trigger
-status: draft
+status: approved
+reviewed_at: 2026-04-04T00:00:00Z
 shadcn_initialized: false
 preset: none
 created: 2026-04-04
