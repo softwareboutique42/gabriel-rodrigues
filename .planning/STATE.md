@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.2
-milestone_name: Sensory Conditioning Content
+milestone: v2.3
+milestone_name: Sensory Effects Layer
 status: planning
-stopped_at: Phase 44 context gathered
-last_updated: "2026-04-04T14:06:46.055Z"
+stopped_at: Milestone v2.2 archived; Phase 45 next
+last_updated: "2026-04-04T15:42:16Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 2
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
   percent: 0
 ---
 
@@ -21,15 +21,15 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Phase 43 — persistence-wiring-unlock-trigger
+**Current Focus:** Phase 45 kickoff for v2.3
 
 ## Current Position
 
-Phase: 43 (persistence-wiring-unlock-trigger) — EXECUTING
-Plan: 1 of 1
-**Phase:** 44 of 44 (spin bridge threshold, causality copy & en/pt parity lock)
+Phase: 45 (win-celebration-effects-system) — NOT STARTED
+Plan: 0 of 1
+**Phase:** 45 of 46 (win celebration effects system)
 **Plan:** Not started
-**Status:** Ready to plan
+**Status:** Ready to discuss
 **Last Activity:** 2026-04-04
 
 ## Progress
@@ -44,8 +44,8 @@ Phases: 0/2 complete
 
 | Phase    | Name                                               | Status | Goal                                                                                      |
 | -------- | -------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
-| Phase 43 | Persistence Wiring & Unlock Trigger                | ○      | Fix returning-user fast-path; write Lesson 2/3 completion to localStorage                 |
-| Phase 44 | Spin-Bridge Threshold, Causality Copy & EN/PT Lock | ○      | Verify 2-spin gate, causality disclosure, parity; close release evidence for EDU-70 to 73 |
+| Phase 45 | Win-Celebration Effects System                     | ○      | Add motion-policy-safe win celebration cues driven by existing runtime outcomes            |
+| Phase 46 | Dampener Suppression and Confidence Lock           | ○      | Wire suppression behavior and close EN/PT release evidence                                 |
 
 ## Key Decisions
 
@@ -100,9 +100,9 @@ Phases: 0/2 complete
 - [v2.1 kickoff]: Keep RNG, payouts, and authority modules unchanged; all changes remain presentation-only.
 - [Phase 42]: Reel windows now render atlas-backed symbol assets via deterministic `data-slots-symbol` mapping while preserving controller authority boundaries.
 - [Phase 42]: Compatibility contracts and EN/PT parity checks now lock symbol asset references and documentation safety guidance.
-- [v2.2 kickoff]: Integration-only milestone — all Lesson 3 content is already authored; only persistence model and verification are missing.
-- [v2.2 kickoff]: No FX code (neon pulse, reel glow) allowed in v2.2 — that is Phase 45-46 (v2.3).
-- [v2.2 kickoff]: Three-key localStorage pattern (`ccz-tutorial-completed`, `ccz-near-miss-completed`, `ccz-lesson-sensory-completed`) extends existing precedent.
+- [v2.2 closeout]: Lesson 3 persistence and verification evidence are complete; v2.2 shipped on 2026-04-04.
+- [v2.3 kickoff]: Win celebration effects must remain presentation-only and reuse existing deterministic runtime signals.
+- [v2.3 kickoff]: Dopamine Dampener suppression belongs in v2.3, not curriculum progression logic.
 
 ## Performance Metrics
 
@@ -123,10 +123,10 @@ Phases: 0/2 complete
 
 ## Blockers / Concerns
 
-- [Phase 44 prep]: Playwright spin injection sequencing — synchronous double-injection in `page.evaluate()` can cause state misread. Inspect existing near-miss E2E bridge helpers before extending pattern to Lesson 3 contracts.
+- Repository-wide `npm run test` still has unrelated failures in mobile canvas flows and legacy Casinocraftz compatibility specs that target embedded slots interactions. These remain debt entering v2.3.
 
 ## Session Continuity
 
-Last session: 2026-04-04T14:06:46.050Z
-Stopped at: Phase 44 context gathered
-Resume file: .planning/phases/44-spin-bridge-threshold-causality-copy-en-pt-parity-lock/44-CONTEXT.md
+Last session: 2026-04-04T15:42:16Z
+Stopped at: Milestone v2.2 archived; Phase 45 next
+Resume file: .planning/ROADMAP.md

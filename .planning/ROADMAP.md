@@ -17,62 +17,58 @@
 
 ## Current Milestone
 
-🚧 **v2.2 Sensory Conditioning Content** — Phases 43–44
+🚧 **v2.3 Sensory Effects Layer** — Phases 45–46
 
-**Milestone Goal:** Unlock Lesson 3 of the Casinocraftz curriculum for returning users by fixing the persistence model and verifying that sensory conditioning dialogue, spin-bridge observation, and EN/PT parity all hold end-to-end.
+**Milestone Goal:** Add visible Slots celebration effects and card-based suppression while preserving motion-policy safety and EN/PT parity.
 
 ## Phases
 
-- [x] **Phase 43: Persistence Wiring & Unlock Trigger** - Fix the returning-user fast-path and write Lesson 2/3 completion to localStorage (completed 2026-04-04)
-- [ ] **Phase 44: Spin-Bridge Threshold, Causality Copy & EN/PT Parity Lock** - Verify 2-spin gate, causality disclosure, and parity; close release evidence
+- [ ] **Phase 45: Win-Celebration Effects System** - Add motion-policy-safe win celebration cues driven by existing Slots outcome hooks
+- [ ] **Phase 46: Dampener Suppression and Confidence Lock** - Wire Dopamine Dampener suppression and close EN/PT confidence evidence
 
 ## Phase Details
 
-### Phase 43: Persistence Wiring & Unlock Trigger
+### Phase 45: Win-Celebration Effects System
 
-**Goal**: Returning users who completed Lesson 2 see Lesson 3 unlocked on reload, and Lesson 3 completion survives page navigation
-**Depends on**: Phase 42 (v2.1 complete)
-**Requirements**: EDU-70, EDU-71, EDU-73
+**Goal**: Introduce demonstrable win-celebration effects in Slots without breaking deterministic runtime boundaries or motion-policy guarantees
+**Depends on**: Phase 44 (v2.2 complete)
+**Requirements**: FX-70, FX-72
 **Success Criteria** (what must be TRUE):
 
-1. User who completed Lesson 2 (Near-Miss) and reloads the page sees Lesson 3 (Sensory Conditioning) in an unlocked state
-2. User who completes Lesson 3 and reloads the page sees Lesson 3 as completed and the curriculum counter reads 3/3
-3. User who skips through Lesson 3 via the skip button has Near-Miss completion correctly persisted before skip fires
-4. The reconstructed `completedLessons` array emits in curriculum-canonical order (house-edge, near-miss) not push order
-5. All four Lesson 3 dialogue steps render in EN and PT with correct narrator/system roles
+1. Win outcomes trigger visible celebration effects on canonical EN/PT Slots routes
+2. Effects remain presentation-only and use existing runtime outcome hooks rather than new authority logic
+3. `prefers-reduced-motion` and current motion-policy guardrails remain respected
 
-**Plans:** 1/1 plans complete
+**Plans:** 0/1 planned
 
 Plans:
 
-- [x] 43-01-PLAN.md — Persistence functions, fast-path replacement, completion checkpoint wiring, contract tests
+- [ ] 45-01-PLAN.md — Motion-policy-safe celebration effects driven by win outcome datasets
 
-### Phase 44: Spin-Bridge Threshold, Causality Copy & EN/PT Parity Lock
+### Phase 46: Dampener Suppression and Confidence Lock
 
-**Goal**: Contract and Playwright coverage confirms the 2-spin observe gate, causality disclosure, and EN/PT attribute parity — producing release evidence for all four EDU requirements
-**Depends on**: Phase 43
-**Requirements**: EDU-72
+**Goal**: Make the Dopamine Dampener card suppress celebration effects and close EN/PT confidence evidence for the full effects layer
+**Depends on**: Phase 45
+**Requirements**: FX-71, FX-73
 **Success Criteria** (what must be TRUE):
 
-1. Contract test confirms `sensory-conditioning-observe` does not advance before 2 settled spins have been received
-2. Contract test confirms `sensory-conditioning-observe` advances exactly on the second settled spin
-3. Causality disclosure renders in EN and PT when the spin-triggered `sensory-conditioning-reveal` transition fires
-4. `data-casinocraftz-lesson-sensory-conditioning-soon` attribute is asserted by name in the parity contract, preventing accidental removal
+1. Dopamine Dampener suppresses win celebration effects when active
+2. Suppression behavior remains deterministic and presentation-only
+3. EN/PT source contracts and browser coverage lock the effects layer release
 
-**Plans:** 2 plans
+**Plans:** 0/1 planned
 
 Plans:
 
-- [ ] 44-01-PLAN.md — Contract tests: spin-bridge threshold, causality disclosure lock, EN/PT attribute parity
-- [ ] 44-02-PLAN.md — Playwright E2E: spin-bridge gate and causality disclosure rendering
+- [ ] 46-01-PLAN.md — Dampener suppression wiring plus parity-safe confidence coverage
 
 ## Progress
 
 | Phase                                                  | Milestone | Plans Complete | Status      | Completed  |
 | ------------------------------------------------------ | --------- | -------------- | ----------- | ---------- |
-| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 1/1            | Complete    | 2026-04-04 |
-| 44. Spin-Bridge Threshold, Causality Copy & EN/PT Lock | v2.2      | 0/2            | Not started | -          |
+| 45. Win-Celebration Effects System                     | v2.3      | 0/1            | Not started | -          |
+| 46. Dampener Suppression and Confidence Lock           | v2.3      | 0/1            | Not started | -          |
 
 ---
 
-_Updated: 2026-04-04 — Phase 44 plans created_
+_Updated: 2026-04-04 — v2.2 archived; v2.3 activated_

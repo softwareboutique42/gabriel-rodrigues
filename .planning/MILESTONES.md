@@ -1,5 +1,22 @@
 # Milestones
 
+## v2.2 Sensory Conditioning Content (Shipped: 2026-04-04)
+
+**Delivered:** Lesson 3 now survives returning-user reloads and has release-ready evidence for its two-spin gate, causality disclosure, and EN/PT parity locks.
+
+**Phases completed:** 2 phases, 3 plans
+
+**Key accomplishments:**
+
+- Reconstructed curriculum progress from localStorage so Near-Miss completion unlocks Sensory Conditioning on reload.
+- Persisted Lesson 3 completion and skip-path state without changing deterministic authority boundaries.
+- Added explicit contract evidence for the Lesson 3 two-spin threshold, sensory causality key, recap hook, and parity-sensitive Astro dataset attribute.
+- Added focused Playwright coverage proving no advance after one spin, reveal on the second spin, and recap disclosure visibility in EN/PT.
+
+**Requirements:** 4/4 shipped (`EDU-70`, `EDU-71`, `EDU-72`, `EDU-73`)
+
+---
+
 ## v2.1 Symbol Atlas Production Upgrade (Shipped: 2026-04-04)
 
 **Delivered:** Slots reel visuals now use atlas-backed production symbol assets with deterministic symbol mapping, EN/PT parity-safe confidence checks, and maintained authority isolation.

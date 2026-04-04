@@ -70,6 +70,13 @@ metrics:
 - Lint: 0 errors
 - Build: 154 pages, no errors
 
+## Validation
+
+- `node --test tests/casinocraftz-tutorial-contract.test.mjs tests/compatibility-contract.test.mjs tests/slots-i18n-parity-contract.test.mjs` - 27/27 PASS
+- `npx playwright test e2e/compatibility.spec.ts --project=chromium --workers=1 --grep "casinocraftz" --reporter=json > .planning/debug/bridge-validation-report.json` - PASS
+- `npm run lint` - PASS with one unrelated pre-existing warning in `.claude/`
+- `npm run build` - PASS, 154 pages built
+
 ## Deviations from Plan
 
 None — plan executed exactly as written. Source-reading approach was used for behavioral contract tests (consistent with existing project test patterns, no tsx available).

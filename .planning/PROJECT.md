@@ -42,13 +42,15 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ PAR-60/SAFE-60/SAFE-61 final parity and confidence lock closed with deterministic contracts, browser checks, and release evidence — v1.9
 - ✓ HUB-60/VIS-60/DOC-60 replaced Casinocraftz Slots iframe with standalone access card, polished Slots shell with collapsed debug output, and published symbol customization documentation — v2.0
 - ✓ VIS-62/PAR-62/SAFE-62 upgraded Slots reels to atlas-backed symbol assets with parity-safe contracts while preserving deterministic authority boundaries — v2.1
+- ✓ EDU-70/EDU-71/EDU-73 restored Lesson 3 unlock, persistence, and sensory-conditioning explanation flow for returning users — v2.2
+- ✓ EDU-72 locked the Lesson 3 two-spin gate, recap disclosure, and EN/PT parity-sensitive dataset evidence — v2.2
 
 ### Active
 
-- ✓ EDU-70: User can access Lesson 3 (Sensory Conditioning) after completing Lesson 2 (Near-Miss) — Validated in Phase 43: Persistence Wiring & Unlock Trigger
-- ✓ EDU-71: Lesson 3 dialogue explains how sensory triggers condition response without changing odds — Validated in Phase 43: Persistence Wiring & Unlock Trigger
-- [ ] EDU-72: Spin-bridge observation gates Lesson 3 step advancement (2 spins threshold)
-- ✓ EDU-73: Lesson 3 completion tracked and persisted — Validated in Phase 43: Persistence Wiring & Unlock Trigger
+- [ ] FX-70: Win outcomes trigger visible celebration effects without changing deterministic authority behavior
+- [ ] FX-71: Dopamine Dampener card suppresses win-celebration effects when active
+- [ ] FX-72: Effects system respects reduced-motion and motion-policy guardrails
+- [ ] FX-73: EN/PT parity coverage locks the effects layer release
 
 ### Out of Scope
 
@@ -99,26 +101,27 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v2.2 Sensory Conditioning Content (Phase 43 complete, Phase 44 next)
-- Latest shipped milestone: v2.1 Symbol Atlas Production Upgrade (completed 2026-04-04)
-- Latest milestone result: atlas-backed Slots symbol rendering, parity-safe compatibility locks, and preserved deterministic authority boundaries
+- Active milestone: v2.3 Sensory Effects Layer (Phase 45 next)
+- Latest shipped milestone: v2.2 Sensory Conditioning Content (completed 2026-04-04)
+- Latest milestone result: returning-user Lesson 3 unlock persistence plus dedicated release evidence for the sensory-conditioning two-spin gate and recap disclosure
 - Phase 43 complete: localStorage persistence wired for Lesson 2/3 completion; returning users see Lesson 3 unlocked on reload; 24/24 contract tests passing
+- Phase 44 complete: dedicated contract and Playwright evidence now prove the Lesson 3 two-spin gate, causality disclosure, and EN/PT parity-sensitive sensory dataset locks
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
 ## Current Milestone: v2.2 Sensory Conditioning Content
 
-**Goal:** Unlock and implement Lesson 3 of the Casinocraftz curriculum — sensory conditioning dialogue, step progression, spin-bridge observation, and unlock trigger gated on Near-Miss completion.
+**Goal:** Add visible Slots celebration effects plus card-based suppression while preserving deterministic authority boundaries and motion-policy safety.
 
 **Target features:**
 
-- Lesson 3 unlock trigger (requires Near-Miss complete)
-- Sensory Conditioning dialogue registry (EN/PT)
-- Spin-bridge observation (2-spin threshold gates step advance)
-- Lesson 3 completion persistence
+- Win celebration effects on successful outcomes
+- Dopamine Dampener suppression path
+- Reduced-motion and motion-policy-safe effect behavior
+- EN/PT parity-safe confidence coverage for the new effect layer
 
-**Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.2 → v2.13, 12 milestones, phases 43–66)
+**Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.3 → v2.13, 11 milestones, phases 45–66)
 
 ## Evolution
 
@@ -141,4 +144,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-04 after Phase 43 completion_
+_Last updated: 2026-04-04 after v2.2 milestone closeout_
