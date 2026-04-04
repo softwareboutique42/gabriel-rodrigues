@@ -33,9 +33,23 @@ export function applyCard(cardId: UtilityCardId, root: HTMLElement): void {
   clearCard(root);
   root.dataset.casinocraftzActiveCard = cardId;
   tutorialZone.classList.add(`ccz-card--${cardId}`);
+
+  if (cardId === 'dopamine-dampener') {
+    try {
+      sessionStorage.setItem('ccz:dampened', '1');
+    } catch {
+      // Private browsing may deny sessionStorage writes — silently ignore.
+    }
+  }
 }
 
 export function clearCard(root: HTMLElement): void {
+  try {
+    sessionStorage.removeItem('ccz:dampened');
+  } catch {
+    // Silently ignore sessionStorage errors.
+  }
+
   delete root.dataset.casinocraftzActiveCard;
 
   const tutorialZone = root.querySelector('[data-casinocraftz-zone="tutorial"]');
