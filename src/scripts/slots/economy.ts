@@ -1,4 +1,5 @@
 import type { SlotsRoundState } from './engine/types.ts';
+import { loadWallet } from '../casinocraftz/wallet.ts';
 
 export interface EconomyState {
   balance: number;
@@ -11,7 +12,7 @@ export type SpinBlockReason = 'spinning' | 'insufficient' | null;
 
 export function createInitialEconomyState(): EconomyState {
   return {
-    balance: 40,
+    balance: loadWallet().balance,
     bet: 2,
     minBet: 1,
     maxBet: 10,

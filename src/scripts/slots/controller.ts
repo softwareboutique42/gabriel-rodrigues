@@ -7,6 +7,7 @@ import {
   getSpinBlockReason,
   settleRound,
 } from './economy.ts';
+import { saveWallet } from '../casinocraftz/wallet.ts';
 import type { EngineState } from './engine/types.ts';
 import {
   createSpinAcceptedVisualEvent,
@@ -208,6 +209,7 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
       const result = resolveRound({ baseSeed, spinIndex: activeSpin });
       state = transitionEngineState(state, { type: 'SPIN_RESOLVED', result });
       economy = settleRound(economy, result.totalPayoutUnits);
+      saveWallet({ balance: economy.balance });
       emitAnalyticsEvent({
         name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_RESOLVED,
         route,

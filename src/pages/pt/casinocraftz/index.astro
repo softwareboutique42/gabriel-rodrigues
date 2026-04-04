@@ -7,7 +7,7 @@ const t = useTranslations('pt');
 
 <BaseLayout
   title="Casinocraftz - Gabriel Rodrigues"
-  description="Simulacao educacional transparente no navegador com estrutura sem risco e entrada para o modulo Slots."
+  description="Simulacao educacional transparente no navegador. Sem apostas reais. Pura alfabetizacao em matematica de jogos."
 >
   <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16">
     <article
@@ -77,74 +77,116 @@ const t = useTranslations('pt');
       data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
       data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
     >
-      <header class="mb-8 sm:mb-10" data-casinocraftz-zone="foundation">
-        <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
-          {t('casinocraftz.badge.liveLab')}
-        </p>
-        <h1 class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3 ls-tight-3">
-          {t('casinocraftz.title')}
-        </h1>
-        <p class="text-text-muted font-mono text-xs sm:text-sm mb-4">
-          {t('casinocraftz.subtitle')}
-        </p>
-        <p class="text-sm text-text-secondary max-w-2xl">{t('casinocraftz.disclaimer.zeroRisk')}</p>
-      </header>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
-        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="foundation">
-          <p class="font-mono text-xs text-neon uppercase tracking-wider mb-2">
-            {t('casinocraftz.zone.foundation')}
+      <!-- LOBBY HEADER -->
+      <header
+        class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8 sm:mb-10"
+        data-casinocraftz-zone="foundation"
+      >
+        <div>
+          <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
+            {t('casinocraftz.badge.liveLab')}
           </p>
-          <p class="text-sm text-text-secondary">
-            Paridade de rotas e estabilidade do shell principal agora estao garantidas.
-          </p>
-        </section>
-        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="modules">
-          <p class="font-mono text-xs text-cyan uppercase tracking-wider mb-2">
-            {t('casinocraftz.zone.modules')}
-          </p>
-          <p class="text-sm text-text-secondary">
-            Slots entra como modulo inicial enquanto utilitarios evoluem em paralelo.
-          </p>
-        </section>
-        <section class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-zone="transparency">
-          <p class="font-mono text-xs text-gold uppercase tracking-wider mb-2">
-            {t('casinocraftz.zone.transparency')}
-          </p>
-          <p class="text-sm text-text-secondary">
-            House edge e resultados permanecem explicaveis e nunca ligados a aposta real.
-          </p>
-        </section>
-      </div>
-
-      <section class="mb-8 sm:mb-10" data-casinocraftz-zone="modules">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-          <h2 class="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
-            {t('slots.title')}
-          </h2>
-          <p class="font-mono text-xs text-cyan uppercase tracking-wider">
-            Modulo 01: Runtime Standalone
+          <h1
+            class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3 ls-tight-3"
+          >
+            {t('casinocraftz.title')}
+          </h1>
+          <p class="text-sm text-text-secondary max-w-2xl">
+            {t('casinocraftz.disclaimer.zeroRisk')}
           </p>
         </div>
-        <p class="text-sm text-text-secondary mb-4">
-          Abra a rota dedicada de Slots neste card para explorar o shell completo do jogo.
-        </p>
-        <div class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-slots-card>
-          <p class="font-mono text-xs uppercase tracking-wider text-gold mb-2">Acesso ao Slots</p>
-          <p class="text-sm text-text-secondary mb-4">
-            Visite a pagina standalone do Slots para controles completos, rolos polidos e telemetria
-            determinista.
+
+        <!-- WALLET HUD -->
+        <div
+          class="flex-shrink-0 hud-outline-subtle p-4 flex flex-col items-end gap-2 min-w-[160px]"
+        >
+          <p class="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+            {t('lobby.balance.label')}
           </p>
-          <a
-            href="/pt/slots/"
-            data-casinocraftz-slots-link
-            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-10 px-4 py-2 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
+          <p class="font-mono text-2xl font-bold text-neon leading-none">
+            <span data-ccz-lobby-balance>100</span>
+          </p>
+          <button
+            data-ccz-deposit-trigger
+            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-8 px-3 py-1 bg-gold text-bg font-bold text-xs uppercase tracking-wider"
           >
-            Abrir Jogo Slots
-          </a>
+            {t('lobby.deposit.trigger')}
+          </button>
+        </div>
+      </header>
+
+      <!-- GAME LOBBY GRID -->
+      <section class="mb-8 sm:mb-10" data-casinocraftz-zone="games">
+        <p class="font-mono text-xs text-gold uppercase tracking-widest mb-4">Lobby</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Slots — LIVE -->
+          <div class="hud-outline-subtle p-5 flex flex-col gap-3" data-ccz-game-card="slots">
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-xs text-neon uppercase tracking-wider">
+                {t('lobby.game.slots.label')}
+              </p>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">Ao Vivo</span>
+            </div>
+            <p class="text-xs text-text-muted flex-1">{t('lobby.game.slots.description')}</p>
+            <a
+              href="/pt/slots/"
+              class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+            >
+              {t('lobby.game.slots.cta')} →
+            </a>
+          </div>
+
+          <!-- Blackjack — LOCKED -->
+          <div
+            class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+            data-ccz-game-card="blackjack"
+            aria-disabled="true"
+          >
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-xs text-text-muted uppercase tracking-wider">
+                {t('lobby.game.blackjack.label')}
+              </p>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
+                >Bloqueado</span
+              >
+            </div>
+            <p class="text-xs text-text-muted flex-1">{t('lobby.game.blackjack.description')}</p>
+            <button
+              disabled
+              aria-disabled="true"
+              class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
+            >
+              {t('lobby.game.locked.cta')}
+            </button>
+          </div>
+
+          <!-- Roleta — LOCKED -->
+          <div
+            class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+            data-ccz-game-card="roulette"
+            aria-disabled="true"
+          >
+            <div class="flex items-center justify-between">
+              <p class="font-mono text-xs text-text-muted uppercase tracking-wider">Roleta</p>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
+                >Bloqueado</span
+              >
+            </div>
+            <p class="text-xs text-text-muted flex-1">
+              Zeros, matematica de probabilidade e a falácia do jogador desconstruida.
+            </p>
+            <button
+              disabled
+              aria-disabled="true"
+              class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
+            >
+              {t('lobby.game.locked.cta')}
+            </button>
+          </div>
         </div>
       </section>
 
+      <!-- CURRICULUM -->
       <section
         class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6"
         data-casinocraftz-zone="curriculum"
@@ -161,6 +203,7 @@ const t = useTranslations('pt');
         <div data-casinocraftz-curriculum></div>
       </section>
 
+      <!-- TUTORIAL DIALOGUE -->
       <section class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
         <header class="mb-4">
           <p
@@ -191,6 +234,7 @@ const t = useTranslations('pt');
         </button>
       </section>
 
+      <!-- UTILITY CARDS -->
       <section class="mt-4 sm:mt-6" data-casinocraftz-zone="cards">
         <p class="font-mono text-xs text-gold uppercase tracking-wider mb-3">Utility Cards</p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -236,13 +280,8 @@ const t = useTranslations('pt');
         </div>
       </section>
 
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-        <a
-          href="/pt/slots/"
-          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
-        >
-          {t('casinocraftz.cta.openSlots')}
-        </a>
+      <!-- FOOTER ACTIONS -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
         <a
           href="/pt/projects/"
           class="inline-flex items-center justify-center min-h-11 px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
@@ -250,16 +289,83 @@ const t = useTranslations('pt');
           {t('casinocraftz.cta.backProjects')}
         </a>
       </div>
+
+      <!-- DEPOSIT MODAL -->
+      <div
+        data-ccz-deposit-modal
+        hidden
+        class="fixed inset-0 z-50 flex items-center justify-center p-4"
+        style="background: rgba(0,0,0,0.75);"
+      >
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ccz-deposit-title"
+          class="glow-panel p-6 sm:p-8 w-full max-w-sm relative"
+        >
+          <button
+            data-ccz-deposit-close
+            class="absolute top-4 right-4 font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-wider"
+            aria-label="Fechar modal de deposito"
+          >
+            ✕
+          </button>
+
+          <p class="font-mono text-xs text-gold uppercase tracking-widest mb-2">
+            {t('lobby.deposit.title')}
+          </p>
+          <p id="ccz-deposit-title" class="text-xl font-bold text-text-primary mb-6">
+            Selecione o valor
+          </p>
+
+          <div class="grid grid-cols-3 gap-3 mb-6" data-ccz-deposit-amounts>
+            <button
+              data-ccz-deposit-amount="50"
+              class="hud-outline-subtle p-3 font-mono text-sm font-bold text-text-primary hover:text-neon hover:border-neon transition-colors uppercase tracking-wider text-center"
+            >
+              50
+            </button>
+            <button
+              data-ccz-deposit-amount="100"
+              class="hud-outline-subtle p-3 font-mono text-sm font-bold text-text-primary hover:text-neon hover:border-neon transition-colors uppercase tracking-wider text-center"
+            >
+              100
+            </button>
+            <button
+              data-ccz-deposit-amount="500"
+              class="hud-outline-subtle p-3 font-mono text-sm font-bold text-text-primary hover:text-neon hover:border-neon transition-colors uppercase tracking-wider text-center"
+            >
+              500
+            </button>
+          </div>
+
+          <div class="hud-outline-subtle p-3 mb-6 border-l-2 border-gold">
+            <p class="font-mono text-[11px] text-gold uppercase tracking-wider mb-1">
+              ⚠ Nota educacional
+            </p>
+            <p class="text-xs text-text-secondary">{t('lobby.deposit.educational')}</p>
+          </div>
+
+          <button
+            data-ccz-deposit-confirm
+            class="w-full clip-corners hover-glitch inline-flex items-center justify-center min-h-11 px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+          >
+            {t('lobby.deposit.confirm')}
+          </button>
+        </div>
+      </div>
     </article>
   </section>
 
   <script>
     import { mountTutorial } from '../../../scripts/casinocraftz/tutorial/main';
+    import { mountLobby } from '../../../scripts/casinocraftz/lobby';
 
     document.addEventListener('astro:page-load', () => {
       const root = document.querySelector('[data-casinocraftz-shell-root]') as HTMLElement | null;
       if (!root) return;
       const lang = (root.dataset.casinocraftzLang ?? 'en') as 'en' | 'pt';
+      mountLobby();
       mountTutorial({ lang });
     });
   </script>
