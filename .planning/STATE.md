@@ -1,10 +1,11 @@
 ---
 gsd_state_version: 1.0
 milestone: v2.2
-milestone_name: sensory-conditioning-content
-status: active
-last_updated: '2026-04-04T00:00:00.000Z'
-last_activity: 2026-04-04
+milestone_name: Sensory Conditioning Content
+status: planning
+stopped_at: Phase 43 context gathered (assumptions mode)
+last_updated: '2026-04-04T13:17:04.527Z'
+last_activity: 2026-04-04 — v2.2 roadmap initialized; v2.1 Symbol Atlas Production Upgrade shipped
 progress:
   total_phases: 2
   completed_phases: 0
@@ -124,6 +125,6 @@ Phases: 0/2 complete
 
 ## Session Continuity
 
-Last session: 2026-04-04
-Stopped at: v2.2 roadmap initialized; ready to plan Phase 43
-Resume file: None
+Last session: 2026-04-04T13:17:04.516Z
+Stopped at: Phase 43 context gathered (assumptions mode)
+Resume file: .planning/phases/43-persistence-wiring-unlock-trigger/43-CONTEXT.md
