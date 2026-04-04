@@ -325,3 +325,20 @@ test('Recap Disclosure: spin-triggered transitions show recap element', () => {
   // Recap copy comes from localized dataset key
   assert.match(src, /casinocraftzCausalityProbabilityReveal/);
 });
+
+test('persistence wiring: localStorage keys and loadCompletedLessons export', () => {
+  const engineSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+  const mainSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  // D-08: loadCompletedLessons is exported from engine
+  assert.match(engineSource, /export function loadCompletedLessons/);
+
+  // D-08: ccz-near-miss-completed key is written in engine
+  assert.match(engineSource, /ccz-near-miss-completed/);
+
+  // D-08: ccz-lesson-sensory-completed key is written in engine
+  assert.match(engineSource, /ccz-lesson-sensory-completed/);
+
+  // D-08: skip handler writes ccz-near-miss-completed (D-06 verification)
+  assert.match(mainSource, /markNearMissComplete/);
+});
