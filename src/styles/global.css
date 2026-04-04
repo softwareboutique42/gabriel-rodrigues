@@ -2115,7 +2115,8 @@ body::after {
 
   .slots-spin-button--trigger {
     grid-column: 1 / -1;
-    min-height: 4.2rem;
+    /* Use clamp() per D-01: responsive sizing, not fixed breakpoint pixels */
+    min-height: clamp(5rem, 12vh, 7rem);
   }
 }
 
