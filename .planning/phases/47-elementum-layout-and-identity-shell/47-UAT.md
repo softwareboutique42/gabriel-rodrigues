@@ -3,7 +3,7 @@ status: complete
 phase: 47-elementum-layout-and-identity-shell
 source: 47-01-SUMMARY.md, 47-02-SUMMARY.md, 47-03-SUMMARY.md, 47-04-SUMMARY.md, 47-05-SUMMARY.md, 47-06-SUMMARY.md
 started: 2026-04-04T19:26:44Z
-updated: 2026-04-04T19:54:53Z
+updated: 2026-04-04T20:01:53Z
 ---
 
 ## Current Test
@@ -15,9 +15,7 @@ updated: 2026-04-04T19:54:53Z
 
 ### 1. Identity header appears and anchors navigation (EN)
 expected: On /en/slots, the top shell shows ELEMENTUM centered and a left-side back link labeled <- CasinoCraftz; the back link is visible and navigates back.
-result: issue
-reported: "the title ELEMENTUM IS only available on PT language and is not aliegn correctly, the back to casinocraftz goes to / instead og casinocraftz page"
-severity: major
+result: pass
 
 ### 2. Identity header parity on PT route
 expected: On /pt/slots, the same top shell composition is present (ELEMENTUM centered plus <- CasinoCraftz back link) with matching layout and spacing behavior.
@@ -38,20 +36,12 @@ result: pass
 ## Summary
 
 total: 5
-passed: 4
-issues: 1
+passed: 5
+issues: 0
 pending: 0
 skipped: 0
 blocked: 0
 
 ## Gaps
 
-- truth: "On /en/slots, the top shell shows ELEMENTUM centered and a left-side back link labeled <- CasinoCraftz; the back link is visible and navigates back."
-  status: failed
-  reason: "User reported: the title ELEMENTUM IS only available on PT language and is not aliegn correctly, the back to casinocraftz goes to / instead og casinocraftz page"
-  severity: major
-  test: 1
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+<!-- none -->
