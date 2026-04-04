@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.4
-milestone_name: Elementum Slots Interface Refinement
-status: verification
+milestone: v2.5
+milestone_name: Diagnostic Terminal Lobby Redesign
+status: defining-requirements
 stopped_at: null
-last_updated: "2026-04-04T15:57:09-03:00"
+last_updated: "2026-04-04T20:15:00Z"
 last_activity: 2026-04-04
 progress:
-  total_phases: 2
+  total_phases: 3
   completed_phases: 0
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE.md - Company Canvas
@@ -20,35 +20,37 @@ progress:
 
 See: .planning/PROJECT.md (updated 2026-04-04)
 
-**Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Phase 47 verification handoff after execution completion
+**Core Value:** Branded, download-ready animation asset in under a minute - no design tools, no agency.
+**Current Focus:** Defining requirements and roadmap for v2.5 Diagnostic Terminal Lobby Redesign
 
 ## Current Position
 
-Phase: 47 (execution complete, awaiting verification)
-Plan: 6 of 6 complete
-**Status:** Ready for verification
-**Last Activity:** 2026-04-04 — Completed phase 47 execution and audit closeout
+Phase: Not started (defining requirements)
+Plan: -
+**Status:** Defining requirements
+**Last Activity:** 2026-04-04 - Milestone v2.5 started
 
 ## Progress
 
 ```
-Progress: ██████████ 100%
+Progress: ░░░░░░░░░░ 0%
 ```
 
-Phases: 0/2 complete
+Phases: 0/3 complete
 
 ## Phase Summary
 
-| Phase    | Name                                          | Status | Goal                                                                           |
-| -------- | --------------------------------------------- | ------ | ------------------------------------------------------------------------------ |
-| Phase 47 | Elementum Layout and Identity Shell           | ◐      | Standardize symmetric HUD alignment and add identity/navigation anchors        |
-| Phase 48 | Material Reels and Tactile Interaction Polish | ○      | Ship premium material reels, scanline depth, and high-intensity trigger polish |
+| Phase | Name | Status | Goal |
+| ----- | ---- | ------ | ---- |
+| Phase 49 | Analyzer Panel and Mission Log Architecture | ○ | Make educational tools primary while decluttering center-stage lobby content |
+| Phase 50 | Simulation Chambers Visual System | ○ | Reframe chambers with desaturated diagnostic styling and dampener-gated vibrance |
+| Phase 51 | Live Telemetry Chamber Integration | ○ | Replace static blurbs with telemetry previews and preserve EN/PT accessibility parity |
 
 ## Accumulated Context
 
-- Phase 47 execution artifacts are complete: summaries exist for plans 47-01 through 47-06, with verification now the required next gate.
-- Phase 47 validation evidence includes clean EN/PT parity diff, no file-level diagnostics on the changed slots pages/styles, and a successful Astro production build.
+- Phase 47 gap-closure completed with final UAT state at 5/5 pass and no unresolved issues.
+- v2.4 visual refinement work established stable header/HUD symmetry and parity-safe motion behavior as baseline constraints.
+- Repository-wide `npm run test` still has unrelated legacy failures outside active milestone scope.
 
 ## Pending Todos
 
@@ -56,10 +58,10 @@ Phases: 0/2 complete
 
 ## Blockers / Concerns
 
-- Repository-wide `npm run test` still has unrelated legacy failures outside this milestone scope.
+- None at milestone initialization.
 
 ## Session Continuity
 
-Last session: 2026-04-04T18:10:00.000Z
-Stopped at: Phase 47 execution complete; verify-work pending
-Resume file: .planning/phases/47-elementum-layout-and-identity-shell/47-06-SUMMARY.md
+Last session: 2026-04-04T20:15:00.000Z
+Stopped at: Milestone v2.5 initialization complete; ready for phase discussion/planning
+Resume file: .planning/ROADMAP.md

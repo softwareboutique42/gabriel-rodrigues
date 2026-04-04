@@ -47,11 +47,12 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] UIR-80: Standardize bottom HUD/footer row height for strict symmetry and center bet controls
-- [ ] UIR-81: Add top-center `ELEMENTUM` title and top-left `← CasinoCraftz` back link
-- [ ] UIR-82: Replace reel placeholders with material-themed Gold, Rhodium, and Californium symbols with scanline depth treatment
-- [ ] UIR-83: Make Spin trigger hover state significantly more intense while preserving tactile readability
-- [ ] UIR-84: Preserve EN/PT parity and reduced-motion-safe behavior for all new visual effects
+- [ ] DTL-01: User sees Utility Cards in a persistent Analyzer Panel that frames educational tooling as the primary control surface
+- [ ] DTL-02: User can open and collapse a Mission Log that contains Curriculum Shell and Tutorial progression without crowding the main lobby
+- [ ] DTL-03: User sees game entries reframed as Simulation Chambers with a clinical, desaturated baseline visual system
+- [ ] DTL-04: User sees casino vibrance effects only when Dopamine Dampener is toggled off
+- [ ] DTL-05: User sees live telemetry previews (including a house-edge graph signal) on chamber cards instead of generic marketing copy
+- [ ] DTL-06: User receives EN/PT parity and accessible behavior across the redesigned lobby interactions
 
 ### Shipped in v2.3
 
@@ -109,25 +110,24 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: v2.3 Sensory Effects Layer (Phase 45 next)
-- Latest shipped milestone: v2.2 Sensory Conditioning Content (completed 2026-04-04)
-- Latest milestone result: returning-user Lesson 3 unlock persistence plus dedicated release evidence for the sensory-conditioning two-spin gate and recap disclosure
-- Phase 43 complete: localStorage persistence wired for Lesson 2/3 completion; returning users see Lesson 3 unlocked on reload; 24/24 contract tests passing
-- Phase 44 complete: dedicated contract and Playwright evidence now prove the Lesson 3 two-spin gate, causality disclosure, and EN/PT parity-sensitive sensory dataset locks
+- Active milestone: v2.5 Diagnostic Terminal Lobby Redesign (Phase 49 next)
+- Latest shipped milestone: v2.4 Elementum Slots Interface Refinement (completed 2026-04-04)
+- Latest milestone result: Slots identity-shell and HUD refinement closed with full UAT pass (5/5), parity-safe routing, and stabilized mobile spacing
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
-## Current Milestone: v2.4 Elementum Slots Interface Refinement
+## Current Milestone: v2.5 Diagnostic Terminal Lobby Redesign
 
-**Goal:** Deliver a premium, material-themed Slots interface refinement pass that tightens layout symmetry, deepens thematic identity, and amplifies tactile interaction quality.
+**Goal:** Reframe Casinocraftz from a game menu into a psychological laboratory where users analyze manipulation mechanics through instrumented, educational tooling.
 
 **Target features:**
 
-- Standardize bottom HUD symmetry and center bet controls
-- Introduce `ELEMENTUM` identity title and `← CasinoCraftz` back-navigation affordance
-- Replace generic reel placeholders with Gold, Rhodium, and Californium symbol treatments
-- Intensify Spin trigger hover feedback while preserving motion-policy accessibility
+- Promote Utility Cards into a persistent Analyzer Panel as the primary interaction surface
+- Move Curriculum Shell and Tutorial into a retractable Mission Log progress tracker
+- Rebrand game lobby entries as Simulation Chambers with a clinical/desaturated baseline aesthetic
+- Gate casino vibrance behind Dopamine Dampener-off state only
+- Replace generic chamber blurbs with live telemetry previews, including a visible house-edge signal
 
 **Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.5 → v2.13)
 
@@ -152,4 +152,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-04 after v2.4 milestone initialization_
+_Last updated: 2026-04-04 after v2.5 milestone initialization_
