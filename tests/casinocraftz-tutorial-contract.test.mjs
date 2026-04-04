@@ -342,3 +342,19 @@ test('persistence wiring: localStorage keys and loadCompletedLessons export', ()
   // D-08: skip handler writes ccz-near-miss-completed (D-06 verification)
   assert.match(mainSource, /markNearMissComplete/);
 });
+
+test('Spin-Bridge: sensory-conditioning-observe step requires exactly 2 spins in engine', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+
+  assert.match(src, /['"]sensory-conditioning-observe['"][\s\S]*?requiresSpins:\s*2/);
+  assert.match(src, /spinsObserved/);
+  assert.match(src, /advanceTutorialStep/);
+});
+
+test('Spin-Bridge: recordSpin guards advancement on sensory-conditioning-observe step name', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+
+  assert.match(src, /export function recordSpin/);
+  assert.match(src, /sensory-conditioning-observe/);
+  assert.match(src, /requiresSpins/);
+});
