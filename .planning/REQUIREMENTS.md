@@ -1,55 +1,56 @@
-# Requirements: Casinocraftz — v2.4 Elementum Slots Interface Refinement
+# Requirements: Casinocraftz - v2.5 Diagnostic Terminal Lobby Redesign
 
 **Defined:** 2026-04-04
-**Core Value:** Companies get a branded, download-ready animation asset in under a minute — no design tools, no agency, no waiting.
+**Core Value:** Companies get a branded, download-ready animation asset in under a minute - no design tools, no agency, no waiting.
 
-## v2.4 Requirements
+## v2.5 Requirements
 
-Requirements for milestone v2.4. Each maps to roadmap phases 47-48.
+Requirements for milestone v2.5. Each maps to roadmap phases 49-51.
 
-### Interface Refinement
+### Diagnostic Terminal Experience
 
-- [ ] **UIR-80**: User sees a symmetric bottom HUD row with standardized height and centered bet controls
-- [ ] **UIR-81**: User sees a top-center `ELEMENTUM` title plus a top-left `← CasinoCraftz` back link on EN/PT Slots pages
-- [ ] **UIR-82**: User sees reel windows themed as premium materials with distinct Gold, Rhodium, and Californium symbols including scanline depth treatment
-- [ ] **UIR-83**: User experiences a visibly stronger, tactile hover glow state on the Spin trigger
-- [ ] **UIR-84**: User receives EN/PT parity and reduced-motion-safe behavior for all refinement effects
+- [ ] **DTL-01**: User sees Utility Cards in a persistent Analyzer Panel that remains available while navigating lobby surfaces.
+- [ ] **DTL-02**: User can open and collapse a Mission Log that contains Curriculum Shell + Tutorial progression without obstructing central chamber interactions.
+- [ ] **DTL-03**: User sees game entries renamed as Simulation Chambers with a clinical, desaturated visual baseline.
+- [ ] **DTL-04**: User only sees casino vibrance accents when Dopamine Dampener is toggled off.
+- [ ] **DTL-05**: User sees live telemetry previews on chamber cards (including a house-edge signal) instead of static promotional descriptions.
+- [ ] **DTL-06**: User gets EN/PT parity plus reduced-motion and accessibility-safe behavior for all redesigned lobby interactions.
 
 ## Future Requirements
 
-Deferred to future milestones. See `.planning/FUTURE-MILESTONES.md`.
+Deferred to future milestones. See .planning/FUTURE-MILESTONES.md.
 
-### Blackjack and Roulette Expansion
+### Slots Expansion Tracks
 
-- See FUTURE-MILESTONES.md for BJ-_ and RL-_ tracks
+- See FUTURE-MILESTONES.md for BJ-_ and RL-_ milestone families
 
 ## Out of Scope
 
-| Feature                                               | Reason                                                             |
-| ----------------------------------------------------- | ------------------------------------------------------------------ |
-| Slots authority, RNG, payout, or wallet logic changes | v2.4 is presentation and interaction refinement only               |
-| New tutorial lesson content or progression rules      | Curriculum work is outside this visual refinement milestone        |
-| New route architecture or IA restructuring            | Scope is polish of current Slots surfaces, not navigation overhaul |
+| Feature | Reason |
+|---------|--------|
+| Slots RNG/payout authority changes | v2.5 targets lobby UX architecture and telemetry framing only |
+| New tutorial lesson curriculum content | v2.5 reorganizes delivery surfaces, not educational narrative scope |
+| New payment/export flows | milestone focus is Casinocraftz lobby and chamber presentation |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase    | Status  |
-| ----------- | -------- | ------- |
-| UIR-80      | Phase 47 | Pending |
-| UIR-81      | Phase 47 | Pending |
-| UIR-82      | Phase 48 | Pending |
-| UIR-83      | Phase 48 | Pending |
-| UIR-84      | Phase 48 | Pending |
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DTL-01 | Phase 49 | Pending |
+| DTL-02 | Phase 49 | Pending |
+| DTL-03 | Phase 50 | Pending |
+| DTL-04 | Phase 50 | Pending |
+| DTL-05 | Phase 51 | Pending |
+| DTL-06 | Phase 51 | Pending |
 
 **Coverage:**
 
-- v2.4 requirements: 5 total
-- Mapped to phases: 5
+- v2.5 requirements: 6 total
+- Mapped to phases: 6
 - Unmapped: 0 ✓
 
 ---
-
 _Requirements defined: 2026-04-04_
-_Last updated: 2026-04-04 after v2.4 requirement definition_
+_Last updated: 2026-04-04 after v2.5 requirement definition_
