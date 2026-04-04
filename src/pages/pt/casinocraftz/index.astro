@@ -77,78 +77,8 @@ const t = useTranslations('pt');
       data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
       data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
     >
-      <!-- TWO-COLUMN LOBBY GRID -->
+      <!-- LOBBY GRID -->
       <div class="ccz-lobby-grid">
-        <!-- LEFT: ANALYZER PANEL (Utility Cards sidebar) -->
-        <aside class="ccz-analyzer-panel" data-casinocraftz-zone="analyzer-panel">
-          <!-- Desktop header label -->
-          <p class="hidden sm:block font-mono text-[10px] uppercase tracking-widest text-gold pb-2 mb-3 border-b border-neon/10">
-            {t('lobby.analyzerPanel.label')}
-          </p>
-
-          <!-- Mobile toggle button -->
-          <button
-            class="sm:hidden w-full text-left py-2 mb-2 font-mono text-[11px] font-bold uppercase tracking-wider text-text-primary border-none bg-transparent cursor-pointer hover:text-neon transition-colors"
-            data-ccz-analyzer-toggle
-            data-label-open={t('lobby.analyzerPanel.toggle.open')}
-            data-label-close={t('lobby.analyzerPanel.toggle.close')}
-          >
-            {t('lobby.analyzerPanel.toggle.open')}
-          </button>
-
-          <!-- Analyzer drawer (3 utility cards - vertical stack) -->
-          <div id="ccz-analyzer-drawer" data-ccz-analyzer-drawer hidden>
-            <div class="flex flex-col gap-2">
-              <!-- Probability Seer -->
-              <div data-casinocraftz-card="probability-seer" class="hud-outline-subtle p-3">
-                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-                  {t('cards.probabilitySeer.label')}
-                </p>
-                <p class="text-xs text-text-muted mb-2">{t('cards.probabilitySeer.description')}</p>
-                <button
-                  data-casinocraftz-card-activate="probability-seer"
-                  aria-disabled="true"
-                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
-                >
-                  {t('tutorial.cta.activateCard')}
-                </button>
-              </div>
-
-              <!-- Dopamine Dampener -->
-              <div data-casinocraftz-card="dopamine-dampener" class="hud-outline-subtle p-3">
-                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-                  {t('cards.dopamineDampener.label')}
-                </p>
-                <p class="text-xs text-text-muted mb-2">{t('cards.dopamineDampener.description')}</p>
-                <button
-                  data-casinocraftz-card-activate="dopamine-dampener"
-                  aria-disabled="true"
-                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
-                >
-                  {t('tutorial.cta.activateCard')}
-                </button>
-              </div>
-
-              <!-- House Edge -->
-              <div data-casinocraftz-card="house-edge" class="hud-outline-subtle p-3">
-                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-                  {t('cards.houseEdge.label')}
-                </p>
-                <p class="text-xs text-text-muted mb-2">{t('cards.houseEdge.description')}</p>
-                <button
-                  data-casinocraftz-card-activate="house-edge"
-                  aria-disabled="true"
-                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
-                >
-                  {t('tutorial.cta.activateCard')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        <!-- RIGHT: MAIN CONTENT COLUMN -->
-        <div class="min-w-0">
           <!-- LOBBY HEADER -->
           <header
             class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8 sm:mb-10"
@@ -204,19 +134,47 @@ const t = useTranslations('pt');
                   <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">{t('lobby.chamber.status.live')}</span>
                 </div>
                 <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.slots.summary')}</p>
-                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
-                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
-                  <div class="flex justify-between text-text-muted">
+                <div class="flex flex-col gap-1 text-[10px] font-mono uppercase tracking-wider">
+                  <!-- House Edge info -->
+                  <div class="flex items-center justify-between text-text-muted">
                     <span>{t('lobby.telemetry.houseEdge')}</span>
-                    <span data-ccz-telemetry-edge>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-edge-slots"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-edge-slots" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.houseEdge.explain')}
+                  </div>
+
+                  <!-- Signal info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.signal')}</span>
-                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-signal-slots"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-signal-slots" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.signal.explain')}
+                  </div>
+
+                  <!-- Impulse info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.impulse')}</span>
-                    <span data-ccz-telemetry-pulse>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-pulse-slots"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
+                  </div>
+                  <div id="ccz-info-pulse-slots" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.impulse.explain')}
                   </div>
                 </div>
                 <a
@@ -243,19 +201,47 @@ const t = useTranslations('pt');
                   >
                 </div>
                 <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.blackjack.summary')}</p>
-                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
-                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
-                  <div class="flex justify-between text-text-muted">
+                <div class="flex flex-col gap-1 text-[10px] font-mono uppercase tracking-wider">
+                  <!-- House Edge info -->
+                  <div class="flex items-center justify-between text-text-muted">
                     <span>{t('lobby.telemetry.houseEdge')}</span>
-                    <span data-ccz-telemetry-edge>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-edge-blackjack"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-edge-blackjack" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.houseEdge.explain')}
+                  </div>
+
+                  <!-- Signal info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.signal')}</span>
-                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-signal-blackjack"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-signal-blackjack" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.signal.explain')}
+                  </div>
+
+                  <!-- Impulse info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.impulse')}</span>
-                    <span data-ccz-telemetry-pulse>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-pulse-blackjack"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
+                  </div>
+                  <div id="ccz-info-pulse-blackjack" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.impulse.explain')}
                   </div>
                 </div>
                 <button
@@ -280,19 +266,47 @@ const t = useTranslations('pt');
                   >
                 </div>
                 <p class="text-xs text-text-muted flex-1">{t('lobby.chamber.roulette.summary')}</p>
-                <div class="ccz-chamber-telemetry hud-outline-soft p-2 text-[10px] font-mono uppercase tracking-wider">
-                  <p class="text-cyan mb-1">{t('lobby.telemetry.label')}</p>
-                  <div class="flex justify-between text-text-muted">
+                <div class="flex flex-col gap-1 text-[10px] font-mono uppercase tracking-wider">
+                  <!-- House Edge info -->
+                  <div class="flex items-center justify-between text-text-muted">
                     <span>{t('lobby.telemetry.houseEdge')}</span>
-                    <span data-ccz-telemetry-edge>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-edge-roulette"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-edge-roulette" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.houseEdge.explain')}
+                  </div>
+
+                  <!-- Signal info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.signal')}</span>
-                    <span data-ccz-telemetry-signal aria-live="polite">----</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-signal-roulette"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
                   </div>
-                  <div class="flex justify-between text-text-muted mt-1">
+                  <div id="ccz-info-signal-roulette" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.signal.explain')}
+                  </div>
+
+                  <!-- Impulse info -->
+                  <div class="flex items-center justify-between text-text-muted mt-1">
                     <span>{t('lobby.telemetry.impulse')}</span>
-                    <span data-ccz-telemetry-pulse>--</span>
+                    <button
+                      class="ml-2 text-cyan hover:text-neon transition-colors"
+                      data-ccz-info-toggle="ccz-info-pulse-roulette"
+                      aria-label={t('lobby.telemetry.info.ariaLabel')}
+                    >ⓘ</button>
+                  </div>
+                  <div id="ccz-info-pulse-roulette" data-ccz-info-popover hidden
+                    class="text-[10px] font-mono normal-case tracking-normal text-text-secondary bg-surface-container p-2 mt-1">
+                    {t('lobby.telemetry.impulse.explain')}
                   </div>
                 </div>
                 <button
@@ -306,69 +320,6 @@ const t = useTranslations('pt');
             </div>
           </section>
 
-          <!-- MISSION LOG (Accordion: Curriculum + Tutorial) -->
-          <section class="mt-6 sm:mt-8" data-casinocraftz-zone="mission-log">
-            <button
-              data-ccz-mission-log-toggle
-              data-label-open={t('lobby.missionLog.toggle.open')}
-              data-label-close={t('lobby.missionLog.toggle.close')}
-              class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-cyan bg-transparent border-none p-0 py-1 hover:text-neon transition-colors cursor-pointer"
-            >
-              {t('lobby.missionLog.toggle.open')}
-            </button>
-
-            <!-- Mission Log Content (Curriculum + Tutorial) -->
-            <div id="ccz-mission-log-content" data-ccz-mission-log-content hidden>
-              <!-- CURRICULUM -->
-              <section
-                class="mt-3 hud-outline-subtle p-4 sm:p-6"
-                data-casinocraftz-zone="curriculum"
-              >
-                <header class="mb-4">
-                  <p class="font-mono text-xs text-gold uppercase tracking-widest mb-1">
-                    {t('tutorial.curriculum.title')}
-                  </p>
-                  <p class="text-sm text-text-secondary max-w-2xl">
-                    {t('tutorial.curriculum.subtitle')}
-                  </p>
-                  <p class="text-xs text-text-muted mt-2" data-casinocraftz-curriculum-progress></p>
-                </header>
-                <div data-casinocraftz-curriculum></div>
-              </section>
-
-              <!-- TUTORIAL DIALOGUE -->
-              <section class="mt-4 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
-                <header class="mb-4">
-                  <p
-                    class="font-mono text-xs text-cyan uppercase tracking-widest mb-1"
-                    data-casinocraftz-step-label
-                  >
-                    {t('tutorial.step.welcome.label')}
-                  </p>
-                  <p
-                    class="font-mono text-xs text-neon uppercase tracking-wider"
-                    data-casinocraftz-essence-display
-                  >
-                    {t('tutorial.essence.label')}: 0
-                  </p>
-                </header>
-                <div data-casinocraftz-dialogue class="space-y-3 mb-4"></div>
-                <button
-                  data-casinocraftz-tutorial-next
-                  class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
-                >
-                  {t('tutorial.cta.nextStep')}
-                </button>
-                <button
-                  data-casinocraftz-tutorial-skip
-                  class="ml-3 inline-flex items-center justify-center min-h-9 px-4 py-1.5 text-text-muted font-mono text-xs hover:text-neon transition-colors"
-                >
-                  {t('tutorial.cta.skipTutorial')}
-                </button>
-              </section>
-            </div>
-          </section>
-
           <!-- FOOTER ACTIONS -->
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
             <a
@@ -378,7 +329,6 @@ const t = useTranslations('pt');
               {t('casinocraftz.cta.backProjects')}
             </a>
           </div>
-        </div>
       </div>
 
       <!-- DEPOSIT MODAL (outside grid) -->
