@@ -15,76 +15,76 @@
 - ✅ v2.0 Slots Entry and Casino Polish — [milestones/v2.0-ROADMAP.md](milestones/v2.0-ROADMAP.md)
 - ✅ v2.1 Symbol Atlas Production Upgrade — [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md)
 - ✅ v2.3 Sensory Effects Layer — [milestones/v2.3-ROADMAP.md](milestones/v2.3-ROADMAP.md)
+- ✅ v2.5 Diagnostic Terminal Lobby Redesign — [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md)
 
 ## Current Milestone
 
-### v2.5 - Diagnostic Terminal Lobby Redesign
+### v2.6 - Lobby Focus & Slots Command Center
 
-**Goal:** Shift Casinocraftz from a game menu into a psychological laboratory by reorganizing education controls, instrumenting chamber cards with telemetry, and applying a clinical simulation visual language.
+**Goal:** Refocus each surface — the lobby becomes a clean launcher (chambers + deposit only), and the slot game becomes the command center for all analytical and educational tools via an expanded side drawer behind the `+` icon.
 
 **Total phases:** 3  
-**Starting phase:** 49
+**Starting phase:** 52
 
 | Phase | Name | Goal | Requirements | Success Criteria |
 | ----- | ---- | ---- | ------------ | ---------------- |
-| 49 | Analyzer Panel and Mission Log Architecture | 4/4 | Complete   | 2026-04-04 |
-| 50 | Simulation Chambers Visual System | 1/1 | Complete | 2026-04-04 |
-| 51 | Live Telemetry Chamber Integration | 1/1 | Complete | 2026-04-04 |
+| 52 | Lobby Simplification | 1/3 | In Progress|  |
+| 53 | Slots Side Drawer | Expand `+` into full side drawer with Analyzer, Mission Log, Settings | LBY-03, LBY-04 | — |
+| 54 | State Migration & Parity | Tutorial progression and card activation work from slots; EN/PT + a11y verified | LBY-05 | — |
 
 ### Phase Details
 
-#### Phase 49: Analyzer Panel and Mission Log Architecture
+#### Phase 52: Lobby Simplification
 
-**Goal:** Make educational tools the primary interaction anchor while decluttering center-stage lobby content.
+**Goal:** Strip the lobby to its essential launcher role — header, balance/deposit, and chamber cards only.
 
-**Requirements:** DTL-01, DTL-02
-
-**Success Criteria:**
-
-1. Utility Cards render in a persistent Analyzer Panel that remains visible while users browse chamber surfaces.
-2. Curriculum Shell + Tutorial move into a retractable Mission Log that can be expanded/collapsed without breaking core interactions.
-3. EN/PT layouts preserve equivalent hierarchy and interaction affordances for panel and mission-log behavior.
-
-**Plans:** 4/4 plans complete
-
-Plans:
-- [x] 49-01-PLAN.md — i18n strings and CSS layout foundation
-- [x] 49-02-PLAN.md — EN lobby restructure and toggle JS logic
-- [x] 49-03-PLAN.md — PT lobby mirror
-- [x] 49-04-PLAN.md — build verification and human verification checkpoint
-
-#### Phase 50: Simulation Chambers Visual System
-
-**Goal:** Establish a clinical simulation atmosphere where baseline visuals are diagnostic and casino vibrance appears only when dampening is disabled.
-
-**Requirements:** DTL-03, DTL-04
+**Requirements:** LBY-01, LBY-02
 
 **Success Criteria:**
 
-1. Lobby card framing and copy label entries as Simulation Chambers.
-2. Default chamber palette is desaturated (greys + muted greens) and visually distinct from prior casino-forward styling.
-3. Vibrant casino accents activate only when Dopamine Dampener is off.
-4. Reduced-motion and runtime policy controls continue to degrade visual effects safely.
+1. Lobby renders as a single-column layout with no Analyzer Panel sidebar and no Mission Log accordion.
+2. Chamber cards show an info (`ⓘ`) button per metric (house edge, signal, impulse) that opens a contextual explanation instead of live telemetry numbers.
+3. EN/PT lobby parity maintained across the simplified layout.
 
-**Plans:** 1/1 plans complete
+**Plans:** 1/3 plans executed
 
 Plans:
-- [x] 50-01-PLAN.md — simulation chamber visual baseline and dampener-gated vibrance
+- [x] 52-01-PLAN.md — i18n strings and lobby layout restructure
+- [ ] 52-02-PLAN.md — EN lobby strip and info button implementation
+- [ ] 52-03-PLAN.md — PT lobby mirror
 
-#### Phase 51: Live Telemetry Chamber Integration
+#### Phase 53: Slots Side Drawer
 
-**Goal:** Replace static descriptions with informative telemetry previews that reinforce analytical learning.
+**Goal:** Transform the `+` button from a small Signal Settings dropdown into a full-height side drawer housing Analyzer Panel, Mission Log, and Settings.
 
-**Requirements:** DTL-05, DTL-06
+**Requirements:** LBY-03, LBY-04
 
 **Success Criteria:**
 
-1. Each chamber card exposes a live telemetry preview (including a house-edge signal/graph indicator).
-2. Telemetry surfaces update safely without introducing gameplay-authority coupling.
-3. EN/PT output parity is preserved for labels, telemetry units, and interaction controls.
-4. Accessibility checks pass for contrast, reduced motion, and semantic labeling across redesigned lobby modules.
+1. `+` button opens a slide-in side drawer with three sections: Analyzer (utility cards), Mission Log (curriculum + tutorial), Settings (routes, motion, theme).
+2. Drawer state persists in sessionStorage; `+` toggles to `×` when open; Escape closes it.
+3. EN/PT drawer parity maintained.
 
-**Plans:** 1/1 plans complete
+**Plans:** 0/2 plans complete
 
 Plans:
-- [x] 51-01-PLAN.md — live telemetry previews and EN/PT accessibility parity
+- [ ] 53-01-PLAN.md — EN slots drawer architecture and section migration
+- [ ] 53-02-PLAN.md — PT slots drawer mirror
+
+#### Phase 54: State Migration & Parity
+
+**Goal:** Confirm tutorial progression, card activation, and all effects work correctly from the slots drawer context; verify EN/PT and accessibility.
+
+**Requirements:** LBY-05
+
+**Success Criteria:**
+
+1. Tutorial unlock triggers (3 spins → Probability Seer, lesson completion → Dopamine Dampener + House Edge) fire correctly from within slots.
+2. Card activation from the drawer applies effects to the running game (probability overlay, dampener suppression, house edge HUD).
+3. `npm run build` passes with no orphaned selectors or errors.
+4. Accessibility: drawer focus trap, Escape closes, aria-labels on info buttons and drawer sections.
+
+**Plans:** 0/1 plans complete
+
+Plans:
+- [ ] 54-01-PLAN.md — state migration audit, parity verification, build gate

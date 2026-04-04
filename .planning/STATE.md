@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.5
-milestone_name: - Diagnostic Terminal Lobby Redesign
+milestone: v2.6
+milestone_name: - Lobby Focus & Slots Command Center
 status: executing
-stopped_at: Milestone v2.5 gaps closed and verified
-last_updated: "2026-04-04T21:30:55.423Z"
+stopped_at: Completed 52-01-PLAN.md
+last_updated: "2026-04-04T22:26:10.339Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 3
-  completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  completed_phases: 0
+  total_plans: 3
+  completed_plans: 1
+  percent: 33
 ---
 
 # STATE.md - Company Canvas
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core Value:** Branded, download-ready animation asset in under a minute - no design tools, no agency.
-**Current Focus:** Phase 49 — analyzer-panel-and-mission-log-architecture
+**Current Focus:** Phase 52 — lobby-simplification
 
 ## Current Position
 
-Phase: 49 (analyzer-panel-and-mission-log-architecture) — EXECUTING
-Plan: 1 of 4
-**Status:** Executing Phase 49
+Phase: 52 (lobby-simplification) — READY
+Plan: 2 of 3
+**Status:** Ready to execute
 **Last Activity:** 2026-04-04
 
 ## Progress
@@ -42,15 +42,16 @@ Phases: 0/3 complete
 
 | Phase | Name | Status | Goal |
 | ----- | ---- | ------ | ---- |
-| Phase 49 | Analyzer Panel and Mission Log Architecture | ○ | Make educational tools primary while decluttering center-stage lobby content |
-| Phase 50 | Simulation Chambers Visual System | ○ | Reframe chambers with desaturated diagnostic styling and dampener-gated vibrance |
-| Phase 51 | Live Telemetry Chamber Integration | ○ | Replace static blurbs with telemetry previews and preserve EN/PT accessibility parity |
+| Phase 52 | Lobby Simplification | ○ | Strip lobby to header + balance + deposit + chamber cards with info buttons |
+| Phase 53 | Slots Side Drawer | ○ | Expand + into full side drawer with Analyzer, Mission Log, Settings |
+| Phase 54 | State Migration & Parity | ○ | Tutorial progression and card activation work from slots; EN/PT + a11y verified |
 
 ## Accumulated Context
 
-- Phase 47 gap-closure completed with final UAT state at 5/5 pass and no unresolved issues.
-- v2.4 visual refinement work established stable header/HUD symmetry and parity-safe motion behavior as baseline constraints.
-- Repository-wide `npm run test` still has unrelated legacy failures outside active milestone scope.
+- v2.5 Diagnostic Terminal Lobby Redesign shipped successfully (phases 49–51, 6/6 plans complete).
+- Lobby currently has a two-column layout: Analyzer Panel sidebar (left) + main content (right, with Mission Log accordion).
+- v2.6 goal: strip the lobby to a single-column launcher, move all analytical/educational tooling into a side drawer inside the slot game.
+- The `+` button in slots currently shows a small Signal Settings dropdown — it will become a full-height side drawer.
 
 ## Pending Todos
 
@@ -62,6 +63,6 @@ Phases: 0/3 complete
 
 ## Session Continuity
 
-Last session: 2026-04-04T21:30:55.417Z
-Stopped at: Milestone v2.5 gaps closed and verified
-Resume file: .planning/v2.5-MILESTONE-AUDIT.md
+Last session: 2026-04-04T22:26:10.333Z
+Stopped at: Completed 52-01-PLAN.md
+Resume file: None
