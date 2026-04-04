@@ -77,248 +77,268 @@ const t = useTranslations('pt');
       data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
       data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
     >
-      <!-- LOBBY HEADER -->
-      <header
-        class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8 sm:mb-10"
-        data-casinocraftz-zone="foundation"
-      >
-        <div>
-          <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
-            {t('casinocraftz.badge.liveLab')}
+      <!-- TWO-COLUMN LOBBY GRID -->
+      <div class="ccz-lobby-grid">
+        <!-- LEFT: ANALYZER PANEL (Utility Cards sidebar) -->
+        <aside class="ccz-analyzer-panel" data-casinocraftz-zone="analyzer-panel">
+          <!-- Desktop header label -->
+          <p class="hidden sm:block font-mono text-[10px] uppercase tracking-widest text-gold pb-2 mb-3 border-b border-neon/10">
+            {t('lobby.analyzerPanel.label')}
           </p>
-          <h1
-            class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3 ls-tight-3"
-          >
-            {t('casinocraftz.title')}
-          </h1>
-          <p class="text-sm text-text-secondary max-w-2xl">
-            {t('casinocraftz.disclaimer.zeroRisk')}
-          </p>
-        </div>
 
-        <!-- WALLET HUD -->
-        <div
-          class="flex-shrink-0 hud-outline-subtle p-4 flex flex-col items-end gap-2 min-w-[160px]"
-        >
-          <p class="font-mono text-[10px] uppercase tracking-widest text-text-muted">
-            {t('lobby.balance.label')}
-          </p>
-          <p class="font-mono text-2xl font-bold text-neon leading-none">
-            <span data-ccz-lobby-balance>100</span>
-          </p>
+          <!-- Mobile toggle button -->
           <button
-            data-ccz-deposit-trigger
-            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-8 px-3 py-1 bg-gold text-bg font-bold text-xs uppercase tracking-wider"
+            class="sm:hidden w-full text-left py-2 mb-2 font-mono text-[11px] font-bold uppercase tracking-wider text-text-primary border-none bg-transparent cursor-pointer hover:text-neon transition-colors"
+            data-ccz-analyzer-toggle
+            data-label-open={t('lobby.analyzerPanel.toggle.open')}
+            data-label-close={t('lobby.analyzerPanel.toggle.close')}
           >
-            {t('lobby.deposit.trigger')}
+            {t('lobby.analyzerPanel.toggle.open')}
           </button>
-        </div>
-      </header>
 
-      <!-- GAME LOBBY GRID -->
-      <section class="mb-8 sm:mb-10" data-casinocraftz-zone="games">
-        <p class="font-mono text-xs text-gold uppercase tracking-widest mb-4">Lobby</p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <!-- Slots — LIVE -->
-          <div
-            class="hud-outline-subtle p-5 flex flex-col gap-3"
-            data-ccz-game-card="slots"
-            data-casinocraftz-slots-card
-          >
-            <div class="flex items-center justify-between">
-              <p class="font-mono text-xs text-neon uppercase tracking-wider">
-                {t('lobby.game.slots.label')}
-              </p>
-              <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">Ao Vivo</span>
+          <!-- Analyzer drawer (3 utility cards - vertical stack) -->
+          <div id="ccz-analyzer-drawer" data-ccz-analyzer-drawer hidden>
+            <div class="flex flex-col gap-2">
+              <!-- Probability Seer -->
+              <div data-casinocraftz-card="probability-seer" class="hud-outline-subtle p-3">
+                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+                  {t('cards.probabilitySeer.label')}
+                </p>
+                <p class="text-xs text-text-muted mb-2">{t('cards.probabilitySeer.description')}</p>
+                <button
+                  data-casinocraftz-card-activate="probability-seer"
+                  aria-disabled="true"
+                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
+                >
+                  {t('tutorial.cta.activateCard')}
+                </button>
+              </div>
+
+              <!-- Dopamine Dampener -->
+              <div data-casinocraftz-card="dopamine-dampener" class="hud-outline-subtle p-3">
+                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+                  {t('cards.dopamineDampener.label')}
+                </p>
+                <p class="text-xs text-text-muted mb-2">{t('cards.dopamineDampener.description')}</p>
+                <button
+                  data-casinocraftz-card-activate="dopamine-dampener"
+                  aria-disabled="true"
+                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
+                >
+                  {t('tutorial.cta.activateCard')}
+                </button>
+              </div>
+
+              <!-- House Edge -->
+              <div data-casinocraftz-card="house-edge" class="hud-outline-subtle p-3">
+                <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
+                  {t('cards.houseEdge.label')}
+                </p>
+                <p class="text-xs text-text-muted mb-2">{t('cards.houseEdge.description')}</p>
+                <button
+                  data-casinocraftz-card-activate="house-edge"
+                  aria-disabled="true"
+                  class="font-mono text-xs text-text-muted uppercase tracking-wider"
+                >
+                  {t('tutorial.cta.activateCard')}
+                </button>
+              </div>
             </div>
-            <p class="text-xs text-text-muted flex-1">{t('lobby.game.slots.description')}</p>
-            <a
-              href="/pt/slots/"
-              data-casinocraftz-slots-link
-              class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+          </div>
+        </aside>
+
+        <!-- RIGHT: MAIN CONTENT COLUMN -->
+        <div class="min-w-0">
+          <!-- LOBBY HEADER -->
+          <header
+            class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8 sm:mb-10"
+            data-casinocraftz-zone="foundation"
+          >
+            <div>
+              <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
+                {t('casinocraftz.badge.liveLab')}
+              </p>
+              <h1
+                class="text-3xl sm:text-4xl font-bold text-text-primary tracking-tight mb-3 ls-tight-3"
+              >
+                {t('casinocraftz.title')}
+              </h1>
+              <p class="text-sm text-text-secondary max-w-2xl">
+                {t('casinocraftz.disclaimer.zeroRisk')}
+              </p>
+            </div>
+
+            <!-- WALLET HUD -->
+            <div
+              class="flex-shrink-0 hud-outline-subtle p-4 flex flex-col items-end gap-2 min-w-[160px]"
             >
-              {t('lobby.game.slots.cta')} →
+              <p class="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+                {t('lobby.balance.label')}
+              </p>
+              <p class="font-mono text-2xl font-bold text-neon leading-none">
+                <span data-ccz-lobby-balance>100</span>
+              </p>
+              <button
+                data-ccz-deposit-trigger
+                class="clip-corners hover-glitch inline-flex items-center justify-center min-h-8 px-3 py-1 bg-gold text-bg font-bold text-xs uppercase tracking-wider"
+              >
+                {t('lobby.deposit.trigger')}
+              </button>
+            </div>
+          </header>
+
+          <!-- SIMULATION CHAMBERS (was "Game Lobby") -->
+          <section class="mb-8 sm:mb-10" data-casinocraftz-zone="games">
+            <p class="font-mono text-xs text-gold uppercase tracking-widest mb-4">{t('lobby.chambers.label')}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- Slots — LIVE -->
+              <div
+                class="hud-outline-subtle p-5 flex flex-col gap-3"
+                data-ccz-game-card="slots"
+                data-casinocraftz-slots-card
+              >
+                <div class="flex items-center justify-between">
+                  <p class="font-mono text-xs text-neon uppercase tracking-wider">
+                    {t('lobby.game.slots.label')}
+                  </p>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-cyan">Live</span>
+                </div>
+                <p class="text-xs text-text-muted flex-1">{t('lobby.game.slots.description')}</p>
+                <a
+                  href="/pt/slots/"
+                  data-casinocraftz-slots-link
+                  class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
+                >
+                  {t('lobby.game.slots.cta')} →
+                </a>
+              </div>
+
+              <!-- Blackjack — LOCKED -->
+              <div
+                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+                data-ccz-game-card="blackjack"
+                aria-disabled="true"
+              >
+                <div class="flex items-center justify-between">
+                  <p class="font-mono text-xs text-text-muted uppercase tracking-wider">
+                    {t('lobby.game.blackjack.label')}
+                  </p>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
+                    >Locked</span
+                  >
+                </div>
+                <p class="text-xs text-text-muted flex-1">{t('lobby.game.blackjack.description')}</p>
+                <button
+                  disabled
+                  aria-disabled="true"
+                  class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
+                >
+                  {t('lobby.game.locked.cta')}
+                </button>
+              </div>
+
+              <!-- Roulette — LOCKED -->
+              <div
+                class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
+                data-ccz-game-card="roulette"
+                aria-disabled="true"
+              >
+                <div class="flex items-center justify-between">
+                  <p class="font-mono text-xs text-text-muted uppercase tracking-wider">Roulette</p>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
+                    >Locked</span
+                  >
+                </div>
+                <p class="text-xs text-text-muted flex-1">
+                  Zero-pockets, probability math, and the gambler's fallacy deconstructed.
+                </p>
+                <button
+                  disabled
+                  aria-disabled="true"
+                  class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
+                >
+                  {t('lobby.game.locked.cta')}
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- MISSION LOG (Accordion: Curriculum + Tutorial) -->
+          <section class="mt-6 sm:mt-8" data-casinocraftz-zone="mission-log">
+            <button
+              data-ccz-mission-log-toggle
+              data-label-open={t('lobby.missionLog.toggle.open')}
+              data-label-close={t('lobby.missionLog.toggle.close')}
+              class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-cyan bg-transparent border-none p-0 py-1 hover:text-neon transition-colors cursor-pointer"
+            >
+              {t('lobby.missionLog.toggle.open')}
+            </button>
+
+            <!-- Mission Log Content (Curriculum + Tutorial) -->
+            <div id="ccz-mission-log-content" data-ccz-mission-log-content hidden>
+              <!-- CURRICULUM -->
+              <section
+                class="mt-3 hud-outline-subtle p-4 sm:p-6"
+                data-casinocraftz-zone="curriculum"
+              >
+                <header class="mb-4">
+                  <p class="font-mono text-xs text-gold uppercase tracking-widest mb-1">
+                    {t('tutorial.curriculum.title')}
+                  </p>
+                  <p class="text-sm text-text-secondary max-w-2xl">
+                    {t('tutorial.curriculum.subtitle')}
+                  </p>
+                  <p class="text-xs text-text-muted mt-2" data-casinocraftz-curriculum-progress></p>
+                </header>
+                <div data-casinocraftz-curriculum></div>
+              </section>
+
+              <!-- TUTORIAL DIALOGUE -->
+              <section class="mt-4 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
+                <header class="mb-4">
+                  <p
+                    class="font-mono text-xs text-cyan uppercase tracking-widest mb-1"
+                    data-casinocraftz-step-label
+                  >
+                    {t('tutorial.step.welcome.label')}
+                  </p>
+                  <p
+                    class="font-mono text-xs text-neon uppercase tracking-wider"
+                    data-casinocraftz-essence-display
+                  >
+                    {t('tutorial.essence.label')}: 0
+                  </p>
+                </header>
+                <div data-casinocraftz-dialogue class="space-y-3 mb-4"></div>
+                <button
+                  data-casinocraftz-tutorial-next
+                  class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
+                >
+                  {t('tutorial.cta.nextStep')}
+                </button>
+                <button
+                  data-casinocraftz-tutorial-skip
+                  class="ml-3 inline-flex items-center justify-center min-h-9 px-4 py-1.5 text-text-muted font-mono text-xs hover:text-neon transition-colors"
+                >
+                  {t('tutorial.cta.skipTutorial')}
+                </button>
+              </section>
+            </div>
+          </section>
+
+          <!-- FOOTER ACTIONS -->
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
+            <a
+              href="/pt/projects/"
+              class="inline-flex items-center justify-center min-h-11 px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
+            >
+              {t('casinocraftz.cta.backProjects')}
             </a>
           </div>
-
-          <!-- Blackjack — LOCKED -->
-          <div
-            class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
-            data-ccz-game-card="blackjack"
-            aria-disabled="true"
-          >
-            <div class="flex items-center justify-between">
-              <p class="font-mono text-xs text-text-muted uppercase tracking-wider">
-                {t('lobby.game.blackjack.label')}
-              </p>
-              <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
-                >Bloqueado</span
-              >
-            </div>
-            <p class="text-xs text-text-muted flex-1">{t('lobby.game.blackjack.description')}</p>
-            <button
-              disabled
-              aria-disabled="true"
-              class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
-            >
-              {t('lobby.game.locked.cta')}
-            </button>
-          </div>
-
-          <!-- Roleta — LOCKED -->
-          <div
-            class="hud-outline-subtle p-5 flex flex-col gap-3 opacity-50"
-            data-ccz-game-card="roulette"
-            aria-disabled="true"
-          >
-            <div class="flex items-center justify-between">
-              <p class="font-mono text-xs text-text-muted uppercase tracking-wider">Roleta</p>
-              <span class="font-mono text-[10px] uppercase tracking-wider text-text-muted"
-                >Bloqueado</span
-              >
-            </div>
-            <p class="text-xs text-text-muted flex-1">
-              Zeros, matematica de probabilidade e a falácia do jogador desconstruida.
-            </p>
-            <button
-              disabled
-              aria-disabled="true"
-              class="inline-flex items-center justify-center min-h-9 px-4 py-1.5 border border-surface-container-high text-text-muted font-mono text-xs uppercase tracking-wider cursor-not-allowed"
-            >
-              {t('lobby.game.locked.cta')}
-            </button>
-          </div>
         </div>
-      </section>
-
-      <!-- CURRICULUM -->
-      <section
-        class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6"
-        data-casinocraftz-zone="curriculum"
-      >
-        <header class="mb-4">
-          <p class="font-mono text-xs text-gold uppercase tracking-widest mb-1">
-            {t('tutorial.curriculum.title')}
-          </p>
-          <p class="text-sm text-text-secondary max-w-2xl">
-            {t('tutorial.curriculum.subtitle')}
-          </p>
-          <p class="text-xs text-text-muted mt-2" data-casinocraftz-curriculum-progress></p>
-        </header>
-        <div data-casinocraftz-curriculum></div>
-      </section>
-
-      <!-- TUTORIAL DIALOGUE -->
-      <section class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
-        <header class="mb-4">
-          <p
-            class="font-mono text-xs text-cyan uppercase tracking-widest mb-1"
-            data-casinocraftz-step-label
-          >
-            {t('tutorial.step.welcome.label')}
-          </p>
-          <p
-            class="font-mono text-xs text-neon uppercase tracking-wider"
-            data-casinocraftz-essence-display
-          >
-            {t('tutorial.essence.label')}: 0
-          </p>
-        </header>
-        <div data-casinocraftz-dialogue class="space-y-3 mb-4"></div>
-        <button
-          data-casinocraftz-tutorial-next
-          class="clip-corners hover-glitch inline-flex items-center justify-center min-h-9 px-4 py-1.5 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
-        >
-          {t('tutorial.cta.nextStep')}
-        </button>
-        <button
-          data-casinocraftz-tutorial-skip
-          class="ml-3 inline-flex items-center justify-center min-h-9 px-4 py-1.5 text-text-muted font-mono text-xs hover:text-neon transition-colors"
-        >
-          {t('tutorial.cta.skipTutorial')}
-        </button>
-
-        <div class="mt-6 space-y-3">
-          <div class="flex items-center justify-between gap-3 flex-wrap">
-            <p class="font-mono text-[10px] uppercase tracking-widest text-gold">
-              Rig de observacao ao vivo
-            </p>
-            <a
-              href="/pt/slots/"
-              class="font-mono text-[11px] uppercase tracking-wider text-cyan hover:text-neon transition-colors"
-            >
-              Abrir standalone →
-            </a>
-          </div>
-          <div class="hud-outline-subtle overflow-hidden bg-bg/70">
-            <iframe
-              data-casinocraftz-slots-embed
-              src="/pt/slots/?host=casinocraftz"
-              title="Rig de observacao dos Slots Casinocraftz"
-              loading="eager"
-              class="block w-full h-[780px] border-0 bg-bg"
-            ></iframe>
-          </div>
-        </div>
-      </section>
-
-      <!-- UTILITY CARDS -->
-      <section class="mt-4 sm:mt-6" data-casinocraftz-zone="cards">
-        <p class="font-mono text-xs text-gold uppercase tracking-wider mb-3">Utility Cards</p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div data-casinocraftz-card="probability-seer" class="hud-outline-subtle p-3">
-            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-              {t('cards.probabilitySeer.label')}
-            </p>
-            <p class="text-xs text-text-muted mb-2">{t('cards.probabilitySeer.description')}</p>
-            <button
-              data-casinocraftz-card-activate="probability-seer"
-              aria-disabled="true"
-              class="font-mono text-xs text-text-muted uppercase tracking-wider"
-            >
-              {t('tutorial.cta.activateCard')}
-            </button>
-          </div>
-          <div data-casinocraftz-card="dopamine-dampener" class="hud-outline-subtle p-3">
-            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-              {t('cards.dopamineDampener.label')}
-            </p>
-            <p class="text-xs text-text-muted mb-2">{t('cards.dopamineDampener.description')}</p>
-            <button
-              data-casinocraftz-card-activate="dopamine-dampener"
-              aria-disabled="true"
-              class="font-mono text-xs text-text-muted uppercase tracking-wider"
-            >
-              {t('tutorial.cta.activateCard')}
-            </button>
-          </div>
-          <div data-casinocraftz-card="house-edge" class="hud-outline-subtle p-3">
-            <p class="font-mono text-xs text-neon uppercase tracking-wider mb-1">
-              {t('cards.houseEdge.label')}
-            </p>
-            <p class="text-xs text-text-muted mb-2">{t('cards.houseEdge.description')}</p>
-            <button
-              data-casinocraftz-card-activate="house-edge"
-              aria-disabled="true"
-              class="font-mono text-xs text-text-muted uppercase tracking-wider"
-            >
-              {t('tutorial.cta.activateCard')}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- FOOTER ACTIONS -->
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
-        <a
-          href="/pt/projects/"
-          class="inline-flex items-center justify-center min-h-11 px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
-        >
-          {t('casinocraftz.cta.backProjects')}
-        </a>
       </div>
 
-      <!-- DEPOSIT MODAL -->
+      <!-- DEPOSIT MODAL (outside grid) -->
       <div
         data-ccz-deposit-modal
         hidden
@@ -334,7 +354,7 @@ const t = useTranslations('pt');
           <button
             data-ccz-deposit-close
             class="absolute top-4 right-4 font-mono text-xs text-text-muted hover:text-neon transition-colors uppercase tracking-wider"
-            aria-label="Fechar modal de deposito"
+            aria-label="Close deposit modal"
           >
             ✕
           </button>
@@ -343,7 +363,7 @@ const t = useTranslations('pt');
             {t('lobby.deposit.title')}
           </p>
           <p id="ccz-deposit-title" class="text-xl font-bold text-text-primary mb-6">
-            Selecione o valor
+            Select amount
           </p>
 
           <div class="grid grid-cols-3 gap-3 mb-6" data-ccz-deposit-amounts>
@@ -369,7 +389,7 @@ const t = useTranslations('pt');
 
           <div class="hud-outline-subtle p-3 mb-6 border-l-2 border-gold">
             <p class="font-mono text-[11px] text-gold uppercase tracking-wider mb-1">
-              ⚠ Nota educacional
+              ⚠ Educational note
             </p>
             <p class="text-xs text-text-secondary">{t('lobby.deposit.educational')}</p>
           </div>
