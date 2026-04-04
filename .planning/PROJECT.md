@@ -45,7 +45,10 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- None. Awaiting the next milestone definition.
+- [ ] EDU-70: User can access Lesson 3 (Sensory Conditioning) after completing Lesson 2 (Near-Miss)
+- [ ] EDU-71: Lesson 3 dialogue explains how sensory triggers condition response without changing odds
+- [ ] EDU-72: Spin-bridge observation gates Lesson 3 step advancement (2 spins threshold)
+- [ ] EDU-73: Lesson 3 completion tracked and persisted
 
 ### Out of Scope
 
@@ -103,11 +106,18 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
-## Next Milestone Goals
+## Current Milestone: v2.2 Sensory Conditioning Content
 
-- Define the next bounded milestone before re-opening active planning.
-- Preserve deterministic runtime behavior, EN/PT parity, and anti-monetization guardrails as baseline constraints.
-- Continue milestone-bounded delivery with archive-first roadmap and requirements management.
+**Goal:** Unlock and implement Lesson 3 of the Casinocraftz curriculum — sensory conditioning dialogue, step progression, spin-bridge observation, and unlock trigger gated on Near-Miss completion.
+
+**Target features:**
+
+- Lesson 3 unlock trigger (requires Near-Miss complete)
+- Sensory Conditioning dialogue registry (EN/PT)
+- Spin-bridge observation (2-spin threshold gates step advance)
+- Lesson 3 completion persistence
+
+**Future milestones planned:** See `.planning/FUTURE-MILESTONES.md` (v2.2 → v2.13, 12 milestones, phases 43–66)
 
 ## Evolution
 
