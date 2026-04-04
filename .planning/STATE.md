@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Sensory Conditioning Content
-status: executing
+status: planning
 stopped_at: Phase 43 UI-SPEC approved
-last_updated: "2026-04-04T13:49:21.404Z"
+last_updated: "2026-04-04T13:57:25.250Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -27,9 +27,9 @@ See: .planning/PROJECT.md (updated 2026-04-04)
 
 Phase: 43 (persistence-wiring-unlock-trigger) — EXECUTING
 Plan: 1 of 1
-**Phase:** 43 of 44 (Persistence Wiring & Unlock Trigger)
-**Plan:** —
-**Status:** Executing Phase 43
+**Phase:** 44 of 44 (spin bridge threshold, causality copy & en/pt parity lock)
+**Plan:** Not started
+**Status:** Ready to plan
 **Last Activity:** 2026-04-04
 
 ## Progress

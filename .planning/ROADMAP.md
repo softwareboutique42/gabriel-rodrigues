@@ -23,7 +23,7 @@
 
 ## Phases
 
-- [ ] **Phase 43: Persistence Wiring & Unlock Trigger** - Fix the returning-user fast-path and write Lesson 2/3 completion to localStorage
+- [x] **Phase 43: Persistence Wiring & Unlock Trigger** - Fix the returning-user fast-path and write Lesson 2/3 completion to localStorage (completed 2026-04-04)
 - [ ] **Phase 44: Spin-Bridge Threshold, Causality Copy & EN/PT Parity Lock** - Verify 2-spin gate, causality disclosure, and parity; close release evidence
 
 ## Phase Details
@@ -41,7 +41,7 @@
 4. The reconstructed `completedLessons` array emits in curriculum-canonical order (house-edge, near-miss) not push order
 5. All four Lesson 3 dialogue steps render in EN and PT with correct narrator/system roles
 
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 
@@ -65,7 +65,7 @@ Plans:
 
 | Phase                                                  | Milestone | Plans Complete | Status      | Completed |
 | ------------------------------------------------------ | --------- | -------------- | ----------- | --------- |
-| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 0/1            | Planning    | -         |
+| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 0/1            | Complete    | 2026-04-04 |
 | 44. Spin-Bridge Threshold, Causality Copy & EN/PT Lock | v2.2      | 0/TBD          | Not started | -         |
 
 ---
