@@ -47,10 +47,14 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] FX-70: Win outcomes trigger visible celebration effects without changing deterministic authority behavior
-- [ ] FX-71: Dopamine Dampener card suppresses win-celebration effects when active
-- [ ] FX-72: Effects system respects reduced-motion and motion-policy guardrails
-- [ ] FX-73: EN/PT parity coverage locks the effects layer release
+_(none — v2.3 shipped; next milestone not yet defined)_
+
+### Shipped in v2.3
+
+- ✓ FX-70: Win outcomes trigger visible celebration effects (cyan reel pulse + amplified gold frame flare)
+- ✓ FX-71: Dopamine Dampener card suppresses win-celebration effects when active
+- ✓ FX-72: Effects system respects reduced-motion and motion-policy guardrails
+- ✓ FX-73: EN/PT parity coverage locks the effects layer release
 
 ### Out of Scope
 
