@@ -358,3 +358,33 @@ test('Spin-Bridge: recordSpin guards advancement on sensory-conditioning-observe
   assert.match(src, /sensory-conditioning-observe/);
   assert.match(src, /requiresSpins/);
 });
+
+test('Causality Disclosure Lock: tutorial.causality.sensoryReveal present in EN/PT with anti-manipulation phrase', () => {
+  const en = readLocale('src/i18n/en.json');
+  const pt = readLocale('src/i18n/pt.json');
+
+  assert.ok(
+    en['tutorial.causality.sensoryReveal'] !== undefined,
+    'EN key tutorial.causality.sensoryReveal must exist',
+  );
+  assert.ok(
+    pt['tutorial.causality.sensoryReveal'] !== undefined,
+    'PT key tutorial.causality.sensoryReveal must exist',
+  );
+  assert.match(en['tutorial.causality.sensoryReveal'], /not outcomes/i);
+  assert.match(pt['tutorial.causality.sensoryReveal'], /nao os resultados/i);
+});
+
+test('EN/PT Parity Lock: data-casinocraftz-lesson-sensory-conditioning-soon attribute in both pages', () => {
+  const enPage = readWorkspaceFile('src/pages/en/casinocraftz/index.astro');
+  const ptPage = readWorkspaceFile('src/pages/pt/casinocraftz/index.astro');
+
+  assert.match(enPage, /data-casinocraftz-lesson-sensory-conditioning-soon/);
+  assert.match(ptPage, /data-casinocraftz-lesson-sensory-conditioning-soon/);
+});
+
+test('Recap Disclosure: sensory-conditioning-specific causality key is used in main.ts', () => {
+  const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.match(src, /casinocraftzCausalitySensoryReveal|causality.*sensory/i);
+});
