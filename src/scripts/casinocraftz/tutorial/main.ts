@@ -30,6 +30,27 @@ function stepReward(stepId: TutorialStepId): number {
   return TUTORIAL_STEPS.find((step) => step.id === stepId)?.essenceReward ?? 0;
 }
 
+function pulseElement(element: Element | null, className: string): void {
+  if (!(element instanceof HTMLElement)) return;
+  element.classList.remove(className);
+  requestAnimationFrame(() => {
+    element.classList.add(className);
+    window.setTimeout(() => element.classList.remove(className), 520);
+  });
+}
+
+function celebrateTutorialAdvance(root: HTMLElement): void {
+  pulseElement(root.querySelector('[data-casinocraftz-dialogue]'), 'ccz-flash-in');
+  pulseElement(root.querySelector('[data-casinocraftz-essence-display]'), 'ccz-essence-pulse');
+}
+
+function celebrateCardActivation(root: HTMLElement, cardId: UtilityCardId): void {
+  pulseElement(
+    root.querySelector(`[data-casinocraftz-card="${cardId}"]`),
+    'ccz-card-activation-burst',
+  );
+}
+
 function renderDialogue(
   root: HTMLElement,
   zone: HTMLElement,
@@ -43,8 +64,9 @@ function renderDialogue(
 
   for (const message of messages) {
     const entry = document.createElement('div');
-    entry.className = 'hud-outline-subtle p-3';
+    entry.className = 'hud-outline-subtle p-3 ccz-dialogue-entry';
     entry.dataset.casinocraftzDialogueRole = message.role;
+    entry.style.animationDelay = `${zone.childElementCount * 60}ms`;
 
     const role = document.createElement('p');
     role.className = 'font-mono text-[11px] uppercase tracking-wider text-cyan mb-1';
@@ -64,7 +86,7 @@ function renderDialogue(
 
     const replayBtn = document.createElement('button');
     replayBtn.className =
-      'font-mono text-xs text-cyan uppercase tracking-wider hover:text-neon transition-colors';
+      'font-mono text-xs text-cyan uppercase tracking-wider hover:text-neon transition-colors ccz-replay-btn';
     replayBtn.dataset.casinocraftzReplay = 'true';
     replayBtn.textContent = copy.replayLesson;
 
@@ -82,7 +104,7 @@ function renderDialogue(
     recapWrapper.className = 'mt-3';
 
     const details = document.createElement('details');
-    details.className = 'hud-outline-subtle p-3';
+    details.className = 'hud-outline-subtle p-3 ccz-recap-details';
     details.dataset.casinocraftzRecap = 'true';
 
     const summary = document.createElement('summary');
@@ -156,7 +178,7 @@ function renderCards(
 
   for (const card of STARTER_CARDS) {
     const cardRoot = document.createElement('div');
-    cardRoot.className = 'hud-outline-subtle p-3';
+    cardRoot.className = 'hud-outline-subtle p-3 ccz-card-root';
     cardRoot.dataset.casinocraftzCard = card.id;
 
     const label = document.createElement('p');
@@ -176,7 +198,7 @@ function renderCards(
     const badgeClass = state.cardsUnlocked.includes(card.id) ? 'text-neon' : 'text-text-muted';
 
     const badge = document.createElement('span');
-    badge.className = `font-mono text-[10px] ${badgeClass} uppercase tracking-wider`;
+    badge.className = `font-mono text-[10px] ${badgeClass} uppercase tracking-wider ccz-card-badge`;
     badge.dataset.casinocraftzCardStatus = badgeText.toLowerCase();
     badge.textContent = badgeText;
 
@@ -282,6 +304,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
         activeCard: cardId,
       };
       syncRootDatasets(root, state, essenceState.balance);
+      celebrateCardActivation(root, cardId);
     });
   };
 
@@ -294,6 +317,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
       const reward = stepReward(previousStep);
       essenceState = awardEssence(essenceState, reward);
       state = { ...state, essenceBalance: essenceState.balance };
+      celebrateTutorialAdvance(root);
     }
 
     state = unlockCards(state);
@@ -343,6 +367,7 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
     if (state.currentStep !== previousStep) {
       state = { ...state, lastTransitionTrigger: 'spin' };
       render();
+      celebrateTutorialAdvance(root);
       return;
     }
 
