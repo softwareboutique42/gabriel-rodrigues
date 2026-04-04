@@ -20,14 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** v2.2 Sensory Conditioning Content — Phase 43 (not started)
+**Current Focus:** v2.2 Sensory Conditioning Content — Phase 43 (ready to plan)
 
 ## Current Position
 
-**Phase:** Not started (defining requirements)
+**Phase:** 43 of 44 (Persistence Wiring & Unlock Trigger)
 **Plan:** —
-**Status:** Defining requirements
-**Last Activity:** 2026-04-04 — Milestone v2.2 started
+**Status:** Ready to plan
+**Last Activity:** 2026-04-04 — v2.2 roadmap initialized; v2.1 Symbol Atlas Production Upgrade shipped
 
 ## Progress
 
@@ -39,10 +39,10 @@ Phases: 0/2 complete
 
 ## Phase Summary
 
-| Phase    | Name                         | Status | Goal                                                                                  |
-| -------- | ---------------------------- | ------ | ------------------------------------------------------------------------------------- |
-| Phase 43 | Dialogue Registry & Unlock   | ○      | Lesson 3 dialogue (EN/PT), step definitions, unlock trigger from near-miss completion |
-| Phase 44 | Spin-bridge Observation Lock | ○      | 2-spin threshold, causality copy, completion persistence, EN/PT parity lock           |
+| Phase    | Name                                               | Status | Goal                                                                                      |
+| -------- | -------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
+| Phase 43 | Persistence Wiring & Unlock Trigger                | ○      | Fix returning-user fast-path; write Lesson 2/3 completion to localStorage                 |
+| Phase 44 | Spin-Bridge Threshold, Causality Copy & EN/PT Lock | ○      | Verify 2-spin gate, causality disclosure, parity; close release evidence for EDU-70 to 73 |
 
 ## Key Decisions
 
@@ -97,6 +97,9 @@ Phases: 0/2 complete
 - [v2.1 kickoff]: Keep RNG, payouts, and authority modules unchanged; all changes remain presentation-only.
 - [Phase 42]: Reel windows now render atlas-backed symbol assets via deterministic `data-slots-symbol` mapping while preserving controller authority boundaries.
 - [Phase 42]: Compatibility contracts and EN/PT parity checks now lock symbol asset references and documentation safety guidance.
+- [v2.2 kickoff]: Integration-only milestone — all Lesson 3 content is already authored; only persistence model and verification are missing.
+- [v2.2 kickoff]: No FX code (neon pulse, reel glow) allowed in v2.2 — that is Phase 45-46 (v2.3).
+- [v2.2 kickoff]: Three-key localStorage pattern (`ccz-tutorial-completed`, `ccz-near-miss-completed`, `ccz-lesson-sensory-completed`) extends existing precedent.
 
 ## Performance Metrics
 
@@ -117,55 +120,10 @@ Phases: 0/2 complete
 
 ## Blockers / Concerns
 
-None.
+- [Phase 44 prep]: Playwright spin injection sequencing — synchronous double-injection in `page.evaluate()` can cause state misread. Inspect existing near-miss E2E bridge helpers before extending pattern to Lesson 3 contracts.
 
 ## Session Continuity
 
-Last session: 2026-04-03T14:45:49.511Z
-Stopped at: Completed 33-01-PLAN.md
-Stopped at: Gathered Phase 29 context
-Stopped at: Planned Phase 29 plan 01
-Stopped at: Completed Phase 29 plan 01
-Stopped at: Planned Phase 30 plan 01
-Stopped at: Completed Phase 30 plan 01
-Stopped at: Planned Phase 30 plan 02
-Stopped at: Completed Phase 30 plan 02
-Stopped at: Discussed Phase 31 context (auto)
-Stopped at: Planned Phase 31 plan 01
-Stopped at: Discussed Phase 32 context (auto)
-Stopped at: Planned Phase 32 plan 01
-Stopped at: Completed 32-01-PLAN.md
-Stopped at: Completed Phase 32
-Stopped at: Audited v1.7 milestone (passed)
-Stopped at: Completed milestone v1.7
-Stopped at: Started v1.8 milestone definition
-Stopped at: Discussed Phase 33 context (auto)
-Stopped at: Planned Phase 33 plan 01
-Stopped at: Discussed Phase 36 context (auto)
-Stopped at: Planned Phase 36 plan 01
-Stopped at: Completed Phase 36 plan 01
-Stopped at: Tagged release v1.8
-Stopped at: Started v1.9 milestone definition
-Stopped at: Discussed Phase 37 context (auto)
-Stopped at: Planned Phase 37 plan 01
-Stopped at: Completed Phase 37 plan 01
-Stopped at: Discussed Phase 38 context (auto)
-Stopped at: Planned Phase 38 plan 01
-Stopped at: Completed Phase 38 plan 01
-Stopped at: Discussed Phase 39 context (auto)
-Stopped at: Planned Phase 39 plan 01
-Stopped at: Completed Phase 39 plan 01
-Stopped at: Discussed Phase 40 context (auto)
-Stopped at: Planned Phase 40 plan 01
-Stopped at: Completed Phase 40 plan 01
-Stopped at: Completed milestone v1.9
-Stopped at: Discussed Phase 41 context (auto)
-Stopped at: Planned Phase 41 plan 01
-Stopped at: Completed Phase 41 plan 01
-Stopped at: Completed milestone v2.0
-Stopped at: Started v2.1 milestone definition
-Stopped at: Discussed Phase 42 context (auto)
-Stopped at: Planned Phase 42 plan 01
-Stopped at: Completed Phase 42 plan 01
-Stopped at: Completed milestone v2.1
+Last session: 2026-04-04
+Stopped at: v2.2 roadmap initialized; ready to plan Phase 43
 Resume file: None
