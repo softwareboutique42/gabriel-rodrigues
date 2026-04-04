@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.8
-milestone_name: deterministic-learning-loop-expansion
-status: complete
-stopped_at: Tagged release v1.8
-last_updated: '2026-04-03T20:32:00.000Z'
-last_activity: 2026-04-03
+milestone: v2.1
+milestone_name: slots-symbol-atlas-production-upgrade
+status: completed
+stopped_at: Completed milestone v2.1
+last_updated: '2026-04-04T11:05:00.000Z'
+last_activity: 2026-04-04
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 4
-  completed_plans: 4
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-03)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** v1.8 milestone closed and tagged — ready to start next milestone
+**Current Focus:** Awaiting the next milestone after v2.1 completion
 
 ## Current Position
 
-**Phase:** Phase 36 - Confidence Lock and Release Evidence
-**Plan:** 36-01
+**Phase:** Phase 42 - Symbol Atlas Production Upgrade
+**Plan:** 42-01
 **Status:** Milestone complete
-**Last Activity:** 2026-04-03
+**Last Activity:** 2026-04-04
 
 ## Progress
 
@@ -36,16 +36,13 @@ See: .planning/PROJECT.md (updated 2026-04-03)
 Progress: ██████████ 100%
 ```
 
-Phases: 4/4 complete
+Phases: 1/1 complete
 
 ## Phase Summary
 
-| Phase    | Name                                             | Status | Goal                                                                        |
-| -------- | ------------------------------------------------ | ------ | --------------------------------------------------------------------------- |
-| Phase 33 | Bridge and Authority Hardening                   | ✓      | Stabilize deterministic bridge contracts and authority boundaries           |
-| Phase 34 | Learning Loop Clarity and Bounded Progression UX | ✓      | Improve transition clarity and bounded progression understanding            |
-| Phase 35 | EN/PT and Host-Mode Parity Matrix Lock           | ✓      | Lock locale and host-mode parity for v1.8 surfaces                          |
-| Phase 36 | Confidence Lock and Release Evidence             | ✓      | Finalize anti-monetization guardrails and release evidence confidence gates |
+| Phase    | Name                            | Status | Goal                                                                                                                 |
+| -------- | ------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------- |
+| Phase 42 | Symbol Atlas Production Upgrade | ✓      | Replace text-symbol fallback with atlas-backed icon presentation while preserving deterministic authority boundaries |
 
 ## Key Decisions
 
@@ -82,6 +79,24 @@ Phases: 4/4 complete
 - [Phase 31-house-edge-tutorial-and-utility-card-systems]: Casinocraftz tutorial root datasets are first-class compatibility anchors for EN/PT deterministic assertions.
 - [Phase 33]: parseSpinSettledBridgeEvent exported for testability; source-reading tests match project pattern
 - [Phase 33]: Legacy unversioned bridge payloads accepted backward-compatibly (version === undefined)
+- [v1.9 kickoff]: Scope the next milestone to psychology curriculum expansion, not collection meta or PvP systems.
+- [v1.9 kickoff]: Phase 37 introduces lesson-shell/state foundations only; new psychology content lands in later phases.
+- [v1.9 kickoff]: Existing lesson-one house-edge flow remains canonical while lesson selection becomes deterministic and bounded.
+- [Phase 37]: Lesson shell uses dataset-backed current/unlocked/completed lesson anchors with future lessons visible as locked previews.
+- [Phase 37]: Revisit behavior stays bounded to the current unlocked lesson and does not create gameplay mutations or reward loops.
+- [Phase 38]: Near-miss unlock is bounded to house-edge completion and remains shell-driven rather than economy-driven.
+- [Phase 38]: Near-miss trigger logic uses observed-spin thresholds to explain perception without implying player influence over outcomes.
+- [Phase 39]: Sensory-conditioning unlock is bounded to near-miss completion and stays presentation-only.
+- [Phase 39]: Curriculum shell now exposes explicit progress copy stating that lessons unlock only via prior lesson completion, never spending or grind.
+- [Phase 40]: Source and browser contracts now lock EN/PT curriculum datasets, completed-lesson review behavior, and anti-manipulation copy for the full three-lesson shell.
+- [Phase 40]: Lesson-three skip now resolves to `sensory-conditioning-complete`, preserving lesson-scoped completion semantics.
+- [Phase 41]: Casinocraftz module surface now routes to standalone `/en/slots/` and `/pt/slots/` via explicit slots-access cards instead of iframe embedding.
+- [Phase 41]: Slots round JSON output is collapsed by default and reel windows render casino-style symbol labels while preserving deterministic authority boundaries.
+- [Phase 41]: Maintainer documentation added for professional symbol image upgrades without touching payout/RNG logic.
+- [v2.1 kickoff]: Scope this milestone to production symbol atlas delivery and parity-safe reel rendering only.
+- [v2.1 kickoff]: Keep RNG, payouts, and authority modules unchanged; all changes remain presentation-only.
+- [Phase 42]: Reel windows now render atlas-backed symbol assets via deterministic `data-slots-symbol` mapping while preserving controller authority boundaries.
+- [Phase 42]: Compatibility contracts and EN/PT parity checks now lock symbol asset references and documentation safety guidance.
 
 ## Performance Metrics
 
@@ -98,7 +113,7 @@ Phases: 4/4 complete
 
 ## Pending Todos
 
-- Start next milestone with /gsd:new-milestone <name>.
+- None.
 
 ## Blockers / Concerns
 
@@ -130,4 +145,27 @@ Stopped at: Discussed Phase 36 context (auto)
 Stopped at: Planned Phase 36 plan 01
 Stopped at: Completed Phase 36 plan 01
 Stopped at: Tagged release v1.8
+Stopped at: Started v1.9 milestone definition
+Stopped at: Discussed Phase 37 context (auto)
+Stopped at: Planned Phase 37 plan 01
+Stopped at: Completed Phase 37 plan 01
+Stopped at: Discussed Phase 38 context (auto)
+Stopped at: Planned Phase 38 plan 01
+Stopped at: Completed Phase 38 plan 01
+Stopped at: Discussed Phase 39 context (auto)
+Stopped at: Planned Phase 39 plan 01
+Stopped at: Completed Phase 39 plan 01
+Stopped at: Discussed Phase 40 context (auto)
+Stopped at: Planned Phase 40 plan 01
+Stopped at: Completed Phase 40 plan 01
+Stopped at: Completed milestone v1.9
+Stopped at: Discussed Phase 41 context (auto)
+Stopped at: Planned Phase 41 plan 01
+Stopped at: Completed Phase 41 plan 01
+Stopped at: Completed milestone v2.0
+Stopped at: Started v2.1 milestone definition
+Stopped at: Discussed Phase 42 context (auto)
+Stopped at: Planned Phase 42 plan 01
+Stopped at: Completed Phase 42 plan 01
+Stopped at: Completed milestone v2.1
 Resume file: None

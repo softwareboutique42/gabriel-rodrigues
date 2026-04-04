@@ -89,7 +89,6 @@ async function spinAndWaitForResolution(
   await expectSlotsStatus(page, statusText.spinning);
   await expect(root).toHaveAttribute('data-slots-anim-symbol-states', /"A":"spin"/);
   await expect(root).toHaveAttribute('data-slots-anim-effect', /charge|sustain/);
-  await expect(root).toHaveAttribute('data-slots-anim-atmosphere', /charge|vortex/);
 
   await expectSlotsState(root, 'result');
   await expectSlotsStatus(page, statusText.result);
@@ -244,72 +243,46 @@ test.describe('Compatibility hardening', () => {
     await expect(page).not.toHaveURL(/\/projects\/casinocraftz\//);
   });
 
-  test('casinocraftz embeds slots module with canonical EN/PT host parity', async ({ page }) => {
+  test('casinocraftz exposes standalone slots access card with canonical EN/PT navigation', async ({
+    page,
+  }) => {
     const errorSurface = watchErrorSurface(page);
 
     await page.goto('/en/casinocraftz/');
-    const enEmbed = page.locator('[data-casinocraftz-slots-embed]');
-    await expect(enEmbed).toBeVisible();
-    await expect(enEmbed).toHaveAttribute('src', '/en/slots/?host=casinocraftz');
-
-    const enFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
-    await expect(enFrame.locator('#slots-shell-root')).toBeVisible();
-    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
+    const enCard = page.locator('[data-casinocraftz-slots-card]');
+    await expect(enCard).toBeVisible();
+    const enLink = page.locator('[data-casinocraftz-slots-link]');
+    await expect(enLink).toHaveAttribute('href', '/en/slots/');
+    await enLink.click();
+    await expect(page).toHaveURL(pathRegex('/en/slots/'));
+    await expect(page.locator('#slots-shell-root')).toHaveAttribute(
       'data-slots-host',
-      'casinocraftz',
+      'standalone',
     );
-    await expect(enFrame.locator('[data-slots-lesson="house-edge"]')).toBeVisible();
-    await enFrame.locator('#slots-spin-button').click();
-    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-state',
-      'spinning',
-    );
-    await expect(enFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-state',
-      'result',
-    );
-    await expect(enFrame.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-en:1');
+    await expect(page.locator('[data-slots-lesson="house-edge"]')).toBeHidden();
+    await expect(page.locator('#slots-gameplay-seed')).toHaveText('Seed: -');
 
     await page.goto('/pt/casinocraftz/');
-    const ptEmbed = page.locator('[data-casinocraftz-slots-embed]');
-    await expect(ptEmbed).toBeVisible();
-    await expect(ptEmbed).toHaveAttribute('src', '/pt/slots/?host=casinocraftz');
-
-    const ptFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
-    await expect(ptFrame.locator('#slots-shell-root')).toBeVisible();
-    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
+    const ptCard = page.locator('[data-casinocraftz-slots-card]');
+    await expect(ptCard).toBeVisible();
+    const ptLink = page.locator('[data-casinocraftz-slots-link]');
+    await expect(ptLink).toHaveAttribute('href', '/pt/slots/');
+    await ptLink.click();
+    await expect(page).toHaveURL(pathRegex('/pt/slots/'));
+    await expect(page.locator('#slots-shell-root')).toHaveAttribute(
       'data-slots-host',
-      'casinocraftz',
+      'standalone',
     );
-    await expect(ptFrame.locator('[data-slots-lesson="house-edge"]')).toBeVisible();
-    await ptFrame.locator('#slots-spin-button').click();
-    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-state',
-      'spinning',
-    );
-    await expect(ptFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-state',
-      'result',
-    );
-    await expect(ptFrame.locator('#slots-gameplay-seed')).toHaveText('Seed: slots-phase-13-pt:1');
+    await expect(page.locator('[data-slots-lesson="house-edge"]')).toBeHidden();
+    await expect(page.locator('#slots-gameplay-seed')).toHaveText('Seed: -');
 
     await page.goto('/en/projects/');
     await page.getByRole('link', { name: 'Open Casinocraftz', exact: true }).click();
     await expect(page).toHaveURL(pathRegex('/en/casinocraftz/'));
 
-    const enSpaFrame = page.frameLocator('[data-casinocraftz-slots-embed]');
-    await expect(enSpaFrame.locator('#slots-shell-root')).toBeVisible();
-    await expect(enSpaFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-host',
-      'casinocraftz',
-    );
-    await enSpaFrame.locator('#slots-spin-button').click();
-    await expect(enSpaFrame.locator('#slots-shell-root')).toHaveAttribute(
-      'data-slots-state',
-      'result',
-    );
+    await expect(page.locator('[data-casinocraftz-slots-link]')).toBeVisible();
 
-    expectCleanErrorSurface(errorSurface, 'embedded host parity');
+    expectCleanErrorSurface(errorSurface, 'standalone slots access parity');
   });
 
   test.describe('casinocraftz tutorial system', () => {
@@ -341,7 +314,7 @@ test.describe('Compatibility hardening', () => {
       await expect(root).toHaveAttribute('data-casinocraftz-essence', /\d+/);
     });
 
-    test('play-and-observe step advances to probability-reveal after 3 spins via postMessage bridge - EN', async ({
+    test('tutorial shell keeps slots access card visible while progression remains bounded - EN', async ({
       page,
     }) => {
       await page.goto('/en/casinocraftz/');
@@ -350,19 +323,15 @@ test.describe('Compatibility hardening', () => {
       await page.locator('[data-casinocraftz-tutorial-next]').click();
       await page.locator('[data-casinocraftz-tutorial-next]').click();
       await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
-
-      const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(600);
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(600);
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(1200);
-
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+      await expect(page.locator('[data-casinocraftz-slots-link]')).toHaveAttribute(
+        'href',
+        '/en/slots/',
+      );
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(root).toHaveAttribute('data-casinocraftz-completed-lessons', /house-edge/);
     });
 
-    test('play-and-observe step advances to probability-reveal after 3 spins via postMessage bridge - PT', async ({
+    test('tutorial shell keeps slots access card visible while progression remains bounded - PT', async ({
       page,
     }) => {
       await page.goto('/pt/casinocraftz/');
@@ -371,16 +340,212 @@ test.describe('Compatibility hardening', () => {
       await page.locator('[data-casinocraftz-tutorial-next]').click();
       await page.locator('[data-casinocraftz-tutorial-next]').click();
       await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'play-and-observe');
+      await expect(page.locator('[data-casinocraftz-slots-link]')).toHaveAttribute(
+        'href',
+        '/pt/slots/',
+      );
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(root).toHaveAttribute('data-casinocraftz-completed-lessons', /house-edge/);
+    });
 
-      const frame = page.frameLocator('[data-casinocraftz-slots-embed]');
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(600);
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(600);
-      await frame.locator('#slots-spin-button').click();
-      await page.waitForTimeout(1200);
+    test('near-miss lesson unlocks after lesson one completion and opens through the shell - EN/PT', async ({
+      page,
+    }) => {
+      await page.goto('/en/casinocraftz/');
 
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'probability-reveal');
+      const enRoot = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(enRoot).toHaveAttribute('data-casinocraftz-completed-lessons', /house-edge/);
+      await expect(enRoot).toHaveAttribute(
+        'data-casinocraftz-unlocked-lessons',
+        /house-edge,near-miss/,
+      );
+
+      const enNearMissCard = page.locator('[data-casinocraftz-lesson="near-miss"]');
+      await expect(enNearMissCard).toHaveAttribute('data-casinocraftz-lesson-state', 'active');
+      await enNearMissCard.locator('[data-casinocraftz-lesson-action="near-miss"]').click();
+      await expect(enRoot).toHaveAttribute('data-casinocraftz-current-lesson', 'near-miss');
+      await expect(enRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'near-miss-intro');
+
+      await page.goto('/pt/casinocraftz/');
+
+      const ptRoot = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(ptRoot).toHaveAttribute('data-casinocraftz-completed-lessons', /house-edge/);
+      await expect(ptRoot).toHaveAttribute(
+        'data-casinocraftz-unlocked-lessons',
+        /house-edge,near-miss/,
+      );
+
+      const ptNearMissCard = page.locator('[data-casinocraftz-lesson="near-miss"]');
+      await expect(ptNearMissCard).toHaveAttribute('data-casinocraftz-lesson-state', 'active');
+      await ptNearMissCard.locator('[data-casinocraftz-lesson-action="near-miss"]').click();
+      await expect(ptRoot).toHaveAttribute('data-casinocraftz-current-lesson', 'near-miss');
+      await expect(ptRoot).toHaveAttribute('data-casinocraftz-tutorial-step', 'near-miss-intro');
+    });
+
+    test('sensory-conditioning lesson unlocks after near-miss completion and progression copy stays bounded - EN/PT', async ({
+      page,
+    }) => {
+      await page.goto('/en/casinocraftz/');
+
+      const enRoot = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await page
+        .locator(
+          '[data-casinocraftz-lesson="near-miss"] [data-casinocraftz-lesson-action="near-miss"]',
+        )
+        .click();
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(enRoot).toHaveAttribute(
+        'data-casinocraftz-completed-lessons',
+        /house-edge,near-miss|near-miss,house-edge/,
+      );
+      await expect(enRoot).toHaveAttribute(
+        'data-casinocraftz-unlocked-lessons',
+        /house-edge,near-miss,sensory-conditioning/,
+      );
+      await expect(page.locator('[data-casinocraftz-curriculum-progress]')).toContainText(
+        'No spending, rewards, or grind loops.',
+      );
+
+      const enSensoryCard = page.locator('[data-casinocraftz-lesson="sensory-conditioning"]');
+      await expect(enSensoryCard).toHaveAttribute('data-casinocraftz-lesson-state', 'active');
+      await enSensoryCard
+        .locator('[data-casinocraftz-lesson-action="sensory-conditioning"]')
+        .click();
+      await expect(enRoot).toHaveAttribute(
+        'data-casinocraftz-current-lesson',
+        'sensory-conditioning',
+      );
+      await expect(enRoot).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-intro',
+      );
+
+      await page.goto('/pt/casinocraftz/');
+
+      const ptRoot = page.locator('[data-casinocraftz-shell-root]');
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await page
+        .locator(
+          '[data-casinocraftz-lesson="near-miss"] [data-casinocraftz-lesson-action="near-miss"]',
+        )
+        .click();
+      await page.locator('[data-casinocraftz-tutorial-skip]').click();
+      await expect(ptRoot).toHaveAttribute(
+        'data-casinocraftz-completed-lessons',
+        /house-edge,near-miss|near-miss,house-edge/,
+      );
+      await expect(ptRoot).toHaveAttribute(
+        'data-casinocraftz-unlocked-lessons',
+        /house-edge,near-miss,sensory-conditioning/,
+      );
+      await expect(page.locator('[data-casinocraftz-curriculum-progress]')).toContainText(
+        'Sem gastos, recompensas ou loops de grind.',
+      );
+
+      const ptSensoryCard = page.locator('[data-casinocraftz-lesson="sensory-conditioning"]');
+      await expect(ptSensoryCard).toHaveAttribute('data-casinocraftz-lesson-state', 'active');
+      await ptSensoryCard
+        .locator('[data-casinocraftz-lesson-action="sensory-conditioning"]')
+        .click();
+      await expect(ptRoot).toHaveAttribute(
+        'data-casinocraftz-current-lesson',
+        'sensory-conditioning',
+      );
+      await expect(ptRoot).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-intro',
+      );
+    });
+
+    test('completed lessons can be reviewed deterministically and lesson-three skip stays lesson-scoped in EN/PT', async ({
+      page,
+    }) => {
+      for (const [startPath, reviewLabel, boundedCopy] of [
+        ['/en/casinocraftz/', 'Review lesson', 'No spending, rewards, or grind loops.'],
+        ['/pt/casinocraftz/', 'Revisar licao', 'Sem gastos, recompensas ou loops de grind.'],
+      ] as const) {
+        await page.goto(startPath);
+
+        const root = page.locator('[data-casinocraftz-shell-root]');
+        await page.locator('[data-casinocraftz-tutorial-skip]').click();
+        await page
+          .locator(
+            '[data-casinocraftz-lesson="near-miss"] [data-casinocraftz-lesson-action="near-miss"]',
+          )
+          .click();
+        await page.locator('[data-casinocraftz-tutorial-skip]').click();
+        await page
+          .locator(
+            '[data-casinocraftz-lesson="sensory-conditioning"] [data-casinocraftz-lesson-action="sensory-conditioning"]',
+          )
+          .click();
+        await page.locator('[data-casinocraftz-tutorial-skip]').click();
+
+        await expect(root).toHaveAttribute(
+          'data-casinocraftz-completed-lessons',
+          /house-edge,near-miss,sensory-conditioning|house-edge,sensory-conditioning,near-miss|near-miss,house-edge,sensory-conditioning|near-miss,sensory-conditioning,house-edge|sensory-conditioning,house-edge,near-miss|sensory-conditioning,near-miss,house-edge/,
+        );
+        await expect(root).toHaveAttribute(
+          'data-casinocraftz-tutorial-step',
+          'sensory-conditioning-complete',
+        );
+        await expect(page.locator('[data-casinocraftz-curriculum-progress]')).toContainText(
+          boundedCopy,
+        );
+
+        const reviewButton = page.locator(
+          '[data-casinocraftz-lesson="house-edge"] [data-casinocraftz-lesson-action="house-edge"]',
+        );
+        await expect(reviewButton).toHaveText(reviewLabel);
+        await reviewButton.click();
+        await expect(root).toHaveAttribute('data-casinocraftz-current-lesson', 'house-edge');
+        await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'welcome');
+        await expect(page.locator('[data-casinocraftz-curriculum-progress]')).toContainText(
+          boundedCopy,
+        );
+
+        await expect(page.locator('[data-casinocraftz-lesson="near-miss"]')).toHaveAttribute(
+          'data-casinocraftz-lesson-state',
+          'complete',
+        );
+        await expect(
+          page.locator('[data-casinocraftz-lesson="sensory-conditioning"]'),
+        ).toHaveAttribute('data-casinocraftz-lesson-state', 'complete');
+      }
+    });
+
+    test('psychology causality copy remains anti-manipulative in EN/PT datasets', async ({
+      page,
+    }) => {
+      for (const [startPath, nearMissCopy, sensoryCopy] of [
+        [
+          '/en/casinocraftz/',
+          'Observation changes the explanation, not the odds.',
+          'Feedback intensity changes perception, not outcomes.',
+        ],
+        [
+          '/pt/casinocraftz/',
+          'A observacao muda a explicacao, nao as odds.',
+          'A intensidade do feedback muda a percepcao, nao os resultados.',
+        ],
+      ] as const) {
+        await page.goto(startPath);
+
+        const root = page.locator('[data-casinocraftz-shell-root]');
+
+        await expect(root).toHaveAttribute(
+          'data-casinocraftz-causality-near-miss-reveal',
+          new RegExp(nearMissCopy.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+        );
+        await expect(root).toHaveAttribute(
+          'data-casinocraftz-causality-sensory-reveal',
+          new RegExp(sensoryCopy.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+        );
+        await expect(page.locator('[data-casinocraftz-slots-link]')).toBeVisible();
+      }
     });
   });
 

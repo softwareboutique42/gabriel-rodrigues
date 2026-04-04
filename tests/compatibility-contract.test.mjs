@@ -13,6 +13,9 @@ const ptCasinocraftzPath = resolve(process.cwd(), 'src/pages/pt/casinocraftz/ind
 const enSlotsPath = resolve(process.cwd(), 'src/pages/en/slots/index.astro');
 const ptSlotsPath = resolve(process.cwd(), 'src/pages/pt/slots/index.astro');
 const slotsMainPath = resolve(process.cwd(), 'src/scripts/slots/main.ts');
+const slotsControllerPath = resolve(process.cwd(), 'src/scripts/slots/controller.ts');
+const globalCssPath = resolve(process.cwd(), 'src/styles/global.css');
+const slotsDocPath = resolve(process.cwd(), 'docs/slots-image-customization.md');
 
 const utils = readFileSync(utilsPath, 'utf8');
 const switcher = readFileSync(switcherPath, 'utf8');
@@ -24,6 +27,15 @@ const ptCasinocraftz = readFileSync(ptCasinocraftzPath, 'utf8');
 const enSlots = readFileSync(enSlotsPath, 'utf8');
 const ptSlots = readFileSync(ptSlotsPath, 'utf8');
 const slotsMain = readFileSync(slotsMainPath, 'utf8');
+const slotsController = readFileSync(slotsControllerPath, 'utf8');
+const globalCss = readFileSync(globalCssPath, 'utf8');
+const slotsDoc = readFileSync(slotsDocPath, 'utf8');
+
+function extractCasinocraftzDatasetNames(source) {
+  return new Set(
+    Array.from(source.matchAll(/data-casinocraftz-[a-z0-9-]+/g), (match) => match[0]).sort(),
+  );
+}
 
 test('counterpart mapping contract for projects/canvas/slots/casinocraftz surfaces stays exact', () => {
   assert.match(utils, /getLocalizedPath\(path: string, lang: Lang\)/);
@@ -55,11 +67,15 @@ test('canonical discovery links remain locale-correct on projects pages', () => 
   assert.match(ptProjects, /href="\/pt\/casinocraftz\/"/);
 });
 
-test('casinocraftz embeds canonical slots module paths in EN/PT', () => {
-  assert.match(enCasinocraftz, /data-casinocraftz-slots-embed/);
-  assert.match(ptCasinocraftz, /data-casinocraftz-slots-embed/);
-  assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
-  assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
+test('casinocraftz links to canonical standalone slots paths in EN/PT', () => {
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-card/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-card/);
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-link/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-link/);
+  assert.match(enCasinocraftz, /href="\/en\/slots\/"/);
+  assert.match(ptCasinocraftz, /href="\/pt\/slots\/"/);
+  assert.doesNotMatch(enCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.doesNotMatch(ptCasinocraftz, /data-casinocraftz-slots-embed/);
   assert.match(enSlots, /data-slots-host="standalone"/);
   assert.match(ptSlots, /data-slots-host="standalone"/);
   assert.match(slotsMain, /new URLSearchParams\(window\.location\.search\)\.get\('host'\)/);
@@ -126,8 +142,69 @@ test('casinocraftz canonical pages expose tutorial step dataset in EN and PT', (
   );
 });
 
+test('casinocraftz curriculum shell dataset surface stays parity-locked in EN/PT', () => {
+  const enDatasetNames = extractCasinocraftzDatasetNames(enCasinocraftz);
+  const ptDatasetNames = extractCasinocraftzDatasetNames(ptCasinocraftz);
+
+  assert.deepEqual(
+    [...enDatasetNames],
+    [...ptDatasetNames],
+    'EN/PT Casinocraftz pages must expose the same data-casinocraftz-* anchors',
+  );
+
+  for (const requiredAnchor of [
+    'data-casinocraftz-current-lesson',
+    'data-casinocraftz-curriculum-progress-title',
+    'data-casinocraftz-curriculum-bounded-rule',
+    'data-casinocraftz-causality-near-miss-reveal',
+    'data-casinocraftz-causality-sensory-reveal',
+    'data-casinocraftz-step-near-miss-reveal-label',
+    'data-casinocraftz-step-sensory-conditioning-reveal-label',
+  ]) {
+    assert.ok(enDatasetNames.has(requiredAnchor), `missing EN anchor ${requiredAnchor}`);
+    assert.ok(ptDatasetNames.has(requiredAnchor), `missing PT anchor ${requiredAnchor}`);
+  }
+});
+
+test('casinocraftz curriculum surfaces reject manipulative outcome-control claims', () => {
+  const protectedSurfaces = [enCasinocraftz, ptCasinocraftz];
+  const forbiddenClaims = [
+    /beat the odds/i,
+    /improve your odds/i,
+    /increase your chances/i,
+    /control outcomes/i,
+    /exploit the machine/i,
+    /melhorar as odds/i,
+    /aumentar suas chances/i,
+    /controlar resultados/i,
+    /explorar a maquina/i,
+  ];
+
+  for (const source of protectedSurfaces) {
+    for (const pattern of forbiddenClaims) {
+      assert.doesNotMatch(source, pattern, `unexpected manipulative claim detected: ${pattern}`);
+    }
+  }
+});
+
 test('bridge event sender in slots/main.ts emits versioned envelope with payload wrapper', () => {
   assert.match(slotsMain, /version:\s*1/);
   assert.match(slotsMain, /payload:\s*\{/);
   assert.match(slotsMain, /ccz:spin-settled/);
+});
+
+test('slots symbol atlas presentation remains deterministic and source-locked', () => {
+  assert.match(slotsController, /windowEl\.dataset\.slotsSymbol = symbol/);
+  assert.match(slotsController, /SYMBOL_PRESENTATION/);
+  assert.match(globalCss, /\/images\/slots\/symbols\/bar\.svg/);
+  assert.match(globalCss, /\/images\/slots\/symbols\/seven\.svg/);
+  assert.match(globalCss, /\/images\/slots\/symbols\/crown\.svg/);
+  assert.match(globalCss, /\/images\/slots\/symbols\/diamond\.svg/);
+  assert.match(globalCss, /\/images\/slots\/symbols\/star\.svg/);
+});
+
+test('slots image customization documentation preserves authority-safety guidance', () => {
+  assert.match(slotsDoc, /Do not change RNG, reels, payline rules, or payout logic\./);
+  assert.match(slotsDoc, /Never modify payout or RNG code while changing visuals\./);
+  assert.match(slotsDoc, /data-slots-\*/);
 });

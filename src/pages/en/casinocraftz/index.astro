@@ -14,14 +14,60 @@ const t = useTranslations('en');
       class="glow-panel p-6 sm:p-8"
       data-casinocraftz-shell-root
       data-casinocraftz-lang="en"
+      data-casinocraftz-current-lesson="house-edge"
       data-casinocraftz-tutorial-step="welcome"
       data-casinocraftz-essence="0"
       data-casinocraftz-essence-label={t('tutorial.essence.label')}
+      data-casinocraftz-lesson-status-active={t('tutorial.lesson.status.active')}
+      data-casinocraftz-lesson-status-complete={t('tutorial.lesson.status.complete')}
+      data-casinocraftz-lesson-status-locked={t('tutorial.lesson.status.locked')}
+      data-casinocraftz-lesson-open-label={t('tutorial.lesson.cta.open')}
+      data-casinocraftz-lesson-review-label={t('tutorial.lesson.cta.review')}
+      data-casinocraftz-lesson-preview-label={t('tutorial.lesson.cta.preview')}
+      data-casinocraftz-lesson-house-edge-label={t('tutorial.lesson.houseEdge.label')}
+      data-casinocraftz-lesson-house-edge-description={t('tutorial.lesson.houseEdge.description')}
+      data-casinocraftz-lesson-near-miss-label={t('tutorial.lesson.nearMiss.label')}
+      data-casinocraftz-lesson-near-miss-description={t('tutorial.lesson.nearMiss.description')}
+      data-casinocraftz-lesson-sensory-conditioning-soon={t(
+        'tutorial.lesson.sensoryConditioning.soon',
+      )}
+      data-casinocraftz-curriculum-progress-title={t('tutorial.curriculum.progressTitle')}
+      data-casinocraftz-curriculum-bounded-rule={t('tutorial.curriculum.boundedRule')}
+      data-casinocraftz-lesson-sensory-conditioning-label={t(
+        'tutorial.lesson.sensoryConditioning.label',
+      )}
+      data-casinocraftz-lesson-sensory-conditioning-description={t(
+        'tutorial.lesson.sensoryConditioning.description',
+      )}
       data-casinocraftz-cards-title="Utility Cards"
       data-casinocraftz-activate-label={t('tutorial.cta.activateCard')}
       data-casinocraftz-replay-label={t('tutorial.cta.revisitLesson')}
       data-casinocraftz-recap-label={t('tutorial.cta.whyTransition')}
       data-casinocraftz-causality-probability-reveal={t('tutorial.causality.probabilityReveal')}
+      data-casinocraftz-causality-near-miss-reveal={t('tutorial.causality.nearMissReveal')}
+      data-casinocraftz-causality-sensory-reveal={t('tutorial.causality.sensoryReveal')}
+      data-casinocraftz-step-welcome-label={t('tutorial.step.welcome.label')}
+      data-casinocraftz-step-house-edge-intro-label={t('tutorial.step.houseEdgeIntro.label')}
+      data-casinocraftz-step-play-and-observe-label={t('tutorial.step.playAndObserve.label')}
+      data-casinocraftz-step-probability-reveal-label={t('tutorial.step.probabilityReveal.label')}
+      data-casinocraftz-step-card-unlock-label={t('tutorial.step.cardUnlock.label')}
+      data-casinocraftz-step-complete-label={t('tutorial.step.complete.label')}
+      data-casinocraftz-step-near-miss-intro-label={t('tutorial.step.nearMissIntro.label')}
+      data-casinocraftz-step-near-miss-observe-label={t('tutorial.step.nearMissObserve.label')}
+      data-casinocraftz-step-near-miss-reveal-label={t('tutorial.step.nearMissReveal.label')}
+      data-casinocraftz-step-near-miss-complete-label={t('tutorial.step.nearMissComplete.label')}
+      data-casinocraftz-step-sensory-conditioning-intro-label={t(
+        'tutorial.step.sensoryConditioningIntro.label',
+      )}
+      data-casinocraftz-step-sensory-conditioning-observe-label={t(
+        'tutorial.step.sensoryConditioningObserve.label',
+      )}
+      data-casinocraftz-step-sensory-conditioning-reveal-label={t(
+        'tutorial.step.sensoryConditioningReveal.label',
+      )}
+      data-casinocraftz-step-sensory-conditioning-complete-label={t(
+        'tutorial.step.sensoryConditioningComplete.label',
+      )}
       data-casinocraftz-card-status-locked={t('cards.status.locked')}
       data-casinocraftz-card-status-unlocked={t('cards.status.unlocked')}
       data-casinocraftz-card-probability-seer-label={t('cards.probabilitySeer.label')}
@@ -77,26 +123,50 @@ const t = useTranslations('en');
             {t('slots.title')}
           </h2>
           <p class="font-mono text-xs text-cyan uppercase tracking-wider">
-            Module 01: Embedded Runtime
+            Module 01: Standalone Runtime
           </p>
         </div>
         <p class="text-sm text-text-secondary mb-4">
-          Live module with deterministic gameplay hooks and explicit transparency overlays.
+          Launch the dedicated Slots route from this control card to inspect the full game shell.
         </p>
-        <div class="hud-outline-subtle p-2 sm:p-3">
-          <iframe
-            data-casinocraftz-slots-embed
-            src="/en/slots/?host=casinocraftz"
-            title="Casinocraftz Slots Module"
-            loading="lazy"
-            class="w-full min-h-[980px] md:min-h-[860px] border border-surface-container-high"
-          ></iframe>
+        <div class="hud-outline-subtle p-4 sm:p-5" data-casinocraftz-slots-card>
+          <p class="font-mono text-xs uppercase tracking-wider text-gold mb-2">Slots Game Access</p>
+          <p class="text-sm text-text-secondary mb-4">
+            Visit the standalone Slots page for full controls, polished reels, and deterministic
+            runtime telemetry.
+          </p>
+          <a
+            href="/en/slots/"
+            data-casinocraftz-slots-link
+            class="clip-corners hover-glitch inline-flex items-center justify-center min-h-10 px-4 py-2 bg-cyan text-bg font-bold text-xs uppercase tracking-wider"
+          >
+            Open Slots Game
+          </a>
         </div>
+      </section>
+
+      <section
+        class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6"
+        data-casinocraftz-zone="curriculum"
+      >
+        <header class="mb-4">
+          <p class="font-mono text-xs text-gold uppercase tracking-widest mb-1">
+            {t('tutorial.curriculum.title')}
+          </p>
+          <p class="text-sm text-text-secondary max-w-2xl">
+            {t('tutorial.curriculum.subtitle')}
+          </p>
+          <p class="text-xs text-text-muted mt-2" data-casinocraftz-curriculum-progress></p>
+        </header>
+        <div data-casinocraftz-curriculum></div>
       </section>
 
       <section class="mt-6 sm:mt-8 hud-outline-subtle p-4 sm:p-6" data-casinocraftz-zone="tutorial">
         <header class="mb-4">
-          <p class="font-mono text-xs text-cyan uppercase tracking-widest mb-1">
+          <p
+            class="font-mono text-xs text-cyan uppercase tracking-widest mb-1"
+            data-casinocraftz-step-label
+          >
             {t('tutorial.step.welcome.label')}
           </p>
           <p

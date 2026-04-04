@@ -38,10 +38,14 @@ Companies get a branded, download-ready animation asset in under a minute — no
 - ✓ EDU-40/EDU-41 house-edge-first tutorial shipped with hybrid narrative and direct system explanation flow — v1.7
 - ✓ SYS-40/SYS-41 AI Essence and three starter utility cards delivered with deterministic spin-bridge progression — v1.7
 - ✓ SYS-42/QA-40/QA-41 integrated confidence lock closed with anti-monetization contracts, EN/PT compatibility checks, and release evidence — v1.7
+- ✓ EDU-60/EDU-61/EDU-62/PROG-60/PROG-61 multi-lesson psychology curriculum shell shipped with bounded progression and anti-manipulation messaging — v1.9
+- ✓ PAR-60/SAFE-60/SAFE-61 final parity and confidence lock closed with deterministic contracts, browser checks, and release evidence — v1.9
+- ✓ HUB-60/VIS-60/DOC-60 replaced Casinocraftz Slots iframe with standalone access card, polished Slots shell with collapsed debug output, and published symbol customization documentation — v2.0
+- ✓ VIS-62/PAR-62/SAFE-62 upgraded Slots reels to atlas-backed symbol assets with parity-safe contracts while preserving deterministic authority boundaries — v2.1
 
 ### Active
 
-- [ ] Define v1.8 requirements and roadmap via /gsd:new-milestone
+- None. Awaiting the next milestone definition.
 
 ### Out of Scope
 
@@ -93,28 +97,17 @@ Companies get a branded, download-ready animation asset in under a minute — no
 ## Current State
 
 - Active milestone: none
-- Latest shipped milestone: v1.7 Casinocraftz Foundation and Slots Integration (completed 2026-04-03)
-- Phase progress: milestone complete; awaiting next milestone kickoff
+- Latest shipped milestone: v2.1 Symbol Atlas Production Upgrade (completed 2026-04-04)
+- Latest milestone result: atlas-backed Slots symbol rendering, parity-safe compatibility locks, and preserved deterministic authority boundaries
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
-- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`
+- Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
 
 ## Next Milestone Goals
 
-- Define v1.8 product scope and requirements via /gsd:new-milestone.
+- Define the next bounded milestone before re-opening active planning.
 - Preserve deterministic runtime behavior, EN/PT parity, and anti-monetization guardrails as baseline constraints.
 - Continue milestone-bounded delivery with archive-first roadmap and requirements management.
-
-## Current Milestone: v1.8 Deterministic Learning Loop Expansion
-
-**Goal:** Expand learning-loop clarity and progression confidence while preserving deterministic authority boundaries, EN/PT parity, and anti-monetization guarantees.
-
-**Target features:**
-
-- Versioned and backward-compatible bridge contracts between Slots runtime and tutorial progression surfaces
-- Deterministic step-causality guidance plus bounded recap/replay UX for learning clarity
-- EN/PT and host-mode matrix parity locks across embedded and standalone flows
-- Confidence lock with explicit anti-monetization assertions and auditable release evidence chain
 
 ## Evolution
 
@@ -137,4 +130,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-03 after v1.8 milestone kickoff_
+_Last updated: 2026-04-04 after v2.1 milestone completion_

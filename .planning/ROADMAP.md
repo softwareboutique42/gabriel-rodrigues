@@ -11,9 +11,20 @@
 - ✅ v1.6 Slots Visual Polish & Atmosphere — [milestones/v1.6-ROADMAP.md](milestones/v1.6-ROADMAP.md)
 - ✅ v1.7 Casinocraftz Foundation and Slots Integration — [milestones/v1.7-ROADMAP.md](milestones/v1.7-ROADMAP.md)
 - ✅ v1.8 Deterministic Learning Loop Expansion — [milestones/v1.8-ROADMAP.md](milestones/v1.8-ROADMAP.md)
+- ✅ v1.9 Psychology Curriculum Expansion — [milestones/v1.9-ROADMAP.md](milestones/v1.9-ROADMAP.md)
+- ✅ v2.0 Slots Entry and Casino Polish — [milestones/v2.0-ROADMAP.md](milestones/v2.0-ROADMAP.md)
+- ✅ v2.1 Symbol Atlas Production Upgrade — [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md)
 
 ## Current Milestone
 
-None active.
+No active milestone.
 
-Run `/gsd:new-milestone <name>` to start the next milestone.
+Latest completed milestone: v2.1 Symbol Atlas Production Upgrade.
+
+- Archive: [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md)
+- Requirements snapshot: [milestones/v2.1-REQUIREMENTS.md](milestones/v2.1-REQUIREMENTS.md)
+- Final phase summary: [phases/42-symbol-atlas-production-upgrade/42-01-SUMMARY.md](phases/42-symbol-atlas-production-upgrade/42-01-SUMMARY.md)
+
+---
+
+_Updated: 2026-04-04 after v2.1 milestone completion_

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Star symbol">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#141527"/>
+      <stop offset="100%" stop-color="#31220d"/>
+    </linearGradient>
+    <linearGradient id="star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7c4"/>
+      <stop offset="100%" stop-color="#ffc94d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="72" fill="url(#bg)"/>
+  <rect x="52" y="52" width="408" height="408" rx="56" fill="none" stroke="#c8dcff" stroke-opacity="0.28" stroke-width="8"/>
+  <polygon points="256,92 301,208 424,216 328,292 358,414 256,344 154,414 184,292 88,216 211,208" fill="url(#star)"/>
+  <circle cx="256" cy="244" r="22" fill="#fff0a2"/>
+</svg>

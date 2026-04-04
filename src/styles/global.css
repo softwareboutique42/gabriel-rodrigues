@@ -963,6 +963,38 @@ body::after {
   margin-bottom: 1rem;
 }
 
+.slots-stage__marquee {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.slots-marquee-chip {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(255, 215, 9, 0.18);
+  background: linear-gradient(180deg, rgba(52, 35, 8, 0.35), rgba(28, 20, 9, 0.25));
+}
+
+.slots-marquee-chip__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.slots-marquee-chip__value {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-gold) 78%, white);
+}
+
 .slots-stage__frame {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -990,6 +1022,9 @@ body::after {
   display: grid;
   place-items: center;
   overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 72% auto;
   background:
     radial-gradient(circle at 50% 18%, rgba(143, 245, 255, 0.14), transparent 34%),
     linear-gradient(180deg, rgba(14, 14, 14, 0.8), rgba(34, 34, 34, 0.9));
@@ -1030,13 +1065,60 @@ body::after {
 
 .slots-stage__reel-window span {
   font-family: var(--font-mono);
-  font-size: clamp(1rem, 3vw, 1.45rem);
-  letter-spacing: 0.24em;
-  color: rgba(232, 230, 227, 0.7);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(232, 230, 227, 0.84);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 0.45rem;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
   transition:
     color 0.24s ease-out,
     transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.2s ease-out;
+}
+
+.slots-stage__reel-window[data-slots-symbol='A'] span {
+  color: color-mix(in oklab, var(--color-gold) 72%, white);
+}
+
+.slots-stage__reel-window[data-slots-symbol='B'] span {
+  color: color-mix(in oklab, var(--color-neon) 72%, white);
+}
+
+.slots-stage__reel-window[data-slots-symbol='C'] span {
+  color: color-mix(in oklab, var(--color-cyan) 70%, white);
+}
+
+.slots-stage__reel-window[data-slots-symbol='D'] span {
+  color: color-mix(in oklab, var(--color-text-primary) 86%, var(--color-gold));
+}
+
+.slots-stage__reel-window[data-slots-symbol='E'] span {
+  color: color-mix(in oklab, var(--color-cyan) 45%, var(--color-gold));
+}
+
+.slots-stage__reel-window[data-slots-symbol='A'] {
+  background-image: url('/images/slots/symbols/bar.svg');
+}
+
+.slots-stage__reel-window[data-slots-symbol='B'] {
+  background-image: url('/images/slots/symbols/seven.svg');
+}
+
+.slots-stage__reel-window[data-slots-symbol='C'] {
+  background-image: url('/images/slots/symbols/crown.svg');
+}
+
+.slots-stage__reel-window[data-slots-symbol='D'] {
+  background-image: url('/images/slots/symbols/diamond.svg');
+}
+
+.slots-stage__reel-window[data-slots-symbol='E'] {
+  background-image: url('/images/slots/symbols/star.svg');
 }
 
 .slots-stage__hud {
@@ -1186,6 +1268,41 @@ body::after {
     box-shadow 0.26s ease-out,
     background 0.28s ease-out,
     color 0.2s ease-out;
+}
+
+.slots-debug {
+  border: 1px solid rgba(143, 245, 255, 0.1);
+  background: rgba(14, 14, 14, 0.35);
+}
+
+.slots-debug__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+  border-bottom: 1px solid rgba(143, 245, 255, 0.08);
+}
+
+.slots-debug__summary::-webkit-details-marker {
+  display: none;
+}
+
+.slots-debug__summary::before {
+  content: '▸';
+  margin-right: 0.45rem;
+}
+
+.slots-debug[open] .slots-debug__summary::before {
+  content: '▾';
+}
+
+.slots-debug .slots-panel__terminal {
+  min-height: 0;
+  margin: 0;
 }
 
 .slots-panel__body {
@@ -1458,5 +1575,9 @@ body::after {
   .slots-spin-button,
   .slots-stage__status-readout {
     width: 100%;
+  }
+
+  .slots-stage__marquee {
+    grid-template-columns: 1fr;
   }
 }

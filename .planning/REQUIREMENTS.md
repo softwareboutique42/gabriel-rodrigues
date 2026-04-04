@@ -1,68 +1,50 @@
-# Requirements — Company Canvas (v1.8 Deterministic Learning Loop Expansion)
+# Requirements — Company Canvas (v2.1 Symbol Atlas Production Upgrade)
 
-**Defined:** 2026-04-03
+**Defined:** 2026-04-04
 **Core Value:** Branded, download-ready animation in under a minute.
 
-## v1.8 Requirements
+## v2.1 Requirements
 
-### Bridge and Authority Hardening
+### Symbol Visual Delivery
 
-- [x] **BRG-50**: Slots-to-tutorial bridge events are versioned and backward-compatible so host integration remains deterministic across route modes.
-- [x] **BRG-51**: Tutorial and card layers remain presentation-only and cannot mutate Slots gameplay authority, economy, payout, or RNG paths.
+- [x] **VIS-62**: Slots reel windows render production symbol atlas assets mapped from deterministic symbol IDs, replacing text-first fallback presentation.
 
-### Learning Loop Clarity and Progression UX
+### Parity and Accessibility Guardrails
 
-- [x] **LEARN-50**: Users receive deterministic step guidance that explains why a tutorial transition occurred after each relevant spin sequence.
-- [x] **LEARN-51**: Tutorial recap and replay prompts are available in-shell without introducing new gameplay mechanics.
-- [x] **PROG-50**: Starter-card progression remains bounded and transparent with clear lock/unlock state explanations.
+- [x] **PAR-62**: EN/PT Slots routes keep parity-safe symbol rendering behavior and preserve existing dataset/testing hooks.
+- [x] **SAFE-62**: Symbol atlas upgrade remains presentation-only, keeps reduced-motion readability, and does not modify RNG/payout/economy authority.
 
-### Parity and Host Integration
-
-- [x] **PAR-50**: EN/PT copy, datasets, and interaction outcomes stay parity-locked across embedded and standalone Slots host modes.
-- [x] **PAR-51**: Compatibility checks explicitly validate host-mode matrix behavior for Casinocraftz embed and standalone routes.
-
-### Confidence and Release Guardrails
-
-- [x] **SAFE-50**: Anti-monetization deny-list and zero-risk framing remain enforced by source contracts and browser checks.
-- [x] **SAFE-51**: Release verification captures deterministic contracts, targeted compatibility checks, lint, and build evidence for v1.8 changes.
-
-## v2+ Requirements (Deferred)
+## Deferred Beyond v2.1
 
 ### Future Expansion
 
-- **EDU-60**: Multi-lesson psychology curriculum (near-miss deep dive and sensory conditioning progression trees).
-- **SYS-60**: Collection meta or PvP card mechanics beyond bounded utility-card progression.
+- **VIS-63**: Add per-symbol micro-motion overlays and win-tier-specific reel highlight choreography.
 
 ## Out of Scope
 
-| Feature                                                | Reason                                                                    |
-| ------------------------------------------------------ | ------------------------------------------------------------------------- |
-| Real-money deposits, withdrawals, or checkout surfaces | Violates transparent zero-risk product premise.                           |
-| Dynamic odds personalization per user                  | Breaks deterministic explanation model and introduces fairness ambiguity. |
-| Locale-first rollout (EN only or PT only)              | EN/PT parity is a hard requirement, not a phased nice-to-have.            |
-| Runtime authority refactor of Slots engine             | v1.8 extends learning clarity, not gameplay authority architecture.       |
+| Feature                                                | Reason                                                                          |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| Real-money deposits, withdrawals, or checkout surfaces | Violates transparent zero-risk product premise.                                 |
+| Dynamic odds personalization per user                  | Breaks deterministic explanation model and introduces fairness ambiguity.       |
+| Locale-first rollout (EN only or PT only)              | EN/PT parity is a hard requirement, not a phased nice-to-have.                  |
+| Runtime authority refactor of Slots engine             | v2.1 focuses on presentation-only symbol rendering, not core authority changes. |
+| Collection meta or economy-driven unlock loops         | Breaks bounded educational and deterministic progression principles.            |
 
 ## Traceability
 
 | Requirement | Phase    | Status   |
 | ----------- | -------- | -------- |
-| BRG-50      | Phase 33 | Complete |
-| BRG-51      | Phase 33 | Complete |
-| LEARN-50    | Phase 34 | Complete |
-| LEARN-51    | Phase 34 | Complete |
-| PROG-50     | Phase 34 | Complete |
-| PAR-50      | Phase 35 | Complete |
-| PAR-51      | Phase 35 | Complete |
-| SAFE-50     | Phase 36 | Complete |
-| SAFE-51     | Phase 36 | Complete |
+| VIS-62      | Phase 42 | Complete |
+| PAR-62      | Phase 42 | Complete |
+| SAFE-62     | Phase 42 | Complete |
 
 **Coverage:**
 
-- v1.8 requirements: 9 total
-- Mapped to phases: 9
+- v2.1 requirements: 3 total
+- Mapped to phases: 3
 - Unmapped: 0
 
 ---
 
-_Requirements defined: 2026-04-03_
-_Last updated: 2026-04-03 after v1.8 milestone kickoff_
+_Requirements defined: 2026-04-04_
+_Last updated: 2026-04-04 after Phase 42 completion and v2.1 closeout_

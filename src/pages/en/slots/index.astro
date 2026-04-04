@@ -73,6 +73,21 @@ const t = useTranslations('en');
             <p class="slots-stage__panel-title">{t('slots.gameplay.panel.title')}</p>
           </div>
 
+          <div class="slots-stage__marquee" aria-hidden="true">
+            <div class="slots-marquee-chip">
+              <span class="slots-marquee-chip__label">Jackpot</span>
+              <strong class="slots-marquee-chip__value">2,480</strong>
+            </div>
+            <div class="slots-marquee-chip">
+              <span class="slots-marquee-chip__label">Lines</span>
+              <strong class="slots-marquee-chip__value">1 Center</strong>
+            </div>
+            <div class="slots-marquee-chip">
+              <span class="slots-marquee-chip__label">RTP Model</span>
+              <strong class="slots-marquee-chip__value">Deterministic</strong>
+            </div>
+          </div>
+
           <div
             class="hud-outline-subtle p-3 mb-4 hidden"
             data-slots-lesson="house-edge"
@@ -87,13 +102,13 @@ const t = useTranslations('en');
 
           <div class="slots-stage__frame" data-slots-reel-frame>
             <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span>R1</span>
+              <span class="slots-symbol">BAR</span>
             </div>
             <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span>R2</span>
+              <span class="slots-symbol">7</span>
             </div>
             <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span>R3</span>
+              <span class="slots-symbol">CROWN</span>
             </div>
           </div>
 
@@ -154,7 +169,10 @@ const t = useTranslations('en');
               <p class="slots-panel__eyebrow">{t('slots.shell.zone.console')}</p>
               <p class="slots-panel__title">{t('slots.gameplay.label.outcome')}</p>
             </div>
-            <pre id="slots-round-result" data-slots-result class="slots-panel__terminal"></pre>
+            <details class="slots-debug" data-slots-debug>
+              <summary class="slots-debug__summary">{t('slots.gameplay.debug.summary')}</summary>
+              <pre id="slots-round-result" data-slots-result class="slots-panel__terminal"></pre>
+            </details>
           </section>
 
           <section class="slots-panel anim-tile-3" data-slots-zone="compliance">

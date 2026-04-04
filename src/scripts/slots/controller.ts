@@ -19,6 +19,14 @@ import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../analytics/events.t
 
 const SPIN_DELAY_MS = 240;
 
+const SYMBOL_PRESENTATION: Record<string, string> = {
+  A: 'BAR',
+  B: '7',
+  C: 'CROWN',
+  D: 'DIAMOND',
+  E: 'STAR',
+};
+
 export interface SlotsControllerMount {
   visualEvents: SlotsVisualEventStore;
 }
@@ -37,6 +45,26 @@ function getLocaleFromSeed(baseSeed: string): 'en' | 'pt' {
   return baseSeed.endsWith('-pt') ? 'pt' : 'en';
 }
 
+function renderReelWindows(root: HTMLElement, state: EngineState): void {
+  const windows = Array.from(root.querySelectorAll<HTMLElement>('[data-slots-reel-window]'));
+  if (windows.length === 0) {
+    return;
+  }
+
+  const symbols = state.lastResult?.matrix?.[1] ?? ['A', 'B', 'C'];
+  windows.forEach((windowEl, index) => {
+    const symbol = symbols[index] ?? 'A';
+    windowEl.dataset.slotsSymbol = symbol;
+    const label = SYMBOL_PRESENTATION[symbol] ?? symbol;
+    windowEl.setAttribute('aria-label', `Reel symbol ${label}`);
+    windowEl.setAttribute('title', label);
+    const span = windowEl.querySelector('span');
+    if (span) {
+      span.textContent = label;
+    }
+  });
+}
+
 function renderState(
   root: HTMLElement,
   state: EngineState,
@@ -47,6 +75,7 @@ function renderState(
   root.dataset.slotsState = feedbackKey === 'insufficient' ? 'insufficient' : state.status;
   root.dataset.slotsBalance = String(balance);
   root.dataset.slotsBet = String(bet);
+  renderReelWindows(root, state);
 
   const button = document.getElementById('slots-spin-button') as HTMLButtonElement | null;
   if (button) {

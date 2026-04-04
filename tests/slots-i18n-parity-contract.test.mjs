@@ -33,6 +33,7 @@ const PHASE14_KEYS = [
   'slots.gameplay.status.insufficient',
   'slots.gameplay.status.blockedSpinning',
   'slots.gameplay.status.pending',
+  'slots.gameplay.debug.summary',
   'slots.shell.eyebrow',
   'slots.shell.zone.playfield',
   'slots.shell.zone.console',
@@ -74,6 +75,8 @@ test('I18N-10: slots pages consume gameplay translation keys instead of hardcode
   assert.match(ptPage, /t\('slots\.shell\.zone\.playfield'\)/);
   assert.match(enPage, /t\('slots\.shell\.label\.routes'\)/);
   assert.match(ptPage, /t\('slots\.shell\.label\.routes'\)/);
+  assert.match(enPage, /t\('slots\.gameplay\.debug\.summary'\)/);
+  assert.match(ptPage, /t\('slots\.gameplay\.debug\.summary'\)/);
 });
 
 test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and deterministic seeds', () => {
@@ -91,15 +94,36 @@ test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and determ
   assert.match(ptPage, /data-slots-zone="navigation"/);
 });
 
-test('I18N-12: EN/PT casinocraftz host embeds slots module with canonical host query parity', () => {
-  assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
-  assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
+test('I18N-12: EN/PT casinocraftz links to standalone slots routes with canonical parity', () => {
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-link/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-link/);
+  assert.match(enCasinocraftz, /href="\/en\/slots\/"/);
+  assert.match(ptCasinocraftz, /href="\/pt\/slots\/"/);
+  assert.doesNotMatch(enCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.doesNotMatch(ptCasinocraftz, /data-casinocraftz-slots-embed/);
   assert.match(enPage, /data-slots-host="standalone"/);
   assert.match(ptPage, /data-slots-host="standalone"/);
   assert.match(enPage, /data-slots-lesson="house-edge"/);
   assert.match(ptPage, /data-slots-lesson="house-edge"/);
   assert.match(slotsMain, /new URLSearchParams\(window\.location\.search\)\.get\('host'\)/);
   assert.match(slotsMain, /houseEdgeLesson\.classList\.toggle\('hidden', !isEmbeddedHost\)/);
+});
+
+test('VIS-62 parity: slots routes reference shared symbol atlas assets in EN/PT', () => {
+  const css = readFileSync(resolve(process.cwd(), 'src/styles/global.css'), 'utf8');
+
+  for (const path of [
+    '/images/slots/symbols/bar.svg',
+    '/images/slots/symbols/seven.svg',
+    '/images/slots/symbols/crown.svg',
+    '/images/slots/symbols/diamond.svg',
+    '/images/slots/symbols/star.svg',
+  ]) {
+    assert.match(css, new RegExp(path.replace(/[.*+?^${}()|[\\]\\]/g, '\\\\$&')));
+  }
+
+  assert.match(enPage, /data-slots-reel-window/);
+  assert.match(ptPage, /data-slots-reel-window/);
 });
 
 test('BRG-50: tutorial/main.ts bridge handler has no locale-specific branches', () => {

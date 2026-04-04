@@ -15,13 +15,25 @@ export type CczSpinSettledEvent =
   | { type: 'ccz:spin-settled'; version: 1; payload: SpinSettledV1Payload }
   | { type: 'ccz:spin-settled'; spinIndex: number };
 
+export type LessonId = 'house-edge' | 'near-miss' | 'sensory-conditioning';
+
+export type LessonStatus = 'active' | 'complete' | 'locked';
+
 export type TutorialStepId =
   | 'welcome'
   | 'house-edge-intro'
   | 'play-and-observe'
   | 'probability-reveal'
   | 'card-unlock'
-  | 'complete';
+  | 'complete'
+  | 'near-miss-intro'
+  | 'near-miss-observe'
+  | 'near-miss-reveal'
+  | 'near-miss-complete'
+  | 'sensory-conditioning-intro'
+  | 'sensory-conditioning-observe'
+  | 'sensory-conditioning-reveal'
+  | 'sensory-conditioning-complete';
 
 export type UtilityCardId = 'probability-seer' | 'dopamine-dampener' | 'house-edge';
 
@@ -31,11 +43,19 @@ export interface TutorialStep {
   requiresSpins?: number;
 }
 
+export interface TutorialLesson {
+  id: LessonId;
+  stepIds: TutorialStepId[];
+}
+
 export interface TutorialState {
+  currentLesson: LessonId;
   currentStep: TutorialStepId;
   completedSteps: TutorialStepId[];
   spinsObserved: number;
   essenceBalance: number;
+  unlockedLessons: LessonId[];
+  completedLessons: LessonId[];
   cardsUnlocked: UtilityCardId[];
   activeCard: UtilityCardId | null;
   lastTransitionTrigger?: 'spin' | 'ui' | null;

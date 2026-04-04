@@ -20,9 +20,16 @@ function extractNamespaceKeys(source, namespacePrefix) {
   return keys;
 }
 
+function readLocale(relativePath) {
+  return JSON.parse(readWorkspaceFile(relativePath));
+}
+
 test('tutorial types contract exports expected symbols', () => {
   const src = readWorkspaceFile('src/scripts/casinocraftz/tutorial/types.ts');
 
+  assert.match(src, /export type LessonId/);
+  assert.match(src, /export type LessonStatus/);
+  assert.match(src, /export interface TutorialLesson/);
   assert.match(src, /export type TutorialStepId/);
   assert.match(src, /export interface TutorialStep/);
   assert.match(src, /export interface TutorialState/);
@@ -53,14 +60,60 @@ test('tutorial and cards EN keys are present in PT locale', () => {
   }
 });
 
+test('psychology curriculum locale copy stays anti-manipulative and zero-risk in EN/PT', () => {
+  const en = readLocale('src/i18n/en.json');
+  const pt = readLocale('src/i18n/pt.json');
+
+  assert.match(en['casinocraftz.disclaimer.zeroRisk'], /no gambling|no real-money wagering/i);
+  assert.match(pt['casinocraftz.disclaimer.zeroRisk'], /sem jogo de azar|sem apostas com dinheiro real/i);
+  assert.match(en['tutorial.lesson.nearMiss.description'], /without changing the odds/i);
+  assert.match(pt['tutorial.lesson.nearMiss.description'], /sem mudar as odds/i);
+  assert.match(en['tutorial.lesson.sensoryConditioning.description'], /without changing outcomes/i);
+  assert.match(pt['tutorial.lesson.sensoryConditioning.description'], /sem alterar os resultados/i);
+  assert.match(en['tutorial.causality.nearMissReveal'], /not the odds/i);
+  assert.match(pt['tutorial.causality.nearMissReveal'], /nao as odds/i);
+  assert.match(en['tutorial.causality.sensoryReveal'], /not outcomes/i);
+  assert.match(pt['tutorial.causality.sensoryReveal'], /nao os resultados/i);
+
+  const forbiddenClaims = [
+    /beat the odds/i,
+    /improve your odds/i,
+    /increase your chances/i,
+    /control outcomes/i,
+    /exploit the machine/i,
+    /ganhar controle/i,
+    /melhorar as odds/i,
+    /aumentar suas chances/i,
+    /explorar a maquina/i,
+  ];
+
+  for (const source of [en, pt]) {
+    for (const [key, value] of Object.entries(source)) {
+      if (!key.startsWith('tutorial.') && key !== 'casinocraftz.disclaimer.zeroRisk') {
+        continue;
+      }
+
+      for (const pattern of forbiddenClaims) {
+        assert.doesNotMatch(String(value), pattern, `forbidden claim in ${key}: ${pattern}`);
+      }
+    }
+  }
+});
+
 test('casinocraftz pages expose tutorial and cards zones plus tutorial step dataset', () => {
   const enPage = readWorkspaceFile('src/pages/en/casinocraftz/index.astro');
   const ptPage = readWorkspaceFile('src/pages/pt/casinocraftz/index.astro');
 
+  assert.match(enPage, /data-casinocraftz-zone="curriculum"/);
+  assert.match(enPage, /data-casinocraftz-curriculum/);
+  assert.match(enPage, /data-casinocraftz-current-lesson/);
   assert.match(enPage, /data-casinocraftz-zone="tutorial"/);
   assert.match(enPage, /data-casinocraftz-zone="cards"/);
   assert.match(enPage, /data-casinocraftz-tutorial-step/);
 
+  assert.match(ptPage, /data-casinocraftz-zone="curriculum"/);
+  assert.match(ptPage, /data-casinocraftz-curriculum/);
+  assert.match(ptPage, /data-casinocraftz-current-lesson/);
   assert.match(ptPage, /data-casinocraftz-zone="tutorial"/);
   assert.match(ptPage, /data-casinocraftz-zone="cards"/);
   assert.match(ptPage, /data-casinocraftz-tutorial-step/);
@@ -79,6 +132,63 @@ test('tutorial module boundaries and slot bridge contracts are in place', () => 
   assert.match(dialogueSource, /DIALOGUE_REGISTRY/);
   assert.match(dialogueSource, /export function getDialogue/);
   assert.match(slotsMainSource, /ccz:spin-settled/);
+  assert.match(engineSource, /CURRICULUM_LESSONS/);
+  assert.match(engineSource, /completeCurrentLesson/);
+});
+
+test('lesson shell contracts expose deterministic bounded lesson state anchors', () => {
+  const mainSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+  const engineSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+
+  assert.match(mainSource, /renderCurriculum/);
+  assert.match(mainSource, /casinocraftzCurrentLesson/);
+  assert.match(mainSource, /casinocraftzUnlockedLessons/);
+  assert.match(mainSource, /casinocraftzCompletedLessons/);
+  assert.match(mainSource, /data-casinocraftzLessonState|casinocraftzLessonState/);
+  assert.match(mainSource, /near-miss/);
+  assert.match(mainSource, /sensoryConditioning/);
+  assert.match(engineSource, /openLesson/);
+  assert.match(engineSource, /unlockedLessons\.push\('near-miss'\)/);
+});
+
+test('near-miss lesson contracts include bounded steps and anti-control messaging', () => {
+  const typesSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/types.ts');
+  const engineSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+  const dialogueSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/dialogue.ts');
+
+  assert.match(typesSource, /'near-miss-intro'/);
+  assert.match(typesSource, /'near-miss-observe'/);
+  assert.match(typesSource, /'near-miss-reveal'/);
+  assert.match(typesSource, /'near-miss-complete'/);
+  assert.match(engineSource, /requiresSpins:\s*2/);
+  assert.match(dialogueSource, /near miss/i);
+  assert.match(dialogueSource, /does not signal improving odds|nao sinaliza odds melhores/i);
+});
+
+test('sensory-conditioning lesson contracts include bounded steps and anti-control messaging', () => {
+  const typesSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/types.ts');
+  const engineSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/engine.ts');
+  const dialogueSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/dialogue.ts');
+  const mainSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.match(typesSource, /'sensory-conditioning-intro'/);
+  assert.match(typesSource, /'sensory-conditioning-observe'/);
+  assert.match(typesSource, /'sensory-conditioning-reveal'/);
+  assert.match(typesSource, /'sensory-conditioning-complete'/);
+  assert.match(engineSource, /unlockedLessons\.push\('sensory-conditioning'\)/);
+  assert.match(dialogueSource, /sensory conditioning|condicionamento sensorial/i);
+  assert.match(dialogueSource, /do not alter RNG|nao alteram RNG/i);
+  assert.match(mainSource, /casinocraftzCurriculumProgressTitle/);
+  assert.match(mainSource, /renderCurriculumProgress/);
+});
+
+test('skip handler maps each lesson to its own bounded completion step', () => {
+  const mainSource = readWorkspaceFile('src/scripts/casinocraftz/tutorial/main.ts');
+
+  assert.match(mainSource, /state\.currentLesson === 'near-miss'/);
+  assert.match(mainSource, /'near-miss-complete'/);
+  assert.match(mainSource, /state\.currentLesson === 'sensory-conditioning'/);
+  assert.match(mainSource, /'sensory-conditioning-complete'/);
 });
 
 test('Bridge Versioning: types.ts exports versioned bridge event types', () => {

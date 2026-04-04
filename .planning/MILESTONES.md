@@ -1,5 +1,56 @@
 # Milestones
 
+## v2.1 Symbol Atlas Production Upgrade (Shipped: 2026-04-04)
+
+**Delivered:** Slots reel visuals now use atlas-backed production symbol assets with deterministic symbol mapping, EN/PT parity-safe confidence checks, and maintained authority isolation.
+
+**Phases completed:** 1 phase, 1 plan
+
+**Key accomplishments:**
+
+- Added production symbol assets for BAR, SEVEN, CROWN, DIAMOND, and STAR under shared Slots symbol paths.
+- Updated reel rendering to bind deterministic symbol IDs to atlas-backed presentation while preserving existing runtime datasets and accessibility metadata.
+- Expanded source contracts to lock asset references and documentation safety constraints.
+- Validated compatibility in targeted Playwright slices and lint with only pre-existing unrelated warning.
+
+**Requirements:** 3/3 shipped (VIS-62, PAR-62, SAFE-62)
+
+---
+
+## v2.0 Slots Entry and Casino Polish (Shipped: 2026-04-04)
+
+**Delivered:** Casinocraftz now routes to standalone Slots access cards, Slots runtime presentation is more casino-like, debug JSON starts collapsed, and maintainers have symbol-image upgrade documentation.
+
+**Phases completed:** 1 phase, 1 plan
+
+**Key accomplishments:**
+
+- Replaced the Casinocraftz embedded Slots iframe with canonical EN/PT standalone Slots game access cards and links.
+- Upgraded the Slots shell presentation with marquee chips, stronger reel-symbol visuals, and deterministic symbol mapping in the runtime renderer.
+- Moved round JSON output into a collapsed-by-default debug disclosure panel on both EN/PT Slots routes.
+- Added maintainer documentation for professional Slots image customization without touching deterministic authority logic.
+
+**Requirements:** 3/3 shipped (HUB-60, VIS-60, DOC-60)
+
+---
+
+## v1.9 Psychology Curriculum Expansion (Shipped: 2026-04-04)
+
+**Delivered:** A bounded three-lesson psychology curriculum for Casinocraftz with deterministic progression, EN/PT parity locks, and final anti-manipulation release evidence.
+
+**Phases completed:** 4 phases, 4 plans
+
+**Key accomplishments:**
+
+- Introduced a deterministic multi-lesson curriculum shell with explicit current, unlocked, and completed lesson datasets.
+- Shipped near-miss and sensory-conditioning lessons as presentation-only psychology explanations without gameplay authority drift.
+- Locked completed-lesson review behavior, lesson-three skip semantics, and EN/PT curriculum datasets through source and browser validation.
+- Closed PAR-60/SAFE-60/SAFE-61 with deterministic contracts, targeted Playwright coverage, lint, and build evidence.
+
+**Requirements:** 8/8 shipped (EDU-60, PROG-61, EDU-61, EDU-62, PROG-60, PAR-60, SAFE-60, SAFE-61)
+
+---
+
 ## v1.8 Deterministic Learning Loop Expansion (Shipped: 2026-04-03)
 
 **Delivered:** Deterministic bridge hardening, tutorial clarity upgrades, parity matrix lock, and final anti-monetization confidence evidence for Casinocraftz + Slots.
