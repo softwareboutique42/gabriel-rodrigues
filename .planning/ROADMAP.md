@@ -39,11 +39,11 @@
 2. Effects remain presentation-only and use existing runtime outcome hooks rather than new authority logic
 3. `prefers-reduced-motion` and current motion-policy guardrails remain respected
 
-**Plans:** 0/1 planned
+**Plans:** 1 plan
 
 Plans:
 
-- [ ] 45-01-PLAN.md — Motion-policy-safe celebration effects driven by win outcome datasets
+- [ ] 45-01-PLAN.md — Win celebration CSS (reel-win-pulse keyframes, amplified frame flare, motion-policy extensions) plus FX-70/FX-72 contract tests
 
 ### Phase 46: Dampener Suppression and Confidence Lock
 
