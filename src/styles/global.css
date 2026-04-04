@@ -1904,12 +1904,21 @@ body::after {
 .slots-stage__hud--minimal {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(13rem, 1.25fr);
-  gap: 0.85rem;
+  gap: clamp(0.6rem, 1.4vw, 1.2rem);
   align-items: stretch;
+
+  /* Symmetric row height via clamp */
+  min-height: clamp(5rem, 12vh, 7rem);
+
   margin-bottom: 0;
 }
 
 .slots-stage__hud--minimal .slots-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 0.8rem;
   border: 1px solid rgba(184, 255, 44, 0.22);
   background: rgba(11, 16, 14, 0.72);
@@ -1927,15 +1936,22 @@ body::after {
 }
 
 .slots-stage__hud--minimal .slots-adjuster {
+  min-height: clamp(2.2rem, 5vh, 3rem);
+  min-width: clamp(2.2rem, 5vh, 3rem);
+  
   border-radius: 0.65rem;
-  border-color: rgba(184, 255, 44, 0.24);
+  border: 1px solid rgba(184, 255, 44, 0.24);
   color: rgba(227, 236, 230, 0.92);
   background: rgba(25, 32, 29, 0.84);
+  
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 600;
 }
 
 .slots-spin-button--trigger {
   width: 100%;
-  min-height: 5rem;
+  min-height: clamp(5rem, 12vh, 7rem);
+  
   border-radius: 0.85rem;
   border: 1px solid rgba(184, 255, 44, 0.52);
   background:
