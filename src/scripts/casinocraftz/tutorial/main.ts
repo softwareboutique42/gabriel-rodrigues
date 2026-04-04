@@ -6,8 +6,10 @@ import {
   advanceTutorialStep,
   completeCurrentLesson,
   createInitialTutorialState,
-  isFirstRun,
   isLessonUnlocked,
+  loadCompletedLessons,
+  markNearMissComplete,
+  markSensoryComplete,
   markTutorialComplete,
   openLesson,
   recordSpin,
@@ -506,14 +508,21 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
   let state = createInitialTutorialState();
   let essenceState = createInitialEssenceState();
 
-  if (!isFirstRun()) {
+  const loaded = loadCompletedLessons();
+  if (loaded.completedLessons.length > 0) {
     state = {
       ...state,
-      currentStep: 'complete',
-      completedSteps: TUTORIAL_STEPS.map((step) => step.id),
-      unlockedLessons: ['house-edge', 'near-miss', 'sensory-conditioning'],
-      completedLessons: ['house-edge'],
-      cardsUnlocked: ['probability-seer', 'dopamine-dampener', 'house-edge'],
+      unlockedLessons: loaded.unlockedLessons,
+      completedLessons: loaded.completedLessons,
+      spinsObserved: 0,
+      cardsUnlocked: loaded.completedLessons.includes('house-edge')
+        ? ['probability-seer', 'dopamine-dampener', 'house-edge']
+        : [],
+      currentStep: loaded.completedLessons.includes('sensory-conditioning')
+        ? 'sensory-conditioning-complete'
+        : loaded.completedLessons.includes('near-miss')
+          ? 'near-miss-complete'
+          : 'complete',
     };
   }
 
@@ -563,9 +572,11 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
       clearCard(root);
     } else if (NEAR_MISS_COMPLETE_STEPS.includes(state.currentStep)) {
       state = completeCurrentLesson(state);
+      markNearMissComplete();
       clearCard(root);
     } else if (SENSORY_COMPLETE_STEPS.includes(state.currentStep)) {
       state = completeCurrentLesson(state);
+      markSensoryComplete();
       clearCard(root);
     }
 
@@ -594,6 +605,13 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
               []),
           ],
         };
+        if (state.currentLesson === 'near-miss') {
+          markNearMissComplete();
+        }
+        if (state.currentLesson === 'sensory-conditioning') {
+          markNearMissComplete();
+          markSensoryComplete();
+        }
         state = completeCurrentLesson(state);
         if (state.currentLesson === 'house-edge') {
           markTutorialComplete();
@@ -623,8 +641,10 @@ export function mountTutorial({ lang }: MountTutorialOptions): void {
       markTutorialComplete();
     } else if (NEAR_MISS_COMPLETE_STEPS.includes(state.currentStep)) {
       state = completeCurrentLesson(state);
+      markNearMissComplete();
     } else if (SENSORY_COMPLETE_STEPS.includes(state.currentStep)) {
       state = completeCurrentLesson(state);
+      markSensoryComplete();
     }
 
     if (state.currentStep !== previousStep) {
