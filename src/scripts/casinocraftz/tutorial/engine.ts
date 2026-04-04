@@ -84,6 +84,37 @@ export function markTutorialComplete(): void {
   localStorage.setItem('ccz-tutorial-completed', '1');
 }
 
+export function markNearMissComplete(): void {
+  localStorage.setItem('ccz-near-miss-completed', '1');
+}
+
+export function markSensoryComplete(): void {
+  localStorage.setItem('ccz-lesson-sensory-completed', '1');
+}
+
+export function loadCompletedLessons(): {
+  completedLessons: LessonId[];
+  unlockedLessons: LessonId[];
+  spinsObserved: 0;
+} {
+  const houseEdgeDone = localStorage.getItem('ccz-tutorial-completed') !== null;
+  const nearMissDone = localStorage.getItem('ccz-near-miss-completed') !== null;
+  const sensoryDone = localStorage.getItem('ccz-lesson-sensory-completed') !== null;
+
+  const completedLessons = CURRICULUM_LESSONS.map((l) => l.id).filter((id) => {
+    if (id === 'house-edge') return houseEdgeDone;
+    if (id === 'near-miss') return nearMissDone;
+    if (id === 'sensory-conditioning') return sensoryDone;
+    return false;
+  }) as LessonId[];
+
+  const unlockedLessons: LessonId[] = ['house-edge'];
+  if (houseEdgeDone) unlockedLessons.push('near-miss');
+  if (nearMissDone) unlockedLessons.push('sensory-conditioning');
+
+  return { completedLessons, unlockedLessons, spinsObserved: 0 };
+}
+
 export function advanceTutorialStep(state: TutorialState): TutorialState {
   const stepOrder = getLesson(state.currentLesson).stepIds;
   const index = stepOrder.indexOf(state.currentStep);
