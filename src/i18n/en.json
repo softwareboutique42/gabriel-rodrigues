@@ -135,6 +135,8 @@
   "slots.shell.label.routes": "Routes",
   "slots.shell.label.motion": "Motion",
   "slots.shell.label.theme": "Theme",
+  "slots.shell.identity.elementum": "ELEMENTUM",
+  "slots.shell.identity.backLink": "← CasinoCraftz",
   "slots.disclaimer.heading": "Compliance Notice",
   "slots.disclaimer.noGambling": "This experience is not gambling.",
   "slots.disclaimer.noRealMoney": "No real-money wagering, payouts, or deposits are available.",

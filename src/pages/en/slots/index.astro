@@ -35,179 +35,83 @@ const t = useTranslations('en');
       <div class="slots-shell__gridline"></div>
     </div>
 
-    <article class="slots-cabinet glow-panel">
-      <header class="slots-cabinet__hero" data-slots-zone="header">
-        <div class="slots-cabinet__hero-copy">
-          <div class="slots-cabinet__chips anim-boot-1">
-            <span class="slots-chip slots-chip--gold">{t('slots.badge.foundation')}</span>
-            <span id="slots-shell-status" class="slots-chip slots-chip--neon">
-              {t('slots.status.inDevelopment')}
-            </span>
-          </div>
-          <p class="slots-cabinet__eyebrow anim-boot-2">{t('slots.shell.eyebrow')}</p>
-          <h1 class="slots-cabinet__title anim-boot-3">{t('slots.title')}</h1>
-          <p class="slots-cabinet__subtitle anim-boot-4">{t('slots.subtitle')}</p>
-          <p class="slots-cabinet__description anim-boot-5">{t('slots.description')}</p>
-        </div>
-
-        <div class="slots-cabinet__telemetry anim-terminal" data-slots-zone="telemetry">
-          <div class="slots-telemetry-card">
-            <span class="slots-telemetry-card__label">{t('slots.shell.label.routes')}</span>
-            <strong class="slots-telemetry-card__value">EN / PT</strong>
-          </div>
-          <div class="slots-telemetry-card">
-            <span class="slots-telemetry-card__label">{t('slots.shell.label.motion')}</span>
-            <strong class="slots-telemetry-card__value">FULL</strong>
-          </div>
-          <div class="slots-telemetry-card">
-            <span class="slots-telemetry-card__label">{t('slots.shell.label.theme')}</span>
-            <strong class="slots-telemetry-card__value">CORE V1</strong>
-          </div>
-        </div>
-      </header>
-
-      <div class="slots-cabinet__grid">
-        <section id="slots-gameplay" class="slots-stage anim-tile-1" data-slots-zone="playfield">
-          <div class="slots-stage__topline">
-            <p class="slots-stage__zone-label">{t('slots.shell.zone.playfield')}</p>
-            <p class="slots-stage__panel-title">{t('slots.gameplay.panel.title')}</p>
-          </div>
-
-          <div class="slots-stage__marquee" aria-hidden="true">
-            <div class="slots-marquee-chip">
-              <span class="slots-marquee-chip__label">Jackpot</span>
-              <strong class="slots-marquee-chip__value">2,480</strong>
-            </div>
-            <div class="slots-marquee-chip">
-              <span class="slots-marquee-chip__label">Lines</span>
-              <strong class="slots-marquee-chip__value">1 Center</strong>
-            </div>
-            <div class="slots-marquee-chip">
-              <span class="slots-marquee-chip__label">RTP Model</span>
-              <strong class="slots-marquee-chip__value">Deterministic</strong>
-            </div>
-          </div>
-
-          <div
-            class="hud-outline-subtle p-3 mb-4 hidden"
-            data-slots-lesson="house-edge"
-            aria-hidden="true"
-          >
-            <p class="font-mono text-xs uppercase tracking-wider text-gold mb-2">
-              {t('slots.education.houseEdgeLabel')}
-            </p>
-            <p class="text-sm text-text-secondary mb-2">{t('slots.education.houseEdgeCopy')}</p>
-            <p class="font-mono text-xs text-cyan">{t('slots.education.manipulationCue')}</p>
-          </div>
-
-          <div class="slots-stage__frame" data-slots-reel-frame>
-            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span class="slots-symbol">BAR</span>
-            </div>
-            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span class="slots-symbol">7</span>
-            </div>
-            <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
-              <span class="slots-symbol">CROWN</span>
-            </div>
-          </div>
-
-          <div class="slots-stage__hud">
-            <div class="slots-meter" data-slots-meter="balance">
-              <span class="slots-meter__label">{t('slots.gameplay.label.balance')}</span>
-              <strong id="slots-balance-value" class="slots-meter__value slots-meter__value--neon"
-                >40</strong
-              >
-            </div>
-
-            <div class="slots-meter" data-slots-meter="bet">
-              <span class="slots-meter__label">{t('slots.gameplay.label.bet')}</span>
-              <div class="slots-meter__controls">
-                <button id="slots-bet-dec" type="button" class="slots-adjuster hud-outline-subtle">
-                  -
-                </button>
-                <strong id="slots-bet-value" class="slots-meter__value slots-meter__value--cyan"
-                  >2</strong
-                >
-                <button id="slots-bet-inc" type="button" class="slots-adjuster hud-outline-subtle">
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="slots-stage__command-row">
-            <button
-              id="slots-spin-button"
-              data-slots-action="spin"
-              type="button"
-              class="slots-spin-button clip-corners hover-glitch"
-            >
-              {t('slots.gameplay.cta.spin')}
-            </button>
-            <p id="slots-gameplay-status" class="slots-stage__status-readout">
-              {t('slots.gameplay.label.state')}: {t('slots.gameplay.status.idle')}
-            </p>
-          </div>
-
-          <div class="slots-stage__signal-grid">
-            <p id="slots-gameplay-outcome" class="slots-stage__signal-card">
-              {t('slots.gameplay.label.outcome')}: {t('slots.gameplay.status.pending')}
-            </p>
-            <p
-              id="slots-gameplay-seed"
-              class="slots-stage__signal-card slots-stage__signal-card--muted"
-            >
-              {t('slots.gameplay.label.seed')}: -
-            </p>
-          </div>
-        </section>
-
-        <aside class="slots-console">
-          <section class="slots-panel anim-tile-2" data-slots-zone="console">
-            <div class="slots-panel__header">
-              <p class="slots-panel__eyebrow">{t('slots.shell.zone.console')}</p>
-              <p class="slots-panel__title">{t('slots.gameplay.label.outcome')}</p>
-            </div>
-            <details class="slots-debug" data-slots-debug>
-              <summary class="slots-debug__summary">{t('slots.gameplay.debug.summary')}</summary>
-              <pre id="slots-round-result" data-slots-result class="slots-panel__terminal"></pre>
-            </details>
-          </section>
-
-          <section class="slots-panel anim-tile-3" data-slots-zone="compliance">
-            <div class="slots-panel__header">
-              <p class="slots-panel__eyebrow">{t('slots.shell.zone.compliance')}</p>
-              <p class="slots-panel__title">{t('slots.disclaimer.heading')}</p>
-            </div>
-            <p class="slots-panel__body">{t('slots.disclaimer.noGambling')}</p>
-            <p class="slots-panel__body slots-panel__body--muted">
-              {t('slots.disclaimer.noRealMoney')}
-            </p>
-          </section>
-
-          <section class="slots-panel anim-tile-4" data-slots-zone="navigation">
-            <div class="slots-panel__header">
-              <p class="slots-panel__eyebrow">{t('slots.shell.zone.navigation')}</p>
-              <p class="slots-panel__title">{t('slots.title')}</p>
-            </div>
-            <div class="slots-panel__actions">
-              <a
-                href="/en/projects/"
-                class="clip-corners hover-glitch inline-flex items-center justify-center min-h-11 text-center px-5 py-2 bg-neon text-neon-on font-bold text-xs uppercase tracking-wider"
-              >
-                {t('slots.cta.projects')}
-              </a>
-              <a
-                href="/en/canvas/"
-                class="inline-flex items-center justify-center min-h-11 text-center px-5 py-2 border border-surface-container-high text-text-primary font-bold text-xs uppercase tracking-wider hover:text-neon transition-colors"
-              >
-                {t('slots.cta.canvas')}
-              </a>
-            </div>
-          </section>
-        </aside>
+    <header class="slots-shell__header" data-slots-zone="navigation">
+      <a href="/" class="slots-shell__back-link" aria-label="Back to Casinocraftz">← CasinoCraftz</a>
+      <div class="slots-shell__identity">
+        <span class="slots-shell__identity-label">ELEMENTUM</span>
       </div>
+    </header>
+
+    <article class="slots-cabinet slots-cabinet--cyber glow-panel">
+      <button
+        type="button"
+        class="slots-shell__menu-toggle"
+        data-slots-menu-toggle
+        aria-controls="slots-shell-menu"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true">+</span>
+        <span class="sr-only">{t('slots.shell.label.theme')}</span>
+      </button>
+
+      <aside id="slots-shell-menu" class="slots-shell__menu-drawer" data-slots-menu aria-hidden="true">
+        <p class="slots-shell__menu-title">Signal Settings</p>
+        <div class="slots-shell__menu-row">
+          <span>{t('slots.shell.label.routes')}</span>
+          <strong data-slots-menu-routes>EN / PT</strong>
+        </div>
+        <div class="slots-shell__menu-row">
+          <span>{t('slots.shell.label.motion')}</span>
+          <strong data-slots-menu-motion>FULL</strong>
+        </div>
+        <div class="slots-shell__menu-row">
+          <span>{t('slots.shell.label.theme')}</span>
+          <strong data-slots-menu-theme>CORE V1</strong>
+        </div>
+      </aside>
+
+      <section id="slots-gameplay" class="slots-stage slots-stage--immersive anim-tile-1" data-slots-zone="playfield">
+        <div class="slots-stage__frame" data-slots-reel-frame>
+          <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+            <span class="slots-symbol">BAR</span>
+          </div>
+          <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+            <span class="slots-symbol">7</span>
+          </div>
+          <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
+            <span class="slots-symbol">CROWN</span>
+          </div>
+        </div>
+
+        <div class="slots-stage__hud slots-stage__hud--minimal">
+          <div class="slots-meter" data-slots-meter="balance">
+            <span class="slots-meter__label">{t('slots.gameplay.label.balance')}</span>
+            <strong id="slots-balance-value" class="slots-meter__value slots-meter__value--neon">40</strong>
+          </div>
+
+          <div class="slots-meter" data-slots-meter="bet">
+            <span class="slots-meter__label">{t('slots.gameplay.label.bet')}</span>
+            <div class="slots-meter__controls">
+              <button id="slots-bet-dec" type="button" class="slots-adjuster" aria-label="Decrease bet">-</button>
+              <strong id="slots-bet-value" class="slots-meter__value slots-meter__value--cyan">2</strong>
+              <button id="slots-bet-inc" type="button" class="slots-adjuster" aria-label="Increase bet">+</button>
+            </div>
+          </div>
+
+          <button
+            id="slots-spin-button"
+            data-slots-action="spin"
+            type="button"
+            class="slots-spin-button slots-spin-button--trigger"
+          >
+            {t('slots.gameplay.cta.spin')}
+          </button>
+        </div>
+
+        <p id="slots-gameplay-status" class="sr-only" aria-live="polite"></p>
+        <p id="slots-gameplay-outcome" class="sr-only"></p>
+        <p id="slots-gameplay-seed" class="sr-only"></p>
+      </section>
     </article>
   </section>
 
