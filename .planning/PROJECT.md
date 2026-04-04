@@ -45,10 +45,10 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ### Active
 
-- [ ] EDU-70: User can access Lesson 3 (Sensory Conditioning) after completing Lesson 2 (Near-Miss)
-- [ ] EDU-71: Lesson 3 dialogue explains how sensory triggers condition response without changing odds
+- ✓ EDU-70: User can access Lesson 3 (Sensory Conditioning) after completing Lesson 2 (Near-Miss) — Validated in Phase 43: Persistence Wiring & Unlock Trigger
+- ✓ EDU-71: Lesson 3 dialogue explains how sensory triggers condition response without changing odds — Validated in Phase 43: Persistence Wiring & Unlock Trigger
 - [ ] EDU-72: Spin-bridge observation gates Lesson 3 step advancement (2 spins threshold)
-- [ ] EDU-73: Lesson 3 completion tracked and persisted
+- ✓ EDU-73: Lesson 3 completion tracked and persisted — Validated in Phase 43: Persistence Wiring & Unlock Trigger
 
 ### Out of Scope
 
@@ -99,9 +99,10 @@ Companies get a branded, download-ready animation asset in under a minute — no
 
 ## Current State
 
-- Active milestone: none
+- Active milestone: v2.2 Sensory Conditioning Content (Phase 43 complete, Phase 44 next)
 - Latest shipped milestone: v2.1 Symbol Atlas Production Upgrade (completed 2026-04-04)
 - Latest milestone result: atlas-backed Slots symbol rendering, parity-safe compatibility locks, and preserved deterministic authority boundaries
+- Phase 43 complete: localStorage persistence wired for Lesson 2/3 completion; returning users see Lesson 3 unlocked on reload; 24/24 contract tests passing
 - v1.4 shipped scope: deterministic animation runtime, sprite atlas integration, animated symbol states, presentation-only theme variants, and runtime confidence lock (contracts + compatibility coverage)
 - Active surfaces: Canvas at `/en/canvas/`, Projects hub at `/en/projects/`, and playable Slots routes at `/en/slots/` and `/pt/slots/` with deterministic gameplay loop, upgraded runtime observability, refreshed cabinet-style shell presentation, and richer atmosphere/effect states
 - Archive artifacts: `.planning/milestones/v1.2-ROADMAP.md`, `.planning/milestones/v1.2-REQUIREMENTS.md`, `.planning/milestones/v1.3-ROADMAP.md`, `.planning/milestones/v1.3-REQUIREMENTS.md`, `.planning/milestones/v1.3-MILESTONE-AUDIT.md`, `.planning/milestones/v1.4-ROADMAP.md`, `.planning/milestones/v1.4-REQUIREMENTS.md`, `.planning/milestones/v1.5-ROADMAP.md`, `.planning/milestones/v1.5-REQUIREMENTS.md`, `.planning/milestones/v1.6-ROADMAP.md`, `.planning/milestones/v1.6-REQUIREMENTS.md`, `.planning/milestones/v1.7-ROADMAP.md`, `.planning/milestones/v1.7-REQUIREMENTS.md`, `.planning/milestones/v1.8-ROADMAP.md`, `.planning/milestones/v1.8-REQUIREMENTS.md`, `.planning/milestones/v1.9-ROADMAP.md`, `.planning/milestones/v1.9-REQUIREMENTS.md`, `.planning/milestones/v2.0-ROADMAP.md`, `.planning/milestones/v2.0-REQUIREMENTS.md`, `.planning/milestones/v2.1-ROADMAP.md`, `.planning/milestones/v2.1-REQUIREMENTS.md`
@@ -140,4 +141,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-_Last updated: 2026-04-04 after v2.1 milestone completion_
+_Last updated: 2026-04-04 after Phase 43 completion_
