@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-04-04T12:36:19.929Z",
+  "phase": "milestone-init",
+  "phase_name": "v2.2 Sensory Conditioning Content — Milestone Initialization",
+  "phase_dir": ".planning",
+  "plan": null,
+  "task": null,
+  "total_tasks": null,
+  "status": "paused",
+  "workflow": "new-milestone",
+  "milestone": "v2.2",
+  "milestone_name": "sensory-conditioning-content",
+  "completed_tasks": [
+    {
+      "id": 1,
+      "name": "Load project context (PROJECT.md, STATE.md, FUTURE-MILESTONES.md, MILESTONES.md)",
+      "status": "done"
+    },
+    {
+      "id": 2,
+      "name": "Present milestone summary and confirm v2.2 scope with user",
+      "status": "done"
+    },
+    {
+      "id": 3,
+      "name": "Update STATE.md for v2.2 (reset frontmatter, current position, phase summary)",
+      "status": "done"
+    },
+    {
+      "id": 4,
+      "name": "Commit milestone start: docs: start milestone v2.2 sensory-conditioning-content (d6e82a8)",
+      "status": "done"
+    },
+    {
+      "id": 5,
+      "name": "Spawn 4 parallel research agents (Stack, Features, Architecture, Pitfalls)",
+      "status": "done"
+    }
+  ],
+  "remaining_tasks": [
+    {
+      "id": 6,
+      "name": "Wait for research agents to complete and write to .planning/research/",
+      "status": "in_progress",
+      "note": "4 background agents running: STACK.md, FEATURES.md, ARCHITECTURE.md, PITFALLS.md"
+    },
+    {
+      "id": 7,
+      "name": "Spawn synthesizer agent → write .planning/research/SUMMARY.md",
+      "status": "not_started"
+    },
+    { "id": 8, "name": "Present research findings to user", "status": "not_started" },
+    {
+      "id": 9,
+      "name": "Define requirements (EDU-70/71/72/73 already known, scope per category)",
+      "status": "not_started"
+    },
+    { "id": 10, "name": "Write .planning/REQUIREMENTS.md and commit", "status": "not_started" },
+    {
+      "id": 11,
+      "name": "Spawn gsd-roadmapper agent → write ROADMAP.md, STATE.md, update REQUIREMENTS.md traceability",
+      "status": "not_started"
+    },
+    { "id": 12, "name": "Present roadmap for user approval", "status": "not_started" },
+    { "id": 13, "name": "Commit roadmap artifacts", "status": "not_started" }
+  ],
+  "blockers": [],
+  "human_actions_pending": [],
+  "decisions": [
+    {
+      "decision": "v2.2 scope confirmed: EDU-70/71/72/73 exactly as defined in FUTURE-MILESTONES.md",
+      "rationale": "User confirmed 'Looks good'",
+      "phase": "milestone-init"
+    },
+    {
+      "decision": "Research selected before requirements",
+      "rationale": "User chose 'Research first (Recommended)'",
+      "phase": "milestone-init"
+    }
+  ],
+  "uncommitted_files": [],
+  "background_processes": [
+    { "agent": "gsd-project-researcher (Stack)", "output": ".planning/research/STACK.md" },
+    { "agent": "gsd-project-researcher (Features)", "output": ".planning/research/FEATURES.md" },
+    {
+      "agent": "gsd-project-researcher (Architecture)",
+      "output": ".planning/research/ARCHITECTURE.md"
+    },
+    { "agent": "gsd-project-researcher (Pitfalls)", "output": ".planning/research/PITFALLS.md" }
+  ],
+  "next_action": "Check if research files exist in .planning/research/ (STACK.md, FEATURES.md, ARCHITECTURE.md, PITFALLS.md). If all 4 exist, spawn gsd-research-synthesizer to write SUMMARY.md. Then proceed to define requirements and create roadmap.",
+  "context_notes": "Milestone v2.2 scope is crystal clear from FUTURE-MILESTONES.md. Requirements EDU-70/71/72/73 are already defined. The lesson 3 shell/unlock anchor already exists from v1.9 (Phase 39/40). This milestone adds the actual dialogue content, spin-bridge threshold (2 spins), and persistence. Phases 43-44, continuing from phase 42."
+}
