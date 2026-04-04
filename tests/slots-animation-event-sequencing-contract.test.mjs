@@ -8,9 +8,8 @@ const {
   createSpinResolvedVisualEvent,
 } = await import('../src/scripts/slots/animation/events.ts');
 const { createReelTimelineModel } = await import('../src/scripts/slots/animation/reel-timeline.ts');
-const { createOutcomeFeedbackModel } = await import(
-  '../src/scripts/slots/animation/outcome-feedback.ts'
-);
+const { createOutcomeFeedbackModel } =
+  await import('../src/scripts/slots/animation/outcome-feedback.ts');
 const { mountSlotsAnimationRuntime } = await import('../src/scripts/slots/animation/runtime.ts');
 
 test('ANIM-10: visual event snapshots are immutable and preserve sequence order', () => {

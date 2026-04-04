@@ -1,12 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const {
-  createInitialEconomyState,
-  debitForRound,
-  settleRound,
-  getSpinBlockReason,
-} = await import('../src/scripts/slots/economy.ts');
+const { createInitialEconomyState, debitForRound, settleRound, getSpinBlockReason } =
+  await import('../src/scripts/slots/economy.ts');
 
 test('SLOT-12: economy loop debits before spin and settles payout after result', () => {
   const initial = createInitialEconomyState();

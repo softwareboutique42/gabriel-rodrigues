@@ -20,7 +20,10 @@ test('new categories route deterministically to vertical presets', () => {
 });
 
 test('preset routing uses deterministic null fallback when no route exists', () => {
-  assert.match(source, /return VERTICAL_PRESET_ROUTING\[version\]\?\.\[industryCategory\] \?\? null;/);
+  assert.match(
+    source,
+    /return VERTICAL_PRESET_ROUTING\[version\]\?\.\[industryCategory\] \?\? null;/,
+  );
 });
 
 test('version metadata publishes selector-ready vertical presets', () => {

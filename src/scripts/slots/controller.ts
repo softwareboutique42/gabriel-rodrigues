@@ -19,6 +19,11 @@ import {
 import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../analytics/events.ts';
 
 const SPIN_DELAY_MS = 240;
+const LANDING_BOUNCE_MS = 420;
+const BALANCE_TICK_MIN_MS = 280;
+const BALANCE_TICK_MAX_MS = 900;
+const REEL_LANDING_STAGGER_MS = 64;
+const WIN_CRESCENDO_BASE_MS = 720;
 
 const SYMBOL_PRESENTATION: Record<string, string> = {
   A: 'BAR',
@@ -35,6 +40,98 @@ export interface SlotsControllerMount {
 function setText(id: string, value: string): void {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
+}
+
+function animateNumericText(id: string, target: number, durationMs: number): void {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const initial = Number.parseInt(el.textContent ?? '', 10);
+  if (!Number.isFinite(initial) || initial === target) {
+    el.textContent = String(target);
+    return;
+  }
+
+  const start = performance.now();
+  const diff = target - initial;
+  el.classList.add('slots-meter__value--ticking');
+
+  const tick = (now: number) => {
+    const elapsed = Math.min(1, (now - start) / durationMs);
+    const eased = 1 - Math.pow(1 - elapsed, 4);
+    const current = Math.round(initial + diff * eased);
+    el.textContent = String(current);
+    if (elapsed < 1) {
+      window.requestAnimationFrame(tick);
+    } else {
+      el.classList.remove('slots-meter__value--ticking');
+    }
+  };
+
+  window.requestAnimationFrame(tick);
+}
+
+function applySpinCadence(root: HTMLElement): void {
+  const frame = root.querySelector<HTMLElement>('[data-slots-reel-frame]');
+  if (frame) {
+    frame.classList.add('slots-stage--spin-cadence');
+  }
+
+  const windows = Array.from(root.querySelectorAll<HTMLElement>('[data-slots-reel-window]'));
+  windows.forEach((windowEl) => windowEl.classList.add('slots-reel-window--spinning'));
+}
+
+function clearSpinCadence(root: HTMLElement): void {
+  const frame = root.querySelector<HTMLElement>('[data-slots-reel-frame]');
+  if (frame) {
+    frame.classList.remove('slots-stage--spin-cadence');
+  }
+
+  const windows = Array.from(root.querySelectorAll<HTMLElement>('[data-slots-reel-window]'));
+  windows.forEach((windowEl) => windowEl.classList.remove('slots-reel-window--spinning'));
+}
+
+function triggerReelLandingBounce(root: HTMLElement): void {
+  const reducedMotion = root.dataset.slotsAnimReducedMotion === 'true';
+  const minimalIntensity = root.dataset.slotsAnimIntensity === 'minimal';
+  if (reducedMotion || minimalIntensity) {
+    return;
+  }
+
+  const windows = Array.from(root.querySelectorAll<HTMLElement>('[data-slots-reel-window]'));
+  windows.forEach((windowEl, index) => {
+    windowEl.classList.remove('slots-reel-window--landed');
+    window.setTimeout(() => {
+      windowEl.classList.remove('slots-reel-window--landed');
+      void windowEl.offsetWidth;
+      windowEl.classList.add('slots-reel-window--landed');
+    }, index * REEL_LANDING_STAGGER_MS);
+  });
+
+  window.setTimeout(
+    () => {
+      windows.forEach((windowEl) => windowEl.classList.remove('slots-reel-window--landed'));
+    },
+    LANDING_BOUNCE_MS + (windows.length - 1) * REEL_LANDING_STAGGER_MS,
+  );
+}
+
+function triggerWinCrescendo(root: HTMLElement, payout: number): void {
+  const reducedMotion = root.dataset.slotsAnimReducedMotion === 'true';
+  const minimalIntensity = root.dataset.slotsAnimIntensity === 'minimal';
+  if (reducedMotion || minimalIntensity) {
+    return;
+  }
+
+  const normalized = Math.max(0.35, Math.min(1, payout / 12));
+  root.dataset.slotsWinCrescendo = 'true';
+  root.style.setProperty('--slots-win-intensity', normalized.toFixed(2));
+
+  const duration = WIN_CRESCENDO_BASE_MS + Math.round(normalized * 380);
+  window.setTimeout(() => {
+    root.dataset.slotsWinCrescendo = 'false';
+    root.style.removeProperty('--slots-win-intensity');
+  }, duration);
 }
 
 function getMessage(root: HTMLElement, key: string, fallback: string): string {
@@ -88,7 +185,21 @@ function renderState(
   const incBetButton = document.getElementById('slots-bet-inc') as HTMLButtonElement | null;
   if (incBetButton) incBetButton.disabled = state.status === 'spinning';
 
-  setText('slots-balance-value', String(balance));
+  const shouldAnimateBalance =
+    feedbackKey === 'result' &&
+    state.lastResult?.outcome === 'win' &&
+    state.lastResult.totalPayoutUnits > 0;
+
+  if (shouldAnimateBalance) {
+    const payout = state.lastResult?.totalPayoutUnits ?? 0;
+    const dynamicDuration = Math.max(
+      BALANCE_TICK_MIN_MS,
+      Math.min(BALANCE_TICK_MAX_MS, Math.round(240 + payout * 58)),
+    );
+    animateNumericText('slots-balance-value', balance, dynamicDuration);
+  } else {
+    setText('slots-balance-value', String(balance));
+  }
   setText('slots-bet-value', String(bet));
 
   const statusMap: Record<string, string> = {
@@ -182,6 +293,7 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
     if (requested === state) return;
     state = requested;
     economy = debitForRound(economy);
+    applySpinCadence(root);
     emitAnalyticsEvent({
       name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_ATTEMPT,
       route,
@@ -209,6 +321,11 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
       const result = resolveRound({ baseSeed, spinIndex: activeSpin });
       state = transitionEngineState(state, { type: 'SPIN_RESOLVED', result });
       economy = settleRound(economy, result.totalPayoutUnits);
+      clearSpinCadence(root);
+      triggerReelLandingBounce(root);
+      if (result.outcome === 'win' && result.totalPayoutUnits > 0) {
+        triggerWinCrescendo(root, result.totalPayoutUnits);
+      }
       saveWallet({ balance: economy.balance });
       emitAnalyticsEvent({
         name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_RESOLVED,

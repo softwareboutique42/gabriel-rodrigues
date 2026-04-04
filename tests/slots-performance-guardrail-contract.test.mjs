@@ -1,13 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const {
-  createSlotsPerformanceGuardrailModel,
-} = await import('../src/scripts/slots/animation/performance-guardrail.ts');
-const {
-  createSpinAcceptedVisualEvent,
-  createSlotsVisualEventStore,
-} = await import('../src/scripts/slots/animation/events.ts');
+const { createSlotsPerformanceGuardrailModel } =
+  await import('../src/scripts/slots/animation/performance-guardrail.ts');
+const { createSpinAcceptedVisualEvent, createSlotsVisualEventStore } =
+  await import('../src/scripts/slots/animation/events.ts');
 const { mountSlotsAnimationRuntime } = await import('../src/scripts/slots/animation/runtime.ts');
 
 test('PERF-10: performance guardrail degrades and recovers deterministically', () => {

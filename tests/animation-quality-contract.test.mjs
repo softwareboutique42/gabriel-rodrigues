@@ -145,7 +145,10 @@ test('PACK-01 exposes at least three vertical preset ids in shared contracts', (
 });
 
 test('PACK-03 keeps legacy mappings stable while adding deterministic category expansion', () => {
-  assert.match(selectorSource, /const V1_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/);
+  assert.match(
+    selectorSource,
+    /const V1_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/,
+  );
   assert.match(selectorSource, /tech:\s*'particles'/);
   assert.match(selectorSource, /finance:\s*'geometric'/);
   assert.match(selectorSource, /health:\s*'flowing'/);
@@ -155,7 +158,10 @@ test('PACK-03 keeps legacy mappings stable while adding deterministic category e
   assert.match(selectorSource, /other:\s*'particles'/);
   assert.match(selectorSource, /education:\s*'typographic'/);
   assert.match(selectorSource, /hospitality:\s*'flowing'/);
-  assert.match(selectorSource, /const V2_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/);
+  assert.match(
+    selectorSource,
+    /const V2_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = \{/,
+  );
   assert.match(selectorSource, /tech:\s*'signal'/);
   assert.match(selectorSource, /finance:\s*'pulse'/);
   assert.match(selectorSource, /health:\s*'pulse'/);
@@ -170,7 +176,10 @@ test('PACK-03 keeps legacy mappings stable while adding deterministic category e
 test('PACK-03 worker sanitization and prompt schema include expanded categories', () => {
   assert.match(typesSource, /\| 'education'/);
   assert.match(typesSource, /\| 'hospitality'/);
-  assert.match(workerIndexSource, /industryCategory": "<one of: tech \| finance \| health \| retail \| creative \| food \| education \| hospitality \| other>"/);
+  assert.match(
+    workerIndexSource,
+    /industryCategory": "<one of: tech \| finance \| health \| retail \| creative \| food \| education \| hospitality \| other>"/,
+  );
   assert.match(workerIndexSource, /const VALID_INDUSTRY_CATEGORIES: IndustryCategory\[] = \[/);
   assert.match(workerIndexSource, /'education'/);
   assert.match(workerIndexSource, /'hospitality'/);

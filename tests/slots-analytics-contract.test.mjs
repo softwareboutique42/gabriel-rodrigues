@@ -3,11 +3,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const {
-  ANALYTICS_EVENT_NAMES,
-  emitAnalyticsEvent,
-  clearPersistedAnalyticsEvents,
-} = await import('../src/scripts/analytics/events.ts');
+const { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent, clearPersistedAnalyticsEvents } =
+  await import('../src/scripts/analytics/events.ts');
 
 const controllerPath = resolve(process.cwd(), 'src/scripts/slots/controller.ts');
 const enProjectsPath = resolve(process.cwd(), 'src/pages/en/projects/index.astro');

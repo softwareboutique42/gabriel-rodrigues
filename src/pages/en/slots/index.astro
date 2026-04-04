@@ -32,14 +32,16 @@ const t = useTranslations('en');
     <div class="slots-shell__backdrop" aria-hidden="true">
       <div class="slots-shell__aura slots-shell__aura--neon"></div>
       <div class="slots-shell__aura slots-shell__aura--gold"></div>
-      <div class="slots-shell__gridline"></div>
     </div>
 
     <header class="slots-shell__header" data-slots-zone="navigation">
-      <a href="/" class="slots-shell__back-link" aria-label="Back to Casinocraftz">← CasinoCraftz</a>
+      <a href="/en/casinocraftz/" class="slots-shell__back-link" aria-label="Back to Casinocraftz"
+        >← CasinoCraftz</a
+      >
       <div class="slots-shell__identity">
         <span class="slots-shell__identity-label">ELEMENTUM</span>
       </div>
+      <span id="slots-shell-status" class="sr-only">booting</span>
     </header>
 
     <article class="slots-cabinet slots-cabinet--cyber glow-panel">
@@ -54,7 +56,12 @@ const t = useTranslations('en');
         <span class="sr-only">{t('slots.shell.label.theme')}</span>
       </button>
 
-      <aside id="slots-shell-menu" class="slots-shell__menu-drawer" data-slots-menu aria-hidden="true">
+      <aside
+        id="slots-shell-menu"
+        class="slots-shell__menu-drawer"
+        data-slots-menu
+        aria-hidden="true"
+      >
         <p class="slots-shell__menu-title">Signal Settings</p>
         <div class="slots-shell__menu-row">
           <span>{t('slots.shell.label.routes')}</span>
@@ -70,7 +77,11 @@ const t = useTranslations('en');
         </div>
       </aside>
 
-      <section id="slots-gameplay" class="slots-stage slots-stage--immersive anim-tile-1" data-slots-zone="playfield">
+      <section
+        id="slots-gameplay"
+        class="slots-stage slots-stage--immersive anim-tile-1"
+        data-slots-zone="playfield"
+      >
         <div class="slots-stage__frame" data-slots-reel-frame>
           <div class="slots-stage__reel-window" data-slots-reel-window aria-hidden="true">
             <span class="slots-symbol">BAR</span>
@@ -86,15 +97,29 @@ const t = useTranslations('en');
         <div class="slots-stage__hud slots-stage__hud--minimal">
           <div class="slots-meter" data-slots-meter="balance">
             <span class="slots-meter__label">{t('slots.gameplay.label.balance')}</span>
-            <strong id="slots-balance-value" class="slots-meter__value slots-meter__value--neon">40</strong>
+            <strong id="slots-balance-value" class="slots-meter__value slots-meter__value--neon"
+              >40</strong
+            >
           </div>
 
           <div class="slots-meter" data-slots-meter="bet">
             <span class="slots-meter__label">{t('slots.gameplay.label.bet')}</span>
             <div class="slots-meter__controls">
-              <button id="slots-bet-dec" type="button" class="slots-adjuster" aria-label="Decrease bet">-</button>
-              <strong id="slots-bet-value" class="slots-meter__value slots-meter__value--cyan">2</strong>
-              <button id="slots-bet-inc" type="button" class="slots-adjuster" aria-label="Increase bet">+</button>
+              <button
+                id="slots-bet-dec"
+                type="button"
+                class="slots-adjuster"
+                aria-label="Decrease bet">-</button
+              >
+              <strong id="slots-bet-value" class="slots-meter__value slots-meter__value--cyan"
+                >2</strong
+              >
+              <button
+                id="slots-bet-inc"
+                type="button"
+                class="slots-adjuster"
+                aria-label="Increase bet">+</button
+              >
             </div>
           </div>
 
@@ -111,6 +136,18 @@ const t = useTranslations('en');
         <p id="slots-gameplay-status" class="sr-only" aria-live="polite"></p>
         <p id="slots-gameplay-outcome" class="sr-only"></p>
         <p id="slots-gameplay-seed" class="sr-only"></p>
+        <aside
+          class="mt-5 hud-outline-subtle p-4 text-left"
+          data-slots-lesson="house-edge"
+          aria-live="polite"
+        >
+          <p class="font-mono text-[10px] uppercase tracking-widest text-gold mb-2">
+            {t('slots.education.houseEdgeLabel')}
+          </p>
+          <p class="text-sm text-text-secondary">{t('slots.education.houseEdgeCopy')}</p>
+          <p class="mt-2 text-xs text-text-muted">{t('slots.education.manipulationCue')}</p>
+        </aside>
+        <pre id="slots-round-result" class="sr-only" aria-hidden="true"></pre>
       </section>
     </article>
   </section>

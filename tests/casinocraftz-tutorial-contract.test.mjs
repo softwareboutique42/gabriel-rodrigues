@@ -65,7 +65,10 @@ test('psychology curriculum locale copy stays anti-manipulative and zero-risk in
   const pt = readLocale('src/i18n/pt.json');
 
   assert.match(en['casinocraftz.disclaimer.zeroRisk'], /no gambling|no real-money wagering/i);
-  assert.match(pt['casinocraftz.disclaimer.zeroRisk'], /sem jogo de azar|sem apostas com dinheiro real/i);
+  assert.match(
+    pt['casinocraftz.disclaimer.zeroRisk'],
+    /sem jogo de azar|sem apostas com dinheiro real/i,
+  );
   assert.match(en['tutorial.lesson.nearMiss.description'], /without changing the odds/i);
   assert.match(pt['tutorial.lesson.nearMiss.description'], /sem mudar as odds/i);
   assert.match(en['tutorial.lesson.sensoryConditioning.description'], /without changing outcomes/i);

@@ -1,18 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { createSlotsAtlasRegistry, snapshotSlotsAtlasRegistry } = await import(
-  '../src/scripts/slots/animation/atlas-registry.ts'
-);
+const { createSlotsAtlasRegistry, snapshotSlotsAtlasRegistry } =
+  await import('../src/scripts/slots/animation/atlas-registry.ts');
 const {
   SYMBOL_FRAME_MAP,
   REQUIRED_SYMBOL_FRAME_KEYS,
   getFrameKeyForSymbol,
   snapshotSymbolFrameMap,
 } = await import('../src/scripts/slots/animation/symbol-frame-map.ts');
-const { createSlotsVisualEventStore, createSpinAcceptedVisualEvent } = await import(
-  '../src/scripts/slots/animation/events.ts'
-);
+const { createSlotsVisualEventStore, createSpinAcceptedVisualEvent } =
+  await import('../src/scripts/slots/animation/events.ts');
 const { mountSlotsAnimationRuntime } = await import('../src/scripts/slots/animation/runtime.ts');
 
 test('SPRITE-10: SlotSymbol to frame mapping is deterministic and complete', () => {

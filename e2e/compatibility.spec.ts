@@ -43,7 +43,7 @@ async function expectRuntimeParityEnvelope(root: Locator): Promise<void> {
 }
 
 async function expectSlotsShellEnvelope(page: Page): Promise<void> {
-  const zones = ['header', 'playfield', 'console', 'compliance', 'navigation'];
+  const zones = ['navigation', 'playfield'];
 
   for (const zone of zones) {
     const locator = page.locator(`[data-slots-zone="${zone}"]`);
@@ -51,6 +51,9 @@ async function expectSlotsShellEnvelope(page: Page): Promise<void> {
     await expect(locator).not.toHaveText(/^\s*$/);
   }
 
+  await expect(page.locator('.slots-shell__identity-label')).toHaveText('ELEMENTUM');
+  await expect(page.locator('.slots-shell__back-link')).toBeVisible();
+  await expect(page.locator('[data-slots-menu-toggle]')).toBeVisible();
   await expect(page.locator('[data-slots-reel-window]')).toHaveCount(3);
 }
 

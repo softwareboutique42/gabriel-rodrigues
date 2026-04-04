@@ -1,9 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { createInitialEconomyState, adjustBet, getSpinBlockReason } = await import(
-  '../src/scripts/slots/economy.ts'
-);
+const { createInitialEconomyState, adjustBet, getSpinBlockReason } =
+  await import('../src/scripts/slots/economy.ts');
 
 test('UX-10: spin is blocked during spinning state even with enough balance', () => {
   const state = createInitialEconomyState();

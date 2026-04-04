@@ -21,22 +21,36 @@ test.describe('Casinocraftz Lesson 3 - spin-bridge gate (EDU-72)', () => {
       )
       .click();
 
-    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-intro');
+    await expect(root).toHaveAttribute(
+      'data-casinocraftz-tutorial-step',
+      'sensory-conditioning-intro',
+    );
     await page.locator('[data-casinocraftz-tutorial-next]').click();
-    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-observe');
+    await expect(root).toHaveAttribute(
+      'data-casinocraftz-tutorial-step',
+      'sensory-conditioning-observe',
+    );
 
     await page.evaluate(() => {
       window.postMessage({ type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 0 } }, '*');
     });
-    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-observe');
+    await expect(root).toHaveAttribute(
+      'data-casinocraftz-tutorial-step',
+      'sensory-conditioning-observe',
+    );
 
     await page.evaluate(() => {
       window.postMessage({ type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 1 } }, '*');
     });
-    await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-reveal');
+    await expect(root).toHaveAttribute(
+      'data-casinocraftz-tutorial-step',
+      'sensory-conditioning-reveal',
+    );
   });
 
-  test('causality disclosure renders after spin-triggered transition - EN and PT', async ({ page }) => {
+  test('causality disclosure renders after spin-triggered transition - EN and PT', async ({
+    page,
+  }) => {
     for (const lang of ['en', 'pt'] as const) {
       await page.goto(`/${lang}/casinocraftz/`);
 
@@ -53,19 +67,37 @@ test.describe('Casinocraftz Lesson 3 - spin-bridge gate (EDU-72)', () => {
         )
         .click();
 
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-intro');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-intro',
+      );
       await page.locator('[data-casinocraftz-tutorial-next]').click();
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-observe');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-observe',
+      );
 
       await page.evaluate(() => {
-        window.postMessage({ type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 0 } }, '*');
+        window.postMessage(
+          { type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 0 } },
+          '*',
+        );
       });
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-observe');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-observe',
+      );
 
       await page.evaluate(() => {
-        window.postMessage({ type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 1 } }, '*');
+        window.postMessage(
+          { type: 'ccz:spin-settled', version: 1, payload: { spinIndex: 1 } },
+          '*',
+        );
       });
-      await expect(root).toHaveAttribute('data-casinocraftz-tutorial-step', 'sensory-conditioning-reveal');
+      await expect(root).toHaveAttribute(
+        'data-casinocraftz-tutorial-step',
+        'sensory-conditioning-reveal',
+      );
 
       await expect(page.locator('[data-casinocraftz-recap="true"]')).toBeVisible();
     }

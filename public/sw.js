@@ -13,18 +13,18 @@ const PRECACHE_URLS = [
 
 // Install: precache shell
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)));
   self.skipWaiting();
 });
 
 // Activate: clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))),
+      ),
   );
   self.clients.claim();
 });
@@ -52,9 +52,7 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() =>
-          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))
-        )
+        .catch(() => caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))),
     );
     return;
   }
@@ -64,12 +62,12 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       if (cached) return cached;
       return fetch(request).then((response) => {
-        if (response.ok && (url.pathname.match(/\.(js|css|svg|png|woff2?|ico)$/))) {
+        if (response.ok && url.pathname.match(/\.(js|css|svg|png|woff2?|ico)$/)) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
         }
         return response;
       });
-    })
+    }),
   );
 });

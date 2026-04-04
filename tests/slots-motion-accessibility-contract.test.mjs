@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { resolveSlotsMotionPolicy } = await import('../src/scripts/slots/animation/motion-policy.ts');
+const { resolveSlotsMotionPolicy } =
+  await import('../src/scripts/slots/animation/motion-policy.ts');
 const { createSlotsVisualEventStore } = await import('../src/scripts/slots/animation/events.ts');
 const { mountSlotsAnimationRuntime } = await import('../src/scripts/slots/animation/runtime.ts');
 
@@ -61,5 +62,4 @@ test('A11Y-10: runtime emits accessibility snapshots without mutating authority 
   assert.equal(root.dataset.slotsBet, '2');
 
   runtime.dispose();
-}
-);
+});

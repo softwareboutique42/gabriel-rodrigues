@@ -2,10 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 const { resolveRound } = await import('../src/scripts/slots/engine/round.ts');
-const {
-  createInitialEngineState,
-  transitionEngineState,
-} = await import('../src/scripts/slots/engine/state-machine.ts');
+const { createInitialEngineState, transitionEngineState } =
+  await import('../src/scripts/slots/engine/state-machine.ts');
 
 const FIXTURE_CONFIG = {
   reels: [

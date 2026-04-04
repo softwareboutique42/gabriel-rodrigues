@@ -15,56 +15,56 @@ const scriptSource = readFileSync(scriptPath, 'utf8');
 const en = JSON.parse(readFileSync(enI18nPath, 'utf8'));
 const pt = JSON.parse(readFileSync(ptI18nPath, 'utf8'));
 
-test('SLOT-01: slots shell pages exist with mirrored in-development structure', () => {
+test('SLOT-01: slots shell pages expose the mirrored Elementum navigation and playfield structure', () => {
   assert.match(enPage, /id="slots-shell-root"/);
   assert.match(ptPage, /id="slots-shell-root"/);
   assert.match(enPage, /data-slots-shell="cabinet"/);
   assert.match(ptPage, /data-slots-shell="cabinet"/);
-  assert.match(enPage, /data-slots-zone="header"/);
-  assert.match(ptPage, /data-slots-zone="header"/);
-  assert.match(enPage, /data-slots-zone="playfield"/);
-  assert.match(ptPage, /data-slots-zone="playfield"/);
-  assert.match(enPage, /data-slots-zone="console"/);
-  assert.match(ptPage, /data-slots-zone="console"/);
-  assert.match(enPage, /data-slots-zone="compliance"/);
-  assert.match(ptPage, /data-slots-zone="compliance"/);
   assert.match(enPage, /data-slots-zone="navigation"/);
   assert.match(ptPage, /data-slots-zone="navigation"/);
+  assert.match(enPage, /data-slots-zone="playfield"/);
+  assert.match(ptPage, /data-slots-zone="playfield"/);
   assert.match(enPage, /data-slots-reel-frame/);
   assert.match(ptPage, /data-slots-reel-frame/);
+  assert.match(enPage, /slots-shell__identity-label">ELEMENTUM/);
+  assert.match(ptPage, /slots-shell__identity-label">ELEMENTUM/);
+  assert.match(enPage, /slots-shell__back-link/);
+  assert.match(ptPage, /slots-shell__back-link/);
 
-  assert.match(enPage, /t\('slots\.title'\)/);
-  assert.match(ptPage, /t\('slots\.title'\)/);
-  assert.match(enPage, /t\('slots\.status\.inDevelopment'\)/);
-  assert.match(ptPage, /t\('slots\.status\.inDevelopment'\)/);
-  assert.match(enPage, /t\('slots\.shell\.eyebrow'\)/);
-  assert.match(ptPage, /t\('slots\.shell\.eyebrow'\)/);
-
-  assert.match(enPage, /href="\/en\/projects\/"/);
-  assert.match(ptPage, /href="\/pt\/projects\/"/);
-  assert.match(enPage, /href="\/en\/canvas\/"/);
-  assert.match(ptPage, /href="\/pt\/canvas\/"/);
+  assert.match(enPage, /t\('slots\.gameplay\.label\.balance'\)/);
+  assert.match(ptPage, /t\('slots\.gameplay\.label\.balance'\)/);
+  assert.match(enPage, /t\('slots\.gameplay\.label\.bet'\)/);
+  assert.match(ptPage, /t\('slots\.gameplay\.label\.bet'\)/);
+  assert.match(enPage, /t\('slots\.gameplay\.cta\.spin'\)/);
+  assert.match(ptPage, /t\('slots\.gameplay\.cta\.spin'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.routes'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.routes'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.motion'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.motion'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.theme'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.theme'\)/);
 });
 
-test('SLOT-02: visible non-gambling and no-real-money disclaimer parity', () => {
-  assert.match(enPage, /t\('slots\.disclaimer\.noGambling'\)/);
-  assert.match(enPage, /t\('slots\.disclaimer\.noRealMoney'\)/);
-  assert.match(ptPage, /t\('slots\.disclaimer\.noGambling'\)/);
-  assert.match(ptPage, /t\('slots\.disclaimer\.noRealMoney'\)/);
+test('SLOT-02: host-aware education surfaces remain mirrored in EN/PT', () => {
+  assert.match(enPage, /data-slots-lesson="house-edge"/);
+  assert.match(ptPage, /data-slots-lesson="house-edge"/);
+  assert.match(enPage, /t\('slots\.education\.houseEdgeLabel'\)/);
+  assert.match(ptPage, /t\('slots\.education\.houseEdgeLabel'\)/);
+  assert.match(enPage, /t\('slots\.education\.houseEdgeCopy'\)/);
+  assert.match(ptPage, /t\('slots\.education\.houseEdgeCopy'\)/);
+  assert.match(enPage, /t\('slots\.education\.manipulationCue'\)/);
+  assert.match(ptPage, /t\('slots\.education\.manipulationCue'\)/);
 
   const keys = [
-    'slots.description',
-    'slots.badge.foundation',
-    'slots.shell.eyebrow',
-    'slots.shell.zone.playfield',
-    'slots.shell.zone.console',
-    'slots.shell.zone.compliance',
-    'slots.shell.zone.navigation',
-    'slots.disclaimer.heading',
-    'slots.disclaimer.noGambling',
-    'slots.disclaimer.noRealMoney',
-    'slots.cta.projects',
-    'slots.cta.canvas',
+    'slots.gameplay.label.balance',
+    'slots.gameplay.label.bet',
+    'slots.gameplay.cta.spin',
+    'slots.shell.label.routes',
+    'slots.shell.label.motion',
+    'slots.shell.label.theme',
+    'slots.education.houseEdgeLabel',
+    'slots.education.houseEdgeCopy',
+    'slots.education.manipulationCue',
   ];
 
   for (const key of keys) {
@@ -73,11 +73,6 @@ test('SLOT-02: visible non-gambling and no-real-money disclaimer parity', () => 
     assert.ok(en[key].trim().length > 0, `EN empty value: ${key}`);
     assert.ok(pt[key].trim().length > 0, `PT empty value: ${key}`);
   }
-
-  assert.match(en['slots.disclaimer.noGambling'], /not gambling/i);
-  assert.match(en['slots.disclaimer.noRealMoney'], /no real-money|no real money/i);
-  assert.match(pt['slots.disclaimer.noGambling'], /nao e jogo de azar/i);
-  assert.match(pt['slots.disclaimer.noRealMoney'], /nao ha apostas|dinheiro real/i);
 });
 
 test('SLOT-03: SPA-safe lifecycle wiring uses page-load, root guard, and AbortController cleanup', () => {
@@ -111,12 +106,7 @@ test('canonical and safety locks: no monetization or alias route drift', () => {
   assert.match(enPage, /id="slots-round-result"/);
   assert.match(ptPage, /id="slots-round-result"/);
 
-  const forbiddenPatterns = [
-    /\bwager\b/i,
-    /\bjackpot\b/i,
-    /\bstripe\b/i,
-    /checkout/i,
-  ];
+  const forbiddenPatterns = [/\bwager\b/i, /\bjackpot\b/i, /\bstripe\b/i, /checkout/i];
 
   for (const pattern of forbiddenPatterns) {
     assert.doesNotMatch(enPage, pattern, `EN page contains forbidden token: ${pattern}`);

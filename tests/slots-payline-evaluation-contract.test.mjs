@@ -2,11 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 const { evaluateCenterPayline } = await import('../src/scripts/slots/engine/paylines.ts');
-const {
-  calculatePayouts,
-  DEFAULT_PAYTABLE,
-  getTotalPayoutUnits,
-} = await import('../src/scripts/slots/engine/payout.ts');
+const { calculatePayouts, DEFAULT_PAYTABLE, getTotalPayoutUnits } =
+  await import('../src/scripts/slots/engine/payout.ts');
 
 test('SLOT-11: center-row three-of-a-kind yields deterministic win payout', () => {
   const winMatrix = [

@@ -21,27 +21,27 @@ Deferred to future milestones. See `.planning/FUTURE-MILESTONES.md`.
 
 ### Blackjack and Roulette Expansion
 
-- See FUTURE-MILESTONES.md for BJ-* and RL-* tracks
+- See FUTURE-MILESTONES.md for BJ-_ and RL-_ tracks
 
 ## Out of Scope
 
-| Feature | Reason |
-| ------- | ------ |
-| Slots authority, RNG, payout, or wallet logic changes | v2.4 is presentation and interaction refinement only |
-| New tutorial lesson content or progression rules | Curriculum work is outside this visual refinement milestone |
-| New route architecture or IA restructuring | Scope is polish of current Slots surfaces, not navigation overhaul |
+| Feature                                               | Reason                                                             |
+| ----------------------------------------------------- | ------------------------------------------------------------------ |
+| Slots authority, RNG, payout, or wallet logic changes | v2.4 is presentation and interaction refinement only               |
+| New tutorial lesson content or progression rules      | Curriculum work is outside this visual refinement milestone        |
+| New route architecture or IA restructuring            | Scope is polish of current Slots surfaces, not navigation overhaul |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status |
-| ----------- | ----- | ------ |
-| UIR-80 | Phase 47 | Pending |
-| UIR-81 | Phase 47 | Pending |
-| UIR-82 | Phase 48 | Pending |
-| UIR-83 | Phase 48 | Pending |
-| UIR-84 | Phase 48 | Pending |
+| Requirement | Phase    | Status  |
+| ----------- | -------- | ------- |
+| UIR-80      | Phase 47 | Pending |
+| UIR-81      | Phase 47 | Pending |
+| UIR-82      | Phase 48 | Pending |
+| UIR-83      | Phase 48 | Pending |
+| UIR-84      | Phase 48 | Pending |
 
 **Coverage:**
 

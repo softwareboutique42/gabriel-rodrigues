@@ -33,12 +33,6 @@ const PHASE14_KEYS = [
   'slots.gameplay.status.insufficient',
   'slots.gameplay.status.blockedSpinning',
   'slots.gameplay.status.pending',
-  'slots.gameplay.debug.summary',
-  'slots.shell.eyebrow',
-  'slots.shell.zone.playfield',
-  'slots.shell.zone.console',
-  'slots.shell.zone.compliance',
-  'slots.shell.zone.navigation',
   'slots.shell.label.routes',
   'slots.shell.label.motion',
   'slots.shell.label.theme',
@@ -63,20 +57,26 @@ test('I18N-10: slots pages consume gameplay translation keys instead of hardcode
   assert.match(ptPage, /t\('slots\.gameplay\.label\.bet'\)/);
   assert.match(enPage, /t\('slots\.gameplay\.cta\.spin'\)/);
   assert.match(ptPage, /t\('slots\.gameplay\.cta\.spin'\)/);
-  assert.match(enPage, /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/);
-  assert.match(ptPage, /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/);
+  assert.match(
+    enPage,
+    /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/,
+  );
+  assert.match(
+    ptPage,
+    /data-slots-msg-insufficient=\{t\('slots\.gameplay\.status\.insufficient'\)\}/,
+  );
   assert.match(enPage, /data-slots-label-balance=\{t\('slots\.gameplay\.label\.balance'\)\}/);
   assert.match(ptPage, /data-slots-label-balance=\{t\('slots\.gameplay\.label\.balance'\)\}/);
   assert.match(enPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
   assert.match(ptPage, /data-slots-label-bet=\{t\('slots\.gameplay\.label\.bet'\)\}/);
-  assert.match(enPage, /t\('slots\.shell\.eyebrow'\)/);
-  assert.match(ptPage, /t\('slots\.shell\.eyebrow'\)/);
-  assert.match(enPage, /t\('slots\.shell\.zone\.playfield'\)/);
-  assert.match(ptPage, /t\('slots\.shell\.zone\.playfield'\)/);
   assert.match(enPage, /t\('slots\.shell\.label\.routes'\)/);
   assert.match(ptPage, /t\('slots\.shell\.label\.routes'\)/);
-  assert.match(enPage, /t\('slots\.gameplay\.debug\.summary'\)/);
-  assert.match(ptPage, /t\('slots\.gameplay\.debug\.summary'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.motion'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.motion'\)/);
+  assert.match(enPage, /t\('slots\.shell\.label\.theme'\)/);
+  assert.match(ptPage, /t\('slots\.shell\.label\.theme'\)/);
+  assert.match(enPage, /t\('slots\.education\.houseEdgeLabel'\)/);
+  assert.match(ptPage, /t\('slots\.education\.houseEdgeLabel'\)/);
 });
 
 test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and deterministic seeds', () => {
@@ -97,10 +97,14 @@ test('I18N-11: EN/PT slots routes keep canonical runtime parity hooks and determ
 test('I18N-12: EN/PT casinocraftz links to standalone slots routes with canonical parity', () => {
   assert.match(enCasinocraftz, /data-casinocraftz-slots-link/);
   assert.match(ptCasinocraftz, /data-casinocraftz-slots-link/);
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-card/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-card/);
   assert.match(enCasinocraftz, /href="\/en\/slots\/"/);
   assert.match(ptCasinocraftz, /href="\/pt\/slots\/"/);
-  assert.doesNotMatch(enCasinocraftz, /data-casinocraftz-slots-embed/);
-  assert.doesNotMatch(ptCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.match(enCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.match(ptCasinocraftz, /data-casinocraftz-slots-embed/);
+  assert.match(enCasinocraftz, /src="\/en\/slots\/\?host=casinocraftz"/);
+  assert.match(ptCasinocraftz, /src="\/pt\/slots\/\?host=casinocraftz"/);
   assert.match(enPage, /data-slots-host="standalone"/);
   assert.match(ptPage, /data-slots-host="standalone"/);
   assert.match(enPage, /data-slots-lesson="house-edge"/);

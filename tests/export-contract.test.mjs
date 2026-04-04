@@ -177,8 +177,14 @@ test('CONV-03 handlePaymentReturn sets paymentConfirmed status before fetch', ()
   const fnBody = returnFnMatch[0];
   const paymentConfirmedIndex = fnBody.indexOf("'paymentConfirmed'");
   const fetchIndex = fnBody.indexOf('await fetch(');
-  assert.ok(paymentConfirmedIndex !== -1, 'paymentConfirmed status key must be used in handlePaymentReturn');
-  assert.ok(paymentConfirmedIndex < fetchIndex, 'paymentConfirmed status must be set before the download fetch call');
+  assert.ok(
+    paymentConfirmedIndex !== -1,
+    'paymentConfirmed status key must be used in handlePaymentReturn',
+  );
+  assert.ok(
+    paymentConfirmedIndex < fetchIndex,
+    'paymentConfirmed status must be set before the download fetch call',
+  );
 });
 
 test('CONV-02 export modal valueProp text is rendered in EN and PT pages', () => {
@@ -192,6 +198,12 @@ test('CONV-02 single primary checkout CTA uses continue key in EN and PT pages',
   // Confirm no duplicate confirm CTA IDs exist
   const enConfirmCount = (enAstroSource.match(/export-modal-confirm/g) ?? []).length;
   const ptConfirmCount = (ptAstroSource.match(/export-modal-confirm/g) ?? []).length;
-  assert.ok(enConfirmCount <= 2, 'EN page must have at most one #export-modal-confirm element (id + handler)');
-  assert.ok(ptConfirmCount <= 2, 'PT page must have at most one #export-modal-confirm element (id + handler)');
+  assert.ok(
+    enConfirmCount <= 2,
+    'EN page must have at most one #export-modal-confirm element (id + handler)',
+  );
+  assert.ok(
+    ptConfirmCount <= 2,
+    'PT page must have at most one #export-modal-confirm element (id + handler)',
+  );
 });

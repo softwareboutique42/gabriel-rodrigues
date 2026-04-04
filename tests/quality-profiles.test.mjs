@@ -30,13 +30,22 @@ test('particle budget caps to 400 when hardwareConcurrency is below 4', () => {
   assert.match(qualityProfilesSource, /mobileConcurrencyThreshold:\s*4/);
   assert.match(qualityProfilesSource, /mobileParticleCap:\s*400/);
   assert.match(qualityProfilesSource, /navigator\.hardwareConcurrency/);
-  assert.match(qualityProfilesSource, /Math\.min\(normalizedBaseCount, QUALITY_PROFILE_CONSTANTS\.mobileParticleCap\)/);
+  assert.match(
+    qualityProfilesSource,
+    /Math\.min\(normalizedBaseCount, QUALITY_PROFILE_CONSTANTS\.mobileParticleCap\)/,
+  );
 });
 
 test('FR-3.11 export particle budget applies 30 percent reduction before mobile cap', () => {
   assert.match(qualityProfilesSource, /exportParticleReductionRatio:\s*0\.7/);
-  assert.match(qualityProfilesSource, /export function getExportParticleBudget\(baseCount: number\)/);
-  assert.match(qualityProfilesSource, /normalizedBaseCount \* QUALITY_PROFILE_CONSTANTS\.exportParticleReductionRatio/);
+  assert.match(
+    qualityProfilesSource,
+    /export function getExportParticleBudget\(baseCount: number\)/,
+  );
+  assert.match(
+    qualityProfilesSource,
+    /normalizedBaseCount \* QUALITY_PROFILE_CONSTANTS\.exportParticleReductionRatio/,
+  );
   assert.match(qualityProfilesSource, /return getParticleBudget\(reducedBaseCount\)/);
 });
 

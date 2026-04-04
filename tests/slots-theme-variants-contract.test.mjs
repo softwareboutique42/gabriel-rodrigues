@@ -1,15 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const {
-  createSlotsThemeRegistry,
-  DEFAULT_SLOTS_THEMES,
-  snapshotSlotsTheme,
-} = await import('../src/scripts/slots/animation/theme-registry.ts');
-const {
-  readRequestedThemeId,
-  resolveSlotsThemeSelection,
-} = await import('../src/scripts/slots/animation/theme-selection.ts');
+const { createSlotsThemeRegistry, DEFAULT_SLOTS_THEMES, snapshotSlotsTheme } =
+  await import('../src/scripts/slots/animation/theme-registry.ts');
+const { readRequestedThemeId, resolveSlotsThemeSelection } =
+  await import('../src/scripts/slots/animation/theme-selection.ts');
 const { createSlotsVisualEventStore } = await import('../src/scripts/slots/animation/events.ts');
 const { mountSlotsAnimationRuntime } = await import('../src/scripts/slots/animation/runtime.ts');
 
@@ -34,7 +29,10 @@ test('SPRITE-12: theme selection resolves from query, dataset, then fallback', (
   const fromFallback = /** @type {HTMLElement} */ ({ dataset: {} });
 
   assert.equal(readRequestedThemeId(fromQuery, '?slotsTheme=slots-neon-v1'), 'slots-neon-v1');
-  assert.equal(resolveSlotsThemeSelection(fromQuery, registry, '?slotsTheme=slots-neon-v1').id, 'slots-neon-v1');
+  assert.equal(
+    resolveSlotsThemeSelection(fromQuery, registry, '?slotsTheme=slots-neon-v1').id,
+    'slots-neon-v1',
+  );
   assert.equal(readRequestedThemeId(fromDataset, ''), 'slots-neon-v1');
   assert.equal(resolveSlotsThemeSelection(fromDataset, registry, '').id, 'slots-neon-v1');
   assert.equal(resolveSlotsThemeSelection(fromFallback, registry, '').id, 'slots-core-v1');

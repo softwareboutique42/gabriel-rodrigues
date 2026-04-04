@@ -22,17 +22,17 @@ test('FX-70: win-flare gold frame pulse is amplified to dramatic opacity', () =>
 test('FX-72: reduced intensity caps reel-win-pulse to single iteration', () => {
   assert.match(
     globalCss,
-    /data-slots-anim-intensity='reduced'\]\[data-slots-anim-effect='win'\]\s*\n?\s*\.slots-stage__reel-window/
+    /data-slots-anim-intensity='reduced'\]\[data-slots-anim-effect='win'\]\s*\n?\s*\.slots-stage__reel-window/,
   );
 });
 
 test('FX-72: minimal intensity disables reel-window animation and provides box-shadow fallback', () => {
   assert.match(
     globalCss,
-    /data-slots-anim-intensity='minimal'\] \.slots-stage__reel-window[\s\S]*?animation: none !important/
+    /data-slots-anim-intensity='minimal'\] \.slots-stage__reel-window[\s\S]*?animation: none !important/,
   );
   assert.match(
     globalCss,
-    /data-slots-anim-intensity='minimal'\]\[data-slots-anim-effect='win'\]\s*\n?\s*\.slots-stage__reel-window/
+    /data-slots-anim-intensity='minimal'\]\[data-slots-anim-effect='win'\]\s*\n?\s*\.slots-stage__reel-window/,
   );
 });
