@@ -45,7 +45,7 @@
 
 Plans:
 
-- [ ] 43-01-PLAN.md — Persistence functions, fast-path replacement, completion checkpoint wiring, contract tests
+- [x] 43-01-PLAN.md — Persistence functions, fast-path replacement, completion checkpoint wiring, contract tests
 
 ### Phase 44: Spin-Bridge Threshold, Causality Copy & EN/PT Parity Lock
 
@@ -59,15 +59,20 @@ Plans:
 3. Causality disclosure renders in EN and PT when the spin-triggered `sensory-conditioning-reveal` transition fires
 4. `data-casinocraftz-lesson-sensory-conditioning-soon` attribute is asserted by name in the parity contract, preventing accidental removal
 
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+
+- [ ] 44-01-PLAN.md — Contract tests: spin-bridge threshold, causality disclosure lock, EN/PT attribute parity
+- [ ] 44-02-PLAN.md — Playwright E2E: spin-bridge gate and causality disclosure rendering
 
 ## Progress
 
-| Phase                                                  | Milestone | Plans Complete | Status      | Completed |
-| ------------------------------------------------------ | --------- | -------------- | ----------- | --------- |
-| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 0/1            | Complete    | 2026-04-04 |
-| 44. Spin-Bridge Threshold, Causality Copy & EN/PT Lock | v2.2      | 0/TBD          | Not started | -         |
+| Phase                                                  | Milestone | Plans Complete | Status      | Completed  |
+| ------------------------------------------------------ | --------- | -------------- | ----------- | ---------- |
+| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 1/1            | Complete    | 2026-04-04 |
+| 44. Spin-Bridge Threshold, Causality Copy & EN/PT Lock | v2.2      | 0/2            | Not started | -          |
 
 ---
 
-_Updated: 2026-04-04 — Phase 43 plan created_
+_Updated: 2026-04-04 — Phase 44 plans created_
