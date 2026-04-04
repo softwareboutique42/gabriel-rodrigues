@@ -18,43 +18,55 @@
 
 ## Current Milestone
 
-### v2.4 — Elementum Slots Interface Refinement
+### v2.5 - Diagnostic Terminal Lobby Redesign
 
-**Goal:** Deliver a final visual refinement sweep for Slots focused on symmetry, premium material theming, and stronger tactile interaction feedback without touching gameplay authority.
+**Goal:** Shift Casinocraftz from a game menu into a psychological laboratory by reorganizing education controls, instrumenting chamber cards with telemetry, and applying a clinical simulation visual language.
 
-**Total phases:** 2  
-**Starting phase:** 47
+**Total phases:** 3  
+**Starting phase:** 49
 
-| Phase | Name                                          | Goal                                                                                                                                | Requirements           | Success Criteria |
-| ----- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------- |
-| 47    | Elementum Layout and Identity Shell           | Standardize HUD symmetry and establish top-level identity/navigation anchors on EN/PT Slots routes                                  | UIR-80, UIR-81         | 3                |
-| 48    | Material Reels and Tactile Interaction Polish | Ship premium material reel symbols, scanline depth treatment, and high-intensity Spin hover polish with parity-safe motion behavior | UIR-82, UIR-83, UIR-84 | 4                |
+| Phase | Name | Goal | Requirements | Success Criteria |
+| ----- | ---- | ---- | ------------ | ---------------- |
+| 49 | Analyzer Panel and Mission Log Architecture | Promote utility tools into a persistent Analyzer Panel and relocate curriculum/tutorial surfaces into a retractable Mission Log shell | DTL-01, DTL-02 | 3 |
+| 50 | Simulation Chambers Visual System | Rebrand lobby cards to Simulation Chambers with desaturated diagnostic styling and dampener-gated vibrance logic | DTL-03, DTL-04 | 4 |
+| 51 | Live Telemetry Chamber Integration | Replace static chamber blurbs with live telemetry previews and lock parity/accessibility behavior across EN/PT | DTL-05, DTL-06 | 4 |
 
 ### Phase Details
 
-#### Phase 47: Elementum Layout and Identity Shell — Execution Complete, Verification Pending
+#### Phase 49: Analyzer Panel and Mission Log Architecture
 
-**Goal:** Align the bottom HUD for strict visual symmetry, center bet controls, and add high-tech identity/navigation affordances.
+**Goal:** Make educational tools the primary interaction anchor while decluttering center-stage lobby content.
 
-**Requirements:** UIR-80, UIR-81
-
-**Success Criteria:**
-
-1. Bottom HUD/footer row renders with fixed, symmetric height across desktop/mobile breakpoints.
-2. Bet control cluster is centered in the HUD row and visually aligned with Balance and Spin surfaces.
-3. `ELEMENTUM` title is visible top-center and `← CasinoCraftz` back link is visible top-left on EN/PT slots routes.
-
-**Execution Notes:** Plans 47-01 through 47-06 are complete. Verification is the next workflow gate before phase 47 is marked complete or phase 48 planning begins.
-
-#### Phase 48: Material Reels and Tactile Interaction Polish
-
-**Goal:** Replace placeholder reel presentation with premium material symbols and intensify trigger affordance while preserving parity and motion policy behavior.
-
-**Requirements:** UIR-82, UIR-83, UIR-84
+**Requirements:** DTL-01, DTL-02
 
 **Success Criteria:**
 
-1. Reel windows render Gold (yellow glow), Rhodium (silver glow), and Californium (purple jackpot) symbols with scanline depth treatment.
-2. Spin trigger hover state exhibits a stronger, intentional glow response with tactile feedback feel.
-3. EN/PT outputs remain parity-safe for UI labels and symbol treatment behavior.
-4. Reduced-motion and runtime motion-policy controls continue to degrade effects safely.
+1. Utility Cards render in a persistent Analyzer Panel that remains visible while users browse chamber surfaces.
+2. Curriculum Shell + Tutorial move into a retractable Mission Log that can be expanded/collapsed without breaking core interactions.
+3. EN/PT layouts preserve equivalent hierarchy and interaction affordances for panel and mission-log behavior.
+
+#### Phase 50: Simulation Chambers Visual System
+
+**Goal:** Establish a clinical simulation atmosphere where baseline visuals are diagnostic and casino vibrance appears only when dampening is disabled.
+
+**Requirements:** DTL-03, DTL-04
+
+**Success Criteria:**
+
+1. Lobby card framing and copy label entries as Simulation Chambers.
+2. Default chamber palette is desaturated (greys + muted greens) and visually distinct from prior casino-forward styling.
+3. Vibrant casino accents activate only when Dopamine Dampener is off.
+4. Reduced-motion and runtime policy controls continue to degrade visual effects safely.
+
+#### Phase 51: Live Telemetry Chamber Integration
+
+**Goal:** Replace static descriptions with informative telemetry previews that reinforce analytical learning.
+
+**Requirements:** DTL-05, DTL-06
+
+**Success Criteria:**
+
+1. Each chamber card exposes a live telemetry preview (including a house-edge signal/graph indicator).
+2. Telemetry surfaces update safely without introducing gameplay-authority coupling.
+3. EN/PT output parity is preserved for labels, telemetry units, and interaction controls.
+4. Accessibility checks pass for contrast, reduced motion, and semantic labeling across redesigned lobby modules.
