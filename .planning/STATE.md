@@ -1,48 +1,48 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.1
-milestone_name: slots-symbol-atlas-production-upgrade
-status: completed
-stopped_at: Completed milestone v2.1
-last_updated: '2026-04-04T11:05:00.000Z'
+milestone: v2.2
+milestone_name: sensory-conditioning-content
+status: active
+last_updated: '2026-04-04T00:00:00.000Z'
 last_activity: 2026-04-04
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
-  percent: 100
+  total_phases: 2
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE.md - Company Canvas
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-03)
+See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core Value:** Branded, download-ready animation in under a minute — no design tools, no agency.
-**Current Focus:** Awaiting the next milestone after v2.1 completion
+**Current Focus:** v2.2 Sensory Conditioning Content — Phase 43 (not started)
 
 ## Current Position
 
-**Phase:** Phase 42 - Symbol Atlas Production Upgrade
-**Plan:** 42-01
-**Status:** Milestone complete
-**Last Activity:** 2026-04-04
+**Phase:** Not started (defining requirements)
+**Plan:** —
+**Status:** Defining requirements
+**Last Activity:** 2026-04-04 — Milestone v2.2 started
 
 ## Progress
 
 ```
-Progress: ██████████ 100%
+Progress: ░░░░░░░░░░ 0%
 ```
 
-Phases: 1/1 complete
+Phases: 0/2 complete
 
 ## Phase Summary
 
-| Phase    | Name                            | Status | Goal                                                                                                                 |
-| -------- | ------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------- |
-| Phase 42 | Symbol Atlas Production Upgrade | ✓      | Replace text-symbol fallback with atlas-backed icon presentation while preserving deterministic authority boundaries |
+| Phase    | Name                         | Status | Goal                                                                                  |
+| -------- | ---------------------------- | ------ | ------------------------------------------------------------------------------------- |
+| Phase 43 | Dialogue Registry & Unlock   | ○      | Lesson 3 dialogue (EN/PT), step definitions, unlock trigger from near-miss completion |
+| Phase 44 | Spin-bridge Observation Lock | ○      | 2-spin threshold, causality copy, completion persistence, EN/PT parity lock           |
 
 ## Key Decisions
 
