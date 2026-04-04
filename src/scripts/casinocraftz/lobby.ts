@@ -89,6 +89,94 @@ export function mountLobby(): void {
       renderBalance();
     }
   });
+  mountMissionLog();
+  mountAnalyzerDrawer();
 
   renderBalance();
+}
+
+export function mountMissionLog(): void {
+  const root = document.querySelector('[data-casinocraftz-shell-root]');
+  if (!(root instanceof HTMLElement)) return;
+
+  const toggle = root.querySelector('[data-ccz-mission-log-toggle]');
+  const content = root.querySelector('[data-ccz-mission-log-content]');
+
+  if (!(toggle instanceof HTMLElement) || !(content instanceof HTMLElement)) return;
+
+  const storageKey = 'ccz-mission-log-open';
+
+  function updateLabelAndState(): void {
+    const isOpen = !content.hasAttribute('hidden');
+    const label = isOpen ? toggle.dataset.labelClose : toggle.dataset.labelOpen;
+    if (label) toggle.textContent = label;
+  }
+
+  // Restore state from sessionStorage
+  const saved = sessionStorage.getItem(storageKey);
+  if (saved === 'true') {
+    content.removeAttribute('hidden');
+  }
+
+  updateLabelAndState();
+
+  toggle.addEventListener('click', () => {
+    if (content.hasAttribute('hidden')) {
+      content.removeAttribute('hidden');
+      sessionStorage.setItem(storageKey, 'true');
+    } else {
+      content.setAttribute('hidden', '');
+      sessionStorage.setItem(storageKey, 'false');
+    }
+    updateLabelAndState();
+  });
+}
+
+export function mountAnalyzerDrawer(): void {
+  const root = document.querySelector('[data-casinocraftz-shell-root]');
+  if (!(root instanceof HTMLElement)) return;
+
+  const toggle = root.querySelector('[data-ccz-analyzer-toggle]');
+  const drawer = root.querySelector('[data-ccz-analyzer-drawer]');
+
+  if (!(toggle instanceof HTMLElement) || !(drawer instanceof HTMLElement)) return;
+
+  const storageKey = 'ccz-analyzer-open';
+
+  function updateLabelAndState(): void {
+    const isOpen = !drawer.hasAttribute('hidden');
+    const label = isOpen ? toggle.dataset.labelClose : toggle.dataset.labelOpen;
+    if (label) toggle.textContent = label;
+  }
+
+  // On desktop, always show (CSS handles it)
+  // On mobile, restore state from sessionStorage (default: hidden)
+  const isDesktop = window.innerWidth >= 640;
+  if (!isDesktop) {
+    const saved = sessionStorage.getItem(storageKey);
+    if (saved === 'true') {
+      drawer.removeAttribute('hidden');
+    }
+  }
+
+  updateLabelAndState();
+
+  toggle.addEventListener('click', () => {
+    if (drawer.hasAttribute('hidden')) {
+      drawer.removeAttribute('hidden');
+      sessionStorage.setItem(storageKey, 'true');
+    } else {
+      drawer.setAttribute('hidden', '');
+      sessionStorage.setItem(storageKey, 'false');
+    }
+    updateLabelAndState();
+  });
+
+  // Handle window resize: show drawer on desktop, respect sessionStorage on mobile
+  window.addEventListener('resize', () => {
+    const nowDesktop = window.innerWidth >= 640;
+    if (nowDesktop && drawer.hasAttribute('hidden')) {
+      drawer.removeAttribute('hidden');
+    }
+  });
 }
