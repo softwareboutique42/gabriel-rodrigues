@@ -46,7 +46,6 @@ ROADMAP=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/
 ```
 
 This returns all phases with plan/summary counts and disk status. Use this to verify:
-
 - Which phases belong to this milestone?
 - All phases complete (all plans have summaries)? Check `disk_status === 'complete'` for each.
 - `progress_percent` should be 100%.
@@ -54,7 +53,6 @@ This returns all phases with plan/summary counts and disk status. Use this to ve
 **Requirements completion check (REQUIRED before presenting):**
 
 Parse REQUIREMENTS.md traceability table:
-
 - Count total v1 requirements vs checked-off (`[x]`) requirements
 - Identify any non-Complete rows in the traceability table
 
@@ -83,52 +81,11 @@ Requirements: {N}/{M} v1 requirements checked off
 ```
 
 MUST present 3 options:
-
 1. **Proceed anyway** — mark milestone complete with known gaps
-2. **Run audit first** — `/gsd:audit-milestone` to assess gap severity
+2. **Run audit first** — `/gsd-audit-milestone` to assess gap severity
 3. **Abort** — return to development
 
 If user selects "Proceed anyway": note incomplete requirements in MILESTONES.md under `### Known Gaps` with REQ-IDs and descriptions.
-
-**Verification artifact audit (REQUIRED before presenting):**
-
-Scan all SUMMARY.md files for the current milestone's phases and check for `## Validation` presence:
-
-```bash
-UNVERIFIED=()
-for summary in .planning/phases/*-*/*-*-SUMMARY.md; do
-  [ -e "$summary" ] || continue
-  grep -q "^## Validation" "$summary" || UNVERIFIED+=("$summary")
-done
-```
-
-Present audit result inline:
-
-If `${#UNVERIFIED[@]} -gt 0`:
-
-```
-⚠ Verification Debt: ${#UNVERIFIED[@]} phase(s) missing Validation sections
-
-| Phase Summary | Status |
-|---|---|
-| {path} | ⚠ Missing ## Validation |
-
-These phases completed without documented test/build outcomes.
-Completion is BLOCKED until validation sections are backfilled.
-```
-
-Stop workflow and return actionable remediation command:
-
-```
-Run /gsd:execute-phase 24 (or applicable remediation phase) to backfill Validation sections,
-then re-run /gsd:complete-milestone.
-```
-
-If `${#UNVERIFIED[@]} -eq 0`:
-
-```
-✓ Verification audit passed — all phase summaries contain Validation sections.
-```
 
 <config-check>
 
@@ -158,7 +115,6 @@ Ready to mark this milestone as shipped?
 ```
 
 Wait for confirmation.
-
 - "adjust scope": Ask which phases to include.
 - "wait": Stop, user returns when ready.
 
@@ -279,8 +235,7 @@ Update PROJECT.md inline. Update "Last updated" footer:
 
 ```markdown
 ---
-
-_Last updated: [date] after v[X.Y] milestone_
+*Last updated: [date] after v[X.Y] milestone*
 ```
 
 **Example full evolution (v1.0 → v1.1 prep):**
@@ -419,7 +374,6 @@ ARCHIVE=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/
 ```
 
 The CLI handles:
-
 - Creating `.planning/milestones/` directory
 - Archiving ROADMAP.md to `milestones/v[X.Y]-ROADMAP.md`
 - Archiving REQUIREMENTS.md to `milestones/v[X.Y]-REQUIREMENTS.md` with archive header
@@ -436,19 +390,16 @@ Verify: `✅ Milestone archived to .planning/milestones/`
 AskUserQuestion(header="Archive Phases", question="Archive phase directories to milestones/?", options: "Yes — move to milestones/v[X.Y]-phases/" | "Skip — keep phases in place")
 
 If "Yes": move phase directories to the milestone archive:
-
 ```bash
 mkdir -p .planning/milestones/v[X.Y]-phases
 # For each phase directory in .planning/phases/:
 mv .planning/phases/{phase-dir} .planning/milestones/v[X.Y]-phases/
 ```
-
 Verify: `✅ Phase directories archived to .planning/milestones/v[X.Y]-phases/`
 
-If "Skip": Phase directories remain in `.planning/phases/` as raw execution history. Use `/gsd:cleanup` later to archive retroactively.
+If "Skip": Phase directories remain in `.planning/phases/` as raw execution history. Use `/gsd-cleanup` later to archive retroactively.
 
 After archival, the AI still handles:
-
 - Reorganizing ROADMAP.md with milestone grouping (requires judgment)
 - Full PROJECT.md evolution review (requires understanding)
 - Deleting original ROADMAP.md and REQUIREMENTS.md
@@ -495,7 +446,6 @@ rm .planning/REQUIREMENTS.md
 **Append to living retrospective:**
 
 Check for existing retrospective:
-
 ```bash
 ls .planning/RETROSPECTIVE.md 2>/dev/null || true
 ```
@@ -521,27 +471,21 @@ ls .planning/RETROSPECTIVE.md 2>/dev/null || true
 **Phases:** {phase_count} | **Plans:** {plan_count}
 
 ### What Was Built
-
 {Extract from SUMMARY.md one-liners}
 
 ### What Worked
-
 {Patterns that led to smooth execution}
 
 ### What Was Inefficient
-
 {Missed opportunities, rework, bottlenecks}
 
 ### Patterns Established
-
 {New conventions discovered during this milestone}
 
 ### Key Lessons
-
 {Specific, actionable takeaways}
 
 ### Cost Observations
-
 - Model mix: {X}% opus, {Y}% sonnet, {Z}% haiku
 - Sessions: {count}
 - Notable: {efficiency observation}
@@ -552,7 +496,6 @@ ls .planning/RETROSPECTIVE.md 2>/dev/null || true
 If the "## Cross-Milestone Trends" section exists, update the tables with new data from this milestone.
 
 **Commit:**
-
 ```bash
 node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" commit "docs: update retrospective for v${VERSION}" --files .planning/RETROSPECTIVE.md
 ```
@@ -575,7 +518,6 @@ See: .planning/PROJECT.md (updated [today])
 ```
 
 **Accumulated Context:**
-
 - Clear decisions summary (full log in PROJECT.md)
 - Clear resolved blockers
 - Keep open blockers for next milestone
@@ -594,6 +536,15 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
 Extract `branching_strategy`, `phase_branch_template`, `milestone_branch_template`, and `commit_docs` from init JSON.
+
+Detect base branch:
+```bash
+BASE_BRANCH=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" config-get git.base_branch 2>/dev/null || echo "")
+if [ -z "$BASE_BRANCH" ] || [ "$BASE_BRANCH" = "null" ]; then
+  BASE_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|^refs/remotes/origin/||')
+  BASE_BRANCH="${BASE_BRANCH:-main}"
+fi
+```
 
 **If "none":** Skip to git_tag.
 
@@ -633,7 +584,7 @@ AskUserQuestion with options: Squash merge (Recommended), Merge with history, De
 
 ```bash
 CURRENT_BRANCH=$(git branch --show-current)
-git checkout main
+git checkout ${BASE_BRANCH}
 
 if [ "$BRANCHING_STRATEGY" = "phase" ]; then
   for branch in $PHASE_BRANCHES; do
@@ -662,7 +613,7 @@ git checkout "$CURRENT_BRANCH"
 
 ```bash
 CURRENT_BRANCH=$(git branch --show-current)
-git checkout main
+git checkout ${BASE_BRANCH}
 
 if [ "$BRANCHING_STRATEGY" = "phase" ]; then
   for branch in $PHASE_BRANCHES; do
@@ -727,7 +678,6 @@ Confirm: "Tagged: v[X.Y]"
 Ask: "Push tag to remote? (y/n)"
 
 If yes:
-
 ```bash
 git push origin v[X.Y]
 ```
@@ -741,7 +691,6 @@ Commit milestone completion.
 ```bash
 node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" commit "chore: complete v[X.Y] milestone" --files .planning/milestones/v[X.Y]-ROADMAP.md .planning/milestones/v[X.Y]-REQUIREMENTS.md .planning/milestones/v[X.Y]-MILESTONE-AUDIT.md .planning/MILESTONES.md .planning/PROJECT.md .planning/STATE.md
 ```
-
 ```
 
 Confirm: "Committed: chore: complete v[X.Y] milestone"
@@ -751,16 +700,13 @@ Confirm: "Committed: chore: complete v[X.Y] milestone"
 <step name="offer_next">
 
 ```
-
 ✅ Milestone v[X.Y] [Name] complete
 
 Shipped:
-
 - [N] phases ([M] plans, [P] tasks)
 - [One sentence of what shipped]
 
 Archived:
-
 - milestones/v[X.Y]-ROADMAP.md
 - milestones/v[X.Y]-REQUIREMENTS.md
 
@@ -773,12 +719,11 @@ Tag: v[X.Y]
 
 **Start Next Milestone** — questioning → research → requirements → roadmap
 
-`/gsd:new-milestone`
+`/clear` then:
 
-<sub>`/clear` first → fresh context window</sub>
+`/gsd-new-milestone`
 
 ---
-
 ```
 
 </step>
@@ -826,7 +771,6 @@ Milestone completion is successful when:
 - [ ] Known gaps recorded in MILESTONES.md if user proceeded with incomplete requirements
 - [ ] RETROSPECTIVE.md updated with milestone section
 - [ ] Cross-milestone trends updated
-- [ ] User knows next step (/gsd:new-milestone)
+- [ ] User knows next step (/gsd-new-milestone)
 
 </success_criteria>
-```

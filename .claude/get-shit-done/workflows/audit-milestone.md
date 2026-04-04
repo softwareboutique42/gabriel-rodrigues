@@ -8,9 +8,8 @@ Read all files referenced by the invoking prompt's execution_context before star
 
 <available_agent_types>
 Valid GSD subagent types (use exact names — do not fall back to 'general-purpose'):
-
 - gsd-integration-checker — Checks cross-phase integration
-  </available_agent_types>
+</available_agent_types>
 
 <process>
 
@@ -25,7 +24,6 @@ AGENT_SKILLS_CHECKER=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/g
 Extract from init JSON: `milestone_version`, `milestone_name`, `phase_count`, `completed_phases`, `commit_docs`.
 
 Resolve integration checker model:
-
 ```bash
 integration_checker_model=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" resolve-model gsd-integration-checker --raw)
 ```
@@ -54,7 +52,6 @@ PHASE_INFO=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-do
 ```
 
 From each VERIFICATION.md, extract:
-
 - **Status:** passed | gaps_found
 - **Critical gaps:** (if any — these are blockers)
 - **Non-critical gaps:** tech debt, deferred items, warnings
@@ -92,7 +89,6 @@ ${AGENT_SKILLS_CHECKER}",
 ## 4. Collect Results
 
 Combine:
-
 - Phase-level gaps and tech debt (from step 2)
 - Integration checker's report (wiring gaps, broken flows)
 
@@ -103,20 +99,17 @@ MUST cross-reference three independent sources for each requirement:
 ### 5a. Parse REQUIREMENTS.md Traceability Table
 
 Extract all REQ-IDs mapped to milestone phases from the traceability table:
-
 - Requirement ID, description, assigned phase, current status, checked-off state (`[x]` vs `[ ]`)
 
 ### 5b. Parse Phase VERIFICATION.md Requirements Tables
 
 For each phase's VERIFICATION.md, extract the expanded requirements table:
-
 - Requirement | Source Plan | Description | Status | Evidence
 - Map each entry back to its REQ-ID
 
 ### 5c. Extract SUMMARY.md Frontmatter Cross-Check
 
 For each phase's SUMMARY.md, extract `requirements-completed` from YAML frontmatter:
-
 ```bash
 for summary in .planning/phases/*-*/*-SUMMARY.md; do
   [ -e "$summary" ] || continue
@@ -128,14 +121,14 @@ done
 
 For each REQ-ID, determine status using all three sources:
 
-| VERIFICATION.md Status | SUMMARY Frontmatter | REQUIREMENTS.md | → Final Status                  |
-| ---------------------- | ------------------- | --------------- | ------------------------------- |
-| passed                 | listed              | `[x]`           | **satisfied**                   |
+| VERIFICATION.md Status | SUMMARY Frontmatter | REQUIREMENTS.md | → Final Status |
+|------------------------|---------------------|-----------------|----------------|
+| passed                 | listed              | `[x]`           | **satisfied**  |
 | passed                 | listed              | `[ ]`           | **satisfied** (update checkbox) |
-| passed                 | missing             | any             | **partial** (verify manually)   |
-| gaps_found             | any                 | any             | **unsatisfied**                 |
-| missing                | listed              | any             | **partial** (verification gap)  |
-| missing                | missing             | any             | **unsatisfied**                 |
+| passed                 | missing             | any             | **partial** (verify manually) |
+| gaps_found             | any                 | any             | **unsatisfied** |
+| missing                | listed              | any             | **partial** (verification gap) |
+| missing                | missing             | any             | **unsatisfied** |
 
 ### 5e. FAIL Gate and Orphan Detection
 
@@ -157,15 +150,15 @@ For each phase directory, check `*-VALIDATION.md`. If exists, parse frontmatter 
 
 Classify per phase:
 
-| Status    | Condition                                                       |
-| --------- | --------------------------------------------------------------- |
-| COMPLIANT | `nyquist_compliant: true` and all tasks green                   |
-| PARTIAL   | VALIDATION.md exists, `nyquist_compliant: false` or red/pending |
-| MISSING   | No VALIDATION.md                                                |
+| Status | Condition |
+|--------|-----------|
+| COMPLIANT | `nyquist_compliant: true` and all tasks green |
+| PARTIAL | VALIDATION.md exists, `nyquist_compliant: false` or red/pending |
+| MISSING | No VALIDATION.md |
 
 Add to audit YAML: `nyquist: { compliant_phases, partial_phases, missing_phases, overall }`
 
-Discovery only — never auto-calls `/gsd:validate-phase`.
+Discovery only — never auto-calls `/gsd-validate-phase`.
 
 ## 6. Aggregate into v{version}-MILESTONE-AUDIT.md
 
@@ -173,40 +166,39 @@ Create `.planning/v{version}-v{version}-MILESTONE-AUDIT.md` with:
 
 ```yaml
 ---
-milestone: { version }
-audited: { timestamp }
+milestone: {version}
+audited: {timestamp}
 status: passed | gaps_found | tech_debt
 scores:
   requirements: N/M
   phases: N/M
   integration: N/M
   flows: N/M
-gaps: # Critical blockers
+gaps:  # Critical blockers
   requirements:
-    - id: '{REQ-ID}'
-      status: 'unsatisfied | partial | orphaned'
-      phase: '{assigned phase}'
-      claimed_by_plans: ['{plan files that reference this requirement}']
-      completed_by_plans: ['{plan files whose SUMMARY marks it complete}']
-      verification_status: 'passed | gaps_found | missing | orphaned'
-      evidence: '{specific evidence or lack thereof}'
+    - id: "{REQ-ID}"
+      status: "unsatisfied | partial | orphaned"
+      phase: "{assigned phase}"
+      claimed_by_plans: ["{plan files that reference this requirement}"]
+      completed_by_plans: ["{plan files whose SUMMARY marks it complete}"]
+      verification_status: "passed | gaps_found | missing | orphaned"
+      evidence: "{specific evidence or lack thereof}"
   integration: [...]
   flows: [...]
-tech_debt: # Non-critical, deferred
+tech_debt:  # Non-critical, deferred
   - phase: 01-auth
     items:
-      - 'TODO: add rate limiting'
-      - 'Warning: no password strength validation'
+      - "TODO: add rate limiting"
+      - "Warning: no password strength validation"
   - phase: 03-dashboard
     items:
-      - 'Deferred: mobile responsive layout'
+      - "Deferred: mobile responsive layout"
 ---
 ```
 
 Plus full markdown report with tables for requirements, phases, integration, tech debt.
 
 **Status values:**
-
 - `passed` — all requirements met, no critical gaps, minimal tech debt
 - `gaps_found` — critical blockers exist
 - `tech_debt` — no blockers but accumulated deferred items need review
@@ -237,9 +229,9 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Complete milestone** — archive and tag
 
-/gsd:complete-milestone {version}
+/clear then:
 
-<sub>/clear first → fresh context window</sub>
+/gsd-complete-milestone {version}
 
 ───────────────────────────────────────────────────────────────
 
@@ -255,29 +247,26 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 ### Unsatisfied Requirements
 
 {For each unsatisfied requirement:}
-
 - **{REQ-ID}: {description}** (Phase {X})
   - {reason}
 
 ### Cross-Phase Issues
 
 {For each integration gap:}
-
 - **{from} → {to}:** {issue}
 
 ### Broken Flows
 
 {For each flow gap:}
-
 - **{flow name}:** breaks at {step}
 
 ### Nyquist Coverage
 
-| Phase   | VALIDATION.md  | Compliant          | Action                    |
-| ------- | -------------- | ------------------ | ------------------------- |
-| {phase} | exists/missing | true/false/partial | `/gsd:validate-phase {N}` |
+| Phase | VALIDATION.md | Compliant | Action |
+|-------|---------------|-----------|--------|
+| {phase} | exists/missing | true/false/partial | `/gsd-validate-phase {N}` |
 
-Phases needing validation: run `/gsd:validate-phase {N}` for each flagged phase.
+Phases needing validation: run `/gsd-validate-phase {N}` for each flagged phase.
 
 ───────────────────────────────────────────────────────────────
 
@@ -285,16 +274,15 @@ Phases needing validation: run `/gsd:validate-phase {N}` for each flagged phase.
 
 **Plan gap closure** — create phases to complete milestone
 
-/gsd:plan-milestone-gaps
+/clear then:
 
-<sub>/clear first → fresh context window</sub>
+/gsd-plan-milestone-gaps
 
 ───────────────────────────────────────────────────────────────
 
 **Also available:**
-
 - cat .planning/v{version}-MILESTONE-AUDIT.md — see full report
-- /gsd:complete-milestone {version} — proceed anyway (accept tech debt)
+- /gsd-complete-milestone {version} — proceed anyway (accept tech debt)
 
 ───────────────────────────────────────────────────────────────
 
@@ -313,7 +301,6 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 {For each phase with debt:}
 **Phase {X}: {name}**
-
 - {item 1}
 - {item 2}
 
@@ -325,19 +312,18 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 **A. Complete milestone** — accept debt, track in backlog
 
-/gsd:complete-milestone {version}
+/gsd-complete-milestone {version}
 
 **B. Plan cleanup phase** — address debt before completing
 
-/gsd:plan-milestone-gaps
+/clear then:
 
-<sub>/clear first → fresh context window</sub>
+/gsd-plan-milestone-gaps
 
 ───────────────────────────────────────────────────────────────
 </offer_next>
 
 <success_criteria>
-
 - [ ] Milestone scope identified
 - [ ] All phase VERIFICATION.md files read
 - [ ] SUMMARY.md `requirements-completed` frontmatter extracted for each phase
@@ -351,4 +337,4 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 - [ ] Nyquist compliance scanned for all milestone phases (if enabled)
 - [ ] Missing VALIDATION.md phases flagged with validate-phase suggestion
 - [ ] Results presented with actionable next steps
-      </success_criteria>
+</success_criteria>

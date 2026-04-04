@@ -5,7 +5,6 @@ Parse and normalize phase arguments for commands that operate on phases.
 ## Extraction
 
 From `$ARGUMENTS`:
-
 - Extract phase number (first numeric argument)
 - Extract flags (prefixed with `--`)
 - Remaining text is description (for insert/add commands)
@@ -19,7 +18,6 @@ PHASE_INFO=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-do
 ```
 
 Returns JSON with:
-
 - `found`: true/false
 - `directory`: Full path to phase directory
 - `phase_number`: Normalized number (e.g., "06", "06.1")

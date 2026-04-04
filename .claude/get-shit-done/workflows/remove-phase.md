@@ -11,15 +11,15 @@ Read all files referenced by the invoking prompt's execution_context before star
 <step name="parse_arguments">
 Parse the command arguments:
 - Argument is the phase number to remove (integer or decimal)
-- Example: `/gsd:remove-phase 17` → phase = 17
-- Example: `/gsd:remove-phase 16.1` → phase = 16.1
+- Example: `/gsd-remove-phase 17` → phase = 17
+- Example: `/gsd-remove-phase 16.1` → phase = 16.1
 
 If no argument provided:
 
 ```
 ERROR: Phase number required
-Usage: /gsd:remove-phase <phase-number>
-Example: /gsd:remove-phase 17
+Usage: /gsd-remove-phase <phase-number>
+Example: /gsd-remove-phase 17
 ```
 
 Exit.
@@ -53,7 +53,7 @@ Only future phases can be removed:
 - Current phase: {current}
 - Phase {target} is current or completed
 
-To abandon current work, use /gsd:pause-work instead.
+To abandon current work, use /gsd-pause-work instead.
 ```
 
 Exit.
@@ -90,7 +90,6 @@ RESULT=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/b
 ```
 
 The CLI handles:
-
 - Deleting the phase directory
 - Renumbering all subsequent directories (in reverse order to avoid conflicts)
 - Renaming all files inside renumbered directories (PLAN.md, SUMMARY.md, etc.)
@@ -127,13 +126,12 @@ Changes:
 ## What's Next
 
 Would you like to:
-- `/gsd:progress` — see updated roadmap status
+- `/gsd-progress` — see updated roadmap status
 - Continue with current phase
 - Review roadmap
 
 ---
 ```
-
 </step>
 
 </process>
@@ -145,7 +143,7 @@ Would you like to:
 - Don't manually renumber — use `gsd-tools phase remove` which handles all renumbering
 - Don't add "removed phase" notes to STATE.md — git commit is the record
 - Don't modify completed phase directories
-  </anti_patterns>
+</anti_patterns>
 
 <success_criteria>
 Phase removal is complete when:
@@ -154,4 +152,4 @@ Phase removal is complete when:
 - [ ] `gsd-tools phase remove` executed successfully
 - [ ] Changes committed with descriptive message
 - [ ] User informed of changes
-      </success_criteria>
+</success_criteria>

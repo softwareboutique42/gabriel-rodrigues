@@ -8,9 +8,8 @@ Output: .planning/codebase/ folder with 7 structured documents about the codebas
 
 <available_agent_types>
 Valid GSD subagent types (use exact names — do not fall back to 'general-purpose'):
-
 - gsd-codebase-mapper — Maps project structure and dependencies
-  </available_agent_types>
+</available_agent_types>
 
 <philosophy>
 **Why dedicated mapper agents:**
@@ -37,14 +36,13 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 AGENT_SKILLS_MAPPER=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" agent-skills gsd-codebase-mapper 2>/dev/null)
 ```
 
-Extract from init JSON: `mapper_model`, `commit_docs`, `codebase_dir`, `existing_maps`, `has_maps`, `codebase_dir_exists`.
+Extract from init JSON: `mapper_model`, `commit_docs`, `codebase_dir`, `existing_maps`, `has_maps`, `codebase_dir_exists`, `subagent_timeout`.
 </step>
 
 <step name="check_existing">
 Check if .planning/codebase/ already exists using `has_maps` from init context.
 
 If `codebase_dir_exists` is true:
-
 ```bash
 ls -la .planning/codebase/
 ```
@@ -79,7 +77,6 @@ mkdir -p .planning/codebase
 ```
 
 **Expected output files:**
-
 - STACK.md (from tech mapper)
 - INTEGRATIONS.md (from tech mapper)
 - ARCHITECTURE.md (from arch mapper)
@@ -198,20 +195,20 @@ Continue to collect_confirmations.
 Wait for all 4 agents to complete using TaskOutput tool.
 
 **For each agent task_id returned by the Agent tool calls above:**
-
 ```
 TaskOutput tool:
   task_id: "{task_id from Agent result}"
   block: true
-  timeout: 300000
+  timeout: {subagent_timeout from init context, default 300000}
 ```
+
+> The timeout is configurable via `workflow.subagent_timeout` in `.planning/config.json` (milliseconds). Default: 300000 (5 minutes). Increase for large codebases or slower models.
 
 Call TaskOutput for all 4 agents in parallel (single message with 4 TaskOutput calls).
 
 Once all TaskOutput calls return, read each agent's output file to collect confirmations.
 
 **Expected confirmation format from each agent:**
-
 ```
 ## Mapping Complete
 
@@ -238,25 +235,21 @@ When the `Task` tool is unavailable, perform codebase mapping sequentially in th
 Perform all 4 mapping passes sequentially:
 
 **Pass 1: Tech Focus**
-
 - Explore package.json/Cargo.toml/go.mod/requirements.txt, config files, dependency trees
 - Write `.planning/codebase/STACK.md` — Languages, runtime, frameworks, dependencies, configuration
 - Write `.planning/codebase/INTEGRATIONS.md` — External APIs, databases, auth providers, webhooks
 
 **Pass 2: Architecture Focus**
-
 - Explore directory structure, entry points, module boundaries, data flow
 - Write `.planning/codebase/ARCHITECTURE.md` — Pattern, layers, data flow, abstractions, entry points
 - Write `.planning/codebase/STRUCTURE.md` — Directory layout, key locations, naming conventions
 
 **Pass 3: Quality Focus**
-
 - Explore code style, error handling patterns, test files, CI config
 - Write `.planning/codebase/CONVENTIONS.md` — Code style, naming, patterns, error handling
 - Write `.planning/codebase/TESTING.md` — Framework, structure, mocking, coverage
 
 **Pass 4: Concerns Focus**
-
 - Explore TODOs, known issues, fragile areas, security patterns
 - Write `.planning/codebase/CONCERNS.md` — Tech debt, bugs, security, performance, fragile areas
 
@@ -274,7 +267,6 @@ wc -l .planning/codebase/*.md
 ```
 
 **Verification checklist:**
-
 - All 7 documents exist
 - No empty documents (each should have >20 lines)
 
@@ -332,7 +324,6 @@ Continue to offer_next.
 Present completion summary and next steps.
 
 **Get line counts:**
-
 ```bash
 wc -l .planning/codebase/*.md
 ```
@@ -358,14 +349,14 @@ Created .planning/codebase/:
 
 **Initialize project** — use codebase context for planning
 
-`/gsd:new-project`
+`/clear` then:
 
-<sub>`/clear` first → fresh context window</sub>
+`/gsd-new-project`
 
 ---
 
 **Also available:**
-- Re-run mapping: `/gsd:map-codebase`
+- Re-run mapping: `/gsd-map-codebase`
 - Review specific file: `cat .planning/codebase/STACK.md`
 - Edit any document before proceeding
 
@@ -378,7 +369,6 @@ End workflow.
 </process>
 
 <success_criteria>
-
 - .planning/codebase/ directory created
 - If Task tool available: 4 parallel gsd-codebase-mapper agents spawned with run_in_background=true
 - If Task tool NOT available: 4 sequential mapping passes performed inline (never using browser_subagent)
@@ -386,4 +376,4 @@ End workflow.
 - No empty documents (each should have >20 lines)
 - Clear completion summary with line counts
 - User offered clear next steps in GSD style
-  </success_criteria>
+</success_criteria>

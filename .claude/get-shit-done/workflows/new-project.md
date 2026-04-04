@@ -8,11 +8,10 @@ Read all files referenced by the invoking prompt's execution_context before star
 
 <available_agent_types>
 Valid GSD subagent types (use exact names — do not fall back to 'general-purpose'):
-
 - gsd-project-researcher — Researches project-level technical decisions
 - gsd-research-synthesizer — Synthesizes findings from parallel research agents
 - gsd-roadmapper — Creates phased execution roadmaps
-  </available_agent_types>
+</available_agent_types>
 
 <auto_mode>
 
@@ -34,7 +33,7 @@ Check if `--auto` flag is present in $ARGUMENTS.
 **Document requirement:**
 Auto mode requires an idea document — either:
 
-- File reference: `/gsd:new-project --auto @prd.md`
+- File reference: `/gsd-new-project --auto @prd.md`
 - Pasted/written text in the prompt
 
 If no document content provided, error:
@@ -43,8 +42,8 @@ If no document content provided, error:
 Error: --auto requires an idea document.
 
 Usage:
-  /gsd:new-project --auto @your-idea.md
-  /gsd:new-project --auto [paste or write your idea here]
+  /gsd-new-project --auto @your-idea.md
+  /gsd-new-project --auto [paste or write your idea here]
 
 The document should describe what you want to build.
 ```
@@ -67,7 +66,30 @@ AGENT_SKILLS_ROADMAPPER=$(node "/home/gabriel/Documents/gabriel-rodrigues/.claud
 
 Parse JSON for: `researcher_model`, `synthesizer_model`, `roadmapper_model`, `commit_docs`, `project_exists`, `has_codebase_map`, `planning_exists`, `has_existing_code`, `has_package_file`, `is_brownfield`, `needs_codebase_map`, `has_git`, `project_path`.
 
-**If `project_exists` is true:** Error — project already initialized. Use `/gsd:progress`.
+**Detect runtime and set instruction file name:**
+
+Derive `RUNTIME` from the invoking prompt's `execution_context` path:
+- Path contains `/.codex/` → `RUNTIME=codex`
+- Path contains `/.gemini/` → `RUNTIME=gemini`
+- Path contains `/.config/opencode/` or `/.opencode/` → `RUNTIME=opencode`
+- Otherwise → `RUNTIME=claude`
+
+If `execution_context` path is not available, fall back to env vars:
+```bash
+if [ -n "$CODEX_HOME" ]; then RUNTIME="codex"
+elif [ -n "$GEMINI_CONFIG_DIR" ]; then RUNTIME="gemini"
+elif [ -n "$OPENCODE_CONFIG_DIR" ] || [ -n "$OPENCODE_CONFIG" ]; then RUNTIME="opencode"
+else RUNTIME="claude"; fi
+```
+
+Set the instruction file variable:
+```bash
+if [ "$RUNTIME" = "codex" ]; then INSTRUCTION_FILE="AGENTS.md"; else INSTRUCTION_FILE="CLAUDE.md"; fi
+```
+
+All subsequent references to the project instruction file use `$INSTRUCTION_FILE`.
+
+**If `project_exists` is true:** Error — project already initialized. Use `/gsd-progress`.
 
 **If `has_git` is false:** Initialize git:
 
@@ -86,13 +108,13 @@ Use AskUserQuestion:
 - header: "Codebase"
 - question: "I detected existing code in this directory. Would you like to map the codebase first?"
 - options:
-  - "Map codebase first" — Run /gsd:map-codebase to understand existing architecture (Recommended)
+  - "Map codebase first" — Run /gsd-map-codebase to understand existing architecture (Recommended)
   - "Skip mapping" — Proceed with project initialization
 
 **If "Map codebase first":**
 
 ```
-Run `/gsd:map-codebase` first, then return to `/gsd:new-project`
+Run `/gsd-map-codebase` first, then return to `/gsd-new-project`
 ```
 
 Exit command.
@@ -340,17 +362,16 @@ Initialize with any decisions made during questioning:
 ```markdown
 ## Key Decisions
 
-| Decision                  | Rationale | Outcome   |
-| ------------------------- | --------- | --------- |
-| [Choice from questioning] | [Why]     | — Pending |
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| [Choice from questioning] | [Why] | — Pending |
 ```
 
 **Last updated footer:**
 
 ```markdown
 ---
-
-_Last updated: [date] after initialization_
+*Last updated: [date] after initialization*
 ```
 
 **Evolution section** (include at the end of PROJECT.md, before the footer):
@@ -360,16 +381,14 @@ _Last updated: [date] after initialization_
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition** (via `/gsd:transition`):
-
+**After each phase transition** (via `/gsd-transition`):
 1. Requirements invalidated? → Move to Out of Scope with reason
 2. Requirements validated? → Move to Validated with phase reference
 3. New requirements emerged? → Add to Active
 4. Decisions to log? → Add to Key Decisions
 5. "What This Is" still accurate? → Update if drifted
 
-**After each milestone** (via `/gsd:complete-milestone`):
-
+**After each milestone** (via `/gsd-complete-milestone`):
 1. Full review of all sections
 2. Core Value check — still the right priority?
 3. Audit Out of Scope — reasons still valid?
@@ -457,11 +476,11 @@ questions: [
 
 These spawn additional agents during planning/execution. They add tokens and time but improve quality.
 
-| Agent            | When it runs               | What it does                                          |
-| ---------------- | -------------------------- | ----------------------------------------------------- |
-| **Researcher**   | Before planning each phase | Investigates domain, finds patterns, surfaces gotchas |
-| **Plan Checker** | After plan is created      | Verifies plan actually achieves the phase goal        |
-| **Verifier**     | After phase execution      | Confirms must-haves were delivered                    |
+| Agent | When it runs | What it does |
+|-------|--------------|--------------|
+| **Researcher** | Before planning each phase | Investigates domain, finds patterns, surfaces gotchas |
+| **Plan Checker** | After plan is created | Verifies plan actually achieves the phase goal |
+| **Verifier** | After phase execution | Confirms must-haves were delivered |
 
 All recommended for important projects. Skip for quick experiments.
 
@@ -515,7 +534,7 @@ mkdir -p .planning
 node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" config-new-project '{"mode":"[yolo|interactive]","granularity":"[selected]","parallelization":true|false,"commit_docs":true|false,"model_profile":"quality|balanced|budget|inherit","workflow":{"research":true|false,"plan_check":true|false,"verifier":true|false,"nyquist_validation":[false if granularity=coarse, true otherwise]}}'
 ```
 
-**Note:** Run `/gsd:settings` anytime to update model profile, workflow agents, branching strategy, and other preferences.
+**Note:** Run `/gsd-settings` anytime to update model profile, workflow agents, branching strategy, and other preferences.
 
 **If commit_docs = No:**
 
@@ -1110,18 +1129,18 @@ Use AskUserQuestion:
 
 **If "Review full file":** Display raw `cat .planning/ROADMAP.md`, then re-ask.
 
-**Generate or refresh project CLAUDE.md before final commit:**
+**Generate or refresh project instruction file before final commit:**
 
 ```bash
-node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" generate-claude-md
+node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" generate-claude-md --output "$INSTRUCTION_FILE"
 ```
 
-This ensures new projects get the default GSD workflow-enforcement guidance and current project context in `CLAUDE.md`.
+This ensures new projects get the default GSD workflow-enforcement guidance and current project context in `$INSTRUCTION_FILE`.
 
 **Commit roadmap (after approval or auto mode):**
 
 ```bash
-node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" commit "docs: create roadmap ([N] phases)" --files .planning/ROADMAP.md .planning/STATE.md .planning/REQUIREMENTS.md CLAUDE.md
+node "/home/gabriel/Documents/gabriel-rodrigues/.claude/get-shit-done/bin/gsd-tools.cjs" commit "docs: create roadmap ([N] phases)" --files .planning/ROADMAP.md .planning/STATE.md .planning/REQUIREMENTS.md "$INSTRUCTION_FILE"
 ```
 
 ## 9. Done
@@ -1142,7 +1161,7 @@ Present completion summary:
 | Research       | `.planning/research/`       |
 | Requirements   | `.planning/REQUIREMENTS.md` |
 | Roadmap        | `.planning/ROADMAP.md`      |
-| Project guide  | `CLAUDE.md`                 |
+| Project guide  | `$INSTRUCTION_FILE`         |
 
 **[N] phases** | **[X] requirements** | Ready to build ✓
 ```
@@ -1155,7 +1174,7 @@ Present completion summary:
 ╚══════════════════════════════════════════╝
 ```
 
-Exit skill and invoke SlashCommand("/gsd:discuss-phase 1 --auto")
+Exit skill and invoke SlashCommand("/gsd-discuss-phase 1 --auto")
 
 **If interactive mode:**
 
@@ -1175,15 +1194,15 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 
 **Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
 
-/gsd:discuss-phase 1 — gather context and clarify approach
+/clear then:
 
-<sub>/clear first → fresh context window</sub>
+/gsd-discuss-phase 1 — gather context and clarify approach
 
 ---
 
 **Also available:**
-- /gsd:ui-phase 1 — generate UI design contract (recommended for frontend phases)
-- /gsd:plan-phase 1 — skip discussion, plan directly
+- /gsd-ui-phase 1 — generate UI design contract (recommended for frontend phases)
+- /gsd-plan-phase 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -1197,14 +1216,14 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 
 **Phase 1: [Phase Name]** — [Goal from ROADMAP.md]
 
-/gsd:discuss-phase 1 — gather context and clarify approach
+/clear then:
 
-<sub>/clear first → fresh context window</sub>
+/gsd-discuss-phase 1 — gather context and clarify approach
 
 ---
 
 **Also available:**
-- /gsd:plan-phase 1 — skip discussion, plan directly
+- /gsd-plan-phase 1 — skip discussion, plan directly
 
 ───────────────────────────────────────────────────────────────
 ```
@@ -1224,7 +1243,7 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 - `.planning/REQUIREMENTS.md`
 - `.planning/ROADMAP.md`
 - `.planning/STATE.md`
-- `CLAUDE.md`
+- `$INSTRUCTION_FILE` (`AGENTS.md` for Codex, `CLAUDE.md` for all other runtimes)
 
 </output>
 
@@ -1246,8 +1265,8 @@ PHASE1_HAS_UI=$(echo "$PHASE1_SECTION" | grep -qi "UI hint.*yes" && echo "true" 
 - [ ] ROADMAP.md created with phases, requirement mappings, success criteria
 - [ ] STATE.md initialized
 - [ ] REQUIREMENTS.md traceability updated
-- [ ] CLAUDE.md generated with GSD workflow guidance
-- [ ] User knows next step is `/gsd:discuss-phase 1`
+- [ ] `$INSTRUCTION_FILE` generated with GSD workflow guidance (AGENTS.md for Codex, CLAUDE.md otherwise)
+- [ ] User knows next step is `/gsd-discuss-phase 1`
 
 **Atomic commits:** Each phase commits its artifacts immediately. If context is lost, artifacts persist.
 
