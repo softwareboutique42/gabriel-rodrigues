@@ -28,7 +28,7 @@
 
 | Phase | Name | Goal | Requirements | Success Criteria |
 | ----- | ---- | ---- | ------------ | ---------------- |
-| 52 | Lobby Simplification | 1/3 | In Progress|  |
+| 52 | Lobby Simplification | 2/3 | In Progress|  |
 | 53 | Slots Side Drawer | Expand `+` into full side drawer with Analyzer, Mission Log, Settings | LBY-03, LBY-04 | — |
 | 54 | State Migration & Parity | Tutorial progression and card activation work from slots; EN/PT + a11y verified | LBY-05 | — |
 
@@ -46,11 +46,11 @@
 2. Chamber cards show an info (`ⓘ`) button per metric (house edge, signal, impulse) that opens a contextual explanation instead of live telemetry numbers.
 3. EN/PT lobby parity maintained across the simplified layout.
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [x] 52-01-PLAN.md — i18n strings and lobby layout restructure
-- [ ] 52-02-PLAN.md — EN lobby strip and info button implementation
+- [x] 52-02-PLAN.md — EN lobby strip and info button implementation
 - [ ] 52-03-PLAN.md — PT lobby mirror
 
 #### Phase 53: Slots Side Drawer
