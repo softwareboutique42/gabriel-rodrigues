@@ -41,7 +41,11 @@
 4. The reconstructed `completedLessons` array emits in curriculum-canonical order (house-edge, near-miss) not push order
 5. All four Lesson 3 dialogue steps render in EN and PT with correct narrator/system roles
 
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+
+- [ ] 43-01-PLAN.md — Persistence functions, fast-path replacement, completion checkpoint wiring, contract tests
 
 ### Phase 44: Spin-Bridge Threshold, Causality Copy & EN/PT Parity Lock
 
@@ -61,9 +65,9 @@
 
 | Phase                                                  | Milestone | Plans Complete | Status      | Completed |
 | ------------------------------------------------------ | --------- | -------------- | ----------- | --------- |
-| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 0/TBD          | Not started | -         |
+| 43. Persistence Wiring & Unlock Trigger                | v2.2      | 0/1            | Planning    | -         |
 | 44. Spin-Bridge Threshold, Causality Copy & EN/PT Lock | v2.2      | 0/TBD          | Not started | -         |
 
 ---
 
-_Updated: 2026-04-04 — v2.2 roadmap initialized_
+_Updated: 2026-04-04 — Phase 43 plan created_
