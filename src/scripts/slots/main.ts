@@ -21,6 +21,14 @@ export function initSlotsShell(): void {
   const hostMode = host === 'casinocraftz' ? 'casinocraftz' : 'standalone';
   root.dataset.slotsHost = hostMode;
 
+  let dampened = false;
+  try {
+    dampened = sessionStorage.getItem('ccz:dampened') === '1';
+  } catch {
+    // sessionStorage unavailable (private browsing) — default to undampened.
+  }
+  root.dataset.slotsAnimDampened = dampened ? 'true' : 'false';
+
   const houseEdgeLesson = root.querySelector('[data-slots-lesson="house-edge"]');
   if (houseEdgeLesson instanceof HTMLElement) {
     const isEmbeddedHost = hostMode === 'casinocraftz';
