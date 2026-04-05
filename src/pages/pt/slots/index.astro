@@ -83,31 +83,26 @@ const t = useTranslations('pt');
     data-casinocraftz-card-dopamine-dampener-description={t('cards.dopamineDampener.description')}
     data-casinocraftz-card-house-edge-label={t('cards.houseEdge.label')}
     data-casinocraftz-card-house-edge-description={t('cards.houseEdge.description')}
-    class="slots-shell mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16"
+    class="slots-shell mx-auto max-w-6xl px-4 sm:px-6 pt-4 sm:pt-6 pb-12 sm:pb-16"
   >
     <div class="slots-shell__backdrop" aria-hidden="true">
       <div class="slots-shell__aura slots-shell__aura--neon"></div>
       <div class="slots-shell__aura slots-shell__aura--gold"></div>
     </div>
 
-    <header class="slots-shell__header" data-slots-zone="navigation">
-      <div class="slots-shell__identity">
-        <span class="slots-shell__identity-label">ELEMENTUM</span>
-      </div>
-      <span id="slots-shell-status" class="sr-only">booting</span>
-    </header>
+    <span id="slots-shell-status" class="sr-only">booting</span>
+    <button
+      type="button"
+      class="slots-shell__menu-toggle"
+      data-slots-menu-toggle
+      aria-controls="slots-shell-menu"
+      aria-expanded="false"
+    >
+      <span data-slots-menu-icon aria-hidden="true">+</span>
+      <span class="sr-only">Abrir painel lateral</span>
+    </button>
 
     <article class="slots-cabinet slots-cabinet--cyber glow-panel">
-      <button
-        type="button"
-        class="slots-shell__menu-toggle"
-        data-slots-menu-toggle
-        aria-controls="slots-shell-menu"
-        aria-expanded="false"
-      >
-        <span data-slots-menu-icon aria-hidden="true">+</span>
-        <span class="sr-only">Abrir painel lateral</span>
-      </button>
 
       <section
         id="slots-gameplay"
