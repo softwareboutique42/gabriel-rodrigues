@@ -4,10 +4,6 @@ import {
   mountSlotsAnimationRuntime,
   type SlotsAnimationRuntimeMount,
 } from './animation/runtime.ts';
-import { DEFAULT_PAYTABLE } from './engine/payout.ts';
-import { buildThreeOfKindOddsReference } from './engine/odds-reference.ts';
-import { DEFAULT_REEL_CONFIG } from './engine/round.ts';
-import { getSlotSymbolLabel } from './symbols.ts';
 
 let controller: AbortController | null = null;
 let runtime: SlotsAnimationRuntimeMount | null = null;
@@ -19,68 +15,6 @@ function normalizeThemeLabel(themeId: string): string {
     .replace(/^slots-/, '')
     .replace(/-/g, ' ')
     .toUpperCase();
-}
-
-function formatChancePercent(value: number): string {
-  return `${(value * 100).toFixed(2)}%`;
-}
-
-function mountSlotsOddsPanel(root: HTMLElement, signal: AbortSignal): void {
-  const panel = root.querySelector<HTMLElement>('[data-slots-odds-panel]');
-  if (!panel) return;
-
-  const oddsRows = buildThreeOfKindOddsReference(DEFAULT_REEL_CONFIG, DEFAULT_PAYTABLE);
-
-  const render = () => {
-    const bet = Number.parseInt(root.dataset.slotsBet ?? '1', 10) || 1;
-    const title = root.dataset.slotsOddsTitle ?? 'Payout and Odds';
-    const copy =
-      root.dataset.slotsOddsCopy ?? 'Static reference from current reel strips and paytable.';
-    const colSymbol = root.dataset.slotsOddsColumnSymbol ?? 'Symbol';
-    const colChance = root.dataset.slotsOddsColumnChance ?? 'Chance (3x)';
-    const colMultiplier = root.dataset.slotsOddsColumnMultiplier ?? 'Multiplier';
-    const colPayout = root.dataset.slotsOddsColumnPayout ?? 'Payout';
-
-    const rowsMarkup = oddsRows
-      .map((row) => {
-        const label = getSlotSymbolLabel(row.symbol);
-        const multiplier = `${row.payoutUnits}x`;
-        const payout = String(row.payoutUnits * bet);
-        const chance = formatChancePercent(row.comboChance);
-
-        return `<tr><th scope=\"row\">${label}</th><td>${chance}</td><td>${multiplier}</td><td>${payout}</td></tr>`;
-      })
-      .join('');
-
-    panel.innerHTML = `
-      <section class="slots-odds-panel" aria-live="polite">
-        <p class="slots-shell__menu-title">${title}</p>
-        <p class="slots-shell__drawer-copy">${copy}</p>
-        <div class="slots-odds-panel__table-wrap">
-          <table class="slots-odds-panel__table">
-            <thead>
-              <tr>
-                <th scope="col">${colSymbol}</th>
-                <th scope="col">${colChance}</th>
-                <th scope="col">${colMultiplier}</th>
-                <th scope="col">${colPayout}</th>
-              </tr>
-            </thead>
-            <tbody>${rowsMarkup}</tbody>
-          </table>
-        </div>
-      </section>
-    `;
-  };
-
-  render();
-
-  const observer = new MutationObserver(() => render());
-  observer.observe(root, {
-    attributes: true,
-    attributeFilter: ['data-slots-bet'],
-  });
-  signal.addEventListener('abort', () => observer.disconnect(), { once: true });
 }
 
 function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
@@ -271,7 +205,6 @@ export function initSlotsShell(): void {
   mountTutorial({ lang });
 
   const mountedController = mountSlotsController(root, signal);
-  mountSlotsOddsPanel(root, signal);
   runtime = mountSlotsAnimationRuntime(root, mountedController.visualEvents, signal);
 
   if (hostMode === 'casinocraftz') {

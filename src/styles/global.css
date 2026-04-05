@@ -1036,15 +1036,18 @@ body::after {
   overflow: hidden;
   background-image:
     var(--slots-symbol-image),
-    radial-gradient(circle at 50% 18%, rgba(143, 245, 255, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(14, 14, 14, 0.8), rgba(34, 34, 34, 0.9));
+    radial-gradient(circle at 50% 32%, rgba(184, 255, 44, 0.15), rgba(184, 255, 44, 0) 60%),
+    linear-gradient(180deg, rgba(16, 21, 19, 0.94), rgba(10, 13, 12, 0.98));
   background-position: center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: 72% auto, cover, cover;
-  border: 1px solid rgba(143, 245, 255, 0.14);
+  background-size: 100% auto, cover, cover;
+  border: 1px solid rgba(184, 255, 44, 0.24);
+  border-radius: 0.7rem;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 0 40px rgba(0, 0, 0, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -20px 34px rgba(0, 0, 0, 0.48),
+    inset 0 0 0 1px rgba(184, 255, 44, 0.08),
+    0 0 22px rgba(184, 255, 44, 0.08);
   transition:
     border-color 0.2s ease-out,
     transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1058,35 +1061,42 @@ body::after {
 .slots-stage__reel-window::after {
   content: '';
   position: absolute;
-  inset-inline: 12%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(142, 255, 113, 0.4) 50%,
-    transparent 100%
-  );
+  pointer-events: none;
 }
 
 .slots-stage__reel-window::before {
-  top: 18%;
+  inset: 0.4rem;
+  border-radius: 0.52rem;
+  border: 1px solid rgba(143, 245, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(143, 245, 255, 0.06),
+    inset 0 10px 16px rgba(255, 255, 255, 0.02);
 }
 
 .slots-stage__reel-window::after {
-  bottom: 18%;
+  inset-inline: 18%;
+  bottom: 0.48rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(8, 11, 10, 0.95), rgba(8, 11, 10, 0));
+  filter: blur(0.8px);
 }
 
 .slots-stage__reel-window span {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  color: rgba(232, 230, 227, 0.84);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  font-size: 0.64rem;
+  letter-spacing: 0.11em;
+  color: rgba(229, 235, 231, 0.9);
+  text-shadow: 0 1px 7px rgba(0, 0, 0, 0.78);
   text-transform: uppercase;
   position: absolute;
-  bottom: 0.45rem;
+  bottom: 0.38rem;
   left: 50%;
   transform: translateX(-50%);
+  padding: 0.14rem 0.42rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(184, 255, 44, 0.18);
+  background: rgba(6, 10, 8, 0.76);
   pointer-events: none;
   transition:
     color 0.24s ease-out,
@@ -1730,10 +1740,12 @@ body.slots-drawer-open {
 .slots-shell__menu-drawer {
   position: fixed;
   top: clamp(4.2rem, 8vh, 5rem);
-  right: clamp(0.7rem, 2vw, 1.35rem);
+  left: 0;
+  right: 0;
   bottom: clamp(0.7rem, 2vw, 1.35rem);
   z-index: 35;
   width: min(48rem, calc(100vw - 2rem));
+  margin-inline: auto;
   border-radius: 1rem;
   border: 1px solid rgba(184, 255, 44, 0.26);
   background: linear-gradient(160deg, rgba(13, 18, 16, 0.98), rgba(8, 12, 11, 0.98));
@@ -1790,52 +1802,6 @@ body.slots-drawer-open {
 .slots-shell__drawer-zone {
   margin-top: 0.6rem;
   min-width: 0;
-}
-
-.slots-odds-panel {
-  border: 1px solid rgba(184, 255, 44, 0.14);
-  border-radius: 0.7rem;
-  background: rgba(14, 20, 18, 0.78);
-  padding: 0.7rem;
-}
-
-.slots-odds-panel__table-wrap {
-  overflow-x: auto;
-}
-
-.slots-odds-panel__table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 30rem;
-  font-family: var(--font-mono);
-}
-
-.slots-odds-panel__table th,
-.slots-odds-panel__table td {
-  padding: 0.44rem 0.38rem;
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.slots-odds-panel__table thead th {
-  color: rgba(208, 219, 214, 0.76);
-  border-bottom: 1px solid rgba(184, 255, 44, 0.18);
-}
-
-.slots-odds-panel__table tbody th {
-  color: var(--slots-lime);
-  font-weight: 700;
-  text-align: left;
-}
-
-.slots-odds-panel__table tbody td {
-  color: rgba(224, 232, 228, 0.86);
-}
-
-.slots-odds-panel__table tbody tr + tr {
-  border-top: 1px dashed rgba(184, 255, 44, 0.12);
 }
 
 [data-slots-menu] .grid {
@@ -1957,7 +1923,7 @@ body.slots-drawer-open {
 
 .slots-shell__identity-label {
   font-family: var(--font-mono);
-  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  font-size: clamp(1.35rem, 2.9vw, 1.8rem);
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2039,18 +2005,19 @@ body.slots-drawer-open {
 .slots-stage--immersive .slots-stage__reel-window {
   min-height: clamp(9rem, 23vh, 16rem);
   border-radius: 0.85rem;
-  border-color: rgba(184, 255, 44, 0.24);
+  border-color: rgba(184, 255, 44, 0.3);
   background-image:
     var(--slots-symbol-image),
-    radial-gradient(circle at 50% 16%, rgba(184, 255, 44, 0.12), transparent 36%),
+    radial-gradient(circle at 50% 22%, rgba(184, 255, 44, 0.18), transparent 56%),
     linear-gradient(180deg, rgba(18, 26, 23, 0.94), rgba(8, 13, 11, 0.98));
   background-position: center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
-  background-size: 72% auto, cover, cover;
+  background-size: 100% auto, cover, cover;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 -14px 28px rgba(0, 0, 0, 0.35),
-    0 0 22px rgba(184, 255, 44, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -16px 32px rgba(0, 0, 0, 0.46),
+    inset 0 0 0 1px rgba(184, 255, 44, 0.1),
+    0 0 26px rgba(184, 255, 44, 0.12);
 }
 
 .slots-stage--immersive .slots-stage__reel-window span {
