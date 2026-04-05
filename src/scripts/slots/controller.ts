@@ -18,8 +18,10 @@ import {
 } from './animation/events.ts';
 import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../analytics/events.ts';
 import { getSlotSymbolLabel } from './symbols.ts';
+import { createReelStripController } from './animation/reel-strip.ts';
 
 const SPIN_DELAY_MS = 240;
+const STRIP_SPIN_DELAY_MS = 1700; // matches last reel stop in reel-strip.ts
 const LANDING_BOUNCE_MS = 420;
 const BALANCE_TICK_MIN_MS = 280;
 const BALANCE_TICK_MAX_MS = 900;
@@ -248,6 +250,14 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
   const locale = getLocaleFromSeed(baseSeed);
   const route = `/${locale}/slots/`;
 
+  const stripController = createReelStripController(root);
+  signal.addEventListener('abort', () => stripController.cancel(), { once: true });
+
+  const useStrips = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    return root.dataset.slotsAnimIntensity !== 'minimal';
+  };
+
   const onAdjustBet = (delta: number) => {
     economy = adjustBet(economy, delta);
     feedbackKey = 'idle';
@@ -286,7 +296,32 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
     if (requested === state) return;
     state = requested;
     economy = debitForRound(economy);
-    applySpinCadence(root);
+
+    const activeSpin = state.spinIndex;
+    const strips = useStrips();
+
+    // Pre-compute result so the strip animation knows where to land
+    const result = resolveRound({ baseSeed, spinIndex: activeSpin });
+    const targetSymbols = result.matrix[1] ?? ['A', 'B', 'C'];
+
+    if (strips) {
+      stripController.spin(targetSymbols, signal, () => {
+        triggerReelLandingBounce(root);
+        if (result.outcome === 'win') {
+          const frame = root.querySelector<HTMLElement>('[data-slots-reel-frame]');
+          if (frame) {
+            frame.querySelector('.slots-stage__win-line')?.remove();
+            const line = document.createElement('div');
+            line.className = 'slots-stage__win-line';
+            frame.appendChild(line);
+            window.setTimeout(() => line.remove(), 2200);
+          }
+        }
+      });
+    } else {
+      applySpinCadence(root);
+    }
+
     emitAnalyticsEvent({
       name: ANALYTICS_EVENT_NAMES.SLOTS_SPIN_ATTEMPT,
       route,
@@ -309,13 +344,14 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
     feedbackKey = 'spinning';
     renderState(root, state, economy.balance, economy.bet, feedbackKey);
 
-    const activeSpin = state.spinIndex;
+    const spinDelayMs = strips ? STRIP_SPIN_DELAY_MS : SPIN_DELAY_MS;
     window.setTimeout(() => {
-      const result = resolveRound({ baseSeed, spinIndex: activeSpin });
       state = transitionEngineState(state, { type: 'SPIN_RESOLVED', result });
       economy = settleRound(economy, result.totalPayoutUnits);
-      clearSpinCadence(root);
-      triggerReelLandingBounce(root);
+      if (!strips) {
+        clearSpinCadence(root);
+        triggerReelLandingBounce(root);
+      }
       if (result.outcome === 'win' && result.totalPayoutUnits > 0) {
         triggerWinCrescendo(root, result.totalPayoutUnits);
       }
@@ -342,7 +378,7 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
       );
       feedbackKey = 'result';
       renderState(root, state, economy.balance, economy.bet, feedbackKey);
-    }, SPIN_DELAY_MS);
+    }, spinDelayMs);
   };
 
   spinButton.addEventListener('click', onSpin, { signal });

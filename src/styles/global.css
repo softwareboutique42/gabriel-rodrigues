@@ -1146,6 +1146,85 @@ body::after {
   --slots-symbol-image: url('/images/slots/symbols/tritium.png');
 }
 
+/* ── Reel Strip Overlay ────────────────────────────────────────────────── */
+
+.slots-reel-strip {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+}
+
+.slots-reel-strip__cell {
+  --slots-cell-symbol: none;
+  flex-shrink: 0;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  /* Mirror reel window background so strip cells are visually identical */
+  background-color: rgb(13, 17, 15);
+  background-image:
+    var(--slots-cell-symbol),
+    radial-gradient(circle at 50% 32%, rgba(184, 255, 44, 0.12), rgba(184, 255, 44, 0) 60%),
+    linear-gradient(180deg, rgba(16, 21, 19, 0.96), rgba(10, 13, 12, 1));
+  background-size: 68% auto, cover, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+/* ── Win line across frame ─────────────────────────────────────────────── */
+
+.slots-stage__frame {
+  position: relative;
+}
+
+.slots-stage__win-line {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 9, 0.9) 12%,
+    rgba(0, 229, 255, 0.95) 35%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(0, 229, 255, 0.95) 65%,
+    rgba(255, 215, 9, 0.9) 88%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px 2px rgba(0, 229, 255, 0.5);
+  transform-origin: center;
+  animation: slots-win-line-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slots-win-line-in {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ── Reduced motion: skip strip, fall back to instant swap ─────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .slots-reel-strip {
+    display: none;
+  }
+}
+
+/* ── HUD ─────────────────────────────────────────────────────────────────── */
+
 .slots-stage__hud {
   display: grid;
   gap: 0.8rem;
