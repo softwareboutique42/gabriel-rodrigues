@@ -18,7 +18,8 @@ function normalizeThemeLabel(themeId: string): string {
 }
 
 function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
-  const menuToggle = root.querySelector<HTMLElement>('[data-slots-menu-toggle]');
+  const menuToggles = root.querySelectorAll<HTMLElement>('[data-slots-menu-toggle]');
+  const menuToggle = menuToggles[0] ?? null;
   const menu = root.querySelector<HTMLElement>('[data-slots-menu]');
   const drawerScroll = root.querySelector<HTMLElement>('.slots-shell__drawer-scroll');
   const menuBackdrop = root.querySelector<HTMLElement>('[data-slots-menu-backdrop]');
@@ -88,14 +89,16 @@ function mountSlotsMenu(root: HTMLElement, signal: AbortSignal): void {
   }
   setOpen(initialOpen);
 
-  menuToggle.addEventListener(
-    'click',
-    () => {
-      const open = root.dataset.slotsMenuOpen !== 'true';
-      setOpen(open);
-    },
-    { signal },
-  );
+  menuToggles.forEach((toggle) => {
+    toggle.addEventListener(
+      'click',
+      () => {
+        const open = root.dataset.slotsMenuOpen !== 'true';
+        setOpen(open);
+      },
+      { signal },
+    );
+  });
 
   if (menuBackdrop) {
     menuBackdrop.addEventListener(

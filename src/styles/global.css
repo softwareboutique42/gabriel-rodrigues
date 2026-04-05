@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@source not "../../.claude";
+@source not "../../node_modules";
 
 @theme {
   /* === SURFACE ARCHITECTURE === */
@@ -1819,6 +1821,7 @@ body.slots-drawer-open {
   justify-content: center;
   flex-shrink: 0;
   width: 2.75rem;
+  min-height: 2.75rem;
   border-radius: 0.9rem;
   border: 1px solid rgba(184, 255, 44, 0.22);
   background: linear-gradient(180deg, rgba(21, 28, 25, 0.9), rgba(10, 15, 13, 0.94));
