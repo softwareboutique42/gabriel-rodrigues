@@ -17,6 +17,7 @@ import {
   type SlotsVisualEventStore,
 } from './animation/events.ts';
 import { ANALYTICS_EVENT_NAMES, emitAnalyticsEvent } from '../analytics/events.ts';
+import { getSlotSymbolLabel } from './symbols.ts';
 
 const SPIN_DELAY_MS = 240;
 const LANDING_BOUNCE_MS = 420;
@@ -24,14 +25,6 @@ const BALANCE_TICK_MIN_MS = 280;
 const BALANCE_TICK_MAX_MS = 900;
 const REEL_LANDING_STAGGER_MS = 64;
 const WIN_CRESCENDO_BASE_MS = 720;
-
-const SYMBOL_PRESENTATION: Record<string, string> = {
-  A: 'BAR',
-  B: '7',
-  C: 'CROWN',
-  D: 'DIAMOND',
-  E: 'STAR',
-};
 
 export interface SlotsControllerMount {
   visualEvents: SlotsVisualEventStore;
@@ -153,7 +146,7 @@ function renderReelWindows(root: HTMLElement, state: EngineState): void {
   windows.forEach((windowEl, index) => {
     const symbol = symbols[index] ?? 'A';
     windowEl.dataset.slotsSymbol = symbol;
-    const label = SYMBOL_PRESENTATION[symbol] ?? symbol;
+    const label = getSlotSymbolLabel(symbol);
     windowEl.setAttribute('aria-label', `Reel symbol ${label}`);
     windowEl.setAttribute('title', label);
     const span = windowEl.querySelector('span');
