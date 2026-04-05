@@ -234,6 +234,11 @@ export function initSlotsShell(): void {
     () => {
       runtime?.dispose();
       controller?.abort();
+      try {
+        sessionStorage.removeItem('ccz:slots-drawer-open');
+      } catch {
+        // sessionStorage unavailable.
+      }
     },
     { once: true, signal },
   );
