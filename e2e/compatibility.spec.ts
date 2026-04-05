@@ -52,9 +52,70 @@ async function expectSlotsShellEnvelope(page: Page): Promise<void> {
   }
 
   await expect(page.locator('.slots-shell__identity-label')).toHaveText('ELEMENTUM');
-  await expect(page.locator('.slots-shell__back-link')).toBeVisible();
+  const viewportWidth = await page.evaluate(() => window.innerWidth);
+  if (viewportWidth <= 640) {
+    await expect(page.locator('.slots-shell__back-link')).toBeHidden();
+  } else {
+    await expect(page.locator('.slots-shell__back-link')).toBeVisible();
+  }
   await expect(page.locator('[data-slots-menu-toggle]')).toBeVisible();
   await expect(page.locator('[data-slots-reel-window]')).toHaveCount(3);
+}
+
+async function expectMobileDrawerLayout(page: Page): Promise<void> {
+  const drawer = page.locator('[data-slots-menu]');
+  const drawerLink = page.locator('[data-slots-drawer-back-link]');
+  const reelFrame = page.locator('[data-slots-reel-frame]');
+  const reelWindows = page.locator('[data-slots-reel-window]');
+
+  await expect(page.locator('.slots-shell__back-link')).toBeHidden();
+  await expect(page.locator('[data-slots-menu-toggle]')).toBeVisible();
+
+  const frameBox = await reelFrame.boundingBox();
+  const firstBox = await reelWindows.nth(0).boundingBox();
+  const thirdBox = await reelWindows.nth(2).boundingBox();
+
+  expect(frameBox).not.toBeNull();
+  expect(firstBox).not.toBeNull();
+  expect(thirdBox).not.toBeNull();
+
+  if (!frameBox || !firstBox || !thirdBox) return;
+
+  expect(Math.abs(firstBox.width - firstBox.height)).toBeLessThanOrEqual(16);
+  expect(thirdBox.x + thirdBox.width).toBeLessThanOrEqual(frameBox.x + frameBox.width + 2);
+
+  await page.locator('[data-slots-menu-toggle]').click();
+  await expect(drawer).toBeVisible();
+  await expect(drawerLink).toBeVisible();
+
+  await expect
+    .poll(
+      async () => {
+        const metrics = await drawer.evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+          const styles = window.getComputedStyle(element);
+          return {
+            top: rect.top,
+            left: rect.left,
+            rightGap: window.innerWidth - rect.right,
+            bottomGap: window.innerHeight - rect.bottom,
+            borderRadius: parseFloat(styles.borderTopLeftRadius || '0'),
+          };
+        });
+
+        return (
+          metrics.top <= 20 &&
+          metrics.left <= 8 &&
+          metrics.rightGap <= 8 &&
+          metrics.bottomGap <= 8 &&
+          metrics.borderRadius > 12
+        );
+      },
+      {
+        timeout: 1200,
+      },
+    )
+    .toBe(true);
 }
 
 async function clearPersistedAnalyticsEvents(page: Page): Promise<void> {
@@ -761,6 +822,31 @@ test.describe('Compatibility hardening', () => {
         ),
       )
       .toBe(true);
+  });
+
+  test('slots mobile layout keeps reels square and drawer near-fullscreen on narrow phones', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/en/slots/');
+    await expectMobileDrawerLayout(page);
+
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.goto('/en/slots/');
+
+    const reelFrame = page.locator('[data-slots-reel-frame]');
+    const firstBox = await page.locator('[data-slots-reel-window]').nth(0).boundingBox();
+    const thirdBox = await page.locator('[data-slots-reel-window]').nth(2).boundingBox();
+    const frameBox = await reelFrame.boundingBox();
+
+    expect(firstBox).not.toBeNull();
+    expect(thirdBox).not.toBeNull();
+    expect(frameBox).not.toBeNull();
+
+    if (!firstBox || !thirdBox || !frameBox) return;
+
+    expect(thirdBox.x + thirdBox.width).toBeLessThanOrEqual(frameBox.x + frameBox.width + 2);
+    expect(firstBox.height).toBeGreaterThan(70);
   });
 
   test('theme query projects neon atmosphere without route drift or authority changes', async ({

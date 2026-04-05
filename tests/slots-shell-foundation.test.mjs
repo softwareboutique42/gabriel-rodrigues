@@ -28,8 +28,8 @@ test('SLOT-01: slots shell pages expose the mirrored Elementum navigation and pl
   assert.match(ptPage, /data-slots-reel-frame/);
   assert.match(enPage, /slots-shell__identity-label">ELEMENTUM/);
   assert.match(ptPage, /slots-shell__identity-label">ELEMENTUM/);
-  assert.match(enPage, /slots-shell__back-link/);
-  assert.match(ptPage, /slots-shell__back-link/);
+  assert.match(enPage, /data-slots-drawer-back-link/);
+  assert.match(ptPage, /data-slots-drawer-back-link/);
 
   assert.match(enPage, /t\('slots\.gameplay\.label\.balance'\)/);
   assert.match(ptPage, /t\('slots\.gameplay\.label\.balance'\)/);
@@ -105,6 +105,8 @@ test('canonical and safety locks: no monetization or alias route drift', () => {
   assert.match(ptPage, /id="slots-gameplay-outcome"/);
   assert.match(enPage, /id="slots-round-result"/);
   assert.match(ptPage, /id="slots-round-result"/);
+  assert.match(enPage, /href="\/en\/casinocraftz\/" class="slots-shell__drawer-link slots-shell__drawer-link--back"/);
+  assert.match(ptPage, /href="\/pt\/casinocraftz\/" class="slots-shell__drawer-link slots-shell__drawer-link--back"/);
 
   const forbiddenPatterns = [/\bwager\b/i, /\bjackpot\b/i, /\bstripe\b/i, /checkout/i];
 
