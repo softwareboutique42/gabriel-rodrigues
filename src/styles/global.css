@@ -1773,9 +1773,9 @@ body::after {
 
 .slots-shell__menu-toggle {
   position: absolute;
-  top: 0.75rem;
+  top: 1rem;
   right: 1rem;
-  z-index: 50;
+  z-index: 5;
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 999px;
