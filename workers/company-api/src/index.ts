@@ -2,7 +2,6 @@ import { createCheckoutSession, verifyAndGetConfig } from './stripe';
 import { cacheKey } from './normalize';
 
 interface Env {
-  ANTHROPIC_API_KEY: string;
   STRIPE_SECRET_KEY: string;
   ALLOWED_ORIGINS: string;
   CONFIG_CACHE: KVNamespace;
@@ -20,6 +19,19 @@ type IndustryCategory =
   | 'hospitality'
   | 'other';
 
+type AnimationStyle =
+  | 'particles'
+  | 'flowing'
+  | 'geometric'
+  | 'typographic'
+  | 'narrative'
+  | 'timeline'
+  | 'constellation'
+  | 'spotlight'
+  | 'orbit'
+  | 'pulse'
+  | 'signal';
+
 type GeneratedConfig = {
   companyName: string;
   colors: {
@@ -34,18 +46,7 @@ type GeneratedConfig = {
   mood: CompanyMood;
   industryCategory: IndustryCategory;
   energyLevel: number;
-  animationStyle:
-    | 'particles'
-    | 'flowing'
-    | 'geometric'
-    | 'typographic'
-    | 'narrative'
-    | 'timeline'
-    | 'constellation'
-    | 'spotlight'
-    | 'orbit'
-    | 'pulse'
-    | 'signal';
+  animationStyle: AnimationStyle;
   animationParams: {
     speed: number;
     density: number;
@@ -54,6 +55,267 @@ type GeneratedConfig = {
   visualElements: string[];
   version?: string;
 };
+
+// ─── Deterministic derivation tables ───────────────────────────────────────
+
+function nameHash(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+const INDUSTRY_PALETTES: Record<IndustryCategory, [string, string, string][]> = {
+  tech:        [['#00e5ff', '#8eff71', '#7c3aed'], ['#8eff71', '#00e5ff', '#a855f7']],
+  finance:     [['#ffd709', '#1a56db', '#059669'], ['#60a5fa', '#ffd709', '#10b981']],
+  health:      [['#10b981', '#60a5fa', '#f59e0b'], ['#34d399', '#38bdf8', '#fbbf24']],
+  retail:      [['#f97316', '#ec4899', '#8b5cf6'], ['#fb923c', '#f472b6', '#a78bfa']],
+  creative:    [['#8eff71', '#f43f5e', '#fbbf24'], ['#a3e635', '#fb7185', '#fcd34d']],
+  food:        [['#f97316', '#84cc16', '#fcd34d'], ['#fb923c', '#a3e635', '#fde68a']],
+  education:   [['#6366f1', '#0ea5e9', '#f59e0b'], ['#818cf8', '#38bdf8', '#fbbf24']],
+  hospitality: [['#f59e0b', '#ec4899', '#8b5cf6'], ['#fbbf24', '#f472b6', '#a78bfa']],
+  other:       [['#8eff71', '#00e5ff', '#ffd709'], ['#00e5ff', '#8eff71', '#a855f7']],
+};
+
+const INDUSTRY_MOOD: Record<IndustryCategory, CompanyMood> = {
+  tech: 'dynamic',
+  finance: 'minimal',
+  health: 'elegant',
+  retail: 'bold',
+  creative: 'playful',
+  food: 'playful',
+  education: 'elegant',
+  hospitality: 'elegant',
+  other: 'dynamic',
+};
+
+const INDUSTRY_DEFAULTS: Record<IndustryCategory, string[]> = {
+  tech:        ['software', 'cloud', 'data'],
+  finance:     ['capital', 'markets', 'invest'],
+  health:      ['wellness', 'clinical', 'pharma'],
+  retail:      ['products', 'shop', 'brand'],
+  creative:    ['design', 'media', 'content'],
+  food:        ['cuisine', 'dining', 'flavor'],
+  education:   ['learning', 'campus', 'skills'],
+  hospitality: ['travel', 'service', 'guest'],
+  other:       ['growth', 'global', 'vision'],
+};
+
+const MOOD_PARAMS: Record<CompanyMood, { speed: number; density: number; complexity: number }> = {
+  bold:    { speed: 1.4, density: 0.8,  complexity: 0.75 },
+  dynamic: { speed: 1.2, density: 0.7,  complexity: 0.65 },
+  playful: { speed: 1.1, density: 0.75, complexity: 0.6  },
+  elegant: { speed: 0.8, density: 0.55, complexity: 0.5  },
+  minimal: { speed: 0.7, density: 0.45, complexity: 0.4  },
+};
+
+// Animation style selection mirrors the frontend's style-selector.ts logic
+const V1_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = {
+  tech:        'particles',
+  finance:     'geometric',
+  health:      'flowing',
+  retail:      'typographic',
+  creative:    'constellation',
+  food:        'flowing',
+  education:   'typographic',
+  hospitality: 'spotlight',
+  other:       'particles',
+};
+
+const V2_STYLE_MATRIX: Record<IndustryCategory, AnimationStyle> = {
+  tech:        'signal',
+  finance:     'pulse',
+  health:      'orbit',
+  retail:      'narrative',
+  creative:    'timeline',
+  food:        'narrative',
+  education:   'narrative',
+  hospitality: 'orbit',
+  other:       'signal',
+};
+
+// ─── Derivation helpers ────────────────────────────────────────────────────
+
+function detectIndustryCategory(text: string): IndustryCategory {
+  const t = text.toLowerCase();
+  if (/tech|software|cloud|computing|digital|internet|\bai\b|artificial intelligence|data/.test(t)) return 'tech';
+  if (/bank|financ|invest|capital|insurance|trading|fund|asset/.test(t)) return 'finance';
+  if (/health|pharma|medical|hospital|clinic|biotech|drug|therapeut/.test(t)) return 'health';
+  if (/retail|shop|store|commerce|fashion|apparel|consumer goods/.test(t)) return 'retail';
+  if (/creative|design|media|art|entertainment|music|film|studio/.test(t)) return 'creative';
+  if (/food|restaurant|beverage|drink|dining|cafe|culinar|grocer/.test(t)) return 'food';
+  if (/educat|school|universit|learn|academi|college|training/.test(t)) return 'education';
+  if (/hotel|hospitality|travel|tourism|resort|airline|lodg/.test(t)) return 'hospitality';
+  return 'other';
+}
+
+function selectAnimationStyle(version: string, industry: IndustryCategory): AnimationStyle {
+  return version === 'v2' ? V2_STYLE_MATRIX[industry] : V1_STYLE_MATRIX[industry];
+}
+
+function deriveColors(
+  industry: IndustryCategory,
+  hash: number,
+): { primary: string; secondary: string; accent: string; background: string } {
+  const palettes = INDUSTRY_PALETTES[industry];
+  const [primary, secondary, accent] = palettes[hash % palettes.length];
+  return { primary, secondary, accent, background: '#0e0e0e' };
+}
+
+function deriveTagline(description: string): string {
+  const first = description.split(/[.!?]/)[0].trim();
+  if (!first) return '';
+  return first.length <= 60 ? first : first.slice(0, 57) + '...';
+}
+
+const STOP_WORDS = new Set([
+  'the', 'and', 'for', 'that', 'this', 'with', 'from', 'have', 'been', 'also',
+  'its', 'are', 'was', 'were', 'will', 'has', 'had', 'not', 'but', 'they',
+  'which', 'their', 'into', 'more', 'than', 'such', 'when', 'about', 'other',
+  'over', 'after', 'before', 'between', 'through', 'during', 'including',
+  'based', 'known', 'well', 'founded', 'american', 'company', 'corporation',
+  'incorporated', 'limited', 'group', 'holdings', 'international', 'global',
+]);
+
+function extractVisualElements(
+  description: string,
+  companyName: string,
+  industry: IndustryCategory,
+): string[] {
+  const nameTokens = new Set(companyName.toLowerCase().split(/\s+/));
+  const words = description
+    .toLowerCase()
+    .replace(/[^a-z\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length > 4 && w.length <= 12)
+    .filter((w) => !STOP_WORDS.has(w) && !nameTokens.has(w));
+
+  const unique = [...new Set(words)].slice(0, 5);
+  if (unique.length >= 3) return unique;
+
+  // Fill up to 3 from industry defaults
+  const defaults = INDUSTRY_DEFAULTS[industry];
+  const combined = [...new Set([...unique, ...defaults])].slice(0, 3);
+  return combined;
+}
+
+// ─── Free API fetchers ─────────────────────────────────────────────────────
+
+interface DdgResult {
+  abstract: string;
+  infoboxIndustry: string | null;
+}
+
+interface WikiResult {
+  description: string | null;
+  extract: string | null;
+}
+
+async function fetchDuckDuckGo(companyName: string): Promise<DdgResult> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+
+    const url =
+      `https://api.duckduckgo.com/?q=${encodeURIComponent(companyName)}+company` +
+      `&format=json&no_html=1&skip_disambig=1`;
+
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+
+    if (!res.ok) return { abstract: '', infoboxIndustry: null };
+
+    const data = (await res.json()) as {
+      AbstractText?: string;
+      Infobox?: { content?: Array<{ label: string; value: string }> };
+    };
+
+    const abstract = data.AbstractText ?? '';
+    let infoboxIndustry: string | null = null;
+
+    // Prefer "Industry" or "Sector" labels; skip generic "Type" (usually "Public"/"Private")
+    const infoboxContent = data.Infobox?.content ?? [];
+    for (const entry of infoboxContent) {
+      if (/^(industry|sector)$/i.test(entry.label)) {
+        infoboxIndustry = entry.value;
+        break;
+      }
+    }
+
+    return { abstract, infoboxIndustry };
+  } catch {
+    return { abstract: '', infoboxIndustry: null };
+  }
+}
+
+async function fetchWikipedia(companyName: string): Promise<WikiResult> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+
+    const url =
+      `https://en.wikipedia.org/api/rest_v1/page/summary/` +
+      encodeURIComponent(companyName);
+
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+
+    if (!res.ok) return { description: null, extract: null };
+
+    const data = (await res.json()) as {
+      description?: string;
+      extract?: string;
+    };
+
+    return {
+      description: data.description ?? null,
+      extract: data.extract ?? null,
+    };
+  } catch {
+    return { description: null, extract: null };
+  }
+}
+
+// ─── Main generation ────────────────────────────────────────────────────────
+
+async function generateFromWeb(companyName: string, version: string): Promise<GeneratedConfig> {
+  const [ddg, wiki] = await Promise.all([
+    fetchDuckDuckGo(companyName),
+    fetchWikipedia(companyName),
+  ]);
+
+  const description =
+    ddg.abstract || wiki.extract || `${companyName} is a company.`;
+
+  const industryText =
+    ddg.infoboxIndustry || ddg.abstract || wiki.description || description;
+
+  const industryCategory = detectIndustryCategory(industryText);
+  const mood = INDUSTRY_MOOD[industryCategory];
+  const hash = nameHash(companyName.toLowerCase());
+  const energyLevel = +(0.3 + (hash % 60) / 100).toFixed(2);
+  const colors = deriveColors(industryCategory, hash);
+  const animationStyle = selectAnimationStyle(version, industryCategory);
+  const animationParams = MOOD_PARAMS[mood];
+  const visualElements = extractVisualElements(description, companyName, industryCategory);
+  const tagline = deriveTagline(description);
+
+  return {
+    companyName,
+    colors,
+    tagline,
+    industry: industryCategory,
+    description: description.slice(0, 200),
+    mood,
+    industryCategory,
+    energyLevel,
+    animationStyle,
+    animationParams,
+    visualElements,
+    version,
+  };
+}
+
+// ─── Sanitisation (kept for cached value round-trips) ──────────────────────
 
 const RATE_LIMIT_MAP = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW = 60_000;
@@ -71,8 +333,6 @@ function checkRateLimit(ip: string): boolean {
 
 function corsHeaders(origin: string, allowedOrigins: string): HeadersInit {
   const allowed = allowedOrigins.split(',').map((o) => o.trim());
-
-  // Allow any localhost origin for development
   const isLocalhost = origin.startsWith('http://localhost');
   const isAllowed = isLocalhost || allowed.includes(origin);
 
@@ -84,36 +344,6 @@ function corsHeaders(origin: string, allowedOrigins: string): HeadersInit {
   };
 }
 
-const SYSTEM_PROMPT = `You are a brand identity and motion graphics expert. Given a company name and requested version family, infer brand semantics and return a structured animation config.
-
-Return ONLY valid JSON with this exact schema — no markdown, no explanation:
-
-{
-  "companyName": "<string>",
-  "colors": {
-    "primary": "<hex>",
-    "secondary": "<hex>",
-    "accent": "<hex>",
-    "background": "<hex>"
-  },
-  "tagline": "<string, max 60 chars>",
-  "industry": "<string>",
-  "description": "<string, 1-2 sentences about what the company does>",
-  "mood": "<one of: bold | elegant | playful | minimal | dynamic>",
-  "industryCategory": "<one of: tech | finance | health | retail | creative | food | education | hospitality | other>",
-  "energyLevel": <number 0.0-1.0>,
-  "animationStyle": "<one of: particles | flowing | geometric | typographic | narrative | timeline | constellation | spotlight | orbit | pulse | signal>",
-  "animationParams": {
-    "speed": <number 0.5-2.0>,
-    "density": <number 0.3-1.0>,
-    "complexity": <number 0.3-1.0>
-  },
-  "visualElements": ["<3-5 keywords max 12 chars each describing what the company does>"]
-}
-
-Use mood and industryCategory as semantic axes. Keep animationStyle as a best-effort suggestion only; client routing may overwrite it deterministically.
-Use real brand colors if the company is well-known. For unknown companies, infer appropriate colors from the name and likely industry.`;
-
 function jsonResponse(data: unknown, status: number, headers: HeadersInit): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -123,28 +353,12 @@ function jsonResponse(data: unknown, status: number, headers: HeadersInit): Resp
 
 const VALID_MOODS: CompanyMood[] = ['bold', 'elegant', 'playful', 'minimal', 'dynamic'];
 const VALID_INDUSTRY_CATEGORIES: IndustryCategory[] = [
-  'tech',
-  'finance',
-  'health',
-  'retail',
-  'creative',
-  'food',
-  'education',
-  'hospitality',
-  'other',
+  'tech', 'finance', 'health', 'retail', 'creative',
+  'food', 'education', 'hospitality', 'other',
 ];
-const VALID_ANIMATION_STYLES: GeneratedConfig['animationStyle'][] = [
-  'particles',
-  'flowing',
-  'geometric',
-  'typographic',
-  'narrative',
-  'timeline',
-  'constellation',
-  'spotlight',
-  'orbit',
-  'pulse',
-  'signal',
+const VALID_ANIMATION_STYLES: AnimationStyle[] = [
+  'particles', 'flowing', 'geometric', 'typographic', 'narrative',
+  'timeline', 'constellation', 'spotlight', 'orbit', 'pulse', 'signal',
 ];
 
 function sanitizeMood(value: unknown): CompanyMood {
@@ -165,15 +379,14 @@ function clampEnergyLevel(value: unknown): number {
   return numeric;
 }
 
-function sanitizeAnimationStyle(value: unknown): GeneratedConfig['animationStyle'] {
-  return VALID_ANIMATION_STYLES.includes(value as GeneratedConfig['animationStyle'])
-    ? (value as GeneratedConfig['animationStyle'])
+function sanitizeAnimationStyle(value: unknown): AnimationStyle {
+  return VALID_ANIMATION_STYLES.includes(value as AnimationStyle)
+    ? (value as AnimationStyle)
     : 'particles';
 }
 
 function sanitizeVisualElements(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
-
   return value
     .filter((item): item is string => typeof item === 'string')
     .map((item) => item.trim().slice(0, 12))
@@ -208,51 +421,7 @@ function sanitizeGeneratedConfig(raw: unknown, version: string): GeneratedConfig
   };
 }
 
-async function callClaudeForConfig(
-  companyName: string,
-  version: string,
-  env: Env,
-): Promise<object> {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': env.ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
-      system: SYSTEM_PROMPT,
-      messages: [
-        {
-          role: 'user',
-          content: `Generate brand identity and animation config for: ${companyName}. Requested style family version: ${version}.`,
-        },
-      ],
-    }),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('Claude API error:', response.status, errorText);
-    throw new Error(`AI generation failed: ${response.status}`);
-  }
-
-  const data = (await response.json()) as {
-    content: Array<{ type: string; text?: string }>;
-  };
-  const textBlock = data.content.find((b) => b.type === 'text');
-  if (!textBlock?.text) {
-    throw new Error('Empty AI response');
-  }
-
-  let cleaned = textBlock.text.trim();
-  if (cleaned.startsWith('```')) {
-    cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
-  }
-  return JSON.parse(cleaned) as object;
-}
+// ─── Route handlers ─────────────────────────────────────────────────────────
 
 async function handleGenerate(request: Request, env: Env, headers: HeadersInit): Promise<Response> {
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
@@ -275,19 +444,14 @@ async function handleGenerate(request: Request, env: Env, headers: HeadersInit):
   }
 
   try {
-    const rawConfig = await callClaudeForConfig(companyName, version, env);
-    const config = sanitizeGeneratedConfig(rawConfig, version);
+    const config = await generateFromWeb(companyName, version);
 
-    // Cache the result for future GET /config/ requests
     const key = cacheKey(companyName, version);
     await env.CONFIG_CACHE.put(key, JSON.stringify(config), { expirationTtl: 604800 });
 
     return jsonResponse(config, 200, headers);
   } catch (err) {
     console.error('Worker error:', err instanceof Error ? err.message : err);
-    if (err instanceof Error && err.message.startsWith('AI generation failed')) {
-      return jsonResponse({ error: 'AI generation failed' }, 502, headers);
-    }
     return jsonResponse({ error: 'Internal server error' }, 500, headers);
   }
 }
@@ -302,7 +466,6 @@ async function handleGetConfig(
   const version = url.searchParams.get('version') ?? 'v1';
   const key = cacheKey(companySlug, version);
 
-  // Check cache first
   const cached = await env.CONFIG_CACHE.get(key);
   if (cached) {
     const cachedConfig = sanitizeGeneratedConfig(JSON.parse(cached) as unknown, version);
@@ -312,7 +475,6 @@ async function handleGetConfig(
     });
   }
 
-  // Cache miss — rate limit and generate
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
   if (!checkRateLimit(ip)) {
     return jsonResponse({ error: 'Rate limit exceeded. Try again in a minute.' }, 429, headers);
@@ -324,8 +486,7 @@ async function handleGetConfig(
   }
 
   try {
-    const rawConfig = await callClaudeForConfig(companyName, version, env);
-    const config = sanitizeGeneratedConfig(rawConfig, version);
+    const config = await generateFromWeb(companyName, version);
     const configJson = JSON.stringify(config);
 
     await env.CONFIG_CACHE.put(key, configJson, { expirationTtl: 604800 });
@@ -411,24 +572,20 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // Route: POST /checkout
     if (path === '/checkout' && request.method === 'POST') {
       return handleCheckout(request, env, headers);
     }
 
-    // Route: GET /download
     if (path === '/download' && request.method === 'GET') {
       return handleDownload(request, env, headers);
     }
 
-    // Route: GET /config/:company
     if (path.startsWith('/config/') && request.method === 'GET') {
       const companySlug = path.slice('/config/'.length);
       if (!companySlug) return jsonResponse({ error: 'Missing company name' }, 400, headers);
       return handleGetConfig(companySlug, request, env, headers);
     }
 
-    // Route: POST / (generate — original endpoint)
     if ((path === '/' || path === '') && request.method === 'POST') {
       return handleGenerate(request, env, headers);
     }

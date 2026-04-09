@@ -6,9 +6,7 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.39.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "wrangler": "^4.0.0",
     "@cloudflare/workers-types": "^4.20250109.0"
