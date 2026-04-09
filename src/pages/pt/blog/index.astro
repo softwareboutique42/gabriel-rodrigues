@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogCard from '../../../components/BlogCard.astro';
-import AdUnit from '../../../components/AdUnit.astro';
 import { getCollection } from 'astro:content';
 import { useTranslations } from '../../../i18n/utils';
 
@@ -55,7 +54,6 @@ function getReadingTime(body: string | undefined): number {
       )
     }
     <p id="search-empty" class="hidden font-mono text-sm text-text-muted">{t('blog.noResults')}</p>
-    <AdUnit format="horizontal" />
   </section>
 </BaseLayout>
 

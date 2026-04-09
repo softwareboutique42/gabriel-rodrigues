@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import AdUnit from '../components/AdUnit.astro';
 import ShareBar from '../components/ShareBar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
@@ -107,6 +106,5 @@ const blogJsonLd = JSON.stringify({
     </div>
     <RelatedPosts currentSlug={slug} tags={tags} lang={lang} />
     <ShareBar url={canonicalUrl} title={title} />
-    <AdUnit format="auto" />
   </article>
 </BaseLayout>

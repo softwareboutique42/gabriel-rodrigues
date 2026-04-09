@@ -36,8 +36,8 @@ npm run test:headed  # Playwright tests in headed browser
 
 ### Layouts
 
-- `BaseLayout.astro` — root HTML shell, meta tags, OG/Twitter cards, GTM, AdSense, View Transitions
-- `BlogPostLayout.astro` — wraps BaseLayout, adds article schema, OG images, ShareBar, AdUnit
+- `BaseLayout.astro` — root HTML shell, meta tags, OG/Twitter cards, GTM, View Transitions
+- `BlogPostLayout.astro` — wraps BaseLayout, adds article schema, OG images, ShareBar
 
 ### View Transitions (SPA mode)
 
@@ -49,7 +49,7 @@ npm run test:headed  # Playwright tests in headed browser
 
 - Three.js animation generator at `/en/canvas/` and `/pt/canvas/`
 - 8 animation styles across 2 versions (v1 Classic, v2 Story)
-- Calls Cloudflare Worker API (`api/` directory) that uses Claude AI for brand analysis
+- Calls Cloudflare Worker API (`workers/company-api/`) that fetches brand data from Wikipedia + DuckDuckGo
 - Worker uses Stripe for payments and KV for caching
 
 ### OG Image Generation
