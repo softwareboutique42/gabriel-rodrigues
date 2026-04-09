@@ -38,8 +38,8 @@ const t = useTranslations('pt');
             required
           />
         </div>
-        <div class="flex w-full sm:w-auto gap-3 items-end">
-          <div class="shrink-0">
+        <div class="flex flex-wrap w-full sm:w-auto gap-3 items-end">
+          <div class="flex-1 sm:flex-none">
             <label
               for="version-select"
               class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
@@ -48,11 +48,11 @@ const t = useTranslations('pt');
             </label>
             <select
               id="version-select"
-              class="min-h-11 bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
+              class="w-full min-h-11 bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
             >
             </select>
           </div>
-          <div class="shrink-0">
+          <div class="flex-1 sm:flex-none">
             <label
               for="preset-select"
               class="block font-mono text-xs text-text-muted uppercase tracking-widest mb-2"
@@ -65,13 +65,13 @@ const t = useTranslations('pt');
               data-label-education-story={t('canvas.preset.educationStory')}
               data-label-hospitality-orbit={t('canvas.preset.hospitalityOrbit')}
               data-label-commerce-signal={t('canvas.preset.commerceSignal')}
-              class="min-h-11 bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
+              class="w-full min-h-11 bg-surface-container text-text-primary font-mono text-sm py-2 px-3 border border-surface-container-high cursor-pointer"
             >
             </select>
           </div>
           <button
             type="submit"
-            class="clip-corners hover-glitch flex-1 sm:flex-none min-h-11 px-6 sm:px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
+            class="clip-corners hover-glitch w-full sm:w-auto sm:flex-none min-h-11 px-6 sm:px-8 py-3 bg-neon text-neon-on font-bold text-sm uppercase tracking-wider"
           >
             {t('canvas.generate')}
           </button>
