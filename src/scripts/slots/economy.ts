@@ -5,7 +5,6 @@ export interface EconomyState {
   balance: number;
   bet: number;
   minBet: number;
-  maxBet: number;
 }
 
 export type SpinBlockReason = 'spinning' | 'insufficient' | null;
@@ -15,12 +14,11 @@ export function createInitialEconomyState(): EconomyState {
     balance: loadWallet().balance,
     bet: 2,
     minBet: 1,
-    maxBet: 10,
   };
 }
 
 export function adjustBet(state: EconomyState, delta: number): EconomyState {
-  const nextBet = Math.min(state.maxBet, Math.max(state.minBet, state.bet + delta));
+  const nextBet = Math.min(state.balance, Math.max(state.minBet, state.bet + delta));
   return {
     ...state,
     bet: nextBet,

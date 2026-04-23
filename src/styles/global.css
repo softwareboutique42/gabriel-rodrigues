@@ -2199,14 +2199,14 @@ body.slots-drawer-open {
 
 .slots-stage__hud--minimal {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(13rem, 1.25fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(0.6rem, 1.4vw, 1.2rem);
   align-items: stretch;
 
   /* Symmetric row height via clamp */
   min-height: clamp(5rem, 12vh, 7rem);
 
-  margin-bottom: 0;
+  margin-bottom: clamp(0.6rem, 1.4vw, 1.2rem);
 }
 
 .slots-stage__hud--minimal .slots-meter {
@@ -2492,13 +2492,7 @@ body.slots-drawer-open {
     width: min(88vw, 860px);
   }
 
-  .slots-stage__hud--minimal {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .slots-spin-button--trigger {
-    grid-column: 1 / -1;
-    /* Use clamp() per D-01: responsive sizing, not fixed breakpoint pixels */
     min-height: clamp(5rem, 12vh, 7rem);
   }
 }

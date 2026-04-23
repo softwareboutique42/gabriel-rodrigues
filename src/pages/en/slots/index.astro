@@ -91,6 +91,7 @@ const t = useTranslations('en');
     </div>
 
     <header class="slots-shell__header" data-slots-zone="navigation">
+      <a href="/en/casinocraftz/" class="slots-shell__back-link">← CasinoCraftz</a>
       <div class="slots-shell__identity">
         <span class="slots-shell__identity-label">ELEMENTUM</span>
       </div>
@@ -98,17 +99,6 @@ const t = useTranslations('en');
     </header>
 
     <article class="slots-cabinet slots-cabinet--cyber glow-panel">
-      <button
-        type="button"
-        class="slots-shell__menu-toggle"
-        data-slots-menu-toggle
-        aria-controls="slots-shell-menu"
-        aria-expanded="false"
-      >
-        <span data-slots-menu-icon aria-hidden="true">+</span>
-        <span class="sr-only">Open command drawer</span>
-      </button>
-
       <section
         id="slots-gameplay"
         class="slots-stage slots-stage--immersive anim-tile-1"
@@ -154,16 +144,16 @@ const t = useTranslations('en');
               >
             </div>
           </div>
-
-          <button
-            id="slots-spin-button"
-            data-slots-action="spin"
-            type="button"
-            class="slots-spin-button slots-spin-button--trigger"
-          >
-            {t('slots.gameplay.cta.spin')}
-          </button>
         </div>
+
+        <button
+          id="slots-spin-button"
+          data-slots-action="spin"
+          type="button"
+          class="slots-spin-button slots-spin-button--trigger"
+        >
+          {t('slots.gameplay.cta.spin')}
+        </button>
 
         <p id="slots-gameplay-status" class="sr-only" aria-live="polite"></p>
         <p id="slots-gameplay-outcome" class="sr-only"></p>
@@ -183,76 +173,6 @@ const t = useTranslations('en');
       </section>
     </article>
 
-    <div class="slots-shell__menu-backdrop" data-slots-menu-backdrop aria-hidden="true"></div>
-
-    <aside
-      id="slots-shell-menu"
-      class="slots-shell__menu-drawer"
-      data-slots-menu
-      aria-hidden="true"
-      role="dialog"
-      aria-modal="true"
-      tabindex="-1"
-    >
-      <div class="slots-shell__drawer-scroll">
-        <section class="slots-shell__drawer-section slots-shell__drawer-section--route" aria-label="Navigation">
-          <div class="slots-shell__drawer-route-row">
-            <a href="/en/casinocraftz/" class="slots-shell__drawer-link slots-shell__drawer-link--back" data-slots-drawer-back-link>
-              ← CasinoCraftz
-            </a>
-            <button
-              type="button"
-              class="slots-shell__drawer-close"
-              data-slots-menu-toggle
-              aria-label="Close drawer"
-            >✕</button>
-          </div>
-        </section>
-
-        <section class="slots-shell__drawer-section" aria-label="Analyzer Panel">
-          <p class="slots-shell__menu-title">Analyzer Panel</p>
-          <p class="slots-shell__drawer-copy">Utility cards and active edge tools.</p>
-          <div class="slots-shell__drawer-zone" data-casinocraftz-zone="cards"></div>
-        </section>
-
-        <section
-          class="slots-shell__drawer-section"
-          data-casinocraftz-zone="tutorial"
-          aria-label="Mission Log"
-        >
-          <p class="slots-shell__menu-title">Mission Log</p>
-          <p class="slots-shell__drawer-copy" data-casinocraftz-step-label></p>
-          <p class="slots-shell__drawer-copy text-cyan" data-casinocraftz-essence-display></p>
-          <div class="slots-shell__drawer-zone" data-casinocraftz-curriculum-progress></div>
-          <div class="slots-shell__drawer-zone" data-casinocraftz-curriculum></div>
-          <div class="slots-shell__drawer-zone" data-casinocraftz-dialogue></div>
-          <div class="slots-shell__drawer-actions">
-            <button type="button" class="slots-shell__drawer-btn" data-casinocraftz-tutorial-next>
-              Next Step
-            </button>
-            <button type="button" class="slots-shell__drawer-btn" data-casinocraftz-tutorial-skip>
-              Skip Lesson
-            </button>
-          </div>
-        </section>
-
-        <section class="slots-shell__drawer-section" aria-label="Settings">
-          <p class="slots-shell__menu-title">Settings</p>
-          <div class="slots-shell__menu-row">
-            <span>{t('slots.shell.label.routes')}</span>
-            <strong data-slots-menu-routes>EN / PT</strong>
-          </div>
-          <div class="slots-shell__menu-row">
-            <span>{t('slots.shell.label.motion')}</span>
-            <strong data-slots-menu-motion>FULL</strong>
-          </div>
-          <div class="slots-shell__menu-row">
-            <span>{t('slots.shell.label.theme')}</span>
-            <strong data-slots-menu-theme>CORE V1</strong>
-          </div>
-        </section>
-      </div>
-    </aside>
   </section>
 
   <script>
