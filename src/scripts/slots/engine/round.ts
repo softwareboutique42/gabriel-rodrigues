@@ -1,7 +1,7 @@
 import { evaluateCenterPayline } from './paylines.ts';
 import { calculatePayouts, DEFAULT_PAYTABLE, getTotalPayoutUnits } from './payout.ts';
 import { resolveSpin } from './spin-resolver.ts';
-import type { ReelConfig, RoundResult } from './types.ts';
+import type { ReelConfig, RoundResult, SlotSymbol } from './types.ts';
 
 export const DEFAULT_REEL_CONFIG: ReelConfig = {
   reels: [
@@ -37,5 +37,22 @@ export function resolveRound({
     winLines,
     totalPayoutUnits,
     outcome: totalPayoutUnits > 0 ? 'win' : 'loss',
+  };
+}
+
+// Easter egg: guaranteed jackpot result (all reels land on 'A')
+export function resolveGuaranteedWin(seed: string, spinIndex: number): RoundResult {
+  const sym: SlotSymbol = 'A';
+  const matrix: SlotSymbol[][] = [[sym, sym, sym], [sym, sym, sym], [sym, sym, sym]];
+  const payoutUnits = DEFAULT_PAYTABLE[sym] ?? 12;
+  return {
+    seed,
+    spinIndex,
+    stops: [0, 0, 0],
+    matrix,
+    paylinesChecked: 1,
+    winLines: [{ lineId: 'center-row', symbol: sym, count: 3, payoutUnits }],
+    totalPayoutUnits: payoutUnits,
+    outcome: 'win',
   };
 }

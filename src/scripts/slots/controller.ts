@@ -1,4 +1,4 @@
-import { resolveRound } from './engine/round.ts';
+import { resolveRound, resolveGuaranteedWin } from './engine/round.ts';
 import { createInitialEngineState, transitionEngineState } from './engine/state-machine.ts';
 import {
   adjustBet,
@@ -301,7 +301,11 @@ export function mountSlotsController(root: HTMLElement, signal: AbortSignal): Sl
     const strips = useStrips();
 
     // Pre-compute result so the strip animation knows where to land
-    const result = resolveRound({ baseSeed, spinIndex: activeSpin });
+    const seed = `${baseSeed}:${activeSpin}`;
+    const result =
+      economy.bet === 42
+        ? resolveGuaranteedWin(seed, activeSpin)
+        : resolveRound({ baseSeed, spinIndex: activeSpin });
     const targetSymbols = result.matrix[1] ?? ['A', 'B', 'C'];
 
     if (strips) {

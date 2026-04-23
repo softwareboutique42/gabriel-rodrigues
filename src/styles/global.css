@@ -1170,7 +1170,7 @@ body::after {
     var(--slots-cell-symbol),
     radial-gradient(circle at 50% 32%, rgba(184, 255, 44, 0.12), rgba(184, 255, 44, 0) 60%),
     linear-gradient(180deg, rgba(16, 21, 19, 0.96), rgba(10, 13, 12, 1));
-  background-size: 68% auto, cover, cover;
+  background-size: 100% auto, cover, cover;
   background-position: center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
